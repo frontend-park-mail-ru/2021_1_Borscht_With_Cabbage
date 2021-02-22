@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="basket_styles.css">
+</head>
+
+<body>
+<div class="topnav">
+    <a class="name" href="#home">Project name</a>
+    <a href="#cart" style="float: right; margin-right: 16px"><img src="cart.png" width="32" height="32"
+                                                                  alt="Корзина"></a>
+    <input type="text" id="address" class="address" name="firstname" placeholder="Адрес доставки">
+</div>
+
+<div class="basket">
+    <form>
+        <div class="basket_container">
+            <div id="delivery_list">
+                <div class="restaurant_node">
+                    <input type="checkbox">
+                    <div class="restaurant">
+                        <div class="rest_title">
+                            McDonalds
+                        </div>
+                        <div class="food_list">
+                            <div class="food_node">
+                                <div class="num_food">
+                                    - 2 +
+                                </div>
+                                <div class="title_food">
+                                    Чизбургер
+                                </div>
+                                <div class="sum_food">
+                                    100 рублей
+                                </div>
+                            </div>
+                            <div class="food_node">
+                                <div class="num_food">
+                                    - 2 +
+                                </div>
+                                <div class="title_food">
+                                    Чизбургер
+                                </div>
+                                <div class="sum_food">
+                                    100 рублей
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="sum_food_list">
+                            1000 рублей
+                        </div>
+                    </div>
+                </div>
+                <div class="restaurant_node">
+                    <input type="checkbox">
+                    <div class="restaurant">
+                        <div class="rest_title">
+                            KFC
+                        </div>
+                        <div class="food_list">
+                            <div class="food_node">
+                                <div class="num_food">
+                                    - 2 +
+                                </div>
+                                <div class="title_food">
+                                    Чизбургер
+                                </div>
+                                <div class="sum_food">
+                                    100 рублей
+                                </div>
+                            </div>
+                            <div class="food_node">
+                                <div class="num_food">
+                                    - 2 +
+                                </div>
+                                <div class="title_food">
+                                    Чизбургер
+                                </div>
+                                <div class="sum_food">
+                                    100 рублей
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="sum_food_list">
+                            1000 рублей
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="delivery_sum">
+                <p>Итого</p>
+                <p>500 рублей</p>
+                <input class='button-order' type="submit" value="Доставить"/>
+                <input class='button-order' type="submit" value="Сравнить"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+
+</html>

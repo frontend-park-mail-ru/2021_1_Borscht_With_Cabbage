@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="basket_styles.css">
+</head>
+
+<body>
+<div class="topnav">
+    <a class="name" href="#home">Project name</a>
+    <a href="#cart" style="float: right; margin-right: 16px"><img src="cart.png" width="32" height="32"
+                                                                  alt="Корзина"></a>
+    <input type="text" id="address" class="address" name="firstname" placeholder="Адрес доставки">
+</div>
+
+<div class="basket">
+    <form>
+        <div class="basket_container">
+            <div id="delivery_options">
+                <div class="delivery_option">
+                    <h2>Доставка</h2>
+                </div>
+                <div class="delivery_option">
+                    <input type="text" class="delivery_option" id="phone" name="phone" placeholder="Phone">
+                </div>
+                <div class="delivery_option">
+                    <input type="text" class="delivery_option" id="address_opt" name="address"
+                           placeholder="Address">
+                </div>
+                <div class="delivery_option">
+                    <input type="text" class="delivery_option" id="entrance" name="entrance" placeholder="Entrance">
+                    <input type="text" class="delivery_option" id="intercom" name="intercom" placeholder="Intercom">
+                    <input type="text" class="delivery_option" id="floor" name="floor" placeholder="Floor">
+                    <input type="text" class="delivery_option" id="room" name="room" placeholder="Room">
+                </div>
+                <div class="delivery_option">
+                    <input type="text" class="delivery_option" id="comment" name="comment" placeholder="Comment">
+                </div>
+            </div>
+            <div id="delivery_time">
+                <p>Время доставки</p>
+                <p>1 час</p>
+                <input class='button-order' type="submit" value="Заказать"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+
+</html>

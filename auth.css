@@ -1,0 +1,46 @@
+
+body {
+  background-image: url('food.jpg');
+}
+
+.opacity {
+ margin: 0;
+ text-align: center;
+ background-color: rgba(255, 255, 255, 0.85); /* Цвет фона и значение прозрачности */
+ color: #fff;
+ height: 100vh;
+}
+
+.auth {
+ margin-top: 64px;
+ display: inline-block;
+ /* margin-right: -0.25em; */
+}
+
+.text {
+  color: black;
+  margin-top: 3rem;
+  font-size: 1.2rem;
+}
+
+input[class=reg] {
+  display: block;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[id="address"]::-webkit-input-placeholder {
+  color: #ffffff;
+}
+
+.button-log {
+  background-color: #97B498;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 16px 2px;
+  cursor: pointer;
+  font-size: 1.2rem
+}

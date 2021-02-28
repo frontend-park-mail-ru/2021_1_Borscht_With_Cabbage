@@ -1,0 +1,130 @@
+.cuisines-panel__slide {
+    display: inline-block;
+    overflow: hidden;
+    margin-left: 8px;
+    background-color:#F2F2F2;
+    padding: 8px;
+    min-width: 160px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a.cuisines-panel__slide-btn {
+    font-size: 24px;
+}
+
+.params-panel {
+    margin-top: 32px;
+}
+
+.params-panel__slide {
+    display: inline-block;
+    overflow: hidden;
+    min-width: 176px;
+    text-align: center;
+    padding-bottom: 8px;
+}
+
+.params-panel__slide-name {
+    color: #97B498;
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.params-panel__slide-btn {
+    background-color: #E2E2E2;
+    border-radius: 16px;
+    padding: 8px;
+    width: 80%;
+    margin: auto;
+    font-size: 16px;
+}
+
+.content__slider {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.content__slide {
+    max-width: 360px;
+    min-width: 304px;
+    height: 328px;
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    margin-right: 24px;
+    margin-bottom: 24px;
+}
+
+.content__header {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.content__header-name {
+    font-size: 24px;
+    line-height: 24px;
+
+    margin-bottom: 8px;
+    letter-spacing: 0.15px;
+}
+
+.content__image {
+    /*background-image: url(food.jpg);*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 164px;
+}
+
+.content__info {
+    color: #97B498;
+    font-size: 16px;
+    margin-top: auto;
+    margin-bottom: 12px;
+}
+
+.content__receipt {
+    float: right;
+    margin-right: 12px;
+}
+
+.content__rating {
+    margin-left: 12px;
+}
+
+.content__descript {
+    margin-left: 12px;
+    margin-top: 8px;
+}
+
+.filter-panel {
+    display: flex;
+    flex-direction: row;
+    margin-left: 40px;
+}
+
+.filter-panel__info {
+    background: rgba(98, 0, 238, 0.04);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    width: 200px;
+    text-align: center;
+    font-size: 20px;
+    padding: 8px 0px;
+}
+
+.filter-panel__text {
+    font-size: 24px;
+    padding: 8px 0px;
+    margin-right: 24px;
+}

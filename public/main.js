@@ -1,146 +1,187 @@
-console.log('spa in action');
+//TODO scatter *Page functions into separate modules
+
+import {renderLoginView} from './templates/loginTemplate.js';
+import {renderTopNavView} from './templates/topNavTemplate.js';
+import {renderMainView} from "./templates/mainPageTemplate.js";
+import {renderStoreView} from "./templates/storeTemplate.js";
+import {
+    renderProfileView,
+    renderProfileUserdataView,
+    renderProfileOrdersView,
+    renderProfileChatsView
+} from './templates/profileTemplate.js';
+
+const HttpModule = window.HttpModule;
 
 const application = document.getElementById('app');
 
-const config = {
-    login: {
-        href: '/login',
-        text: 'Авторизоваться!',
-        open: loginPage,
-    },
-    basket: {
-        href: '/basket',
-        text: 'Корзина',
-        open: basketPage,
-    },
+// const config = {
+//     login: {
+//         href: '/login',
+//         text: 'Авторизоваться!',
+//         open: loginPage,
+//     },
+//     profile: {
+//         href: '/profile',
+//         text: 'Профиль',
+//         open: profilePage,
+//     },
+//     basket: {
+//         href: '/basket',
+//         text: 'Корзина',
+//         open: basketPage,
+//     },
+// }
+
+function menuPage() {
+    //TODO correct work with this function
+    HttpModule.get({
+        url: "/main",
+        callback: (_, response) => {
+            const info = JSON.parse(response);
+            mainPage(info);
+        }
+    });
+
 }
 
-function createInput(type, text, name) {
-    const input = document.createElement('input');
-    input.type = type;
-    input.name = name;
-    input.placeholder = text;
-
-    return input;
-}
-
-function navbar() {
-    application.innerHTML = '';
-
-    let topnavbar = document.createElement('div');
-    topnavbar.classList.add('topnav');
-    let title = document.createElement('a');
-    title.classList.add('name');
-    title.href = '/';
-    title.textContent = 'Project name';
-
-    let basket = document.createElement('a');
-    basket.style = 'float: right; margin-right: 16px';
-    let basketImage = document.createElement('img');
-    basketImage.src = 'cart.png';
-    basketImage.alt = 'Корзина';
-    basketImage.width = 32;
-    basketImage.height = 32;
-    basket.append(basketImage);
-
-    let address = createInput('text', 'Адрес доставки', 'address');
-    address.classList.add('address');
-    address.id = 'address';
-
-    topnavbar.append(title, basket, address);
-    let auth = false;
+function navbar({auth = false} = {}) {
+    let topNavBar = document.createElement('div');
+    topNavBar.innerHTML = renderTopNavView({})
     if (auth) {
         // TODO need to make img and profile menu (or just href)
     }
-
-    application.append(topnavbar);
-}
-
-function menuPage() {
-    navbar();
-    loginPage();
+    application.append(topNavBar);
 }
 
 function loginPage() {
-    const form = document.createElement('form');
-    form.classList.add('auth');
+    navbar({});
 
-    const emailInput = createInput('email', 'Емайл', 'email');
-    emailInput.classList.add('reg');
-    const passwordInput = createInput('password', 'Пароль', 'password');
-    passwordInput.classList.add('reg');
+    const login = document.createElement('div')
+    login.innerHTML = renderLoginView({});
+    application.append(login);
 
-    const submitBtn = document.createElement('input');
-    submitBtn.type = 'submit';
-    submitBtn.value = 'Авторизироваться!';
-    submitBtn.classList.add('button-log');
-
-    const signupParagraph = document.createElement('p');
-    const signup = document.createElement('a');
-    signup.href = '/signup';
-    signup.textContent = 'Я тут впервые';
-    signupParagraph.append(signup)
-
-    form.append(emailInput, passwordInput, submitBtn, signupParagraph);
-
-
+    let form = document.getElementById('auth-form');
     form.addEventListener('submit', (evt) => {
         evt.preventDefault();
+
+        const emailInput = document.getElementById('auth-login');
+        const passwordInput = document.getElementById('auth-password');
 
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
 
-        ajax(
-            'POST',
-            '/login',
-            {email, password},
-            (status, response) => {
+        HttpModule.post({
+            url: '/login',
+            body: {email, password},
+            callback: (status, response) => {
+                //TODO correct work with login
                 if (status === 200) {
-                    basketPage();
+                    console.log('khm, puk');
                 } else {
                     const {error} = JSON.parse(response);
                     alert(error);
                 }
             }
-        )
-
+        });
     });
-
-    application.append(form);
 }
 
+function profilePage() {
+    navbar({auth: true});
+    const container = document.createElement('div');
+    container.innerHTML = renderProfileView({});
+    application.append(container);
+
+    //TODO read that element user choose instead of this idiot switch
+    //TODO make plug on server instead of plug here
+    //TODO make option to change user data (server request etc)
+    const choose = 2;
+    const mainBlock = document.getElementById('profile-main_block');
+    switch (choose) {
+        case 0:
+            mainBlock.innerHTML = renderProfileUserdataView({});
+
+            let form = document.getElementById('profile-form-userdata');
+            form.addEventListener('submit', (evt) => {
+                evt.preventDefault();
+
+                const emailInput = document.getElementById('edit-login');
+                const passwordInput = document.getElementById('edit-password');
+
+                const email = emailInput.value.trim();
+                const password = passwordInput.value.trim();
+
+                HttpModule.post({
+                    url: '/edit',
+                    body: {email, password},
+                    callback: (status, response) => {
+                        if (status === 200) {
+                            //TODO overthink
+                            profilePage();
+                        } else {
+                            const {error} = JSON.parse(response);
+                            alert(error);
+                        }
+                    },
+                })
+
+            });
+            break;
+        case 1:
+            mainBlock.innerHTML = renderProfileOrdersView({
+                order: [
+                    "McDonalds",
+                    "KFC",
+                    "BurgerKing",
+                ]
+            });
+            break;
+        case 2:
+            mainBlock.innerHTML = renderProfileChatsView({
+                chat: [
+                    "McDonalds",
+                    "KFC",
+                    "BurgerKing",
+                ]
+            });
+            break;
+        default:
+
+            break;
+    }
+
+
+    application.append(container)
+}
+
+function basketPage() {
+    //TODO it may delay
+}
+
+function mainPage(info) {
+    navbar({auth: true});
+    let main = document.createElement('div');
+    main.innerHTML = renderMainView(info);
+    application.append(main);
+}
+
+function storePage(info) {
+    navbar({});
+    let store = document.createElement('div');
+    store.innerHTML = renderStoreView(info);
+    application.append(store);
+}
+
+
 menuPage();
+
 
 application.addEventListener('click', e => {
     const {target} = e;
 
     if (target instanceof HTMLAnchorElement) {
         e.preventDefault();
-        config[target.dataset.section].open();
+        //config[target.dataset.section].open();
     }
 });
-
-function ajax(method, url, body = null, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    xhr.withCredentials = true;
-
-    xhr.addEventListener('readystatechange', function() {
-        if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
-        callback(xhr.status, xhr.responseText);
-    });
-
-    if (body) {
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
-        xhr.send(JSON.stringify(body));
-        return;
-    }
-
-    xhr.send();
-}
-
-function basketPage() {
-    console.log('khm, puk')
-}
-

@@ -70,5 +70,9 @@
   "bugs": {
     "url": "https://github.com/frontend-park-mail-ru/2021_1_Borscht_With_Cabbage/issues"
   },
-  "homepage": "https://github.com/frontend-park-mail-ru/2021_1_Borscht_With_Cabbage#readme"
+  "homepage": "https://github.com/frontend-park-mail-ru/2021_1_Borscht_With_Cabbage#readme",
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "handlebars": "^4.7.7"
+  }
 }

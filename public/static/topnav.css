@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    /*background-image: url('food.jpg');*/
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #FBFFFC;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav a.name {
+    color: #000;
+    font-size: 32px;
+    margin-left: 8px
+}
+
+.address {
+    float: right;
+    background-image: url('map.png');
+    background-position: 0px 5px;
+    background-repeat: no-repeat;
+    background-color: #97B498;
+    color: #fff;
+    vertical-align: center;
+    border: none;
+    padding: 14px 40px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    margin-right: 16px;
+}

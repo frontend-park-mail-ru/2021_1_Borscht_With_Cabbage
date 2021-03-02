@@ -1,4 +1,4 @@
-export const renderLoginView = Handlebars.compile(`
+export const renderLoginView = window.Handlebars.compile(`
 <h2>Вход в систему</h2>
 <form id="auth-form">
     <input type="email" id="auth-login" class="auth-input" placeholder="Email" name="email">

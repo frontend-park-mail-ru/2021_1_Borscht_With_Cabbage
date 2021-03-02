@@ -1,6 +1,6 @@
-//TODO filter, styles
-//TODO
-export const renderStoreView = Handlebars.compile(`
+// TODO filter, styles
+// TODO
+export const renderStoreView = window.Handlebars.compile(`
 <div id="store-container">
     <div id="store-main">
 

@@ -1,9 +1,9 @@
-//TODO scatter *Page functions into separate modules
+// TODO scatter *Page functions into separate modules
 
-import {renderLoginView} from './templates/loginTemplate.js';
-import {renderTopNavView} from './templates/topNavTemplate.js';
-import {renderMainView} from "./templates/mainPageTemplate.js";
-import {renderStoreView} from "./templates/storeTemplate.js";
+import { renderLoginView } from './templates/loginTemplate.js';
+import { renderTopNavView } from './templates/topNavTemplate.js';
+import { renderMainView } from './templates/mainPageTemplate.js';
+import { renderStoreView } from './templates/storeTemplate.js';
 import {
     renderProfileView,
     renderProfileUserdataView,
@@ -33,20 +33,19 @@ const application = document.getElementById('app');
 //     },
 // }
 
-function menuPage() {
-    //TODO correct work with this function
+function menuPage () {
+    // TODO correct work with this function
     HttpModule.get({
-        url: "/main",
+        url: '/main',
         callback: (_, response) => {
             const info = JSON.parse(response);
             mainPage(info);
         }
     });
-
 }
 
-function navbar({auth = false} = {}) {
-    let topNavBar = document.createElement('div');
+function navbar ({ auth = false } = {}) {
+    const topNavBar = document.createElement('div');
     topNavBar.innerHTML = renderTopNavView({})
     if (auth) {
         // TODO need to make img and profile menu (or just href)
@@ -54,14 +53,14 @@ function navbar({auth = false} = {}) {
     application.append(topNavBar);
 }
 
-function loginPage() {
+function loginPage () {
     navbar({});
 
     const login = document.createElement('div')
     login.innerHTML = renderLoginView({});
     application.append(login);
 
-    let form = document.getElementById('auth-form');
+    const form = document.getElementById('auth-form');
     form.addEventListener('submit', (evt) => {
         evt.preventDefault();
 
@@ -73,13 +72,13 @@ function loginPage() {
 
         HttpModule.post({
             url: '/login',
-            body: {email, password},
+            body: { email, password },
             callback: (status, response) => {
-                //TODO correct work with login
+                // TODO correct work with login
                 if (status === 200) {
                     console.log('khm, puk');
                 } else {
-                    const {error} = JSON.parse(response);
+                    const { error } = JSON.parse(response);
                     alert(error);
                 }
             }
@@ -87,101 +86,100 @@ function loginPage() {
     });
 }
 
-function profilePage() {
-    navbar({auth: true});
+function profilePage () {
+    navbar({ auth: true });
     const container = document.createElement('div');
     container.innerHTML = renderProfileView({});
     application.append(container);
 
-    //TODO read that element user choose instead of this idiot switch
-    //TODO make plug on server instead of plug here
-    //TODO make option to change user data (server request etc)
+    // TODO read that element user choose instead of this idiot switch
+    // TODO make plug on server instead of plug here
+    // TODO make option to change user data (server request etc)
     const choose = 2;
     const mainBlock = document.getElementById('profile-main_block');
     switch (choose) {
-        case 0:
-            mainBlock.innerHTML = renderProfileUserdataView({});
+    case 0: {
+        mainBlock.innerHTML = renderProfileUserdataView({});
 
-            let form = document.getElementById('profile-form-userdata');
-            form.addEventListener('submit', (evt) => {
-                evt.preventDefault();
+        const form = document.getElementById('profile-form-userdata');
+        form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
 
-                const emailInput = document.getElementById('edit-login');
-                const passwordInput = document.getElementById('edit-password');
+            const emailInput = document.getElementById('edit-login');
+            const passwordInput = document.getElementById('edit-password');
 
-                const email = emailInput.value.trim();
-                const password = passwordInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
 
-                HttpModule.post({
-                    url: '/edit',
-                    body: {email, password},
-                    callback: (status, response) => {
-                        if (status === 200) {
-                            //TODO overthink
-                            profilePage();
-                        } else {
-                            const {error} = JSON.parse(response);
-                            alert(error);
-                        }
-                    },
-                })
-
-            });
-            break;
-        case 1:
-            mainBlock.innerHTML = renderProfileOrdersView({
-                order: [
-                    "McDonalds",
-                    "KFC",
-                    "BurgerKing",
-                ]
-            });
-            break;
-        case 2:
-            mainBlock.innerHTML = renderProfileChatsView({
-                chat: [
-                    "McDonalds",
-                    "KFC",
-                    "BurgerKing",
-                ]
-            });
-            break;
-        default:
-
-            break;
+            HttpModule.post({
+                url: '/edit',
+                body: { email, password },
+                callback: (status, response) => {
+                    if (status === 200) {
+                        // TODO overthink
+                        profilePage();
+                    } else {
+                        const { error } = JSON.parse(response);
+                        alert(error);
+                    }
+                }
+            })
+        });
+        break;
     }
-
+    case 1: {
+        mainBlock.innerHTML = renderProfileOrdersView({
+            order: [
+                'McDonalds',
+                'KFC',
+                'BurgerKing'
+            ]
+        });
+        break;
+    }
+    case 2: {
+        mainBlock.innerHTML = renderProfileChatsView({
+            chat: [
+                'McDonalds',
+                'KFC',
+                'BurgerKing'
+            ]
+        });
+        break;
+    }
+    default: {
+        break;
+    }
+    }
 
     application.append(container)
 }
 
-function basketPage() {
-    //TODO it may delay
+function basketPage () {
+    // TODO it may delay
 }
 
-function mainPage(info) {
-    navbar({auth: true});
-    let main = document.createElement('div');
+function mainPage (info) {
+    navbar({ auth: true });
+    const main = document.createElement('div');
     main.innerHTML = renderMainView(info);
     application.append(main);
 }
 
-function storePage(info) {
+function storePage (info) {
     navbar({});
-    let store = document.createElement('div');
+    const store = document.createElement('div');
     store.innerHTML = renderStoreView(info);
     application.append(store);
 }
 
-
 menuPage();
 
-
 application.addEventListener('click', e => {
-    const {target} = e;
+    const { target } = e;
 
     if (target instanceof HTMLAnchorElement) {
         e.preventDefault();
-        //config[target.dataset.section].open();
+        // config[target.dataset.section].open();
     }
 });

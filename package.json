@@ -72,7 +72,10 @@
   },
   "homepage": "https://github.com/frontend-park-mail-ru/2021_1_Borscht_With_Cabbage#readme",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.21.0",
     "esm": "^3.2.25",
-    "handlebars": "^4.7.7"
+    "handlebars": "^4.7.7",
+    "standard": "^16.0.3"
   }
 }

@@ -1,4 +1,4 @@
-export const renderProfileView = Handlebars.compile(`
+export const renderProfileView = window.Handlebars.compile(`
 <div id="profile-container">
     <div id="profile-main_block">
 
@@ -13,7 +13,7 @@ export const renderProfileView = Handlebars.compile(`
 </div>
 `)
 
-export const renderProfileUserdataView = Handlebars.compile(`
+export const renderProfileUserdataView = window.Handlebars.compile(`
 <form id="profile-form-userdata">
     <input type="email" id="edit-login" class="edit-input" placeholder="Email" name="email">
     <input type="password" id="edit-password" class="edit-input" placeholder="Password" name="password">
@@ -21,7 +21,7 @@ export const renderProfileUserdataView = Handlebars.compile(`
 </form>
 `)
 
-export const renderProfileOrdersView = Handlebars.compile(`
+export const renderProfileOrdersView = window.Handlebars.compile(`
 <div class="profile-orders">
     {{#each order}}
         <p>{{this}}</p>
@@ -29,7 +29,7 @@ export const renderProfileOrdersView = Handlebars.compile(`
 </div>
 `)
 
-export const renderProfileChatsView = Handlebars.compile(`
+export const renderProfileChatsView = window.Handlebars.compile(`
 <div class="profile-chats">
     {{#each chat}}
         <p>{{this}}</p>

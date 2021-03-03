@@ -1,0 +1,43 @@
+.content__header {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.content__header-name {
+    font-size: 24px;
+    line-height: 24px;
+
+    margin-bottom: 8px;
+    letter-spacing: 0.15px;
+}
+
+.content__image {
+    /*background-image: url(food.jpg);*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 164px;
+}
+
+.content__info {
+    color: #97B498;
+    font-size: 16px;
+    margin-top: auto;
+    margin-bottom: 12px;
+}
+
+.content__receipt {
+    float: right;
+    margin-right: 12px;
+}
+
+.content__rating {
+    margin-left: 12px;
+}
+
+.content__descript {
+    margin-left: 12px;
+    margin-top: 8px;
+}

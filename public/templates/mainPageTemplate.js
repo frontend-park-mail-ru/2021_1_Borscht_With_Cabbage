@@ -32,18 +32,7 @@ export const renderMainView = window.Handlebars.compile(`
     <ul class="content__slider">
         {{#each store}}
         <li class="content__slide">
-                <span class="content__header">
-                    <span class="content__header-name">{{this.name}}</span>
-                    <span class="content__header-time">{{this.time}}</span>
-                </span>
-            <img class="content__image" src="static/food.jpg">
-            <span class="content__descript">
-                    {{this.description}}
-                </span>
-            <span class="content__info">
-                    <span class="content__rating">Рейтинг: {{this.rating}}</span>
-                    <span class="content__receipt">Средний чек: {{this.cost}} рублей</span>
-                </span>
+            {{{ infoRestaurant this }}}
         </li>
         {{/each}}
     </ul>

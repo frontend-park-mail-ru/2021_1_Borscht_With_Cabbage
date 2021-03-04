@@ -4,6 +4,6 @@ export const renderSignUpView = window.Handlebars.compile(`
     <input type="email" id="auth-login" class="auth-input" placeholder="Email" name="email">
     <input type="password" id="auth-password" class="auth-input" placeholder="Password" name="password">
     <input type="submit" class="button-log" value="Войти">
-    <p><a class="text" href="/puk">Хочу залогиниться</a></p>
+    <p><a class="text" href="/login">Хочу залогиниться</a></p>
 </form>
 `)

@@ -1,6 +1,7 @@
 // TODO scatter *Page functions into separate modules
 
 import { renderLoginView } from './templates/loginTemplate.js';
+import { renderSignUpView } from './templates/signupTemplate.js';
 import { renderTopNavView } from './templates/topNavTemplate.js';
 import { renderMainView } from './templates/mainPageTemplate.js';
 import { renderStoreView } from './templates/storeTemplate.js';
@@ -10,55 +11,28 @@ import {
     renderProfileOrdersView,
     renderProfileChatsView
 } from './templates/profileTemplate.js';
+import { ajaxGet, ajaxPost } from "./modules/http.js";
+import { Router } from "./modules/router.js";
 
-const HttpModule = window.HttpModule;
 
 const application = document.getElementById('app');
 
-// const config = {
-//     login: {
-//         href: '/login',
-//         text: 'Авторизоваться!',
-//         open: loginPage,
-//     },
-//     profile: {
-//         href: '/profile',
-//         text: 'Профиль',
-//         open: profilePage,
-//     },
-//     basket: {
-//         href: '/basket',
-//         text: 'Корзина',
-//         open: basketPage,
-//     },
-// }
-
-function menuPage () {
-    // TODO correct work with this function
-    HttpModule.get({
-        url: '/main',
-        callback: (_, response) => {
-            const info = JSON.parse(response);
-            mainPage(info);
-        }
-    });
-}
-
-function navbar ({ auth = false } = {}) {
+function navbar ({ auth = false } = {}, root) {
     const topNavBar = document.createElement('div');
     topNavBar.innerHTML = renderTopNavView({})
     if (auth) {
         // TODO need to make img and profile menu (or just href)
     }
-    application.append(topNavBar);
+    root.append(topNavBar);
 }
 
-function loginPage () {
-    navbar({});
+function loginPage (root) {
+    root.innerHTML = '';
+    navbar({}, root);
 
     const login = document.createElement('div')
     login.innerHTML = renderLoginView({});
-    application.append(login);
+    root.append(login);
 
     const form = document.getElementById('auth-form');
     form.addEventListener('submit', (evt) => {
@@ -70,32 +44,44 @@ function loginPage () {
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
 
-        HttpModule.post({
+        let resolve = function (status, response) {
+            // TODO correct work
+            console.log('khm, puk');
+        };
+
+        let reject = function (status, response) {
+            const error = JSON.parse(response);
+            alert(error);
+        };
+
+        ajaxPost({
             url: '/login',
-            body: { email, password },
-            callback: (status, response) => {
-                // TODO correct work with login
-                if (status === 200) {
-                    console.log('khm, puk');
-                } else {
-                    const { error } = JSON.parse(response);
-                    alert(error);
-                }
-            }
-        });
+            body: { email, password }
+        })
+            .then(resolve)
+            .catch(reject);
     });
 }
 
-function profilePage () {
-    navbar({ auth: true });
+function signupPage (root) {
+    root.innerHTML = '';
+    navbar({ auth: false }, root);
+    const signup = document.createElement('div')
+    signup.innerHTML = renderSignUpView({});
+    root.append(signup);
+}
+
+function profilePage (root) {
+    root.innerHTML = '';
+    navbar({ auth: true }, root);
     const container = document.createElement('div');
     container.innerHTML = renderProfileView({});
-    application.append(container);
+    root.append(container);
 
     // TODO read that element user choose instead of this idiot switch
     // TODO make plug on server instead of plug here
     // TODO make option to change user data (server request etc)
-    const choose = 2;
+    const choose = 1;
     const mainBlock = document.getElementById('profile-main_block');
     switch (choose) {
     case 0: {
@@ -111,19 +97,13 @@ function profilePage () {
             const email = emailInput.value.trim();
             const password = passwordInput.value.trim();
 
-            HttpModule.post({
-                url: '/edit',
-                body: { email, password },
-                callback: (status, response) => {
-                    if (status === 200) {
-                        // TODO overthink
-                        profilePage();
-                    } else {
-                        const { error } = JSON.parse(response);
-                        alert(error);
-                    }
+            ajaxPost({
+                    url: '/edit',
+                    body: { email, password }
                 }
-            })
+            )
+                .then(r => profilePage())
+                .catch(r => console.log(`THis crash when post /edit from ${r}`));
         });
         break;
     }
@@ -152,34 +132,44 @@ function profilePage () {
     }
     }
 
-    application.append(container)
+    root.append(container)
 }
 
 function basketPage () {
     // TODO it may delay
 }
 
-function mainPage (info) {
-    navbar({ auth: true });
+function mainPageDraw (root, info) {
+    root.innerHTML = '';
+    navbar({ auth: true }, root);
     const main = document.createElement('div');
     main.innerHTML = renderMainView(info);
-    application.append(main);
+    root.append(main);
 }
 
-function storePage (info) {
-    navbar({});
+function mainPage (root) {
+    ajaxGet({ url : '/main'})
+        .then(r => mainPageDraw(root, r.parsedJSON))
+        .catch(r => console.log(`THis crash when post /main from ${r}`));
+}
+
+function storePageDraw (root, info) {
+    root.innerHTML = '';
+    navbar({ auth: true }, root);
     const store = document.createElement('div');
     store.innerHTML = renderStoreView(info);
-    application.append(store);
+    root.append(store);
 }
 
-menuPage();
+function storePage (root) {
+    ajaxGet({ url : '/store'})
+        .then(r => storePageDraw(root, r.parsedJSON))
+        .catch(r => console.log(`THis crash when post /store from ${r}`));
+}
 
-application.addEventListener('click', e => {
-    const { target } = e;
-
-    if (target instanceof HTMLAnchorElement) {
-        e.preventDefault();
-        // config[target.dataset.section].open();
-    }
-});
+let router = new Router(application);
+router.addRoute('/login', loginPage);
+router.addRoute('/signup', signupPage);
+router.addRoute('/', loginPage); // TODO correct this
+router.addRoute('/store/syto', storePage); // TODO correct this
+router.open(window.location.pathname);

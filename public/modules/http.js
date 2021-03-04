@@ -1,46 +1,29 @@
-(function () {
-    const noop = () => null;
+export async function ajaxGet ({
+    url = '/',
+} = {}) {
+    let response = await fetch(url, {
+        method: 'GET'
+    });
+    let parsedJSON = await response.json();
 
-    class HttpModule {
-        ajax ({
-            method = 'GET',
-            url = '/',
-            body = null,
-            callback = noop
-        } = {}) {
-            const xhr = new XMLHttpRequest();
-            xhr.open(method, url, true);
-            xhr.withCredentials = true;
-
-            xhr.addEventListener('readystatechange', function () {
-                if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
-                callback(xhr.status, xhr.responseText);
-            });
-
-            if (body) {
-                xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
-                xhr.send(JSON.stringify(body));
-                return;
-            }
-
-            xhr.send();
-        }
-
-        get (params = {}) {
-            this.ajax({
-                ...params,
-                method: 'GET'
-            });
-        }
-
-        post (params = {}) {
-            this.ajax({
-                ...params,
-                method: 'POST'
-            });
-        }
+    return {
+        status: response.status,
+        parsedJSON: parsedJSON
     }
+}
 
-    window.HttpModule = new HttpModule();
-})();
+export async function ajaxPost ({
+    url = '/',
+    body = null
+} = {}) {
+    let response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(body)
+    });
+    let parsedJSON = await response.json();
+
+    return {
+        status: response.status,
+        parsedJSON: parsedJSON
+    }
+}

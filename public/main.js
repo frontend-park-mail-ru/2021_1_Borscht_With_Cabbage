@@ -170,6 +170,6 @@ function storePage (root) {
 let router = new Router(application);
 router.addRoute('/login', loginPage);
 router.addRoute('/signup', signupPage);
-router.addRoute('/', loginPage); // TODO correct this
+router.addRoute('/', mainPage); // TODO correct this
 router.addRoute('/store/syto', storePage); // TODO correct this
 router.open(window.location.pathname);

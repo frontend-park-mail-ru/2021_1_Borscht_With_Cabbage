@@ -11,6 +11,10 @@
     box-sizing: border-box;
 }
 
+.error {
+
+}
+
 .button-log {
     background-color: #97B498;
     border: none;

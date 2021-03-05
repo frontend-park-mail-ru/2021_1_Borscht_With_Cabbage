@@ -1,7 +1,6 @@
 // TODO scatter *Page functions into separate modules
 
 import { renderLoginView } from './templates/loginTemplate.js';
-import { renderSignUpView } from './templates/signupTemplate.js';
 import { renderTopNavView } from './templates/topNavTemplate.js';
 import { renderMainView } from './templates/mainPageTemplate.js';
 import { renderStoreView } from './templates/storeTemplate.js';
@@ -13,7 +12,7 @@ import {
 } from './templates/profileTemplate.js';
 import { ajaxGet, ajaxPost } from "./modules/http.js";
 import { Router } from "./modules/router.js";
-
+import { SignUpView } from "./views/RegVIew/SignUpView.js";
 
 const application = document.getElementById('app');
 
@@ -63,13 +62,13 @@ function loginPage (root) {
     });
 }
 
-function signupPage (root) {
-    root.innerHTML = '';
-    navbar({ auth: false }, root);
-    const signup = document.createElement('div')
-    signup.innerHTML = renderSignUpView({});
-    root.append(signup);
-}
+// function signupPage (root) {
+//     root.innerHTML = '';
+//     navbar({ auth: false }, root);
+//     const signup = document.createElement('div')
+//     signup.innerHTML = renderSignUpView({});
+//     root.append(signup);
+// }
 
 function profilePage (root) {
     root.innerHTML = '';
@@ -167,9 +166,12 @@ function storePage (root) {
         .catch(r => console.log(`THis crash when post /store from ${r}`));
 }
 
+let signUpView = new SignUpView(application);
+
 let router = new Router(application);
-router.addRoute('/login', loginPage);
-router.addRoute('/signup', signupPage);
-router.addRoute('/', mainPage); // TODO correct this
-router.addRoute('/store/syto', storePage); // TODO correct this
-router.open(window.location.pathname);
+// router.addRoute('/login', loginPage);
+router.addRoute('/signup', signUpView);
+// router.addRoute('/', mainPage); // TODO correct this
+// router.addRoute('/store/syto', storePage); // TODO correct this
+// router.open(window.location.pathname);
+router.open('/signup');

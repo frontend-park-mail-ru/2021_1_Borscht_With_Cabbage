@@ -7,7 +7,7 @@ export class Router {
     }
 
     open (page) {
-        this.routes.get(page)(this.root);
+        this.routes.get(page).render();
     }
 
     addRoute (page, handler) {
@@ -19,6 +19,10 @@ export class Router {
             event.preventDefault();
             const link = event.target.pathname;
             this.open(link);
+        }
+
+        if (event.target instanceof HTMLButtonElement) {
+            event.preventDefault();
         }
     }
 }

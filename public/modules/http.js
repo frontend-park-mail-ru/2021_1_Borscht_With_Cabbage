@@ -2,7 +2,11 @@ export async function ajaxGet ({
     url = '/',
 } = {}) {
     let response = await fetch(url, {
-        method: 'GET'
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
     let parsedJSON = await response.json();
 
@@ -18,7 +22,11 @@ export async function ajaxPost ({
 } = {}) {
     let response = await fetch(url, {
         method: 'POST',
-        body: JSON.stringify(body)
+        credentials: 'include',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
     let parsedJSON = await response.json();
 

@@ -1,0 +1,13 @@
+export const renderSignUpView = window.Handlebars.compile(`
+<h2>Регистрация</h2>
+<form id="auth-form">
+    <input type="email" id="email" class="auth-input" placeholder="Email" name="email">
+    <p id="emailError" class="error"></p>
+    <input type="password" id="password" class="auth-input" placeholder="Password" name="password">
+    <p id="passwordError" class="error"></p>
+    <input type="password" id="repeatPassword" class="auth-input" placeholder="Repeat password" name="repeatPassword">
+    <p id="repeatPasswordError" class="error"></p>
+    <input type="submit" class="button-log" value="Войти">
+    <p><a class="text" href="/login">Хочу залогиниться</a></p>
+</form>
+`)

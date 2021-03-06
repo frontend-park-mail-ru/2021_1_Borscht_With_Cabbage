@@ -1,4 +1,4 @@
-export function renderInput(id, status) {
+export function renderInput (id, status) {
     const error = document.getElementById(`${id}Error`);
     const input = document.getElementById(id);
 

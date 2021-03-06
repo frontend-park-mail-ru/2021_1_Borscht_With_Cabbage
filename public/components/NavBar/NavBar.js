@@ -1,4 +1,4 @@
-import { renderTopNavView } from '../../templates/topNavTemplate.js';
+import { renderTopNavView } from './topNavTemplate.js';
 
 export function navbar ({ auth = false } = {}, root) {
     const topNavBar = document.createElement('div');

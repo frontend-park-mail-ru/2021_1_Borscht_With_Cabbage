@@ -31,7 +31,7 @@ const mainPage = {
         {
             name: 'zosh',
             text: 'Здоровая еда'
-        },
+        }
     ],
     filter: [
         {
@@ -45,87 +45,87 @@ const mainPage = {
         {
             name: 'Рейтинг',
             value: 'неважен'
-        },
+        }
     ],
     store: [
         {
-            name: "Сыто пьяно",
-            time: "60 минут",
-            description: "можно поесть и попить",
-            rating: "5.0",
-            cost: "800",
+            name: 'Сыто пьяно',
+            time: '60 минут',
+            description: 'можно поесть и попить',
+            rating: '5.0',
+            cost: '800'
         },
         {
-            name: "Сыто пьяно",
-            time: "60 минут",
-            description: "можно поесть и попить",
-            rating: "5.0",
-            cost: "800",
+            name: 'Сыто пьяно',
+            time: '60 минут',
+            description: 'можно поесть и попить',
+            rating: '5.0',
+            cost: '800'
         },
         {
-            name: "Сыто пьяно",
-            time: "60 минут",
-            description: "можно поесть и попить",
-            rating: "5.0",
-            cost: "800",
+            name: 'Сыто пьяно',
+            time: '60 минут',
+            description: 'можно поесть и попить',
+            rating: '5.0',
+            cost: '800'
         },
         {
-            name: "Сыто пьяно",
-            time: "60 минут",
-            description: "можно поесть и попить",
-            rating: "5.0",
-            cost: "800",
+            name: 'Сыто пьяно',
+            time: '60 минут',
+            description: 'можно поесть и попить',
+            rating: '5.0',
+            cost: '800'
         },
         {
-            name: "Сыто пьяно",
-            time: "60 минут",
-            description: "можно поесть и попить",
-            rating: "5.0",
-            cost: "800",
-        },
-    ],
+            name: 'Сыто пьяно',
+            time: '60 минут',
+            description: 'можно поесть и попить',
+            rating: '5.0',
+            cost: '800'
+        }
+    ]
 }
 
 const storePage = {
-    title: "Сыто пьяно",
+    title: 'Сыто пьяно',
     food: [
         {
-            name: "Лапша лапшичка из столовки",
-            img: "static/food.jpg",
-            cost: "25",
-            description: "не очень вкусно",
+            name: 'Лапша лапшичка из столовки',
+            img: 'static/food.jpg',
+            cost: '25',
+            description: 'не очень вкусно'
         },
         {
-            name: "Борщик с капусткой",
-            img: "static/food.jpg",
-            cost: "50",
-            description: "очень вкусно",
+            name: 'Борщик с капусткой',
+            img: 'static/food.jpg',
+            cost: '50',
+            description: 'очень вкусно'
         },
         {
-            name: "Вкус финансовой независимости",
-            img: "static/food.jpg",
-            cost: "бесценно",
-            description: "описание",
+            name: 'Вкус финансовой независимости',
+            img: 'static/food.jpg',
+            cost: 'бесценно',
+            description: 'описание'
         },
         {
-            name: "Лапша лапшичка из столовки",
-            img: "static/food.jpg",
-            cost: "25",
-            description: "не очень вкусно",
+            name: 'Лапша лапшичка из столовки',
+            img: 'static/food.jpg',
+            cost: '25',
+            description: 'не очень вкусно'
         },
         {
-            name: "Борщик с капусткой",
-            img: "static/food.jpg",
-            cost: "50",
-            description: "очень вкусно",
+            name: 'Борщик с капусткой',
+            img: 'static/food.jpg',
+            cost: '50',
+            description: 'очень вкусно'
         },
         {
-            name: "Вкус финансовой независимости",
-            img: "static/food.jpg",
-            cost: "бесценно",
-            description: "описание",
-        },
-    ],
+            name: 'Вкус финансовой независимости',
+            img: 'static/food.jpg',
+            cost: 'бесценно',
+            description: 'описание'
+        }
+    ]
 };
 
 app.get('/main', function (req, res) {
@@ -134,6 +134,11 @@ app.get('/main', function (req, res) {
 
 app.get('/store', function (req, res) {
     res.json(storePage);
+});
+
+app.post('/login', function (req, res) {
+    res.json({});
+    // TODO
 });
 
 app.use(express.static(path.resolve(__dirname, '..', 'public')));

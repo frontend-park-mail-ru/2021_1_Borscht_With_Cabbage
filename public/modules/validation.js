@@ -1,5 +1,4 @@
 export class Validator {
-
     constructor () {
         this.emailRegExpression = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
         this.passwordRegExpression = /^([A-Za-z0-9_\-.]{6,30})$/;

@@ -1,9 +1,9 @@
-Handlebars.registerHelper("infoRestaurant", function({
+window.Handlebars.registerHelper('infoRestaurant', function ({
     name,
     time,
     description,
     rating,
-    cost,
+    cost
 }) {
     return `
         <span class="content__header">
@@ -16,4 +16,4 @@ Handlebars.registerHelper("infoRestaurant", function({
             <span class="content__rating">Рейтинг: ` + rating + `</span>
             <span class="content__receipt">Средний чек: ` + cost + ` рублей</span>
         </span>`;
-  });
+});

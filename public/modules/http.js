@@ -1,14 +1,14 @@
 export async function ajaxGet ({
-    url = '/',
+    url = '/'
 } = {}) {
-    let response = await fetch(url, {
+    const response = await fetch(url, {
         method: 'GET',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         }
     });
-    let parsedJSON = await response.json();
+    const parsedJSON = await response.json();
 
     return {
         status: response.status,
@@ -20,7 +20,7 @@ export async function ajaxPost ({
     url = '/',
     body = null
 } = {}) {
-    let response = await fetch(url, {
+    const response = await fetch(url, {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(body),
@@ -28,7 +28,7 @@ export async function ajaxPost ({
             'Content-Type': 'application/json'
         }
     });
-    let parsedJSON = await response.json();
+    const parsedJSON = await response.json();
 
     return {
         status: response.status,

@@ -1,10 +1,11 @@
-import { renderSignUpView } from "../../templates/signUpTemplate.js";
-import { navbar } from "../../components/NavBar/NavBar.js";
-import { renderInput } from "../../modules/rendering.js";
-import { Validator } from "../../modules/validation.js";
+import { renderSignUpView } from './signUpTemplate.js';
+import { navbar } from '../../components/NavBar/NavBar.js';
+import { renderInput } from '../../modules/rendering.js';
+import { Validator } from '../../modules/validation.js';
 
 export class SignUpView {
-    constructor (root) {
+    constructor (root, router) {
+        this.router = router;
         this.root = root;
         this.validator = new Validator();
         this.render = this.render.bind(this);
@@ -20,8 +21,7 @@ export class SignUpView {
         signup.innerHTML = renderSignUpView({});
         this.root.append(signup);
 
-        document.getElementsByClassName('error').forE
-        this.addErrorListeners()
+        this.addErrorListeners();
     }
 
     addErrorListeners () {
@@ -50,7 +50,6 @@ export class SignUpView {
         const form = document.getElementById(formID);
         form.addEventListener('submit', this.formSubmit);
     }
-
 
     formSubmit (event) {
         event.preventDefault();

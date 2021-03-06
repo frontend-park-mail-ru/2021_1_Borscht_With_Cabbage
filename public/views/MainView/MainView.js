@@ -1,7 +1,7 @@
 import { ajaxGet } from '../../modules/http.js';
-import { renderMainView } from './mainTemplate.js';
 import { navbar } from '../../components/NavBar/NavBar.js';
 import { FilterComponent } from '../../components/Filter/Filter.js'
+import { PanelRestaurantsComponent } from '../../components/PanelRestaurants/PanelRestaurants.js'
 
 export class MainView {
     constructor (root, router) {
@@ -44,6 +44,9 @@ export class MainView {
             this.getContent()
         });
         filter.render();
+
+        const restaurants = new PanelRestaurantsComponent(this.root, info);
+        restaurants.render();
         // main.innerHTML = renderMainView(info);
     }
 

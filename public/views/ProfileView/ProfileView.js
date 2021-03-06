@@ -1,3 +1,79 @@
+import {Validator} from "../../modules/validation";
+import {navbar} from "../../components/NavBar/NavBar";
+import { renderProfileView } from './profileTemplate'
+import {ajaxGet, ajaxPut} from "../../modules/http";
+
+export class ProfileView {
+    constructor(root, router) {
+        this.router = router;
+        this.root = root;
+        this.validator = new Validator();
+        this.render = this.render.bind(this);
+        this.formSubmit = this.formSubmit.bind(this);
+    }
+
+    render() {
+        ajaxGet({ url: '/user' })// нужно узнать данные пользователя перед тем как отображать страничку
+            .then(r => this.userDraw(r.parsedJSON))
+            .catch(r => console.log(`THis crash when post /store from ${r}`));
+        };
+
+    userDraw(data) {
+        this.root.innerHTML = '';
+        navbar({auth: false}, this.root);
+
+        const profile = document.createElement('div');
+
+        profile.innerHTML = renderProfileView(data); // отрисовываем страничку с переданными данными
+
+        this.root.append(profile);
+
+        this.addErrorListeners();
+        this.addSubmitListener();
+    }
+
+    addSubmitListener() {
+        const formID = 'profile-form-userdata';
+        const form = document.getElementById(formID);
+        form.addEventListener('submit', this.formSubmit);
+    }
+
+    formSubmit (event) {
+        event.preventDefault();
+        if (this.updateErrorsState()) {
+            this.saveRequest();
+        }
+    }
+
+    updateErrorsState () {
+        return this.validator.validateEmail().result *
+            this.validator.validatePassword().result;
+    }
+
+    saveRequest () {
+        const emailInput = document.getElementById('email');
+        const nameInput = document.getElementById('name');
+        const numberInput = document.getElementById('number');
+        // const passwordInput = document.getElementById('password');
+
+        const email = emailInput.value.trim()
+        const name = nameInput.value.trim()
+        const number = numberInput.value.trim()
+
+        ajaxPut({
+            url: '/user',
+            body: { email, number, name  }
+        })
+            .then(r => this.router.open('/user'))
+            .catch(r => console.log('Error in data saving'));
+    }
+
+    addErrorListeners () {
+    // TODO
+    }
+}
+
+
 // function profilePage (root) {
 //     root.innerHTML = '';
 //     navbar({ auth: true }, root);

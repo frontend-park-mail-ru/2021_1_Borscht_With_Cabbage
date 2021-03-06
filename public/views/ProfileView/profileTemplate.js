@@ -15,9 +15,11 @@ export const renderProfileView = window.Handlebars.compile(`
 
 export const renderProfileUserdataView = window.Handlebars.compile(`
 <form id="profile-form-userdata">
-    <input type="email" id="edit-login" class="edit-input" placeholder="Email" name="email">
-    <input type="password" id="edit-password" class="edit-input" placeholder="Password" name="password">
-    <input type="submit" class="button-log" value="Изменить данные">
+    <input type="text" id="edit-number" class="edit-input" placeholder="Номер телефона" name="number" value={{ number }}/>
+    <input type="email" id="edit-email" class="edit-input" placeholder="Почта" name="email" value={{ email }}/>
+    <input type="text" id="edit-name" class="edit-input" placeholder="Имя" name="name" value={{ name }}/>
+    <input type="password" id="edit-password" class="edit-input" placeholder="Password" name="password" />
+    <input type="submit" class="button-log" value="Изменить данные"/>
 </form>
 `)
 

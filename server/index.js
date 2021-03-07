@@ -91,7 +91,7 @@ const storePage = {
     ]
 };
 
-app.get('/main', function (req, res) {
+app.get('/restaurants', function (req, res) {
     res.json(store);
 });
 

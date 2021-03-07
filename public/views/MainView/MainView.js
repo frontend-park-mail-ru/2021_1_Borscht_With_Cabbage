@@ -1,5 +1,7 @@
 import { ajaxGet } from '../../modules/http.js';
 import { navbar } from '../../components/NavBar/NavBar.js';
+import { CategoryComponent } from '../../components/Category/Category.js'
+import { ParamsComponent } from '../../components/Params/Params.js'
 import { FilterComponent } from '../../components/Filter/Filter.js'
 import { PanelRestaurantsComponent } from '../../components/PanelRestaurants/PanelRestaurants.js'
 
@@ -15,6 +17,7 @@ export class MainView {
             limit: 20,
             category: [],
             params: {
+                // содержимое временное, потом будут храниться содержимое параметров поиска
                 time: false,
                 receipt: false,
                 rating: false,
@@ -23,31 +26,45 @@ export class MainView {
     }
 
     render () {
+        this.mainPageDraw();
         this.getContent();
     }
 
-    mainPageDraw (info) {
+    mainPageDraw () {
         this.root.innerHTML = '';
         navbar({ auth: true }, this.root);
 
-        const filter = new FilterComponent(this.root, (category) => {
+        const category = new CategoryComponent(this.root, (category) => {
             // вызывается когда выбираем какуе-нибудь категорию
 
             this.request.category = category; // запоминаем
             this.request.offset = 0;
             this.getContent();
-            
-        }, (key, value) => {
+        });
+
+        const params = new ParamsComponent(this.root, (key, value) => {
             this.request.params[key] = value;
             this.request.offset = 0;
 
             this.getContent()
         });
+
+        const filter = new FilterComponent(this.root);
+
+        category.render();
+        params.render();
         filter.render();
 
-        const restaurants = new PanelRestaurantsComponent(this.root, info);
+        // поле для отображения рестаранов
+        this.content = document.createElement('div');
+        this.content.innerHTML = '';
+        this.root.append(this.content);
+    }
+
+    restaurantsDraw (info) {
+        this.content.innerHTML = '';
+        const restaurants = new PanelRestaurantsComponent(this.content, info);
         restaurants.render();
-        // main.innerHTML = renderMainView(info);
     }
 
     getContent() {
@@ -66,10 +83,8 @@ export class MainView {
 
         this.request.offset += this.request.limit;
 
-        // TODO правильный запрос на сервер
-
-        ajaxGet({ url: '/main' })
-            .then(r => this.mainPageDraw(r.parsedJSON))
+        ajaxGet({ url: url })
+            .then(r => this.restaurantsDraw(r.parsedJSON))
             .catch(r => console.log(`THis crash when post /main from ${r}`));
     }
 }

@@ -2,6 +2,7 @@ export async function ajaxGet ({
     url = '/'
 } = {}) {
     const response = await fetch(url, {
+        mode: 'cors',
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -13,7 +14,7 @@ export async function ajaxGet ({
     return {
         status: response.status,
         parsedJSON: parsedJSON
-    }
+    };
 }
 
 export async function ajaxPost ({
@@ -21,6 +22,7 @@ export async function ajaxPost ({
     body = null
 } = {}) {
     const response = await fetch(url, {
+        mode: 'cors',
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(body),
@@ -33,5 +35,5 @@ export async function ajaxPost ({
     return {
         status: response.status,
         parsedJSON: parsedJSON
-    }
+    };
 }

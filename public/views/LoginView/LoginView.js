@@ -63,24 +63,26 @@ export class LoginView {
 
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
-        //
-        // let resolve = function (status, response) {
-        //     // TODO correct work
-        //     console.log('you`re login');
-        //     this.router.open('/');
-        // };
-        //
-        // let reject = function (status, response) {
-        //     // TODO correct work
-        //     const error = response;
-        //     alert(error);
-        // };
+
+        const reject = function (promise) {
+            const error = document.getElementById('error');
+            error.hidden = false;
+            error.textContent = promise.parsedJSON.result;
+        };
+
+        const resolve = function (promise) {
+            if (promise.status === 200) {
+                this.router.open('/');
+            } else if (promise.status === 400) {
+                reject(promise);
+            }
+        };
 
         ajaxPost({
             url: '/login',
             body: { email, password }
         })
-            .then(r => this.router.open('/'))
-            .catch(r => console.log(`THis crash when post /login from ${r}`));
+            .then(resolve.bind(this))
+            .catch(reject);
     }
 }

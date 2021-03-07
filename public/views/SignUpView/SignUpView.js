@@ -2,6 +2,7 @@ import { renderSignUpView } from './signUpTemplate.js';
 import { navbar } from '../../components/NavBar/NavBar.js';
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
+import { ajaxPost } from "../../modules/http.js";
 
 export class SignUpView {
     constructor (root, router) {
@@ -63,7 +64,31 @@ export class SignUpView {
     }
 
     signupRequest () {
-        // TODO
-        console.log('puk, you`re registered')
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        const reject = function (promise) {
+            const error = document.getElementById('error');
+            error.hidden = false;
+            error.textContent = promise.parsedJSON.result;
+        };
+
+        const resolve = function (promise) {
+            if (promise.status === 200) {
+                this.router.open('/');
+            } else if (promise.status === 400) {
+                reject(promise);
+            }
+        };
+
+        ajaxPost({
+            url: '/signup',
+            body: { email, password }
+        })
+            .then(resolve.bind(this))
+            .catch(reject);
     }
 }

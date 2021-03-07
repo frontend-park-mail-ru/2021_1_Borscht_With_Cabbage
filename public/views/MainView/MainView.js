@@ -25,6 +25,5 @@ export class MainView {
         } else {
             this.router.open('/login');
         }
-
     }
 }

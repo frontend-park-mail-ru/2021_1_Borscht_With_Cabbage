@@ -2,7 +2,7 @@ import { renderSignUpView } from './signUpTemplate.js';
 import { navbar } from '../../components/NavBar/NavBar.js';
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
-import { ajaxPost } from "../../modules/http.js";
+import { ajaxPost } from '../../modules/http.js';
 
 export class SignUpView {
     constructor (root, router) {

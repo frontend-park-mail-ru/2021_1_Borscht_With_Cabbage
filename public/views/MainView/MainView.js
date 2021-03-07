@@ -18,7 +18,7 @@ export class MainView {
     mainPageDraw (info, status) {
         if (status === 200) {
             this.root.innerHTML = '';
-            navbar({ auth: true }, this.root);
+            navbar(this.root);
             const main = document.createElement('div');
             main.innerHTML = renderMainView(info);
             this.root.append(main);

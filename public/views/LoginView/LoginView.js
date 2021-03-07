@@ -3,6 +3,7 @@ import { navbar } from '../../components/NavBar/NavBar.js';
 import { renderLoginView } from './loginTemplate.js';
 import { renderInput } from '../../modules/rendering.js';
 import { ajaxPost } from '../../modules/http.js';
+import { auth } from '../../modules/auth.js';
 
 export class LoginView {
     constructor (root, router) {
@@ -15,7 +16,7 @@ export class LoginView {
 
     render () {
         this.root.innerHTML = '';
-        navbar({ auth: false }, this.root);
+        navbar(this.root);
 
         const login = document.createElement('div');
 
@@ -83,6 +84,7 @@ export class LoginView {
             body: { email, password }
         })
             .then(resolve.bind(this))
+            .then(_ => auth())
             .catch(reject);
     }
 }

@@ -63,6 +63,7 @@ const mainPage = {
     ],
     store: [
         {
+            id: '1',
             name: 'Сыто пьяно',
             time: '60 минут',
             description: 'можно поесть и попить',
@@ -70,6 +71,7 @@ const mainPage = {
             cost: '800'
         },
         {
+            id: '2',
             name: 'Сыто пьяно',
             time: '60 минут',
             description: 'можно поесть и попить',
@@ -77,6 +79,7 @@ const mainPage = {
             cost: '800'
         },
         {
+            id: '3',
             name: 'Сыто пьяно',
             time: '60 минут',
             description: 'можно поесть и попить',
@@ -84,6 +87,7 @@ const mainPage = {
             cost: '800'
         },
         {
+            id: '4',
             name: 'Сыто пьяно',
             time: '60 минут',
             description: 'можно поесть и попить',
@@ -91,6 +95,7 @@ const mainPage = {
             cost: '800'
         },
         {
+            id: '5',
             name: 'Сыто пьяно',
             time: '60 минут',
             description: 'можно поесть и попить',
@@ -104,43 +109,59 @@ const storePage = {
     title: 'Сыто пьяно',
     food: [
         {
+            id: '1',
             name: 'Лапша лапшичка из столовки',
             img: 'static/food.jpg',
             cost: '25',
             description: 'не очень вкусно'
         },
         {
+            id: '2',
             name: 'Борщик с капусткой',
             img: 'static/food.jpg',
             cost: '50',
             description: 'очень вкусно'
         },
         {
+            id: '3',
             name: 'Вкус финансовой независимости',
             img: 'static/food.jpg',
-            cost: 'бесценно',
+            cost: '99999',
             description: 'описание'
         },
         {
+            id: '4',
             name: 'Лапша лапшичка из столовки',
             img: 'static/food.jpg',
             cost: '25',
             description: 'не очень вкусно'
         },
         {
+            id: '5',
             name: 'Борщик с капусткой',
             img: 'static/food.jpg',
             cost: '50',
             description: 'очень вкусно'
         },
         {
+            id: '6',
             name: 'Вкус финансовой независимости',
             img: 'static/food.jpg',
-            cost: 'бесценно',
+            cost: '99999',
             description: 'описание'
         }
     ]
 };
+
+app.get('/auth', function (req, res) {
+    const id = req.cookies[COOKIE];
+    const email = activeUsers[id];
+    if (!email || !users[email]) {
+        return res.status(401).json({});
+    }
+
+    return res.status(200).json({ email: email, avatar: 'veryNicePic.png' });
+});
 
 app.get('/main', function (req, res) {
     const id = req.cookies[COOKIE];

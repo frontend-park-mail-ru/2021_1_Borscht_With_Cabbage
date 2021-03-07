@@ -44,3 +44,15 @@ body {
     margin-bottom: 4px;
     margin-right: 16px;
 }
+
+.navbar-auth_user_block {
+    float: right;
+}
+
+.navbar-username {
+    color: black;
+}
+
+.navbar-avatar {
+
+}

@@ -9,7 +9,6 @@ export class ParamsComponent {
         this.root = root;
 
         this.callback = callback;
-        this.params = new Map();
     }
 
     render () {
@@ -39,8 +38,11 @@ export class ParamsComponent {
             // проверяе что нажали именно на кнопку
             // TODO выбор из предложенных параметров
             const currParams = target.dataset.params;
-            if (currParams !== undefined) {
-                callback(currParams, true);
+            if (currParams) {
+                callback ({
+                    params: currParams,
+                    value: true
+                });
             }
         })
     }

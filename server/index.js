@@ -121,6 +121,16 @@ app.get('/auth', function (req, res) {
     return res.status(200).json({ email: email, avatar: 'veryNicePic.png' });
 });
 
+app.get('/main', function (req, res) {
+    const id = req.cookies[COOKIE];
+    const email = activeUsers[id];
+    if (!email || !users[email]) {
+        return res.status(401).json({});
+    }
+
+    res.status(200).json({});
+})
+
 app.get('/restaurants', function (req, res) {
     const id = req.cookies[COOKIE];
     const email = activeUsers[id];

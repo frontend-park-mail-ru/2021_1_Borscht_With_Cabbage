@@ -16,11 +16,9 @@ export class Router {
     }
 
     open (page) {
-        console.log(page);
         if (urls[page])
             page = urls[page];
 
-        console.log(page);
         window.history.replaceState({}, '', page);
         this.routes.get(page).render();
     }

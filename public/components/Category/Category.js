@@ -9,7 +9,6 @@ export class CategoryComponent {
         this.root = root;
 
         this.callback = callback;
-        this.collectionCategory = [];
     }
 
     render () {
@@ -36,13 +35,9 @@ export class CategoryComponent {
             // проверяе что нажали именно на кнопку
             const currCategory = target.dataset.category;
             if (currCategory) {
-                const index = this.collectionCategory.indexOf(currCategory);
+                // TODO меняем элемент визуально как нибудь
 
-                if (index === -1) this.collectionCategory.push(target.dataset.category);
-
-                else this.collectionCategory.splice(index, 1);
-
-                callback(this.collectionCategory);
+                callback(currCategory);
             }
         })
     }

@@ -1,35 +1,36 @@
-import { ajaxGet } from '../../modules/http.js';
 import { NavBar } from '../../components/NavBar/NavBar.js';
 import { CategoryComponent } from '../../components/Category/Category.js'
 import { ParamsComponent } from '../../components/Params/Params.js'
 import { FilterComponent } from '../../components/Filter/Filter.js'
 import { PanelRestaurantsComponent } from '../../components/PanelRestaurants/PanelRestaurants.js'
-import { mainGet } from '../../modules/api.js';
+import { mainGet, restaurantsGet } from '../../modules/api.js';
+import { CreatorUrl } from './MainUtils.js';
 
 export class MainView {
     constructor (root, route) {
         this.route = route;
         this.root = root;
 
-        // структура будет помогать создавать запрос серверу
-        this.request = {
-            offset: 0,
-            limit: 20,
-            category: [],
-            params: {
-                // содержимое временное, потом будут храниться содержимое параметров поиска
-                time: false,
-                receipt: false,
-                rating: false
-            }
-        }
+        this.creatorUrl = new CreatorUrl();
     }
 
     render () {
+        mainGet()
+            .then(r => this.mainPageDraw(r.status))
+            .catch(r => console.log(`THis crash when post /main from ${r}`));
+    }
+
+    mainPageDraw (status) {
+        if (status !== 200) {
+            this.route('login');
+            return;
+        }
+
+        this.headerDraw();
         this.getContent();
     }
 
-    mainPageDraw () {
+    headerDraw () {
         this.root.innerHTML = '';
         this.navbar = new NavBar(this.root);
 
@@ -37,18 +38,15 @@ export class MainView {
             root: this.root,
             callback: (category) => {
                 // вызывается когда выбираем какуе-нибудь категорию
-                this.request.category = category; // запоминаем
-                this.request.offset = 0;
+                this.creatorUrl.clickCategory({ name: category })
                 this.getContent();
             }
         });
 
         const params = new ParamsComponent({
             root: this.root,
-            callback: (key, value) => {
-                this.request.params[key] = value;
-                this.request.offset = 0;
-
+            callback: (params) => {
+                this.creatorUrl.clickParams(params)
                 this.getContent()
             }
         });
@@ -65,38 +63,22 @@ export class MainView {
         this.root.append(this.content);
     }
 
-    restaurantsDraw (info, status) {
-        if (status === 200) {
-            this.mainPageDraw();
-            this.content.innerHTML = '';
-            const restaurants = new PanelRestaurantsComponent(this.content, info);
-            restaurants.render();
-        } else {
+    contentDraw (info, status) {
+        if (status !== 200) {
             this.route('login');
+            return;
         }
+
+        this.content.innerHTML = '';
+        const restaurants = new PanelRestaurantsComponent(this.content, info);
+        restaurants.render();
     }
 
     getContent () {
-        let url = `/restaurants?limit=${this.request.limit}&offset=${this.request.offset}`;
+        const url = this.creatorUrl.get();
 
-        if (this.request.category.length > 0) url += '&category=';
-
-        url += this.request.category.join(',');
-
-        for (const key in this.request.params) {
-            url += `&${key}=${this.request.params[key]}`;
-        }
-
-        console.log(url);
-
-        this.request.offset += this.request.limit;
-
-        mainGet()
-            .then(r => this.restaurantsDraw(r.parsedJSON, r.status))
+        restaurantsGet({ url: url })
+            .then(r => this.contentDraw(r.parsedJSON, r.status))
             .catch(r => console.log(`THis crash when post /main from ${r}`));
-
-        // mainGet()
-        //     .then(r => this.mainPageDraw(r.parsedJSON, r.status))
-        //     .catch(r => console.log(`THis crash when post /main from ${r}`));
     }
 }

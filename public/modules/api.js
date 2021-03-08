@@ -22,7 +22,11 @@ export function authGet () {
 }
 
 export function mainGet () {
-    return ajaxGet({ url: '/restaurants' });
+    return ajaxGet({ url: '/main' });
+}
+
+export function restaurantsGet ({ url = '/restaurants' }) {
+    return ajaxGet({ url: url });
 }
 
 export function storeGet () {

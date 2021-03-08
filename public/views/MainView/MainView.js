@@ -9,7 +9,6 @@ export class MainView {
     constructor (root, router) {
         this.router = router;
         this.root = root;
-        this.render = this.render.bind(this);
 
         // структура будет помогать создавать запрос серверу
         this.request = {
@@ -20,8 +19,8 @@ export class MainView {
                 // содержимое временное, потом будут храниться содержимое параметров поиска
                 time: false,
                 receipt: false,
-                rating: false,
-            },
+                rating: false
+            }
         }
     }
 
@@ -34,22 +33,27 @@ export class MainView {
         this.root.innerHTML = '';
         navbar({ auth: true }, this.root);
 
-        const category = new CategoryComponent(this.root, (category) => {
-            // вызывается когда выбираем какуе-нибудь категорию
-
-            this.request.category = category; // запоминаем
-            this.request.offset = 0;
-            this.getContent();
+        const category = new CategoryComponent({
+            root: this.root,
+            callback: (category) => {
+                // вызывается когда выбираем какуе-нибудь категорию
+                this.request.category = category; // запоминаем
+                this.request.offset = 0;
+                this.getContent();
+            }
         });
 
-        const params = new ParamsComponent(this.root, (key, value) => {
-            this.request.params[key] = value;
-            this.request.offset = 0;
+        const params = new ParamsComponent({
+            root: this.root,
+            callback: (key, value) => {
+                this.request.params[key] = value;
+                this.request.offset = 0;
 
-            this.getContent()
+                this.getContent()
+            }
         });
 
-        const filter = new FilterComponent(this.root);
+        const filter = new FilterComponent({ root: this.root });
 
         category.render();
         params.render();
@@ -67,15 +71,14 @@ export class MainView {
         restaurants.render();
     }
 
-    getContent() {
+    getContent () {
         let url = `/restaurants?limit=${this.request.limit}&offset=${this.request.offset}`;
 
-        if (this.request.category.length > 0)
-            url += '&category=';
+        if (this.request.category.length > 0) url += '&category=';
 
         url += this.request.category.join(',');
 
-        for (let key in this.request.params) {
+        for (const key in this.request.params) {
             url += `&${key}=${this.request.params[key]}`;
         }
 

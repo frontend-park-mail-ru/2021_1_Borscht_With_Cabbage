@@ -1,39 +1,14 @@
 import { renderCategory } from './CategoryTmpl.js';
-
-const category = {
-    sushi: {
-        name: 'sushi',
-        text: 'Суши',
-    },
-    pizza: {
-        name: 'pizza',
-        text: 'Пицца'
-    },
-    burgers: {
-        name: 'burgers',
-        text: 'Бургеры'
-    },
-    meat: {
-        name: 'meat',
-        text: 'Мясо'
-    },
-    fast_food: {
-        name: 'fast_food',
-        text: 'Фастфуд'
-    },
-    zosh: {
-        name: 'zosh',
-        text: 'Здоровая еда'
-    }
-}
+import { category } from './Category.constants.js'
 
 export class CategoryComponent {
-    constructor (root, categoryCallback) {
+    constructor ({
+        root = document.body,
+        callback = null
+    } = {}) {
         this.root = root;
-        this.render = this.render.bind(this);
-        this.addCategoryListeners = this.addCategoryListeners.bind(this);
 
-        this.categoryCallback = categoryCallback;
+        this.callback = callback;
         this.collectionCategory = [];
     }
 
@@ -45,28 +20,30 @@ export class CategoryComponent {
         });
         this.root.append(categoryElem);
 
-        this.addCategoryListeners(this.categoryCallback);
+        this.addCategoryListeners(this.callback);
     }
 
-    addCategoryListeners(callback) {
-        this.root.querySelector('.cuisines-panel').addEventListener('click', e => {
-            const {target} = e;
+    addCategoryListeners (callback) {
+        const cuisinesPanel = this.root.querySelector('.cuisines-panel');
+        if (!cuisinesPanel) {
+            return;
+        }
+
+        cuisinesPanel.addEventListener('click', e => {
+            const { target } = e;
 
             e.preventDefault();
-        
             // проверяе что нажали именно на кнопку
-            let currCategory = target.dataset.category;
-            if (currCategory !== undefined) {
-                let index = this.collectionCategory.indexOf(currCategory);
+            const currCategory = target.dataset.category;
+            if (currCategory) {
+                const index = this.collectionCategory.indexOf(currCategory);
 
-                if (index == -1)
-                    this.collectionCategory.push(target.dataset.category);
+                if (index === -1) this.collectionCategory.push(target.dataset.category);
 
-                else
-                    this.collectionCategory.splice(index, 1);
+                else this.collectionCategory.splice(index, 1);
 
                 callback(this.collectionCategory);
-            } 
+            }
         })
     }
 }

@@ -1,9 +1,10 @@
 import { renderFilter } from './FilterTmpl.js';
 
 export class FilterComponent {
-    constructor (root) {
+    constructor ({
+        root = document.body
+    } = {}) {
         this.root = root;
-        this.render = this.render.bind(this);
     }
 
     // TODO компонент только рисуется, надо сделать выпадающее меню, и логику отправки на сервер

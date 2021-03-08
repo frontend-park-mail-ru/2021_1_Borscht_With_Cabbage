@@ -1,10 +1,12 @@
 import { renderTopNavView } from './topNavTemplate.js';
 
-export function navbar ({ auth = false } = {}, root) {
-    const topNavBar = document.createElement('div');
-    topNavBar.innerHTML = renderTopNavView({})
-    if (auth) {
-        // TODO need to make img and profile menu (or just href)
+export class NavBar {
+    constructor (root) {
+        const topNavBar = document.createElement('div');
+        topNavBar.innerHTML = renderTopNavView({
+            isUserAuth: window.isUserAuth,
+            user: window.user
+        });
+        root.append(topNavBar);
     }
-    root.append(topNavBar);
 }

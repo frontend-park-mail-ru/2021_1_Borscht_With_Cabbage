@@ -1,3 +1,5 @@
+@import "colors.css";
+
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -6,13 +8,13 @@ body {
 
 .topnav {
     overflow: hidden;
-    background-color: #FBFFFC;
+    background-color: var(--navbar-white_color);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
 .topnav a {
     float: left;
-    color: #f2f2f2;
+    color: var(--navbar-href-white_color);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -20,12 +22,12 @@ body {
 }
 
 .topnav a:hover {
-    background-color: #ddd;
+    background-color: var(--delivery-background_color);
     color: black;
 }
 
 .topnav a.name {
-    color: #000;
+    color: black;
     font-size: 32px;
     margin-left: 8px
 }
@@ -35,12 +37,24 @@ body {
     background-image: url('map.png');
     background-position: 0px 5px;
     background-repeat: no-repeat;
-    background-color: #97B498;
-    color: #fff;
+    background-color: var(--main-green_color);
+    color: white;
     vertical-align: center;
     border: none;
     padding: 14px 40px;
     margin-top: 8px;
     margin-bottom: 4px;
     margin-right: 16px;
+}
+
+.navbar-auth_user_block {
+    float: right;
+}
+
+.navbar-username {
+    color: black;
+}
+
+.navbar-avatar {
+
 }

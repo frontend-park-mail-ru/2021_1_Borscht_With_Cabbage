@@ -1,3 +1,12 @@
+const urls = {
+    'main': '/',
+    'store': '/puk',
+    'login': '/login',
+    'signup': '/signup',
+    'basket': '/basket',
+    'profile': '/profile'
+};
+
 export class Router {
     constructor (root) {
         this.root = root;
@@ -7,11 +16,17 @@ export class Router {
     }
 
     open (page) {
+        console.log(page);
+        if (urls[page])
+            page = urls[page];
+
+        console.log(page);
+        window.history.replaceState({}, '', page);
         this.routes.get(page).render();
     }
 
     addRoute (page, handler) {
-        this.routes.set(page, handler);
+        this.routes.set(urls[page], handler);
     }
 
     catchFollowLinks (event) {

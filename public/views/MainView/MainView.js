@@ -1,13 +1,14 @@
 import { ajaxGet } from '../../modules/http.js';
-import { navbar } from '../../components/NavBar/NavBar.js';
+import { NavBar } from '../../components/NavBar/NavBar.js';
 import { CategoryComponent } from '../../components/Category/Category.js'
 import { ParamsComponent } from '../../components/Params/Params.js'
 import { FilterComponent } from '../../components/Filter/Filter.js'
 import { PanelRestaurantsComponent } from '../../components/PanelRestaurants/PanelRestaurants.js'
+import { mainGet } from '../../modules/api.js';
 
 export class MainView {
-    constructor (root, router) {
-        this.router = router;
+    constructor (root, route) {
+        this.route = route;
         this.root = root;
 
         // структура будет помогать создавать запрос серверу
@@ -25,13 +26,12 @@ export class MainView {
     }
 
     render () {
-        this.mainPageDraw();
         this.getContent();
     }
 
     mainPageDraw () {
         this.root.innerHTML = '';
-        navbar({ auth: true }, this.root);
+        this.navbar = new NavBar(this.root);
 
         const category = new CategoryComponent({
             root: this.root,
@@ -65,10 +65,15 @@ export class MainView {
         this.root.append(this.content);
     }
 
-    restaurantsDraw (info) {
-        this.content.innerHTML = '';
-        const restaurants = new PanelRestaurantsComponent(this.content, info);
-        restaurants.render();
+    restaurantsDraw (info, status) {
+        if (status === 200) {
+            this.mainPageDraw();
+            this.content.innerHTML = '';
+            const restaurants = new PanelRestaurantsComponent(this.content, info);
+            restaurants.render();
+        } else {
+            this.route('login');
+        }
     }
 
     getContent () {
@@ -86,8 +91,12 @@ export class MainView {
 
         this.request.offset += this.request.limit;
 
-        ajaxGet({ url: url })
-            .then(r => this.restaurantsDraw(r.parsedJSON))
+        mainGet()
+            .then(r => this.restaurantsDraw(r.parsedJSON, r.status))
             .catch(r => console.log(`THis crash when post /main from ${r}`));
+
+        // mainGet()
+        //     .then(r => this.mainPageDraw(r.parsedJSON, r.status))
+        //     .catch(r => console.log(`THis crash when post /main from ${r}`));
     }
 }

@@ -3,18 +3,27 @@ import { SignUpView } from './views/SignUpView/SignUpView.js';
 import { LoginView } from './views/LoginView/LoginView.js';
 import { MainView } from './views/MainView/MainView.js';
 import { StoreView } from './views/StoreView/StoreView.js';
+import { auth } from './modules/auth.js';
+import { registerPartials } from './modules/registerPartials.js';
+import { Validator } from './modules/validation.js';
 
 const application = document.getElementById('app');
 
 const router = new Router(application);
 
-const signUpView = new SignUpView(application, router);
-const loginView = new LoginView(application, router);
-const mainView = new MainView(application, router);
-const storeView = new StoreView(application, router);
+const goTo = (page) => router.open(page);
 
-router.addRoute('/login', loginView);
-router.addRoute('/signup', signUpView);
-router.addRoute('/', mainView);
-router.addRoute('/puk', storeView); // TODO correct this
+const signUpView = new SignUpView(application, goTo);
+const loginView = new LoginView(application, goTo);
+const mainView = new MainView(application, goTo);
+const storeView = new StoreView(application, goTo);
+
+auth();
+registerPartials();
+window.validator = new Validator();
+
+router.addRoute('login', loginView);
+router.addRoute('signup', signUpView);
+router.addRoute('main', mainView);
+router.addRoute('store', storeView); // TODO correct this
 router.open(window.location.pathname);

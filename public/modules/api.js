@@ -25,6 +25,10 @@ export function mainGet () {
     return ajaxGet({ url: '/main' });
 }
 
+export function restaurantsGet ({ url = '/restaurants' }) {
+    return ajaxGet({ url: url });
+}
+
 export function storeGet () {
     return ajaxGet({ url: '/store' });
 }

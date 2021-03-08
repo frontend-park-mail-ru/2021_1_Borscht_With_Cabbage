@@ -1,0 +1,26 @@
+.params-panel {
+    margin-top: 32px;
+}
+
+.params-panel__slide {
+    display: inline-block;
+    overflow: hidden;
+    min-width: 176px;
+    text-align: center;
+    padding-bottom: 8px;
+}
+
+.params-panel__slide-name {
+    color: #97B498;
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.params-panel__slide-btn {
+    background-color: #E2E2E2;
+    border-radius: 16px;
+    padding: 8px;
+    width: 80%;
+    margin: auto;
+    font-size: 16px;
+}

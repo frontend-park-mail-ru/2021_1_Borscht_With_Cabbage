@@ -20,90 +20,48 @@ const users = {
 };
 const activeUsers = {};
 
-const mainPage = {
-    category: [
-        {
-            name: 'sushi',
-            text: 'Суши'
-        },
-        {
-            name: 'pizza',
-            text: 'Пицца'
-        },
-        {
-            name: 'burgers',
-            text: 'Бургеры'
-        },
-        {
-            name: 'meat',
-            text: 'Мясо'
-        },
-        {
-            name: 'fast_food',
-            text: 'Фастфуд'
-        },
-        {
-            name: 'zosh',
-            text: 'Здоровая еда'
-        }
-    ],
-    filter: [
-        {
-            name: 'Время доставки',
-            value: 'до 180 минут'
-        },
-        {
-            name: 'Средний чек',
-            value: 'до 2000 рублей'
-        },
-        {
-            name: 'Рейтинг',
-            value: 'неважен'
-        }
-    ],
-    store: [
-        {
-            id: '1',
-            name: 'Сыто пьяно',
-            time: '60 минут',
-            description: 'можно поесть и попить',
-            rating: '5.0',
-            cost: '800'
-        },
-        {
-            id: '2',
-            name: 'Сыто пьяно',
-            time: '60 минут',
-            description: 'можно поесть и попить',
-            rating: '5.0',
-            cost: '800'
-        },
-        {
-            id: '3',
-            name: 'Сыто пьяно',
-            time: '60 минут',
-            description: 'можно поесть и попить',
-            rating: '5.0',
-            cost: '800'
-        },
-        {
-            id: '4',
-            name: 'Сыто пьяно',
-            time: '60 минут',
-            description: 'можно поесть и попить',
-            rating: '5.0',
-            cost: '800'
-        },
-        {
-            id: '5',
-            name: 'Сыто пьяно',
-            time: '60 минут',
-            description: 'можно поесть и попить',
-            rating: '5.0',
-            cost: '800'
-        }
-    ]
-}
+const store = [
+    {
+        href: '/puk',
+        name: 'Сыто пьяно',
+        time: '60 минут',
+        description: 'можно поесть и попить',
+        rating: '5.0',
+        cost: '800'
+    },
+    {
+        href: '/puk',
+        name: 'Сыто пьяно',
+        time: '60 минут',
+        description: 'можно поесть и попить',
+        rating: '5.0',
+        cost: '800'
+    },
+    {
+        href: '/puk',
+        name: 'Сыто пьяно',
+        time: '60 минут',
+        description: 'можно поесть и попить',
+        rating: '5.0',
+        cost: '800'
+    },
+    {
+        href: '/puk',
+        name: 'Сыто пьяно',
+        time: '60 минут',
+        description: 'можно поесть и попить',
+        rating: '5.0',
+        cost: '800'
+    },
+    {
+        href: '/puk',
+        name: 'Сыто пьяно',
+        time: '60 минут',
+        description: 'можно поесть и попить',
+        rating: '5.0',
+        cost: '800'
+    }
+];
 
 const storePage = {
     title: 'Сыто пьяно',
@@ -170,7 +128,17 @@ app.get('/main', function (req, res) {
         return res.status(401).json({});
     }
 
-    res.json(mainPage);
+    res.status(200).json({});
+})
+
+app.get('/restaurants', function (req, res) {
+    const id = req.cookies[COOKIE];
+    const email = activeUsers[id];
+    if (!email || !users[email]) {
+        return res.status(401).json({});
+    }
+
+    res.json(store);
 });
 
 app.get('/store', function (req, res) {

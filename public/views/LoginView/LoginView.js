@@ -85,7 +85,6 @@ export class LoginView {
             };
 
             const resolve = function (promise) {
-                console.log('3', promise);
                 if (promise.status === 200) {
                     this.route('main');
                 } else if (promise.status === 400) {

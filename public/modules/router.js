@@ -18,6 +18,7 @@ export class Router {
     open (page) {
         if (urls[page])
             page = urls[page];
+
         window.history.replaceState({}, '', page);
         this.routes.get(page).render();
     }

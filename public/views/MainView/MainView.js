@@ -11,15 +11,19 @@ export class MainView {
 
     render () {
         ajaxGet({ url: '/main' })
-            .then(r => this.mainPageDraw(r.parsedJSON))
+            .then(r => this.mainPageDraw(r.parsedJSON, r.status))
             .catch(r => console.log(`THis crash when post /main from ${r}`));
     }
 
-    mainPageDraw (info) {
-        this.root.innerHTML = '';
-        navbar({ auth: true }, this.root);
-        const main = document.createElement('div');
-        main.innerHTML = renderMainView(info);
-        this.root.append(main);
+    mainPageDraw (info, status) {
+        if (status === 200) {
+            this.root.innerHTML = '';
+            navbar(this.root);
+            const main = document.createElement('div');
+            main.innerHTML = renderMainView(info);
+            this.root.append(main);
+        } else {
+            this.router.open('/login');
+        }
     }
 }

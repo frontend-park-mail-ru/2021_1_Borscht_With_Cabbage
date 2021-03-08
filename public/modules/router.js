@@ -7,6 +7,7 @@ export class Router {
     }
 
     open (page) {
+        window.history.replaceState({}, '', page);
         this.routes.get(page).render();
     }
 

@@ -8,6 +8,7 @@ export const renderSignUpView = window.Handlebars.compile(`
     <input type="password" id="repeatPassword" class="auth-input" placeholder="Repeat password" name="repeatPassword">
     <p id="repeatPasswordError" class="error"></p>
     <input type="submit" class="button-log" value="Войти">
+    <p id="error" class="error"></p>
     <p><a class="text" href="/login">Хочу залогиниться</a></p>
 </form>
 `)

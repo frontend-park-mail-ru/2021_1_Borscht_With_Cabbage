@@ -3,6 +3,7 @@ import { navbar } from '../../components/NavBar/NavBar.js';
 import { renderLoginView } from './loginTemplate.js';
 import { renderInput } from '../../modules/rendering.js';
 import { ajaxPost } from '../../modules/http.js';
+import { auth } from '../../modules/auth.js';
 
 export class LoginView {
     constructor (root, router) {
@@ -15,7 +16,7 @@ export class LoginView {
 
     render () {
         this.root.innerHTML = '';
-        navbar({ auth: false }, this.root);
+        navbar(this.root);
 
         const login = document.createElement('div');
 
@@ -63,24 +64,27 @@ export class LoginView {
 
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
-        //
-        // let resolve = function (status, response) {
-        //     // TODO correct work
-        //     console.log('you`re login');
-        //     this.router.open('/');
-        // };
-        //
-        // let reject = function (status, response) {
-        //     // TODO correct work
-        //     const error = response;
-        //     alert(error);
-        // };
+
+        const reject = function (promise) {
+            const error = document.getElementById('error');
+            error.hidden = false;
+            error.textContent = promise.parsedJSON.result;
+        };
+
+        const resolve = function (promise) {
+            if (promise.status === 200) {
+                this.router.open('/');
+            } else if (promise.status === 400) {
+                reject(promise);
+            }
+        };
 
         ajaxPost({
             url: '/login',
             body: { email, password }
         })
-            .then(r => this.router.open('/'))
-            .catch(r => console.log(`THis crash when post /login from ${r}`));
+            .then(resolve.bind(this))
+            .then(_ => auth())
+            .catch(reject);
     }
 }

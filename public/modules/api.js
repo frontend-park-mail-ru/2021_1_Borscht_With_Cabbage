@@ -18,7 +18,6 @@ export function signupPost (email, password) {
 }
 
 export function authGet () {
-    console.log('trouble here');
     return ajaxGet({ url: '/auth' });
 }
 

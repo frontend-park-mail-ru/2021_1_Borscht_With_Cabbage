@@ -1,16 +1,15 @@
-import { ajaxGet } from '../../modules/http.js';
 import { renderMainView } from './mainTemplate.js';
-import { navbar } from '../../components/NavBar/NavBar.js';
+import { NavBar } from '../../components/NavBar/NavBar.js';
+import { mainGet } from '../../modules/api.js';
 
 export class MainView {
-    constructor (root, router) {
-        this.router = router;
+    constructor (root, route) {
+        this.route = route;
         this.root = root;
-        this.render = this.render.bind(this);
     }
 
     render () {
-        ajaxGet({ url: '/main' })
+       mainGet()
             .then(r => this.mainPageDraw(r.parsedJSON, r.status))
             .catch(r => console.log(`THis crash when post /main from ${r}`));
     }
@@ -18,12 +17,12 @@ export class MainView {
     mainPageDraw (info, status) {
         if (status === 200) {
             this.root.innerHTML = '';
-            navbar(this.root);
+            this.navbar = new NavBar(this.root);
             const main = document.createElement('div');
             main.innerHTML = renderMainView(info);
             this.root.append(main);
         } else {
-            this.router.open('/login');
+            this.route('login');
         }
     }
 }

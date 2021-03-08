@@ -1,4 +1,4 @@
-import { ajaxGet } from './http.js';
+import { authGet } from './api.js';
 
 // user = {
 //     email: '',
@@ -15,6 +15,12 @@ const resolve = function (promise) {
 }
 
 export function auth () {
-    ajaxGet({ url: '/auth' })
+    authGet()
         .then(resolve);
+}
+
+export function authPromise (promise) {
+    return authGet()
+        .then(resolve)
+        .then(_ => promise);
 }

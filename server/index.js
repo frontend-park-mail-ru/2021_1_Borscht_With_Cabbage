@@ -159,7 +159,6 @@ app.all('*', (req, res) => {
 });
 
 const port = process.env.PORT || 3000;
-console.log("hi main")
 
 app.listen(port, function () {
     console.log(`Server listening port ${port}`);

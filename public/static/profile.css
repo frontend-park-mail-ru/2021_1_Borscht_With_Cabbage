@@ -1,3 +1,7 @@
+:root {
+    --link-hover: #97B498;
+}
+
 #profile-container {
     margin: 25px;
     display: flex;
@@ -57,4 +61,8 @@
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
+}
+
+.profile-link :hover {
+    color: var(--link-hover);
 }

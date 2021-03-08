@@ -13,7 +13,7 @@ const signUpView = new SignUpView(application, router);
 const loginView = new LoginView(application, router);
 const mainView = new MainView(application, router);
 const storeView = new StoreView(application, router);
-const profileView = new ProfileView(application, router)
+const profileView = new ProfileView(application, router);
 
 router.addRoute('/login', loginView);
 router.addRoute('/signup', signUpView);

@@ -6,6 +6,12 @@ const path = require('path');
 
 const app = express();
 
+const user = {
+    name: "Oleg",
+    email: "oleg@mail.ru",
+    number: "88005553535"
+}
+
 const mainPage = {
     category: [
         {
@@ -136,6 +142,10 @@ app.get('/store', function (req, res) {
     res.json(storePage);
 });
 
+app.get('/userProfile', function (req, res) {
+    res.json(user);
+});
+
 app.post('/login', function (req, res) {
     res.json({});
     // TODO
@@ -149,6 +159,7 @@ app.all('*', (req, res) => {
 });
 
 const port = process.env.PORT || 3000;
+console.log("hi main")
 
 app.listen(port, function () {
     console.log(`Server listening port ${port}`);

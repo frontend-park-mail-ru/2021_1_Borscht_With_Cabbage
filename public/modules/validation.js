@@ -38,6 +38,28 @@ export class Validator {
         return { result: true };
     }
 
+    validateName () {
+        const username = document.getElementById('name').value;
+        if (username.length === 0) {
+            return {
+                result: false,
+                text: 'Имя не может быть пустым'
+            };
+        }
+        return { result: true };
+    }
+
+    validateNumber () {
+        const number = document.getElementById('number').value;
+        if (number.length === 0) {
+            return {
+                result: false,
+                text: 'Номер не может быть пустым'
+            };
+        }
+        return { result: true };
+    }
+
     validateEqualPassword () {
         const password = document.getElementById('password').value;
         const repeatPassword = document.getElementById('repeatPassword').value;

@@ -1,0 +1,21 @@
+.filter-panel {
+    display: flex;
+    flex-direction: row;
+    margin-left: 40px;
+}
+
+.filter-panel__info {
+    background: rgba(98, 0, 238, 0.04);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    width: 200px;
+    text-align: center;
+    font-size: 20px;
+    padding: 8px 0px;
+}
+
+.filter-panel__text {
+    font-size: 24px;
+    padding: 8px 0px;
+    margin-right: 24px;
+}

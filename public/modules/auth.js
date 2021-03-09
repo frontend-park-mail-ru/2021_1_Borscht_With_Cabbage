@@ -1,20 +1,21 @@
-import { ajaxGet } from './http.js';
+import { authGet } from './api.js';
 
 // user = {
 //     email: '',
 //     avatar: ''
 // }
 
-const resolve = function (promise) {
+export const saveUser = function (promise) {
     window.isUserAuth = false;
 
     if (promise.status === 200) {
         window.user = promise.parsedJSON;
         window.isUserAuth = true;
     }
+    return promise;
 }
 
 export function auth () {
-    ajaxGet({ url: '/auth' })
-        .then(resolve);
+    authGet()
+        .then(saveUser);
 }

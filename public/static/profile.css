@@ -1,7 +1,3 @@
-:root {
-    --link-hover: #97B498;
-}
-
 #profile-container {
     margin: 25px;
     display: flex;
@@ -63,6 +59,6 @@
     box-sizing: border-box;
 }
 
-.profile-link :hover {
-    color: var(--link-hover);
+.profile-link:hover {
+    color: var(--profile-link-hover_color);
 }

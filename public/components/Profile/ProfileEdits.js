@@ -1,17 +1,16 @@
-import {renderProfileEdits} from "./ProfileEditsTmpl.js";
-import {renderInput} from "../../modules/rendering.js";
-import {ajaxPut} from "../../modules/http.js";
+import { renderProfileEdits } from './ProfileEditsTmpl.js';
+import { renderInput } from '../../modules/rendering.js';
+import { ajaxPut } from '../../modules/http.js';
 
 export class ProfileEdits {
     constructor (validator, router, user) {
         this.user = user
         this.validator = validator;
         this.router = router;
-        this.render = this.render.bind(this);
     }
 
     render () {
-        const profilePlace = document.getElementById("profile-main_block")
+        const profilePlace = document.getElementById('profile-main_block')
         profilePlace.innerHTML = renderProfileEdits(this.user);
 
         this.addErrorListeners();

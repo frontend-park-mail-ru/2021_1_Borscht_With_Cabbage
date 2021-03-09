@@ -26,90 +26,49 @@ const user = {
     number: "88005553535"
 }
 
-const mainPage = {
-    category: [
-        {
-            name: 'sushi',
-            text: 'Суши'
-        },
-        {
-            name: 'pizza',
-            text: 'Пицца'
-        },
-        {
-            name: 'burgers',
-            text: 'Бургеры'
-        },
-        {
-            name: 'meat',
-            text: 'Мясо'
-        },
-        {
-            name: 'fast_food',
-            text: 'Фастфуд'
-        },
-        {
-            name: 'zosh',
-            text: 'Здоровая еда'
-        }
-    ],
-    filter: [
-        {
-            name: 'Время доставки',
-            value: 'до 180 минут'
-        },
-        {
-            name: 'Средний чек',
-            value: 'до 2000 рублей'
-        },
-        {
-            name: 'Рейтинг',
-            value: 'неважен'
-        }
-    ],
-    store: [
-        {
-            id: '1',
-            name: 'Сыто пьяно',
-            time: '60 минут',
-            description: 'можно поесть и попить',
-            rating: '5.0',
-            cost: '800'
-        },
-        {
-            id: '2',
-            name: 'Сыто пьяно',
-            time: '60 минут',
-            description: 'можно поесть и попить',
-            rating: '5.0',
-            cost: '800'
-        },
-        {
-            id: '3',
-            name: 'Сыто пьяно',
-            time: '60 минут',
-            description: 'можно поесть и попить',
-            rating: '5.0',
-            cost: '800'
-        },
-        {
-            id: '4',
-            name: 'Сыто пьяно',
-            time: '60 минут',
-            description: 'можно поесть и попить',
-            rating: '5.0',
-            cost: '800'
-        },
-        {
-            id: '5',
-            name: 'Сыто пьяно',
-            time: '60 минут',
-            description: 'можно поесть и попить',
-            rating: '5.0',
-            cost: '800'
-        }
-    ]
-}
+const store = [
+    {
+        href: '/puk',
+        name: 'Сыто пьяно',
+        time: '60 минут',
+        description: 'можно поесть и попить',
+        rating: '5.0',
+        cost: '800'
+    },
+    {
+        href: '/puk',
+        name: 'Сыто пьяно',
+        time: '60 минут',
+        description: 'можно поесть и попить',
+        rating: '5.0',
+        cost: '800'
+    },
+    {
+        href: '/puk',
+        name: 'Сыто пьяно',
+        time: '60 минут',
+        description: 'можно поесть и попить',
+        rating: '5.0',
+        cost: '800'
+    },
+    {
+        href: '/puk',
+        name: 'Сыто пьяно',
+        time: '60 минут',
+        description: 'можно поесть и попить',
+        rating: '5.0',
+        cost: '800'
+    },
+    {
+        href: '/puk',
+        name: 'Сыто пьяно',
+        time: '60 минут',
+        description: 'можно поесть и попить',
+        rating: '5.0',
+        cost: '800'
+    }
+];
+
 
 const storePage = {
     title: 'Сыто пьяно',
@@ -176,7 +135,17 @@ app.get('/main', function (req, res) {
         return res.status(401).json({});
     }
 
-    res.json(mainPage);
+    res.status(200).json({});
+})
+
+app.get('/restaurants', function (req, res) {
+    const id = req.cookies[COOKIE];
+    const email = activeUsers[id];
+    if (!email || !users[email]) {
+        return res.status(401).json({});
+    }
+
+    res.json(store);
 });
 
 app.get('/store', function (req, res) {
@@ -189,11 +158,12 @@ app.get('/store', function (req, res) {
     res.json(storePage);
 });
 
+
 app.get('/userProfile', function (req, res) {
     res.json(user);
 });
 
-app.post('/login', function (req, res) {
+app.post('/signin', function (req, res) {
     const email = req.body.email;
     const pass = req.body.password;
 
@@ -202,7 +172,7 @@ app.post('/login', function (req, res) {
             const id = uuid.v4();
             activeUsers[id] = email;
             res.cookie(COOKIE, id);
-            return res.status(200).json({});
+            return res.status(200).json({ email: email, avatar: 'veryNicePic.png' });
         }
     }
 
@@ -223,7 +193,7 @@ app.post('/signup', function (req, res) {
     const id = uuid.v4();
     activeUsers[id] = email;
     res.cookie(COOKIE, id);
-    return res.status(200).json({});
+    return res.status(200).json({ email: email, avatar: 'veryNicePic.png' });
 });
 
 app.all('*', (req, res) => {
@@ -235,3 +205,5 @@ const port = process.env.PORT || 3000;
 app.listen(port, function () {
     console.log(`Server listening port ${port}`);
 });
+
+

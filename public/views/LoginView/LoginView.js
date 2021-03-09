@@ -1,22 +1,17 @@
-import { Validator } from '../../modules/validation.js';
-import { navbar } from '../../components/NavBar/NavBar.js';
+import { NavBar } from '../../components/NavBar/NavBar.js';
 import { renderLoginView } from './loginTemplate.js';
 import { renderInput } from '../../modules/rendering.js';
-import { ajaxPost } from '../../modules/http.js';
-import { auth } from '../../modules/auth.js';
+import { loginPost } from '../../modules/api.js';
 
 export class LoginView {
-    constructor (root, router) {
-        this.router = router;
+    constructor (root, route) {
+        this.route = route;
         this.root = root;
-        this.validator = new Validator();
-        this.render = this.render.bind(this);
-        this.formSubmit = this.formSubmit.bind(this);
     }
 
     render () {
         this.root.innerHTML = '';
-        navbar(this.root);
+        this.navbar = new NavBar(this.root);
 
         const login = document.createElement('div');
 
@@ -28,22 +23,26 @@ export class LoginView {
 
     addErrorListeners () {
         const emailID = 'email';
-        document.getElementById(emailID).addEventListener('focusout',
-            function () {
-                renderInput(emailID, this.validator.validateEmail())
-            }.bind(this)
-        );
+        const email = document.getElementById(emailID);
+        if (email) {
+            email.addEventListener('focusout',
+                () => renderInput(emailID, window.validator.validateEmail(email.value))
+            );
+        }
 
         const passwordID = 'password';
-        document.getElementById(passwordID).addEventListener('focusout',
-            function () {
-                renderInput(passwordID, this.validator.validatePassword())
-            }.bind(this)
-        );
+        const password = document.getElementById(passwordID);
+        if (password) {
+            password.addEventListener('focusout',
+                () => renderInput(passwordID, window.validator.validatePassword(password.value))
+            );
+        }
 
         const formID = 'auth-form';
         const form = document.getElementById(formID);
-        form.addEventListener('submit', this.formSubmit);
+        if (form) {
+            form.addEventListener('submit', this.formSubmit.bind(this));
+        }
     }
 
     formSubmit (event) {
@@ -54,37 +53,48 @@ export class LoginView {
     }
 
     updateErrorsState () {
-        return this.validator.validateEmail().result *
-            this.validator.validatePassword().result;
+        const emailID = 'email';
+        let emailError = false;
+        const email = document.getElementById(emailID);
+        if (email) {
+            emailError = window.validator.validateEmail(email.value).result;
+        }
+
+        const passwordID = 'password';
+        let passwordError = false;
+        const password = document.getElementById(passwordID);
+        if (password) {
+            passwordError = window.validator.validatePassword(password.value).result;
+        }
+
+        return emailError * passwordError;
     }
 
     loginRequest () {
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
 
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
+        if (emailInput && passwordInput) {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
 
-        const reject = function (promise) {
-            const error = document.getElementById('error');
-            error.hidden = false;
-            error.textContent = promise.parsedJSON.result;
-        };
+            const reject = function (promise) {
+                const error = document.getElementById('serverError');
+                error.hidden = false;
+                error.textContent = promise.parsedJSON.result;
+            };
 
-        const resolve = function (promise) {
-            if (promise.status === 200) {
-                this.router.open('/');
-            } else if (promise.status === 400) {
-                reject(promise);
-            }
-        };
+            const resolve = function (promise) {
+                if (promise.status === 200) {
+                    this.route('main');
+                } else if (promise.status === 400) {
+                    reject(promise);
+                }
+            };
 
-        ajaxPost({
-            url: '/login',
-            body: { email, password }
-        })
-            .then(resolve.bind(this))
-            .then(_ => auth())
-            .catch(reject);
+            loginPost(email, password)
+                .then(resolve.bind(this))
+                .catch(reject);
+        }
     }
 }

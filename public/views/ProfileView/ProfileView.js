@@ -1,15 +1,14 @@
-import {Validator} from "../../modules/validation.js";
-import {navbar} from "../../components/NavBar/NavBar.js";
+import { Validator } from '../../modules/validation.js';
+import { navbar } from '../../components/NavBar/NavBar.js';
 import { renderProfileView } from './profileTemplate.js'
-import {ajaxGet} from "../../modules/http.js";
-import {ProfileEdits} from "../../components/Profile/ProfileEdits.js";
+import { ajaxGet } from '../../modules/http.js';
+import { ProfileEdits } from '../../components/Profile/ProfileEdits.js';
 
 export class ProfileView {
     constructor(root, router) {
         this.router = router;
         this.root = root;
         this.validator = new Validator();
-        this.render = this.render.bind(this);
     }
 
     render() {

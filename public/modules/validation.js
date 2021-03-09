@@ -38,9 +38,8 @@ export class Validator {
         }
         return { result: true };
     }
-    
-    validateName () {
-        const username = document.getElementById('name').value;
+
+    validateName (username) {
         if (username.length === 0) {
             return {
                 result: false,
@@ -50,8 +49,7 @@ export class Validator {
         return { result: true };
     }
 
-    validateNumber () {
-        const number = document.getElementById('number').value;
+    validateNumber (number) {
         if (number.length === 0) {
             return {
                 result: false,

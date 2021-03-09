@@ -3,9 +3,8 @@ import { renderInput } from '../../modules/rendering.js';
 import { ajaxPut } from '../../modules/http.js';
 
 export class ProfileEdits {
-    constructor (validator, router, user) {
+    constructor (router, user) {
         this.user = user
-        this.validator = validator;
         this.router = router;
     }
 
@@ -31,8 +30,28 @@ export class ProfileEdits {
     }
 
     updateErrorsState () {
-        return this.validator.validateEmail().result *
-            this.validator.validatePassword().result;
+        const emailID = 'email';
+        let emailError = false;
+        const email = document.getElementById(emailID);
+        if (email) {
+            emailError = window.validator.validateEmail(email.value).result;
+        }
+
+        const nameID = 'name';
+        let nameError = false;
+        const name = document.getElementById(nameID);
+        if (name) {
+            nameError = window.validator.validateName(name.value).result;
+        }
+
+        const numberID = 'number';
+        let  numberError = false;
+        const number = document.getElementById(numberID);
+        if (number) {
+            numberError = window.validator.validateName(number.value).result;
+        }
+
+        return emailError * nameError * numberError;
     }
 
     saveRequest () {
@@ -54,24 +73,27 @@ export class ProfileEdits {
 
     addErrorListeners () {
         const emailID = 'email';
-        document.getElementById(emailID).addEventListener('focusout',
-            function () {
-                renderInput(emailID, this.validator.validateEmail())
-            }.bind(this)
-        );
+        const email = document.getElementById(emailID);
+        if (email) {
+            email.addEventListener('focusout',
+                () => renderInput(emailID, window.validator.validateEmail(email.value))
+            );
+        }
 
         const nameID = 'name';
-        document.getElementById(nameID).addEventListener('focusout',
-            function () {
-                renderInput(nameID, this.validator.validateName())
-            }.bind(this)
-        );
+        const name = document.getElementById(nameID);
+        if (name) {
+            name.addEventListener('focusout',
+                () => renderInput(nameID, window.validator.validateName(name.value))
+            );
+        }
 
         const numberID = 'number';
-        document.getElementById(numberID).addEventListener('focusout',
-            function () {
-                renderInput(numberID, this.validator.validateNumber())
-            }.bind(this)
-        );
+        const number = document.getElementById(numberID);
+        if (number) {
+            number.addEventListener('focusout',
+                () => renderInput(numberID, window.validator.validateName(number.value))
+            );
+        }
     }
 }

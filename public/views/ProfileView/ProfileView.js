@@ -1,5 +1,4 @@
-import { Validator } from '../../modules/validation.js';
-import { navbar } from '../../components/NavBar/NavBar.js';
+import { NavBar } from '../../components/NavBar/NavBar.js';
 import { renderProfileView } from './profileTemplate.js'
 import { ajaxGet } from '../../modules/http.js';
 import { ProfileEdits } from '../../components/Profile/ProfileEdits.js';
@@ -8,7 +7,6 @@ export class ProfileView {
     constructor(root, router) {
         this.router = router;
         this.root = root;
-        this.validator = new Validator();
     }
 
     render() {
@@ -19,7 +17,7 @@ export class ProfileView {
 
     userDraw(data) {
         this.root.innerHTML = '';
-        navbar({auth: false}, this.root);
+        this.navbar = new NavBar(this.root);
 
         const profile = document.createElement('div');
         profile.innerHTML = renderProfileView(this); // создаем правое меню
@@ -27,7 +25,7 @@ export class ProfileView {
 
 
         // добавляем поля профиля и его изменения
-        const edits = new ProfileEdits(this.validator, this.router, data);
+        const edits = new ProfileEdits(this.router, data);
         edits.render()
     }
 }

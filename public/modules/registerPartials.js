@@ -1,7 +1,7 @@
 function registerNavBarComponents () {
     window.Handlebars.registerPartial('authBlock', `
         <a class="navbar-auth_user_block" href="/user">
-            <img src="{{this.avatar}}" class="navbar-avatar" alt="ava">
+            <img src="http://127.0.0.1:5000/avatar" class="navbar-avatar" alt="ava">
             <div class="navbar-username">
                 {{this.name}}
             </div>

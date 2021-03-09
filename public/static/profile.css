@@ -62,3 +62,8 @@
 .profile-link:hover {
     color: var(--profile-link-hover_color);
 }
+
+.profile-avatar {
+    width: 250px;
+    height: 250px;
+}

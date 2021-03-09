@@ -58,14 +58,28 @@ export class ProfileEdits {
         const emailInput = document.getElementById('email');
         const nameInput = document.getElementById('name');
         const numberInput = document.getElementById('number');
+        const avatarInput = document.getElementById('avatar');
 
         const email = emailInput.value.trim()
         const name = nameInput.value.trim()
         const number = numberInput.value.trim()
 
+        const form = document.getElementById('profile-form-userdata')
+        const formData = new FormData(form)
+
+        console.log(formData)
+
+        formData.append("email", email)
+        formData.append("name", name)
+        formData.append("number", number)
+
+        console.log(formData)
+
+        formData.append("avatar", avatarInput.files[0])
+
         ajaxPut({
             url: '/user',
-            body: { email, number, name }
+            body: formData
         })
             .then(r => this.router('/user'))
             .catch(r => console.log('Error in data saving ', r));

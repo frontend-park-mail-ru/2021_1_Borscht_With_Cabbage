@@ -75,7 +75,7 @@ export class LoginView {
         const passwordInput = document.getElementById('password');
 
         if (loginInput && passwordInput) {
-            const email = loginInput.value.trim();
+            const login = loginInput.value.trim();
             const password = passwordInput.value.trim();
 
             const reject = function (promise) {
@@ -92,7 +92,7 @@ export class LoginView {
                 }
             };
 
-            loginPost(email, password)
+            loginPost(login, password)
                 .then(resolve.bind(this))
                 .catch(reject);
         }

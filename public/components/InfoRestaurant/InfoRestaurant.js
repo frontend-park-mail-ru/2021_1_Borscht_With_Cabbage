@@ -1,5 +1,5 @@
 window.Handlebars.registerHelper('infoRestaurant', function ({
-    href,
+    id,
     name,
     time,
     description,
@@ -7,7 +7,7 @@ window.Handlebars.registerHelper('infoRestaurant', function ({
     cost
 }) {
     return `
-        <a href="${href}" class="content__header">
+        <a href="/${id}" class="content__header">
             <span class="content__header-name">${name}</span>
             <span class="content__header-time">${time}</span>
         </span>

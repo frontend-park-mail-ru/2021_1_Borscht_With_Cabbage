@@ -16,6 +16,6 @@ export const saveUser = function (promise) {
 }
 
 export function auth () {
-    authGet()
+    return authGet()
         .then(saveUser);
 }

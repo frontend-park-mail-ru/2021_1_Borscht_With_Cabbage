@@ -4,14 +4,14 @@ import { saveUser } from './auth.js';
 /**
  * Send server post-request to user login and save email and avatar if status 200 ok
  *
- * @param {string} email
+ * @param {string} login
  * @param {string} password
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function loginPost (email, password) {
+export function loginPost (login, password) {
     return ajaxPost({
         url: '/signin',
-        body: { email, password }
+        body: { login, password }
     })
         .then(saveUser);
 }
@@ -53,7 +53,7 @@ export function authGet () {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function mainGet () {
-    return ajaxGet({ url: '/main' });
+    return ajaxGet({ url: '/' });
 }
 
 /**
@@ -70,6 +70,6 @@ export function restaurantsGet ({ url = '/restaurants' }) {
  *
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function storeGet () {
-    return ajaxGet({ url: '/store' });
+export function storeGet (url) {
+    return ajaxGet({ url: url });
 }

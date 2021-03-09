@@ -8,8 +8,8 @@ export class StoreView {
         this.root = root;
     }
 
-    render () {
-        storeGet()
+    render (url) {
+        storeGet(url)
             .then(r => this.storePageDraw(r.parsedJSON, r.status))
             .catch(r => console.log(`THis crash when post /store from ${r}`));
     }

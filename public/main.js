@@ -18,7 +18,6 @@ const loginView = new LoginView(application, goTo);
 const mainView = new MainView(application, goTo);
 const storeView = new StoreView(application, goTo);
 
-auth();
 registerPartials();
 window.validator = new Validator();
 
@@ -26,4 +25,7 @@ router.addRoute('login', loginView);
 router.addRoute('signup', signUpView);
 router.addRoute('main', mainView);
 router.addRoute('store', storeView); // TODO correct this
-router.open(window.location.pathname);
+
+auth()
+    .then(_ => router.open(window.location.pathname))
+    .catch(_ => router.open(window.location.pathname));

@@ -3,7 +3,7 @@ function registerNavBarComponents () {
         <a class="navbar-auth_user_block" href="/profile">
             <img src="{{this.avatar}}" class="navbar-avatar" alt="ava">
             <div class="navbar-username">
-                {{this.email}}
+                {{this.name}}
             </div>
         </a>
     `);

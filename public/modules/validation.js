@@ -51,4 +51,17 @@ export class Validator {
         }
         return { result: true };
     }
+
+    validateLogin (login) {
+        if (login === '') {
+            return blankResult;
+        }
+        if (!emailRegExpression.test(login) /*&& !phoneRegExpression.test(login)*/) {
+            return {
+                result: false,
+                text: 'Введите почту или телефон'
+            };
+        }
+        return { result: true };
+    }
 }

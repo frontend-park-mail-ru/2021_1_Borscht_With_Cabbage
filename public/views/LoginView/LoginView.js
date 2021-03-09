@@ -22,11 +22,11 @@ export class LoginView {
     }
 
     addErrorListeners () {
-        const emailID = 'email';
-        const email = document.getElementById(emailID);
-        if (email) {
-            email.addEventListener('focusout',
-                () => renderInput(emailID, window.validator.validateEmail(email.value))
+        const loginID = 'login';
+        const login = document.getElementById(loginID);
+        if (login) {
+            login.addEventListener('focusout',
+                () => renderInput(loginID, window.validator.validateLogin(login.value))
             );
         }
 
@@ -53,11 +53,11 @@ export class LoginView {
     }
 
     updateErrorsState () {
-        const emailID = 'email';
-        let emailError = false;
-        const email = document.getElementById(emailID);
-        if (email) {
-            emailError = window.validator.validateEmail(email.value).result;
+        const loginID = 'login';
+        let loginError = false;
+        const login = document.getElementById(loginID);
+        if (login) {
+            loginError = window.validator.validateEmail(login.value).result;
         }
 
         const passwordID = 'password';
@@ -67,15 +67,15 @@ export class LoginView {
             passwordError = window.validator.validatePassword(password.value).result;
         }
 
-        return emailError * passwordError;
+        return loginError * passwordError;
     }
 
     loginRequest () {
-        const emailInput = document.getElementById('email');
+        const loginInput = document.getElementById('login');
         const passwordInput = document.getElementById('password');
 
-        if (emailInput && passwordInput) {
-            const email = emailInput.value.trim();
+        if (loginInput && passwordInput) {
+            const email = loginInput.value.trim();
             const password = passwordInput.value.trim();
 
             const reject = function (promise) {

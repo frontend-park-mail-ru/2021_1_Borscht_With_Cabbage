@@ -74,6 +74,20 @@ export class SignUpView {
             emailError = window.validator.validateEmail(email.value).result;
         }
 
+        // const nameID = 'name';
+        // let nameError = false;
+        // const name = document.getElementById(nameID);
+        // if (name) {
+        //     nameError = window.validator.validate          .result;
+        // }
+
+        // const phoneID = 'phone';
+        // let phoneError = false;
+        // const phone = document.getElementById(phoneID);
+        // if (phone) {
+        //     phoneError = window.validator.validate          .result;
+        // }
+
         const passwordID = 'password';
         let passwordError = false;
         const password = document.getElementById(passwordID);
@@ -88,16 +102,20 @@ export class SignUpView {
             repeatPasswordError = window.validator.validateEqualPassword(password.value, repeatPassword.value).result;
         }
 
-        return emailError * passwordError * repeatPasswordError;
+        return emailError * passwordError * repeatPasswordError/* * nameError * phoneError */;
     }
 
     signupRequest () {
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
+        const nameInput = document.getElementById('name');
+        const phoneInput = document.getElementById('phone');
 
         if (emailInput && passwordInput) {
             const email = emailInput.value.trim();
             const password = passwordInput.value.trim();
+            const name = nameInput.value.trim();
+            const phone = phoneInput.value.trim();
 
             const reject = function (promise) {
                 const error = document.getElementById('serverError');
@@ -113,7 +131,7 @@ export class SignUpView {
                 }
             };
 
-            signupPost(email, password)
+            signupPost(email, password, name, phone)
                 .then(resolve.bind(this))
                 .catch(reject);
         }

@@ -20,6 +20,12 @@ const users = {
 };
 const activeUsers = {};
 
+const user = {
+    name: "Oleg",
+    email: "oleg@mail.ru",
+    number: "88005553535"
+}
+
 const store = [
     {
         href: '/puk',
@@ -62,6 +68,7 @@ const store = [
         cost: '800'
     }
 ];
+
 
 const storePage = {
     title: 'Сыто пьяно',
@@ -151,6 +158,11 @@ app.get('/store', function (req, res) {
     res.json(storePage);
 });
 
+
+app.get('/userProfile', function (req, res) {
+    res.json(user);
+});
+
 app.post('/signin', function (req, res) {
     const email = req.body.email;
     const pass = req.body.password;
@@ -193,3 +205,5 @@ const port = process.env.PORT || 3000;
 app.listen(port, function () {
     console.log(`Server listening port ${port}`);
 });
+
+

@@ -39,6 +39,26 @@ export class Validator {
         return { result: true };
     }
 
+    validateName (username) {
+        if (username.length === 0) {
+            return {
+                result: false,
+                text: 'Имя не может быть пустым'
+            };
+        }
+        return { result: true };
+    }
+
+    validateNumber (number) {
+        if (number.length === 0) {
+            return {
+                result: false,
+                text: 'Номер не может быть пустым'
+            };
+        }
+        return { result: true };
+    }
+
     validateEqualPassword (password, repeatPassword) {
         if (repeatPassword === '') {
             return blankResult;

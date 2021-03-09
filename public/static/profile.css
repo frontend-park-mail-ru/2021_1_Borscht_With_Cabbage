@@ -58,3 +58,7 @@
     margin: 8px 0;
     box-sizing: border-box;
 }
+
+.profile-link:hover {
+    color: var(--profile-link-hover_color);
+}

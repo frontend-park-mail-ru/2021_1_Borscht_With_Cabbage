@@ -50,10 +50,10 @@ export async function ajaxPut ({
         mode: 'cors',
         method: 'PUT',
         credentials: 'include',
-        body: JSON.stringify(body),
+        body: body,
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json'
+            'Content-Type': 'multipart/form-data'
         }
     });
     const parsedJSON = await response.json();

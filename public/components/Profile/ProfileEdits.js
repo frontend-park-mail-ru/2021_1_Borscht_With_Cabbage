@@ -55,27 +55,13 @@ export class ProfileEdits {
     }
 
     saveRequest () {
-        const emailInput = document.getElementById('email');
-        const nameInput = document.getElementById('name');
-        const numberInput = document.getElementById('number');
-        const avatarInput = document.getElementById('avatar');
+        const form = document.getElementById('profile-form-userdata');
+        const formData = new FormData(form);
 
-        const email = emailInput.value.trim()
-        const name = nameInput.value.trim()
-        const number = numberInput.value.trim()
-
-        const form = document.getElementById('profile-form-userdata')
-        const formData = new FormData(form)
-
-        console.log(formData)
-
-        formData.append("email", email)
-        formData.append("name", name)
-        formData.append("number", number)
-
-        console.log(formData)
-
-        formData.append("avatar", avatarInput.files[0])
+        var data = {};
+        formData.forEach(function(value, key){
+            data[key] = value;
+        });
 
         ajaxPut({
             url: '/user',

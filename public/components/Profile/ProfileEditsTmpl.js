@@ -8,7 +8,7 @@ export const renderProfileEdits = window.Handlebars.compile(`
     <input type="text" id="name" class="edit-input" placeholder="Имя" name="name" value={{ name }}>
     <p id="nameError" class="error"></p>
     <img src="http://127.0.0.1:5000/avatar" class="profile-avatar" alt="ava">
-    <input type="file" id="avatar" name="file" accept="image/*"><br><br>
+    <input type="file" id="avatar" name="avatar" accept="image/*"><br><br>
     <input type="submit" class="button-log" value="Изменить данные"/>
 </form>
 `)

@@ -4,35 +4,42 @@ import { saveUser } from './auth.js';
 /**
  * Send server post-request to user login and save email and avatar if status 200 ok
  *
- * @param {string} email
+ * @param {string} login
  * @param {string} password
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function loginPost (email, password) {
+export function loginPost (login, password) {
     return ajaxPost({
         url: '/signin',
-        body: { email, password }
+        body: { login, password }
     })
         .then(saveUser);
 }
 
 /**
- * Send server post-request to user register and save email and avatar if status 200 ok
+ * Send server post-request to user register and save username and avatar if status 200 ok
  *
  * @param {string} email
  * @param {string} password
+ * @param {string} name
+ * @param {string} phone
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function signupPost (email, password) {
+export function signupPost (email, password, name, phone) {
     return ajaxPost({
         url: '/signup',
-        body: { email, password }
+        body: {
+            email,
+            password,
+            name,
+            phone
+        }
     })
         .then(saveUser);
 }
 
 /**
- * Send server get-request to check if user auth and get data about him (email and avatar)
+ * Send server get-request to check if user auth and get data about him (username and avatar)
  *
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
@@ -46,7 +53,7 @@ export function authGet () {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function mainGet () {
-    return ajaxGet({ url: '/main' });
+    return ajaxGet({ url: '/' });
 }
 
 /**
@@ -63,6 +70,6 @@ export function restaurantsGet ({ url = '/restaurants' }) {
  *
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function storeGet () {
-    return ajaxGet({ url: '/store' });
+export function storeGet (url) {
+    return ajaxGet({ url: url });
 }

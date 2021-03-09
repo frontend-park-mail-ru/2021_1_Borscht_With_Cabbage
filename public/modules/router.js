@@ -1,11 +1,13 @@
 const urls = {
     main: '/',
-    store: '/puk',
+    store: '/restaurant',
     login: '/signin',
     signup: '/signup',
     basket: '/basket',
     profile: '/profile'
 };
+
+const regStore = /([0-9]{1,30})/;
 
 export class Router {
     constructor (root) {
@@ -20,8 +22,16 @@ export class Router {
             page = urls[page];
         }
 
+        // TODO correct
+        //  это костыль для отображения динамически формируемых страниц ресторана
+        let realPage;
+        if (regStore.test(page)) {
+            realPage = page;
+            page = urls['store'];
+        }
+
         window.history.replaceState({}, '', page);
-        this.routes.get(page).render();
+        this.routes.get(page).render(realPage);
     }
 
     addRoute (page, handler) {

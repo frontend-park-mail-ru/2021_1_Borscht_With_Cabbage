@@ -20,7 +20,6 @@ const mainView = new MainView(application, goTo);
 const storeView = new StoreView(application, goTo);
 const profileView = new ProfileView(application, goTo);
 
-auth();
 registerPartials();
 window.validator = new Validator();
 
@@ -30,4 +29,6 @@ router.addRoute('/user', profileView)
 router.addRoute('main', mainView);
 router.addRoute('store', storeView); // TODO correct this
 
-router.open(window.location.pathname);
+auth()
+    .then(_ => router.open(window.location.pathname))
+    .catch(_ => router.open(window.location.pathname));

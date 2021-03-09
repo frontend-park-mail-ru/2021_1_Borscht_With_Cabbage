@@ -4,18 +4,18 @@ import { ajaxGet } from '../../modules/http.js';
 import { ProfileEdits } from '../../components/Profile/ProfileEdits.js';
 
 export class ProfileView {
-    constructor(root, router) {
+    constructor (root, router) {
         this.router = router;
         this.root = root;
     }
 
-    render() {
-        ajaxGet({url: '/userProfile'})// нужно узнать данные пользователя перед тем как отображать страничку
+    render () {
+        ajaxGet({ url: '/user' })// нужно узнать данные пользователя перед тем как отображать страничку
             .then(r => this.userDraw(r.parsedJSON))
             .catch(r => console.log(`THis crash when post /store from ${r}`));
     };
 
-    userDraw(data) {
+    userDraw (data) {
         this.root.innerHTML = '';
         this.navbar = new NavBar(this.root);
 

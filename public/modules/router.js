@@ -4,7 +4,7 @@ const urls = {
     login: '/signin',
     signup: '/signup',
     basket: '/basket',
-    profile: '/profile'
+    profile: '/user'
 };
 
 const regStore = /([0-9]{1,30})/;

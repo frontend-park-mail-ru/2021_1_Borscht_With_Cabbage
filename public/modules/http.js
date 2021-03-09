@@ -43,14 +43,16 @@ export async function ajaxPost ({
 }
 
 export async function ajaxPut ({
-                                    url = '/',
-                                    body = null
-                                } = {}) {
-    const response = await fetch(url, {
+    url = '/',
+    body = null
+} = {}) {
+    const response = await fetch( serverAddress + url, {
+        mode: 'cors',
         method: 'PUT',
         credentials: 'include',
         body: JSON.stringify(body),
         headers: {
+            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json'
         }
     });

@@ -16,10 +16,10 @@ export class ProfileEdits {
         this.addSubmitListener();
     }
 
-    addSubmitListener() {
+    addSubmitListener () {
         const formID = 'profile-form-userdata';
         const form = document.getElementById(formID);
-        form.addEventListener('submit', this.formSubmit);
+        form.addEventListener('submit', this.formSubmit.bind(this));
     }
 
     formSubmit (event) {
@@ -45,7 +45,7 @@ export class ProfileEdits {
         }
 
         const numberID = 'number';
-        let  numberError = false;
+        let numberError = false;
         const number = document.getElementById(numberID);
         if (number) {
             numberError = window.validator.validateName(number.value).result;
@@ -67,8 +67,8 @@ export class ProfileEdits {
             url: '/user',
             body: { email, number, name }
         })
-            .then(r => this.router.open('/user'))
-            .catch(r => console.log('Error in data saving'));
+            .then(r => this.router('/user'))
+            .catch(r => console.log('Error in data saving ', r));
     }
 
     addErrorListeners () {

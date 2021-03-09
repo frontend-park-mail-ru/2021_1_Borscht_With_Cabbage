@@ -25,7 +25,7 @@ window.validator = new Validator();
 
 router.addRoute('login', loginView);
 router.addRoute('signup', signUpView);
-router.addRoute('/user', profileView)
+router.addRoute('profile', profileView)
 router.addRoute('main', mainView);
 router.addRoute('store', storeView); // TODO correct this
 

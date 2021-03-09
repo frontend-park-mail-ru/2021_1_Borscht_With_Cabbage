@@ -34,7 +34,7 @@ export class StoreView {
             .addEventListener('click', () => this.route('basket'));
 
         const buttons = document.getElementsByClassName('button-add');
-        const foodList = Object.entries(this.info.food);
+        const foodList = Object.entries(this.info.foods);
         const basketList = document.getElementById('store-basket-food_list');
         const totalSum = document.getElementById('store-basket-total');
         Array
@@ -44,17 +44,17 @@ export class StoreView {
                     const buttonID = button.id.substring(button.id.indexOf('-id') + 3);
                     foodList
                         .forEach(food => {
-                            const foodObj = food['1'];
-                            if (foodObj.id === buttonID) {
+                            const foodObj = food[1];
+                            if (String(foodObj.id) === buttonID) {
                                 const chosenFood = window.Handlebars
-                                    .compile('{{> storeBasketElement food}}')({
-                                        food: foodObj
+                                    .compile('{{> storeBasketElement chosenFood}}')({
+                                        chosenFood: foodObj
                                     });
                                 const div = document.createElement('div');
                                 div.innerHTML = chosenFood;
                                 basketList.append(div);
                                 totalSum.textContent = String(Number(totalSum.textContent) +
-                                    Number(foodObj.cost));
+                                    Number(foodObj.price));
                             }
                         });
                 });

@@ -13,11 +13,11 @@ function registerStoreComponents () {
     window.Handlebars.registerPartial('foodComponent', `
         <li class="content__slide" id="store-food-id{{this.id}}">
             <span class="content__header content__header-name">{{this.name}}</span>
-            <img class="content__image" src="{{this.img}}" alt="{{this.img}}">
+            <img class="content__image" src="{{this.image}}" alt="{{this.image}}">
             <span class="content__descript">
                 {{this.description}}
             </span>
-            <span class="content__info content__receipt">Цена: {{this.cost}} рублей</span>
+            <span class="content__info content__receipt">Цена: {{this.price}} рублей</span>
             <button id="store-food_list-add-id{{this.id}}" class="button-log button-add">Добавить</button>
         </li>
     `);
@@ -29,7 +29,7 @@ function registerStoreComponents () {
     window.Handlebars.registerPartial('foodList', `
         <div class="content">
             <ul class="content__slider">
-                {{#each food}}
+                {{#each foods}}
                     {{> foodComponent this }}
                 {{/each}}
             </ul>
@@ -48,7 +48,7 @@ function registerStoreComponents () {
 
     window.Handlebars.registerPartial('storeBasketElement', `
         <li>
-            {{this.name}} -- {{this.cost}} рублей
+            {{this.name}} -- {{this.price}} рублей
         </li>
     `);
 }

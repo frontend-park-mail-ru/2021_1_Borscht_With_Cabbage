@@ -1,6 +1,5 @@
 const emailRegExpression = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
 const passwordRegExpression = /^([A-Za-z0-9_\-.]{6,30})$/;
-const usernameRegExpression = /^([A-Za-z0-9_\-.]{6,30})$/;
 
 const blankResult = {
     result: false,

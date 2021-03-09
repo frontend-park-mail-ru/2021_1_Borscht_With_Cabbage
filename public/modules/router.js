@@ -1,10 +1,10 @@
 const urls = {
-    'main': '/',
-    'store': '/puk',
-    'login': '/login',
-    'signup': '/signup',
-    'basket': '/basket',
-    'profile': '/profile'
+    main: '/',
+    store: '/puk',
+    login: '/signin',
+    signup: '/signup',
+    basket: '/basket',
+    profile: '/profile'
 };
 
 export class Router {
@@ -16,8 +16,9 @@ export class Router {
     }
 
     open (page) {
-        if (urls[page])
+        if (urls[page]) {
             page = urls[page];
+        }
 
         window.history.replaceState({}, '', page);
         this.routes.get(page).render();

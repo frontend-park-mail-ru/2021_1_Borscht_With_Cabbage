@@ -5,22 +5,17 @@ import { authGet } from './api.js';
 //     avatar: ''
 // }
 
-const resolve = function (promise) {
+export const saveUser = function (promise) {
     window.isUserAuth = false;
 
     if (promise.status === 200) {
         window.user = promise.parsedJSON;
         window.isUserAuth = true;
     }
+    return promise;
 }
 
 export function auth () {
     authGet()
-        .then(resolve);
-}
-
-export function authPromise (promise) {
-    return authGet()
-        .then(resolve)
-        .then(_ => promise);
+        .then(saveUser);
 }

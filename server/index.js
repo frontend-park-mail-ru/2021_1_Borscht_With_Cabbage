@@ -151,7 +151,7 @@ app.get('/store', function (req, res) {
     res.json(storePage);
 });
 
-app.post('/login', function (req, res) {
+app.post('/signin', function (req, res) {
     const email = req.body.email;
     const pass = req.body.password;
 
@@ -160,7 +160,7 @@ app.post('/login', function (req, res) {
             const id = uuid.v4();
             activeUsers[id] = email;
             res.cookie(COOKIE, id);
-            return res.status(200).json({});
+            return res.status(200).json({ email: email, avatar: 'veryNicePic.png' });
         }
     }
 
@@ -181,7 +181,7 @@ app.post('/signup', function (req, res) {
     const id = uuid.v4();
     activeUsers[id] = email;
     res.cookie(COOKIE, id);
-    return res.status(200).json({});
+    return res.status(200).json({ email: email, avatar: 'veryNicePic.png' });
 });
 
 app.all('*', (req, res) => {

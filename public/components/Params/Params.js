@@ -24,9 +24,9 @@ export class ParamsComponent {
 
     // TODO компонент только рисуется, вся логика не к первому рк
     // при нажатии стоит заглушка
-    addParamsListeners (callback) {
+    addParamsListeners (err, callback) {
         const paramsPanel = this.root.querySelector('.params-panel');
-        if (!paramsPanel) {
+        if (!paramsPanel || err) {
             return;
         }
 
@@ -39,7 +39,7 @@ export class ParamsComponent {
             // TODO выбор из предложенных параметров
             const currParams = target.dataset.params;
             if (currParams) {
-                callback ({
+                callback(null, {
                     params: currParams,
                     value: true
                 });

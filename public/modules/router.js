@@ -17,10 +17,8 @@ export class Router {
     }
 
     open (page) {
-        console.log('init', page)
         if (urls[page]) {
             page = urls[page];
-            console.log('known', page)
         }
 
         // TODO correct
@@ -29,15 +27,13 @@ export class Router {
         if (/([0-9]{1,30})/.test(page)) {
             realPage = page;
             page = urls.store;
-            console.log('restaurant', page, realPage)
         }
 
         if ((/\/signin/.test(page) || /\/signup/.test(page)) && window.isUserAuth) {
-            console.log('auth X2')
             this.open(urls.main);
             return;
         }
-        console.log('render', page, realPage)
+
         this.routes.get(page).render(realPage);
     }
 

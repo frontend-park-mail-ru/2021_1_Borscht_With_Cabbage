@@ -61,10 +61,12 @@ export class ProfileEdits {
         document.getElementById('email').value = info.email;
         document.getElementById('name').value = info.name;
         document.getElementById('number').value = info.number;
-        document.getElementById('current_ava').src = info.avatar;
-        document.getElementById('avatar').src = info.avatar;
+        if (info.avatar) {
+            document.getElementById('avatar').src = info.avatar;
+            document.getElementById('current_ava').src = info.avatar;
+            window.user.avatar = info.avatar;
+        }
         document.getElementById('navbar-username').textContent = info.name;
-        window.user.avatar = info.avatar;
         window.user.name = info.name;
     }
 

@@ -57,7 +57,7 @@ export class LoginView {
         let loginError = false;
         const login = document.getElementById(loginID);
         if (login) {
-            loginError = window.validator.validateEmail(login.value).result;
+            loginError = window.validator.validateLogin(login.value).result;
         }
 
         const passwordID = 'password';

@@ -4,10 +4,9 @@ const urls = {
     login: '/signin',
     signup: '/signup',
     basket: '/basket',
-    profile: '/user'
+    profile: '/user',
+    logout: '/logout'
 };
-
-const regStore = /([0-9]{1,30})/;
 
 export class Router {
     constructor (root) {
@@ -18,19 +17,27 @@ export class Router {
     }
 
     open (page) {
+        console.log('init', page)
         if (urls[page]) {
             page = urls[page];
+            console.log('known', page)
         }
 
         // TODO correct
         //  это костыль для отображения динамически формируемых страниц ресторана
         let realPage;
-        if (regStore.test(page)) {
+        if (/([0-9]{1,30})/.test(page)) {
             realPage = page;
-            page = urls['store'];
+            page = urls.store;
+            console.log('restaurant', page, realPage)
         }
 
-        window.history.replaceState({}, '', page);
+        if ((/\/signin/.test(page) || /\/signup/.test(page)) && window.isUserAuth) {
+            console.log('auth X2')
+            this.open(urls.main);
+            return;
+        }
+        console.log('render', page, realPage)
         this.routes.get(page).render(realPage);
     }
 

@@ -7,6 +7,7 @@ import { ProfileView } from './views/ProfileView/ProfileView.js';
 import { auth } from './modules/auth.js';
 import { registerPartials } from './modules/registerPartials.js';
 import { Validator } from './modules/validation.js';
+import { Logout } from './components/Logout/Logout.js';
 
 const application = document.getElementById('app');
 
@@ -19,6 +20,7 @@ const loginView = new LoginView(application, goTo);
 const mainView = new MainView(application, goTo);
 const storeView = new StoreView(application, goTo);
 const profileView = new ProfileView(application, goTo);
+const logout = new Logout(application, goTo);
 
 registerPartials();
 window.validator = new Validator();
@@ -27,7 +29,8 @@ router.addRoute('login', loginView);
 router.addRoute('signup', signUpView);
 router.addRoute('profile', profileView)
 router.addRoute('main', mainView);
-router.addRoute('store', storeView); // TODO correct this
+router.addRoute('store', storeView);
+router.addRoute('logout', logout);
 
 auth()
     .then(_ => router.open(window.location.pathname))

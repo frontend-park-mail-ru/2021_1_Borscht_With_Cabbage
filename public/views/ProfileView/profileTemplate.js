@@ -7,7 +7,7 @@ export const renderProfileView = window.Handlebars.compile(`
         <p class="profile-link"><a href="/edit">Данные пользователя</a></p>
         <p class="profile-link"><a href="/orders">Активные заказы</a></p>
         <p class="profile-link"><a href="/chats">Чаты</a></p>
-        <p class="profile-link"><a href="/logout">Выйти</a></p>
+        <p class="profile-link" id="logout"><a href="/logout">Выйти</a></p>
     </div>
 </div>
 `)

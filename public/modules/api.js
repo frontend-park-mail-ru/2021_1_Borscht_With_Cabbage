@@ -1,4 +1,4 @@
-import { ajaxGet, ajaxPost } from './http.js';
+import { ajaxGet, ajaxPost, ajaxPut } from './http.js';
 import { saveUser } from './auth.js';
 
 /**
@@ -72,4 +72,25 @@ export function restaurantsGet ({ url = '/restaurants' }) {
  */
 export function storeGet (url) {
     return ajaxGet({ url: url });
+}
+
+/**
+ * Send server get-request to get page with user
+ *
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+export function userGet () {
+    return ajaxGet({ url: '/user' });
+}
+
+/**
+ * Send server put-request with formData to put info about user
+ *
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+export function userPut (data) {
+    return ajaxPut({
+        url: '/user',
+        body: data
+    });
 }

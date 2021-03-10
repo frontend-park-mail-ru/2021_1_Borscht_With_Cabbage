@@ -7,6 +7,13 @@ function registerNavBarComponents () {
             </div>
         </a>
     `);
+    window.Handlebars.registerPartial('notAuthBlock', `
+        <a class="navbar-auth_user_block" href="/signin">
+            <div class="navbar-signin">
+                signin
+            </div>
+        </a>
+    `);
 }
 
 function registerStoreComponents () {

@@ -1,5 +1,6 @@
 const emailRegExpression = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
 const passwordRegExpression = /^([A-Za-z0-9_\-.]{6,30})$/;
+const phoneRegExpression = /^[0-9\-+]{9,15}$/;
 
 const blankResult = {
     result: false,
@@ -40,20 +41,20 @@ export class Validator {
     }
 
     validateName (username) {
-        if (username.length === 0) {
-            return {
-                result: false,
-                text: 'Имя не может быть пустым'
-            };
+        if (username === '') {
+            return blankResult;
         }
         return { result: true };
     }
 
-    validateNumber (number) {
-        if (number.length === 0) {
+    validatePhone (number) {
+        if (number === '') {
+            return blankResult;
+        }
+        if (!phoneRegExpression.test(number)) {
             return {
                 result: false,
-                text: 'Номер не может быть пустым'
+                text: 'Введите настоящий номер телефона'
             };
         }
         return { result: true };
@@ -76,7 +77,7 @@ export class Validator {
         if (login === '') {
             return blankResult;
         }
-        if (!emailRegExpression.test(login) /*&& !phoneRegExpression.test(login)*/) {
+        if (!emailRegExpression.test(login) && !phoneRegExpression.test(login)) {
             return {
                 result: false,
                 text: 'Введите почту или телефон'

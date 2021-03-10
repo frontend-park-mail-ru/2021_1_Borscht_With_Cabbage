@@ -1,6 +1,6 @@
 import { renderProfileEdits } from './ProfileEditsTmpl.js';
 import { renderInput } from '../../modules/rendering.js';
-import { ajaxPut } from '../../modules/http.js';
+import { userPut } from '../../modules/api.js';
 
 export class ProfileEdits {
     constructor (router, user) {
@@ -58,15 +58,12 @@ export class ProfileEdits {
         const form = document.getElementById('profile-form-userdata');
         const formData = new FormData(form);
 
-        var data = {};
-        formData.forEach(function(value, key){
+        const data = {};
+        formData.forEach(function (value, key) {
             data[key] = value;
         });
 
-        ajaxPut({
-            url: '/user',
-            body: formData
-        })
+        userPut(formData)
             .then(r => this.router('/user'))
             .catch(r => console.log('Error in data saving ', r));
     }
@@ -92,7 +89,7 @@ export class ProfileEdits {
         const number = document.getElementById(numberID);
         if (number) {
             number.addEventListener('focusout',
-                () => renderInput(numberID, window.validator.validateName(number.value))
+                () => renderInput(numberID, window.validator.validatePhone(number.value))
             );
         }
     }

@@ -30,6 +30,22 @@ export class SignUpView {
             );
         }
 
+        const nameID = 'name';
+        const name = document.getElementById(nameID);
+        if (name) {
+            name.addEventListener('focusout',
+                () => renderInput(nameID, window.validator.validateName(name.value))
+            );
+        }
+
+        const phoneID = 'phone';
+        const phone = document.getElementById(phoneID);
+        if (phone) {
+            phone.addEventListener('focusout',
+                () => renderInput(phoneID, window.validator.validatePhone(phone.value))
+            );
+        }
+
         const passwordID = 'password';
         const password = document.getElementById(passwordID);
         if (password) {
@@ -74,19 +90,19 @@ export class SignUpView {
             emailError = window.validator.validateEmail(email.value).result;
         }
 
-        // const nameID = 'name';
-        // let nameError = false;
-        // const name = document.getElementById(nameID);
-        // if (name) {
-        //     nameError = window.validator.validate          .result;
-        // }
+        const nameID = 'name';
+        let nameError = false;
+        const name = document.getElementById(nameID);
+        if (name) {
+            nameError = window.validator.validateName(name).result;
+        }
 
-        // const phoneID = 'phone';
-        // let phoneError = false;
-        // const phone = document.getElementById(phoneID);
-        // if (phone) {
-        //     phoneError = window.validator.validate          .result;
-        // }
+        const phoneID = 'phone';
+        let phoneError = false;
+        const phone = document.getElementById(phoneID);
+        if (phone) {
+            phoneError = window.validator.validatePhone(phone.value).result;
+        }
 
         const passwordID = 'password';
         let passwordError = false;
@@ -102,7 +118,7 @@ export class SignUpView {
             repeatPasswordError = window.validator.validateEqualPassword(password.value, repeatPassword.value).result;
         }
 
-        return emailError * passwordError * repeatPasswordError/* * nameError * phoneError */;
+        return emailError * passwordError * repeatPasswordError * nameError * phoneError;
     }
 
     signupRequest () {

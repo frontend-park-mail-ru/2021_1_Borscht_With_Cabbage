@@ -46,14 +46,13 @@ export async function ajaxPut ({
     url = '/',
     body = null
 } = {}) {
-    const response = await fetch( serverAddress + url, {
+    const response = await fetch(serverAddress + url, {
         mode: 'cors',
         method: 'PUT',
         credentials: 'include',
         body: body,
         headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'multipart/form-data'
+            'Access-Control-Allow-Origin': '*'
         }
     });
     const parsedJSON = await response.json();

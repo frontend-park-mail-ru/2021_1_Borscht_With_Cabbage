@@ -13,6 +13,6 @@ export const renderSignUpView = window.Handlebars.compile(`
     <p id="repeatPasswordError" class="error"></p>
     <input type="submit" class="button-log" value="Войти">
     <p id="serverError" class="error"></p>
-    <p><a class="text" href="/login">Хочу залогиниться</a></p>
+    <p><a class="text" href="/signin">Хочу залогиниться</a></p>
 </form>
 `)

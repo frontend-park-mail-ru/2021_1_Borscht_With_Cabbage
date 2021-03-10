@@ -12,7 +12,7 @@ export class FilterComponent {
     render () {
         const filterElem = document.createElement('div');
 
-        filterElem.innerHTML = renderFilter();
+        filterElem.innerHTML = renderFilter({});
         this.root.append(filterElem);
     }
 }

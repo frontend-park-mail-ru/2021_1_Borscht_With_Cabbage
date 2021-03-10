@@ -1,7 +1,7 @@
 import { authGet } from './api.js';
 
 // user = {
-//     email: '',
+//     name: '',
 //     avatar: ''
 // }
 
@@ -13,6 +13,11 @@ export const saveUser = function (promise) {
         window.isUserAuth = true;
     }
     return promise;
+}
+
+export const deleteUser = function () {
+    window.isUserAuth = false;
+    window.user = {};
 }
 
 export function auth () {

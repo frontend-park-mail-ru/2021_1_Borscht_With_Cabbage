@@ -70,7 +70,9 @@ export class MainView {
         }
 
         this.content.innerHTML = '';
-        const restaurants = new PanelRestaurantsComponent(this.content, info);
+        const restaurants = new PanelRestaurantsComponent(this.content, info, (idRestaurant) => {
+            this.route('/' + idRestaurant);
+        });
         restaurants.render();
     }
 

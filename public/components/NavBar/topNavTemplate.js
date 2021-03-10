@@ -10,7 +10,7 @@ export const renderTopNavView = window.Handlebars.compile(`
 
 export const renderAuthBlock = window.Handlebars.compile(`
         <a class="navbar-auth_user_block" href="/user">
-            <img src="{{serverUrl}}/avatar" class="navbar-avatar" alt="ava">
+            <img src="{{ user.avatar }}" class="navbar-avatar" alt="ava">
             <div class="navbar-username">
                 {{user.name}}
             </div>

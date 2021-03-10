@@ -10,8 +10,6 @@ export class MainView {
     constructor (root, route) {
         this.route = route;
         this.root = root;
-
-        this.creatorUrl = new CreatorUrl();
     }
 
     render () {
@@ -33,6 +31,8 @@ export class MainView {
     headerDraw () {
         this.root.innerHTML = '';
         this.navbar = new NavBar(this.root);
+
+        this.creatorUrl = new CreatorUrl();
 
         const category = new CategoryComponent({
             root: this.root,

@@ -63,7 +63,9 @@ export class ProfileEdits {
         document.getElementById('number').value = info.number;
         document.getElementById('current_ava').src = info.avatar;
         document.getElementById('avatar').src = info.avatar;
+        document.getElementById('navbar-username').textContent = info.name;
         window.user.avatar = info.avatar;
+        window.user.name = info.name;
     }
 
     saveRequest () {

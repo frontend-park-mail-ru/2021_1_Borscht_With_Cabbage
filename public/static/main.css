@@ -1,0 +1,7 @@
+@import "topnav.css";
+@import "auth.css";
+@import "main_page.css";
+@import "profile.css";
+@import "basket.css";
+@import "store.css";
+@import "../components/InfoRestaurant/InfoRestaurant.css";

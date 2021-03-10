@@ -1,0 +1,14 @@
+.cuisines-panel__slide {
+    display: inline-block;
+    overflow: hidden;
+    margin-left: 8px;
+    background-color:#F2F2F2;
+    padding: 8px;
+    min-width: 160px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+a.cuisines-panel__slide-btn {
+    font-size: 24px;
+}

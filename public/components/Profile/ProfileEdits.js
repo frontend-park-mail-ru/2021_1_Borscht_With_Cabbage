@@ -57,6 +57,15 @@ export class ProfileEdits {
         return emailError * nameError * numberError;
     }
 
+    updateInputs (info) {
+        document.getElementById('email').value = info.email;
+        document.getElementById('name').value = info.name;
+        document.getElementById('number').value = info.number;
+        document.getElementById('current_ava').src = info.avatar;
+        document.getElementById('avatar').src = info.avatar;
+        window.user.avatar = info.avatar;
+    }
+
     saveRequest () {
         const form = document.getElementById('profile-form-userdata');
         const formData = new FormData(form);
@@ -67,7 +76,7 @@ export class ProfileEdits {
         });
 
         userPut(formData)
-            .then(r => this.router('profile'))
+            .then(r => this.updateInputs(r.parsedJSON))
             .catch(r => console.log('Error in data saving ', r));
     }
 

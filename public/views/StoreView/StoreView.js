@@ -1,4 +1,10 @@
-import { renderStoreView } from './storeTemplate.js';
+import {
+    renderFoodElement, renderFoodList,
+    renderStoreBasket,
+    renderStoreBasketFood,
+    renderStoreTitle,
+    renderStoreView
+} from './storeTemplate.js';
 import { NavBar } from '../../components/NavBar/NavBar.js';
 import { storeGet } from '../../modules/api.js';
 
@@ -19,9 +25,19 @@ export class StoreView {
             this.root.innerHTML = '';
             this.navbar = new NavBar(this.root);
             const main = document.createElement('div');
-            main.innerHTML = renderStoreView(info);
+            main.innerHTML = renderStoreView({});
             this.root.append(main);
             this.info = info;
+            document.getElementById('store-title').innerHTML = renderStoreTitle(info.title);
+            document.getElementById('store-basket').innerHTML = renderStoreBasket({});
+            document.getElementById('food-list').innerHTML = renderFoodList({});
+            const foodList = document.getElementById('food-list');
+            for (let i in info.foods) {
+                console.log(info.foods[i])
+                const foodElement = document.createElement('div');
+                foodElement.innerHTML = renderFoodElement(info.foods[i]);
+                foodList.append(foodElement);
+            }
 
             this.addEventListeners();
         } else {
@@ -46,10 +62,10 @@ export class StoreView {
                         .forEach(food => {
                             const foodObj = food[1];
                             if (String(foodObj.id) === buttonID) {
-                                const chosenFood = window.Handlebars
-                                    .compile('{{> storeBasketElement chosenFood}}')({
-                                        chosenFood: foodObj
+                                const chosenFood = renderStoreBasketFood({
+                                        chosenDish: foodObj
                                     });
+                                console.log(foodObj)
                                 const div = document.createElement('div');
                                 div.innerHTML = chosenFood;
                                 basketList.append(div);

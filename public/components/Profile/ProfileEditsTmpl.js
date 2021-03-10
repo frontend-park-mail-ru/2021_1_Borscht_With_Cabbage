@@ -7,7 +7,7 @@ export const renderProfileEdits = window.Handlebars.compile(`
     <p id="emailError" class="error"></p>
     <input type="text" id="name" class="edit-input" placeholder="Имя" name="name" value={{ user.name }}>
     <p id="nameError" class="error"></p>
-    <img src="{{ user.avatar }}" class="profile-avatar" alt="ava"/>
+    <img src="{{ user.avatar }}" class="profile-avatar" alt="ava" id="current_ava"/>
     <input type="file" id="avatar" name="avatar" accept="image/*"><br/><br/>
     <input type="submit" class="button-log" value="Изменить данные">
     <p id="totalError" class="error"></p>

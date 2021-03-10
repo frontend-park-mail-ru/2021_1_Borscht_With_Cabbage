@@ -1,16 +1,18 @@
 import { deleteUser } from '../../modules/auth.js';
+import { logoutGet } from '../../modules/api.js';
 
 export class Logout {
     constructor (root, route) {
         this.route = route;
         this.root = root;
+        this.render = this.render.bind(this);
     }
 
     render () {
         deleteUser();
-        const url = window.location.pathname;
-        if (/\/user/.test(url) || /\/basket/.test(url)) {
-            this.route('main');
-        }
+
+        logoutGet()
+            .then(_ => this.route('main'))
+            .catch(r => console.log(`error /logout ${r}`))
     }
 }

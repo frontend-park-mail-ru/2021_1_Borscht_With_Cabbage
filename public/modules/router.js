@@ -34,6 +34,7 @@ export class Router {
             return;
         }
 
+        window.history.replaceState({}, '', page);
         this.routes.get(page).render(realPage);
     }
 

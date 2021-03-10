@@ -1,21 +1,3 @@
-function registerNavBarComponents () {
-    window.Handlebars.registerPartial('authBlock', `
-        <a class="navbar-auth_user_block" href="/user">
-            <img src="{{serverUrl}}/avatar" class="navbar-avatar" alt="ava">
-            <div class="navbar-username">
-                {{user.name}}
-            </div>
-        </a>
-    `);
-    window.Handlebars.registerPartial('notAuthBlock', `
-        <a class="navbar-auth_user_block" href="/signin">
-            <div class="navbar-signin">
-                signin
-            </div>
-        </a>
-    `);
-}
-
 function registerStoreComponents () {
     window.Handlebars.registerPartial('foodComponent', `
         <li class="content__slide" id="store-food-id{{this.id}}">
@@ -61,6 +43,5 @@ function registerStoreComponents () {
 }
 
 export function registerPartials () {
-    registerNavBarComponents();
     registerStoreComponents();
 }

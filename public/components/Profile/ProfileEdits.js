@@ -67,7 +67,7 @@ export class ProfileEdits {
         });
 
         userPut(formData)
-            .then(r => this.router('/user'))
+            .then(r => this.router('profile'))
             .catch(r => console.log('Error in data saving ', r));
     }
 

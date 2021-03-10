@@ -94,3 +94,7 @@ export function userPut (data) {
         body: data
     });
 }
+
+export function logoutGet () {
+    return ajaxGet({ url: '/logout' });
+}

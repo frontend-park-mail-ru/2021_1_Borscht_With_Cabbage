@@ -10,7 +10,10 @@ export class ProfileEdits {
 
     render () {
         const profilePlace = document.getElementById('profile-main_block')
-        profilePlace.innerHTML = renderProfileEdits(this.user);
+        profilePlace.innerHTML = renderProfileEdits({
+            user: this.user,
+            serverUrl: serverAddress
+        });
 
         this.addErrorListeners();
         this.addSubmitListener();

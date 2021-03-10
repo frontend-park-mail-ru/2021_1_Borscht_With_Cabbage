@@ -5,7 +5,8 @@ export class NavBar {
         const topNavBar = document.createElement('div');
         topNavBar.innerHTML = renderTopNavView({
             isUserAuth: window.isUserAuth,
-            user: window.user
+            user: window.user,
+            serverUrl: window.serverAddress
         });
         root.append(topNavBar);
     }

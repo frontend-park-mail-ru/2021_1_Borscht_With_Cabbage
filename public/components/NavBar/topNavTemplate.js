@@ -4,7 +4,7 @@ export const renderTopNavView = window.Handlebars.compile(`
 
     <a href="/basket" style="float: right; margin-right: 16px"><img src="static/cart.png" width="32" height="32" alt="Корзина"></a>
     {{#if isUserAuth}}
-        {{> authBlock user }}
+        {{> authBlock this }}
     {{else}}
         {{> notAuthBlock }}
     {{/if}}

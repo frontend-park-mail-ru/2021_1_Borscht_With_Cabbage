@@ -1,9 +1,9 @@
-const serverAddress = 'http://89.208.197.150:5000';
+window.serverAddress = 'http://89.208.197.150:5000';
 
 export async function ajaxGet ({
     url = '/'
 } = {}) {
-    const response = await fetch(serverAddress + url, {
+    const response = await fetch(window.serverAddress + url, {
         mode: 'cors',
         method: 'GET',
         credentials: 'include',
@@ -24,7 +24,7 @@ export async function ajaxPost ({
     url = '/',
     body = null
 } = {}) {
-    const response = await fetch(serverAddress + url, {
+    const response = await fetch(window.serverAddress + url, {
         mode: 'cors',
         method: 'POST',
         credentials: 'include',
@@ -46,7 +46,7 @@ export async function ajaxPut ({
     url = '/',
     body = null
 } = {}) {
-    const response = await fetch(serverAddress + url, {
+    const response = await fetch(window.serverAddress + url, {
         mode: 'cors',
         method: 'PUT',
         credentials: 'include',

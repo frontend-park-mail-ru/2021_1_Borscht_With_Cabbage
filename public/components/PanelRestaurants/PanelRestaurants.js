@@ -22,7 +22,6 @@ export class PanelRestaurantsComponent {
         if (!restaurantPanel) {
             return;
         }
-        console.log('add listener');
 
         restaurantPanel.addEventListener('click', e => {
             const { target } = e;

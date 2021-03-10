@@ -43,14 +43,16 @@ export class Router {
     }
 
     catchFollowLinks (event) {
-        if (event.target instanceof HTMLAnchorElement) {
+        if (event.target.closest('a') instanceof HTMLAnchorElement) {
             event.preventDefault();
-            const link = event.target.pathname;
+            const link = event.target.closest('a').pathname;
             this.open(link);
         }
 
         if (event.target instanceof HTMLButtonElement) {
             event.preventDefault();
         }
+
+        return;
     }
 }

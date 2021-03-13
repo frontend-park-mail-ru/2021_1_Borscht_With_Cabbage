@@ -1,5 +1,4 @@
 const emailRegExpression = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
-const passwordRegExpression = /^([A-Za-z0-9_\-.]{6,30})$/;
 const phoneRegExpression = /^[0-9\-+]{9,15}$/;
 
 const blankResult = {
@@ -29,12 +28,6 @@ export class Validator {
             return {
                 result: false,
                 text: 'Ваш пароль должен быть от 6 до 30 символов'
-            };
-        }
-        if (!passwordRegExpression.test(password)) {
-            return {
-                result: false,
-                text: 'Ваш пароль должен состоять из латинских символов, чисел или знаков "-", "_", "."'
             };
         }
         return { result: true };

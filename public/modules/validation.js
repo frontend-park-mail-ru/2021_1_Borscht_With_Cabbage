@@ -15,7 +15,7 @@ export class Validator {
         if (!emailRegExpression.test(email)) {
             return {
                 result: false,
-                text: 'Пожалуйста, введите настоящий адрес электронной почты'
+                text: 'Введите настоящий адрес электронной почты'
             };
         }
         return { result: true };

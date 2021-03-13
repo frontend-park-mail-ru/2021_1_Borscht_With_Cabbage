@@ -9,7 +9,7 @@ export class StoreBasketFood {
 
     render (food) {
         this.root.innerHTML += renderStoreBasketFood({
-           chosenDish: food
+            chosenDish: food
         });
     }
 }

@@ -13,8 +13,22 @@
     box-sizing: border-box;
 }
 
-.error {
+input {
+    font-size: 16px;
+    padding: 10px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+input:focus {
+    outline: none;
+}
 
+.error {
+    margin-top: -5px;
+    opacity: 1;
+    font-size: 12px;
 }
 
 .button-log {
@@ -25,4 +39,22 @@
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
+}
+
+.auth__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #97B498;
+    min-height: 100vh;
+    height: auto;
+}
+
+.auth__container__deep {
+    left: 0;
+    top: 0;
+    border-radius: 60px;
+    box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.5);
+    padding: 60px;
+    background: #F1F1F1;
 }

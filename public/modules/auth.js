@@ -12,7 +12,7 @@ export const saveUser = function (promise) {
         window.user = promise.parsedJSON;
         window.isUserAuth = true;
     }
-    console.log(window.user)
+
     return promise;
 }
 

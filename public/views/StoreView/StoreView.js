@@ -1,16 +1,13 @@
-import {
-    renderFoodElement, renderFoodList,
-    renderStoreBasket,
-    renderStoreBasketFood,
-    renderStoreTitle,
-    renderStoreView
-} from './storeTemplate.js';
+import { renderStoreView } from './storeTemplate.js';
 import { NavBar } from '../../components/NavBar/NavBar.js';
 import { storeGet } from '../../modules/api.js';
+import { StoreTitle } from '../../components/StoreTitle/StoreTitle.js';
+import { StoreFoodList } from '../../components/StoreFoodList/StoreFoodList.js';
+import { StoreBasket } from '../../components/StoreBasket/StoreBasket.js';
 
 export class StoreView {
-    constructor (root, route) {
-        this.route = route;
+    constructor (root, goTo) {
+        this.goTo = goTo;
         this.root = root;
     }
 
@@ -29,52 +26,27 @@ export class StoreView {
             const main = document.createElement('div');
             main.innerHTML = renderStoreView({});
             this.root.append(main);
-            this.info = info;
-            document.getElementById('store-title').innerHTML = renderStoreTitle(info.title);
-            document.getElementById('store-basket').innerHTML = renderStoreBasket({});
-            document.getElementById('food-list').innerHTML = renderFoodList({});
-            const foodList = document.getElementById('food-list');
-            if (info.foods) {
-                for (const food of info.foods) {
-                    foodList.innerHTML += renderFoodElement(food);
-                }
-            }
 
-            this.addEventListeners();
-        } else {
-            this.route('login');
-        }
-    }
-
-    addEventListeners () {
-        document.getElementById('store-basket-order')
-            .addEventListener('click', () => this.route('basket'));
-
-        const buttons = document.getElementsByClassName('button-add');
-        const foodList = Object.entries(this.info.foods);
-        const basketList = document.getElementById('store-basket-food_list');
-        const totalSum = document.getElementById('store-basket-total');
-        Array
-            .from(buttons)
-            .forEach(function (button) {
-                button.addEventListener('click', function () {
-                    const buttonID = button.id.substring(button.id.indexOf('-id') + 3);
-                    foodList
-                        .forEach(food => {
-                            const foodObj = food[1];
-                            if (String(foodObj.id) === buttonID) {
-                                const chosenFood = renderStoreBasketFood({
-                                    chosenDish: foodObj
-                                });
-                                console.log(foodObj)
-                                const div = document.createElement('div');
-                                div.innerHTML = chosenFood;
-                                basketList.append(div);
-                                totalSum.textContent = String(Number(totalSum.textContent) +
-                                    Number(foodObj.price));
-                            }
-                        });
-                });
+            this.storeTitle = new StoreTitle({
+                root: document.getElementById('store-title'),
+                title: info.title
             });
+            this.storeTitle.render();
+
+            this.storeBasket = new StoreBasket({
+                root: document.getElementById('store-basket')
+            });
+            this.storeBasket.render(this.goTo);
+
+            const callback = function (food) {
+                this.storeBasket.append(food);
+            };
+            const foodList = new StoreFoodList({
+                root: document.getElementById('food-list')
+            });
+            foodList.render(info.foods, callback.bind(this));
+        } else {
+            this.goTo('login');
+        }
     }
 }

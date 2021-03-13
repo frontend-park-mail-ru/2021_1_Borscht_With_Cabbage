@@ -52,7 +52,5 @@ export class Router {
         if (event.target instanceof HTMLButtonElement) {
             event.preventDefault();
         }
-
-        return;
     }
 }

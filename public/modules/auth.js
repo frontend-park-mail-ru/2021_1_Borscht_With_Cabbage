@@ -12,12 +12,13 @@ export const saveUser = function (promise) {
         window.user = promise.parsedJSON;
         window.isUserAuth = true;
     }
+    console.log(window.user)
     return promise;
 }
 
 export const deleteUser = function () {
     window.isUserAuth = false;
-    window.user = {};
+    window.user = null;
 }
 
 export function auth () {

@@ -7,8 +7,8 @@ import { mainGet, restaurantsGet } from '../../modules/api.js';
 import { CreatorUrl } from './MainUtils.js';
 
 export class MainView {
-    constructor (root, route) {
-        this.route = route;
+    constructor (root, goTo) {
+        this.goTo = goTo;
         this.root = root;
     }
 
@@ -20,7 +20,7 @@ export class MainView {
 
     mainPageDraw (status) {
         if (status !== 200) {
-            this.route('login');
+            this.goTo('login');
             return;
         }
 
@@ -30,7 +30,7 @@ export class MainView {
 
     headerDraw () {
         this.root.innerHTML = '';
-        this.navbar = new NavBar(this.root);
+        this.navbar = new NavBar({ root: this.root });
 
         this.creatorUrl = new CreatorUrl();
 
@@ -65,13 +65,17 @@ export class MainView {
 
     contentDraw (info, status) {
         if (status !== 200) {
-            this.route('login');
+            this.goTo('login');
             return;
         }
 
         this.content.innerHTML = '';
-        const restaurants = new PanelRestaurantsComponent(this.content, info, (idRestaurant) => {
-            this.route('/' + idRestaurant);
+        const restaurants = new PanelRestaurantsComponent({
+            root: this.content,
+            restaurants: info,
+            callback: (idRestaurant) => {
+                this.goTo('/' + idRestaurant);
+            }
         });
         restaurants.render();
     }

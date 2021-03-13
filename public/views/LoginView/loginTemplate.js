@@ -3,7 +3,7 @@ export const renderLoginView = window.Handlebars.compile(`
 <form id="auth-form">
     <input type="text" id="login" class="auth-input" placeholder="Login or phone" name="login">
     <p id="loginError" class="error"></p>
-    <input type="password" id="password" class="auth-input" placeholder="Password" name="password">
+    <input type="password" id="password" class="auth-input" placeholder="Password" name="password" autocomplete="on">
     <p id="passwordError" class="error"></p>
     <input type="submit" class="button-log" value="Войти">
     <p id="serverError" class="error"></p>

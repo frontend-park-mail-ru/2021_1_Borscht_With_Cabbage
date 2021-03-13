@@ -47,4 +47,3 @@ export const renderStoreBasketFood = window.Handlebars.compile(`
             {{chosenDish.name}} -- {{chosenDish.price}} рублей
         </li>
 `)
-

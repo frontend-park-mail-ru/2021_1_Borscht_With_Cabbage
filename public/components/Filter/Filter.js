@@ -1,8 +1,10 @@
 import { renderFilter } from './FilterTmpl.js';
+import { noOp } from '../../modules/utils.js';
 
 export class FilterComponent {
     constructor ({
-        root = document.body
+        root = document.body,
+        callback = noOp
     } = {}) {
         this.root = root;
     }

@@ -4,8 +4,8 @@ import { ProfileEdits } from '../../components/Profile/ProfileEdits.js';
 import { userGet } from '../../modules/api.js';
 
 export class ProfileView {
-    constructor (root, router) {
-        this.router = router;
+    constructor (root, goTo) {
+        this.goTo = goTo;
         this.root = root;
     }
 
@@ -19,14 +19,14 @@ export class ProfileView {
         console.log(data);
         if (status === 200) {
             this.root.innerHTML = '';
-            this.navbar = new NavBar(this.root);
+            this.navbar = new NavBar({ root: this.root });
 
             const profile = document.createElement('div');
             profile.innerHTML = renderProfileView({}); // создаем правое меню
             this.root.append(profile);
 
             // добавляем поля профиля и его изменения
-            const edits = new ProfileEdits(this.router, data);
+            const edits = new ProfileEdits(this.goTo, data);
             edits.render()
         }
     }

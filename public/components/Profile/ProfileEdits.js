@@ -1,18 +1,19 @@
 import { renderProfileEdits } from './ProfileEditsTmpl.js';
 import { renderInput } from '../../modules/rendering.js';
 import { userPut } from '../../modules/api.js';
+import { Validator } from '../../modules/validation.js';
 
 export class ProfileEdits {
-    constructor (router, user) {
+    constructor (goTo, user) {
         this.user = user
-        this.router = router;
+        this.goTo = goTo;
     }
 
     render () {
         const profilePlace = document.getElementById('profile-main_block')
         profilePlace.innerHTML = renderProfileEdits({
             user: this.user,
-            serverUrl: serverAddress
+            serverUrl: window.serverAddress
         });
 
         this.addErrorListeners();
@@ -37,37 +38,39 @@ export class ProfileEdits {
         let emailError = false;
         const email = document.getElementById(emailID);
         if (email) {
-            emailError = window.validator.validateEmail(email.value).result;
+            emailError = Validator.validateEmail(email.value).result;
         }
 
         const nameID = 'name';
         let nameError = false;
         const name = document.getElementById(nameID);
         if (name) {
-            nameError = window.validator.validateName(name.value).result;
+            nameError = Validator.validateName(name.value).result;
         }
 
         const numberID = 'number';
         let numberError = false;
         const number = document.getElementById(numberID);
         if (number) {
-            numberError = window.validator.validateName(number.value).result;
+            numberError = Validator.validateName(number.value).result;
         }
 
         return emailError * nameError * numberError;
     }
 
-    updateInputs (info) {
-        document.getElementById('email').value = info.email;
-        document.getElementById('name').value = info.name;
-        document.getElementById('number').value = info.number;
-        if (info.avatar) {
-            document.getElementById('avatar').src = info.avatar;
-            document.getElementById('current_ava').src = info.avatar;
-            window.user.avatar = info.avatar;
+    updateInputs (info, status) {
+        if (status === 200) {
+            document.getElementById('email').value = info.email;
+            document.getElementById('name').value = info.name;
+            document.getElementById('number').value = info.number;
+            if (info.avatar) {
+                document.getElementById('avatar').src = info.avatar;
+                document.getElementById('current_ava').src = info.avatar;
+                window.user.avatar = info.avatar;
+            }
+            document.getElementById('navbar-username').textContent = info.name;
+            window.user.name = info.name;
         }
-        document.getElementById('navbar-username').textContent = info.name;
-        window.user.name = info.name;
     }
 
     saveRequest () {
@@ -79,8 +82,10 @@ export class ProfileEdits {
             data[key] = value;
         });
 
-        userPut(formData)
-            .then(r => this.updateInputs(r.parsedJSON))
+        userPut({
+            data: formData
+        })
+            .then(r => this.updateInputs(r.parsedJSON, r.status))
             .catch(r => console.log('Error in data saving ', r));
     }
 
@@ -89,7 +94,7 @@ export class ProfileEdits {
         const email = document.getElementById(emailID);
         if (email) {
             email.addEventListener('focusout',
-                () => renderInput(emailID, window.validator.validateEmail(email.value))
+                () => renderInput(emailID, Validator.validateEmail(email.value))
             );
         }
 
@@ -97,7 +102,7 @@ export class ProfileEdits {
         const name = document.getElementById(nameID);
         if (name) {
             name.addEventListener('focusout',
-                () => renderInput(nameID, window.validator.validateName(name.value))
+                () => renderInput(nameID, Validator.validateName(name.value))
             );
         }
 
@@ -105,7 +110,7 @@ export class ProfileEdits {
         const number = document.getElementById(numberID);
         if (number) {
             number.addEventListener('focusout',
-                () => renderInput(numberID, window.validator.validatePhone(number.value))
+                () => renderInput(numberID, Validator.validatePhone(number.value))
             );
         }
     }

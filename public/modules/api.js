@@ -8,7 +8,7 @@ import { saveUser } from './auth.js';
  * @param {string} password
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function loginPost (login, password) {
+export function loginPost ({ login, password }) {
     return ajaxPost({
         url: '/signin',
         body: { login, password }
@@ -25,7 +25,7 @@ export function loginPost (login, password) {
  * @param {string} phone
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function signupPost (email, password, name, phone) {
+export function signupPost ({ email, password, name, phone }) {
     return ajaxPost({
         url: '/signup',
         body: {
@@ -59,6 +59,7 @@ export function mainGet () {
 /**
  * Send server get-request to get main page with concrete restaurants
  *
+ * @param {string} url
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function restaurantsGet ({ url = '/restaurants' }) {
@@ -68,9 +69,10 @@ export function restaurantsGet ({ url = '/restaurants' }) {
 /**
  * Send server get-request to get page with concrete restaurant
  *
+ * @param {string} url
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function storeGet (url) {
+export function storeGet ({ url = '/' } = {}) {
     return ajaxGet({ url: url });
 }
 
@@ -86,15 +88,21 @@ export function userGet () {
 /**
  * Send server put-request with formData to put info about user
  *
+ * @param {FormData} data with avatar name email phone
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function userPut (data) {
+export function userPut ({ data = null }) {
     return ajaxPut({
         url: '/user',
         body: data
     });
 }
 
+/**
+ * Send server get to logout (clean cookie)
+ *
+ * @returns {Promise<{parsedJSON: any, status: number}>}
+ */
 export function logoutGet () {
     return ajaxGet({ url: '/logout' });
 }

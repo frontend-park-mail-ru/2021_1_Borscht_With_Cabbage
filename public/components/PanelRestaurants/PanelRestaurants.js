@@ -1,7 +1,13 @@
 import { renderPanelRestaurants } from './PanelRestaurantsTmpl.js';
+import { noOp } from '../../modules/utils.js';
+import { renderInfoRestaurant } from '../InfoRestaurant/InfoRestaurant.js';
 
 export class PanelRestaurantsComponent {
-    constructor (root, restaurants, callback) {
+    constructor ({
+        root = document.body,
+        restaurants,
+        callback = noOp
+    } = {}) {
         this.restaurants = restaurants;
         this.root = root;
         this.callback = callback;
@@ -9,10 +15,14 @@ export class PanelRestaurantsComponent {
 
     render () {
         const restaurantsElem = document.createElement('div');
-        restaurantsElem.innerHTML = renderPanelRestaurants({
-            store: this.restaurants
-        });
+        restaurantsElem.innerHTML = renderPanelRestaurants({});
         this.root.append(restaurantsElem);
+        const restaurantList = document.getElementById('restaurant_list')
+        for (const restaurant of this.restaurants) {
+            restaurantList.innerHTML += renderInfoRestaurant({
+                node: restaurant
+            });
+        }
 
         this.addRestaurantListeners(this.callback);
     }

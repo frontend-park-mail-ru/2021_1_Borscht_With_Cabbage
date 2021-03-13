@@ -2,16 +2,17 @@ import { renderSignUpView } from './signUpTemplate.js';
 import { NavBar } from '../../components/NavBar/NavBar.js';
 import { renderInput } from '../../modules/rendering.js';
 import { signupPost } from '../../modules/api.js';
+import { Validator } from '../../modules/validation.js';
 
 export class SignUpView {
-    constructor (root, route) {
-        this.route = route;
+    constructor (root, goTo) {
+        this.goTo = goTo;
         this.root = root;
     }
 
     render () {
         this.root.innerHTML = '';
-        this.navbar = new NavBar(this.root);
+        this.navbar = new NavBar({ root: this.root });
 
         const signup = document.createElement('div');
 
@@ -26,7 +27,7 @@ export class SignUpView {
         const email = document.getElementById(emailID);
         if (email) {
             email.addEventListener('focusout',
-                () => renderInput(emailID, window.validator.validateEmail(email.value))
+                () => renderInput(emailID, Validator.validateEmail(email.value))
             );
         }
 
@@ -34,7 +35,7 @@ export class SignUpView {
         const name = document.getElementById(nameID);
         if (name) {
             name.addEventListener('focusout',
-                () => renderInput(nameID, window.validator.validateName(name.value))
+                () => renderInput(nameID, Validator.validateName(name.value))
             );
         }
 
@@ -42,7 +43,7 @@ export class SignUpView {
         const phone = document.getElementById(phoneID);
         if (phone) {
             phone.addEventListener('focusout',
-                () => renderInput(phoneID, window.validator.validatePhone(phone.value))
+                () => renderInput(phoneID, Validator.validatePhone(phone.value))
             );
         }
 
@@ -50,7 +51,7 @@ export class SignUpView {
         const password = document.getElementById(passwordID);
         if (password) {
             password.addEventListener('focusout',
-                () => renderInput(passwordID, window.validator.validatePassword(password.value))
+                () => renderInput(passwordID, Validator.validatePassword(password.value))
             );
         }
 
@@ -60,7 +61,7 @@ export class SignUpView {
             repeatPassword.addEventListener('focusout',
                 () => renderInput(
                     repeatPasswordID,
-                    window.validator.validateEqualPassword(
+                    Validator.validateEqualPassword(
                         password.value,
                         repeatPassword.value
                     )
@@ -87,35 +88,35 @@ export class SignUpView {
         let emailError = false;
         const email = document.getElementById(emailID);
         if (email) {
-            emailError = window.validator.validateEmail(email.value).result;
+            emailError = Validator.validateEmail(email.value).result;
         }
 
         const nameID = 'name';
         let nameError = false;
         const name = document.getElementById(nameID);
         if (name) {
-            nameError = window.validator.validateName(name).result;
+            nameError = Validator.validateName(name).result;
         }
 
         const phoneID = 'phone';
         let phoneError = false;
         const phone = document.getElementById(phoneID);
         if (phone) {
-            phoneError = window.validator.validatePhone(phone.value).result;
+            phoneError = Validator.validatePhone(phone.value).result;
         }
 
         const passwordID = 'password';
         let passwordError = false;
         const password = document.getElementById(passwordID);
         if (password) {
-            passwordError = window.validator.validatePassword(password.value).result;
+            passwordError = Validator.validatePassword(password.value).result;
         }
 
         const repeatPasswordID = 'repeatPassword';
         let repeatPasswordError = false;
         const repeatPassword = document.getElementById(repeatPasswordID);
         if (repeatPassword) {
-            repeatPasswordError = window.validator.validateEqualPassword(password.value, repeatPassword.value).result;
+            repeatPasswordError = Validator.validateEqualPassword(password.value, repeatPassword.value).result;
         }
 
         return emailError * passwordError * repeatPasswordError * nameError * phoneError;
@@ -141,13 +142,18 @@ export class SignUpView {
 
             const resolve = function (promise) {
                 if (promise.status === 200) {
-                    this.route('main');
+                    this.goTo('main');
                 } else if (promise.status === 400) {
                     reject(promise);
                 }
             };
 
-            signupPost(email, password, name, phone)
+            signupPost({
+                email: email,
+                password: password,
+                name: name,
+                phone: phone
+            })
                 .then(resolve.bind(this))
                 .catch(reject);
         }

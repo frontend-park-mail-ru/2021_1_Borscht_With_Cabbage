@@ -8,7 +8,7 @@ const blankResult = {
 };
 
 export class Validator {
-    validateEmail (email) {
+    static validateEmail (email) {
         if (email === '') {
             return blankResult;
         }
@@ -21,7 +21,7 @@ export class Validator {
         return { result: true };
     }
 
-    validatePassword (password) {
+    static validatePassword (password) {
         if (password === '') {
             return blankResult;
         }
@@ -40,14 +40,14 @@ export class Validator {
         return { result: true };
     }
 
-    validateName (username) {
+    static validateName (username) {
         if (username === '') {
             return blankResult;
         }
         return { result: true };
     }
 
-    validatePhone (number) {
+    static validatePhone (number) {
         if (number === '') {
             return blankResult;
         }
@@ -60,7 +60,7 @@ export class Validator {
         return { result: true };
     }
 
-    validateEqualPassword (password, repeatPassword) {
+    static validateEqualPassword (password, repeatPassword) {
         if (repeatPassword === '') {
             return blankResult;
         }
@@ -73,7 +73,7 @@ export class Validator {
         return { result: true };
     }
 
-    validateLogin (login) {
+    static validateLogin (login) {
         if (login === '') {
             return blankResult;
         }

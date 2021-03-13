@@ -2,7 +2,7 @@
     display: inline-block;
     overflow: hidden;
     margin-left: 8px;
-    background-color:#F2F2F2;
+    background-color: var(--cuisines-panel__slide_color);
     padding: 8px;
     min-width: 160px;
     text-align: center;

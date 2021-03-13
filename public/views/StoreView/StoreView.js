@@ -15,7 +15,9 @@ export class StoreView {
     }
 
     render (url) {
-        storeGet(url)
+        storeGet({
+            url: url
+        })
             .then(r => this.storePageDraw(r.parsedJSON, r.status))
             .catch(r => console.log(`THis crash when post /store from ${r}`));
     }
@@ -23,7 +25,7 @@ export class StoreView {
     storePageDraw (info, status) {
         if (status === 200) {
             this.root.innerHTML = '';
-            this.navbar = new NavBar(this.root);
+            this.navbar = new NavBar({ root: this.root });
             const main = document.createElement('div');
             main.innerHTML = renderStoreView({});
             this.root.append(main);
@@ -32,11 +34,10 @@ export class StoreView {
             document.getElementById('store-basket').innerHTML = renderStoreBasket({});
             document.getElementById('food-list').innerHTML = renderFoodList({});
             const foodList = document.getElementById('food-list');
-            for (let i in info.foods) {
-                console.log(info.foods[i])
-                const foodElement = document.createElement('div');
-                foodElement.innerHTML = renderFoodElement(info.foods[i]);
-                foodList.append(foodElement);
+            if (info.foods) {
+                for (const food of info.foods) {
+                    foodList.innerHTML += renderFoodElement(food);
+                }
             }
 
             this.addEventListeners();
@@ -63,8 +64,8 @@ export class StoreView {
                             const foodObj = food[1];
                             if (String(foodObj.id) === buttonID) {
                                 const chosenFood = renderStoreBasketFood({
-                                        chosenDish: foodObj
-                                    });
+                                    chosenDish: foodObj
+                                });
                                 console.log(foodObj)
                                 const div = document.createElement('div');
                                 div.innerHTML = chosenFood;

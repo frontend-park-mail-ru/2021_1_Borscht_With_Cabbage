@@ -1,64 +1,58 @@
-window.serverAddress = 'http://89.208.197.150:5000';
+window.serverAddress = 'http://127.0.0.1:5000';
 
-export async function ajaxGet ({
-    url = '/'
-} = {}) {
-    const response = await fetch(window.serverAddress + url, {
+function getParams ({
+    method = 'GET',
+    body = null
+}) {
+    const headers = {
+        'Access-Control-Allow-Origin': '*'
+    }
+    if (method !== 'PUT') {
+        headers['Content-Type'] = 'application/json';
+        body = JSON.stringify(body);
+    }
+    const init = {
         mode: 'cors',
-        method: 'GET',
+        method: method,
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json'
-        }
-    });
+        headers: headers
+    }
+    if (method !== 'GET') {
+        init.body = body;
+    }
+    return init;
+}
+
+async function makeFetch ({
+    url = '/',
+    body = null,
+    method = 'GET'
+} = {}) {
+    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body }))
     const parsedJSON = await response.json();
 
     return {
         status: response.status,
         parsedJSON: parsedJSON
     };
+}
+
+export async function ajaxGet ({
+    url = '/'
+} = {}) {
+    return await makeFetch({ url: url, method: 'GET' });
 }
 
 export async function ajaxPost ({
     url = '/',
     body = null
 } = {}) {
-    const response = await fetch(window.serverAddress + url, {
-        mode: 'cors',
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(body),
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json'
-        }
-    });
-    const parsedJSON = await response.json();
-
-    return {
-        status: response.status,
-        parsedJSON: parsedJSON
-    };
+    return await makeFetch({ url: url, method: 'POST', body: body });
 }
 
 export async function ajaxPut ({
     url = '/',
     body = null
 } = {}) {
-    const response = await fetch(window.serverAddress + url, {
-        mode: 'cors',
-        method: 'PUT',
-        credentials: 'include',
-        body: body,
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        }
-    });
-    const parsedJSON = await response.json();
-
-    return {
-        status: response.status,
-        parsedJSON: parsedJSON
-    }
+    return await makeFetch({ url: url, method: 'PUT', body: body });
 }

@@ -7,9 +7,9 @@ export const renderSignUpView = window.Handlebars.compile(`
     <p id="phoneError" class="error"></p>
     <input type="text" id="name" class="auth-input" placeholder="Name" name="name">
     <p id="nameError" class="error"></p>
-    <input type="password" id="password" class="auth-input" placeholder="Password" name="password">
+    <input type="password" id="password" class="auth-input" placeholder="Password" name="password" autocomplete="on">
     <p id="passwordError" class="error"></p>
-    <input type="password" id="repeatPassword" class="auth-input" placeholder="Repeat password" name="repeatPassword">
+    <input type="password" id="repeatPassword" class="auth-input" placeholder="Repeat password" name="repeatPassword" autocomplete="on">
     <p id="repeatPasswordError" class="error"></p>
     <input type="submit" class="button-log" value="Войти">
     <p id="serverError" class="error"></p>

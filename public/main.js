@@ -5,7 +5,6 @@ import { MainView } from './views/MainView/MainView.js';
 import { StoreView } from './views/StoreView/StoreView.js';
 import { ProfileView } from './views/ProfileView/ProfileView.js';
 import { auth } from './modules/auth.js';
-import { Validator } from './modules/validation.js';
 import { Logout } from './components/Logout/Logout.js';
 
 const application = document.getElementById('app');
@@ -19,9 +18,7 @@ const loginView = new LoginView(application, goTo);
 const mainView = new MainView(application, goTo);
 const storeView = new StoreView(application, goTo);
 const profileView = new ProfileView(application, goTo);
-const logout = new Logout(application, goTo);
-
-window.validator = new Validator();
+const logout = new Logout({ root: application, goTo: goTo });
 
 router.addRoute('login', loginView);
 router.addRoute('signup', signUpView);

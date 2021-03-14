@@ -17,6 +17,10 @@ body {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
+.title-container:hover {
+    background-color: white;
+}
+
 .topnav a {
     float: left;
     color: var(--navbar-href-white_color);
@@ -33,27 +37,67 @@ body {
 
 .topnav a.name {
     color: black;
+    font-weight: 700;
     font-size: 32px;
-    margin-left: 8px
+    margin-left: 8px;
+    line-height: 2em;
+}
+
+.navbar-right_items {
+    float: right;
+    display: flex;
+    align-items: center
 }
 
 .address {
     float: right;
     background-image: url('map.png');
-    background-position: 0px 5px;
+    background-position: left;
     background-repeat: no-repeat;
-    background-color: var(--main-green_color);
+    background-color: var(--main-green_color_darker);
+    height: 1.8em;
+    border-radius: 8px;
     color: white;
     vertical-align: center;
     border: none;
     padding: 14px 40px;
-    margin-top: 8px;
-    margin-bottom: 4px;
+    margin-right: 24px;
+}
+
+::placeholder {
+    color: whitesmoke;
+}
+
+#auth_block {
+    padding-right: 16px;
+    padding-left: 16px;
+    border-left: 1px solid var(--main-green_color);
+    border-right: 1px solid var(--main-green_color);
+}
+
+.basket-link {
+    display: block;
+}
+
+.basket-container {
+    float: right;
     margin-right: 16px;
+    display: flex;
+    align-items: center
+}
+
+.basket-text {
+    display: inline-block;
+    color: black;
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+.basket-image {
+    display: inline-block;
 }
 
 .navbar-auth_user_block {
-    float: right;
     display: flex;
     flex-direction: row;
 }
@@ -68,5 +112,9 @@ body {
 }
 
 .navbar-signin {
-    color: black;
+    color: var(--profile-link__signin_color);
+}
+
+.navbar-signin-text {
+    font-weight: 500;
 }

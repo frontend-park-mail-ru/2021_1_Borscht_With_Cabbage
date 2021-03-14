@@ -13,9 +13,9 @@ export const renderSignUp = window.Handlebars.compile(`
             <p id="passwordError" class="error">Password</p>
             <input type="password" id="repeatPassword" class="auth-input" placeholder="Repeat password" name="repeatPassword" autocomplete="on">
             <p id="repeatPasswordError" class="error">Repeat password</p>
-            <input type="submit" class="button-log" value="Войти">
+            <input type="submit" class="button-log" value="Зарегистрироваться">
             <p id="serverError" class="error"> </p>
-            <p style="text-align: center;"><a class="text" href="/signin">Хочу залогиниться</a></p>
+            <p style="text-align: center;"><a class="text" href="/signin">У меня уже есть аккаунт</a></p>
         </form>
     </div>
 </div>

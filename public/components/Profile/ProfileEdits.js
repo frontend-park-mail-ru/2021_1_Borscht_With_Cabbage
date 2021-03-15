@@ -2,6 +2,7 @@ import { renderProfileEdits } from './ProfileEditsTmpl.js';
 import { renderInput } from '../../modules/rendering.js';
 import { userPut } from '../../modules/api.js';
 import { Validator } from '../../modules/validation.js';
+import { maskPhone } from '../../modules/phoneMask.js';
 
 export class ProfileEdits {
     constructor (goTo, user) {
@@ -113,5 +114,8 @@ export class ProfileEdits {
                 () => renderInput(numberID, Validator.validatePhone(number.value))
             );
         }
+        maskPhone(number);
+
+        number.focus();
     }
 }

@@ -2,6 +2,7 @@ import { renderSignUp } from './SignUpTmpl.js';
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import { signupPost } from '../../modules/api.js';
+import { maskPhone } from '../../modules/phoneMask.js';
 
 export class SignUp {
     constructor ({
@@ -42,6 +43,7 @@ export class SignUp {
                 () => renderInput(phoneID, Validator.validatePhone(phone.value))
             );
         }
+        maskPhone(phone);
 
         const passwordID = 'password';
         const password = document.getElementById(passwordID);
@@ -148,7 +150,7 @@ export class SignUp {
                 email: email,
                 password: password,
                 name: name,
-                phone: phone
+                phone: phone.replace(/\D/g, "")
             })
                 .then(resolve.bind(this))
                 .catch(reject);

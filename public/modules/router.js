@@ -35,7 +35,9 @@ export class Router {
         }
 
         window.history.replaceState({}, '', page);
-        this.routes.get(page).render(realPage);
+        if (this.routes.get(page)) {
+            this.routes.get(page).render(realPage);
+        }
     }
 
     addRoute (page, handler) {

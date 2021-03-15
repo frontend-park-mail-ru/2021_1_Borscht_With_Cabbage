@@ -7,5 +7,9 @@ export const renderFoodElement = window.Handlebars.compile(`
             </span>
             <span class="content__info content__receipt">Цена: {{food.price}} рублей</span>
             <button id="store-food_list-add-id{{food.id}}" class="button-log button-add">Добавить</button>
+            <div id="store--food--add_buttons-id-{{food.id}}" class="store--food--add_buttons">
+                <button id="store-food_list-plus-id{{food.id}}">+</button>
+                <button id="store-food_list-minus-id{{food.id}}">-</button>
+            </div>
         </li>
 `)

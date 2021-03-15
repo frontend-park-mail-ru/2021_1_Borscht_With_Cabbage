@@ -38,13 +38,13 @@ export class StoreView {
             });
             this.storeBasket.render(this.goTo);
 
-            const callback = function (food) {
-                this.storeBasket.append(food);
+            const callbackAddInBasket = function (food, isPlus) {
+                this.storeBasket.append(food, isPlus);
             };
-            const foodList = new StoreFoodList({
+            this.foodList = new StoreFoodList({
                 root: document.getElementById('food-list')
             });
-            foodList.render(info.foods, callback.bind(this));
+            this.foodList.render(info.foods, callbackAddInBasket.bind(this));
         } else {
             this.goTo('login');
         }

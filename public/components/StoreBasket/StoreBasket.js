@@ -6,6 +6,7 @@ export class StoreBasket {
         root = document.body
     } = {}) {
         this.root = root;
+        this.elements = [];
     }
 
     render (goTo) {
@@ -14,12 +15,52 @@ export class StoreBasket {
             .addEventListener('click', () => goTo('basket'));
     }
 
-    append (food) {
-        const foodElement = new StoreBasketFood({
-            root: document.getElementById('store-basket-food_list')
-        });
-        foodElement.render(food);
+    append (food, isPlus) {
+        const element = document.getElementById('chosen_food-id-' + food.id);
         const totalSum = document.getElementById('store-basket-total');
-        totalSum.textContent = String(Number(totalSum.textContent) + Number(food.price));
+        if (isPlus) {
+
+            if (element) {
+                this.elements.forEach(element => {
+                    if (element.food.id === food.id) {
+                        element.add();
+                    }
+                });
+
+            } else {    // if new element
+
+                const foodElement = new StoreBasketFood({
+                    root: document.getElementById('store-basket-food_list'),
+                    food: food
+                });
+                foodElement.render();
+                this.elements.push(foodElement);
+            }
+
+            totalSum.textContent = String(Number(totalSum.textContent) + Number(food.price));
+
+        } else {
+
+            if (element) {
+
+                let index = null;
+                this.elements.forEach((element, i) => {
+                    if (element.food.id === food.id) {
+                        if (element.takeAway()) {
+                            index = i;
+                        }
+                    }
+                });
+                if (index !== null) {
+                    this.elements.splice(index, 1);
+                }
+                totalSum.textContent = String(Number(totalSum.textContent) - Number(food.price));
+
+            } else {    // if new element
+
+                console.log('I try to takeAway element, that not exist (StoreBasket->append)\nKinda error?');
+
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-import { ajaxGet, ajaxPost, ajaxPut } from './http.js';
+import { Http } from './http.js';
 import { saveUser } from './auth.js';
 
 /**
@@ -9,7 +9,7 @@ import { saveUser } from './auth.js';
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function loginPost ({ login, password }) {
-    return ajaxPost({
+    return Http.ajaxPost({
         url: '/signin',
         body: { login, password }
     })
@@ -26,7 +26,7 @@ export function loginPost ({ login, password }) {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function signupPost ({ email, password, name, phone }) {
-    return ajaxPost({
+    return Http.ajaxPost({
         url: '/signup',
         body: {
             email,
@@ -44,7 +44,7 @@ export function signupPost ({ email, password, name, phone }) {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function authGet () {
-    return ajaxGet({ url: '/auth' });
+    return Http.ajaxGet({ url: '/auth' });
 }
 
 /**
@@ -53,7 +53,7 @@ export function authGet () {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function mainGet () {
-    return ajaxGet({ url: '/' });
+    return Http.ajaxGet({ url: '/' });
 }
 
 /**
@@ -63,7 +63,7 @@ export function mainGet () {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function restaurantsGet ({ url = '/restaurants' }) {
-    return ajaxGet({ url: url });
+    return Http.ajaxGet({ url: url });
 }
 
 /**
@@ -73,7 +73,7 @@ export function restaurantsGet ({ url = '/restaurants' }) {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function storeGet ({ url = '/' } = {}) {
-    return ajaxGet({ url: url });
+    return Http.ajaxGet({ url: url });
 }
 
 /**
@@ -82,7 +82,7 @@ export function storeGet ({ url = '/' } = {}) {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function userGet () {
-    return ajaxGet({ url: '/user' });
+    return Http.ajaxGet({ url: '/user' });
 }
 
 /**
@@ -92,7 +92,7 @@ export function userGet () {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function userPut ({ data = null }) {
-    return ajaxPut({
+    return Http.ajaxPut({
         url: '/user',
         body: data
     });
@@ -104,5 +104,5 @@ export function userPut ({ data = null }) {
  * @returns {Promise<{parsedJSON: any, status: number}>}
  */
 export function logoutGet () {
-    return ajaxGet({ url: '/logout' });
+    return Http.ajaxGet({ url: '/logout' });
 }

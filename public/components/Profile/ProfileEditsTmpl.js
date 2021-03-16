@@ -1,11 +1,11 @@
 export const renderProfileEdits = window.Handlebars.compile(`
 <form id="profile-form-userdata" enctype="multipart/form-data">
     <h1>Личные данные</h1>
-    <input type="text" id="number" class="edit-input" placeholder="Номер телефона" name="number" value={{ user.number }}>
+    <input type="text" id="number" class="edit-input" placeholder="+7 (___) ___ ____" name="number" value={{ user.number }} data-name="Phone">
     <p id="numberError" class="error">Номер телефона</p>
-    <input type="email" id="email" class="edit-input" placeholder="Почта" name="email" value={{ user.email }}>
+    <input type="email" id="email" class="edit-input" placeholder="mail@mail.ru" name="email" value={{ user.email }} data-name="Email">
     <p id="emailError" class="error">Почта</p>
-    <input type="text" id="name" class="edit-input" placeholder="Имя" name="name" value={{ user.name }}>
+    <input type="text" id="name" class="edit-input" placeholder="Name Surname" name="name" value={{ user.name }} data-name="Name">
     <p id="nameError" class="error">Имя</p>
     <img src="{{ user.avatar }}" class="profile-avatar" alt="ava" id="current_ava"/>
     <input type="file" id="avatar" name="avatar" accept="image/*"><br/><br/>

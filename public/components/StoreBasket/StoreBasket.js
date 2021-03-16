@@ -19,16 +19,13 @@ export class StoreBasket {
         const element = document.getElementById('chosen_food-id-' + food.id);
         const totalSum = document.getElementById('store-basket-total');
         if (isPlus) {
-
             if (element) {
                 this.elements.forEach(element => {
                     if (element.food.id === food.id) {
                         element.add();
                     }
                 });
-
-            } else {    // if new element
-
+            } else { // if new element
                 const foodElement = new StoreBasketFood({
                     root: document.getElementById('store-basket-food_list'),
                     food: food
@@ -36,13 +33,9 @@ export class StoreBasket {
                 foodElement.render();
                 this.elements.push(foodElement);
             }
-
             totalSum.textContent = String(Number(totalSum.textContent) + Number(food.price));
-
         } else {
-
             if (element) {
-
                 let index = null;
                 this.elements.forEach((element, i) => {
                     if (element.food.id === food.id) {
@@ -55,11 +48,8 @@ export class StoreBasket {
                     this.elements.splice(index, 1);
                 }
                 totalSum.textContent = String(Number(totalSum.textContent) - Number(food.price));
-
-            } else {    // if new element
-
+            } else { // if new element
                 console.log('I try to takeAway element, that not exist (StoreBasket->append)\nKinda error?');
-
             }
         }
     }

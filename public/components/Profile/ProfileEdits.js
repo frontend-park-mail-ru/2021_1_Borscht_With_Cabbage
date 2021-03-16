@@ -64,6 +64,7 @@ export class ProfileEdits {
             document.getElementById('email').value = info.email;
             document.getElementById('name').value = info.name;
             document.getElementById('number').value = info.number;
+            document.getElementById('number').focus();
             if (info.avatar) {
                 document.getElementById('avatar').src = info.avatar;
                 document.getElementById('current_ava').src = info.avatar;
@@ -75,19 +76,19 @@ export class ProfileEdits {
     }
 
     saveRequest () {
+        const phoneInput = document.getElementById('number');
+        const value = phoneInput.value;
+        phoneInput.value = phoneInput.value.replace(/\D/g, '');
         const form = document.getElementById('profile-form-userdata');
         const formData = new FormData(form);
-
-        const data = {};
-        formData.forEach(function (value, key) {
-            data[key] = value;
-        });
 
         userPut({
             data: formData
         })
             .then(r => this.updateInputs(r.parsedJSON, r.status))
             .catch(r => console.log('Error in data saving ', r));
+
+        phoneInput.value = value;
     }
 
     addErrorListeners () {

@@ -5,12 +5,10 @@ export function renderInput (id, status) {
     if (!status.result) {
         input.style.borderColor = '#ff0000';
         error.textContent = status.text;
-        error.style.opacity = '1';
         return status.result;
     }
 
     input.style.borderColor = '#808080';
-    error.innerHTML = input.placeholder;
-    error.style.opacity = '1';
+    error.innerHTML = input.dataset.name;
     return status.result;
 }

@@ -1,5 +1,5 @@
 const emailRegExpression = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
-const phoneRegExpression = /^[0-9]{9,15}$/;
+const phoneRegExpression = /^[0-9]{11}$/;
 
 const blankResult = {
     result: false,
@@ -44,7 +44,7 @@ export class Validator {
         if (number === '') {
             return blankResult;
         }
-        number = number.replace(/\D/g, "");
+        number = number.replace(/\D/g, '');
         if (!phoneRegExpression.test(number)) {
             return {
                 result: false,
@@ -62,19 +62,6 @@ export class Validator {
             return {
                 result: false,
                 text: 'Пароли не совпадают'
-            };
-        }
-        return { result: true };
-    }
-
-    static validateLogin (login) {
-        if (login === '') {
-            return blankResult;
-        }
-        if (!emailRegExpression.test(login) /*&& !phoneRegExpression.test(login)*/) {
-            return {
-                result: false,
-                text: 'Введите почту или телефон'
             };
         }
         return { result: true };

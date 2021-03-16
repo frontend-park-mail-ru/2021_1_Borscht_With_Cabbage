@@ -58,5 +58,3 @@ export class Http {
         return await makeFetch({ url: url, method: 'PUT', body: body });
     }
 }
-
-

@@ -150,7 +150,7 @@ export class SignUp {
                 email: email,
                 password: password,
                 name: name,
-                phone: phone.replace(/\D/g, "")
+                phone: phone.replace(/\D/g, '')
             })
                 .then(resolve.bind(this))
                 .catch(reject);

@@ -1,0 +1,22 @@
+.drop-list__slider {
+    position: fixed;
+    z-index: 1000;
+    min-width: 240px;
+
+    margin-left: -40px;
+    margin-top: 8px;
+}
+
+.drop-list__slide {
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 8px;
+    box-shadow: 0 0 4px rgb(0 0 0 / 50%);
+    background-color: var(--params-panel__slide-btn_color);
+    border-radius: 16px;
+    padding: 8px;
+    width: 80%;
+    margin: auto;
+    font-size: 16px;
+    margin-bottom: 4px;
+}

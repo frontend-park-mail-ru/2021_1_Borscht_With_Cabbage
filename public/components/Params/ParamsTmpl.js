@@ -5,7 +5,9 @@ export const renderParams = window.Handlebars.compile(`
         {{#each params}}
         <li class="params-panel__slide">
             <div class="params-panel__slide-name">{{this.name}}</div>
-            <a href="/{{this.data}}"><div data-params="{{this.data}}" class="params-panel__slide-btn">{{this.value}}</div></a>
+            <a href="{{ this.default.data }}" data-params="{{ this.data }}" class="panel__btn">
+                <div class="params-panel__slide-btn">{{ this.default.name }}</div>
+            </a>
         </li>
         {{/each}}
     </ul>

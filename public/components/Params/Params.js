@@ -1,6 +1,7 @@
 import { renderParams } from './ParamsTmpl.js';
 import { params } from './Params.constants.js';
 import { noOp } from '../../modules/utils.js';
+import { DropListComponent } from '../DropList/DropList.js'
 
 export class ParamsComponent {
     constructor ({
@@ -23,11 +24,9 @@ export class ParamsComponent {
         this.addParamsListeners(this.callback);
     }
 
-    // TODO компонент только рисуется, вся логика не к первому рк
-    // при нажатии стоит заглушка
-    addParamsListeners (err, callback) {
+    addParamsListeners (callback) {
         const paramsPanel = this.root.querySelector('.params-panel');
-        if (!paramsPanel || err) {
+        if (!paramsPanel) {
             return;
         }
 
@@ -36,15 +35,30 @@ export class ParamsComponent {
 
             e.preventDefault();
 
-            // проверяе что нажали именно на кнопку
-            // TODO выбор из предложенных параметров
-            const currParams = target.dataset.params;
-            if (currParams) {
-                callback(null, {
-                    params: currParams,
-                    value: true
-                });
+            const item = target.closest('.panel__btn');
+            if (!item) {
+                return;
             }
+
+            if (this.list) {
+                this.list.remove();
+            }
+            this.list = new DropListComponent({ 
+                root: item,
+                content: params[item.dataset.params].val,
+                callback: (value) => {
+                    // элемент в котором нужно поменять значение параметра
+                    item.childNodes[1].innerHTML = params[item.dataset.params]
+                                                .val[value].name;
+
+                    callback({
+                        name: item.dataset.params,
+                        value: value
+                    })
+                }
+            });
+
+            this.list.add();
         })
     }
 }

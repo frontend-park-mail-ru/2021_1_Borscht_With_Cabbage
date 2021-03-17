@@ -7,9 +7,9 @@ export class CreatorUrl {
             category: [],
             params: {
                 // содержимое временное, потом будут храниться содержимое параметров поиска
-                time: false,
-                receipt: false,
-                rating: false
+                time: 'not',
+                receipt: 'not',
+                rating: 'not'
             }
         }
     }
@@ -26,12 +26,12 @@ export class CreatorUrl {
         this.request.offset = 0;
     }
 
-    clickParams ({ params, value = false }) {
-        if (!params) {
+    clickParams ({ name, value = false }) {
+        if (!name) {
             return;
         }
         // TODO выбор из предложенных параметров
-        this.request.params[params] = value;
+        this.request.params[name] = value;
 
         this.request.offset = 0;
     }

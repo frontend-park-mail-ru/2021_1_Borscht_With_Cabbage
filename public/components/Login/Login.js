@@ -23,7 +23,7 @@ export class Login {
         const login = document.getElementById(loginID);
         if (login) {
             login.addEventListener('focusout',
-                () => renderInput(loginID, Validator.validateLogin(login.value))
+                () => renderInput(loginID, Validator.validateEmail(login.value))
             );
         }
 
@@ -54,7 +54,7 @@ export class Login {
         let loginError = false;
         const login = document.getElementById(loginID);
         if (login) {
-            loginError = Validator.validateLogin(login.value).result;
+            loginError = Validator.validateEmail(login.value).result;
         }
 
         const passwordID = 'password';

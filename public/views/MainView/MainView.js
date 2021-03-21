@@ -74,7 +74,7 @@ export class MainView {
             root: this.content,
             restaurants: info,
             callback: (idRestaurant) => {
-                this.goTo('/' + idRestaurant);
+                this.goTo('/restaurant/' + idRestaurant);
             }
         });
         restaurants.render();

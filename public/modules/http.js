@@ -38,22 +38,24 @@ async function makeFetch ({
     };
 }
 
-export async function ajaxGet ({
-    url = '/'
-} = {}) {
-    return await makeFetch({ url: url, method: 'GET' });
-}
+export class Http {
+    static async ajaxGet ({
+        url = '/'
+    } = {}) {
+        return await makeFetch({ url: url, method: 'GET' });
+    }
 
-export async function ajaxPost ({
-    url = '/',
-    body = null
-} = {}) {
-    return await makeFetch({ url: url, method: 'POST', body: body });
-}
+    static async ajaxPost ({
+        url = '/',
+        body = null
+    } = {}) {
+        return await makeFetch({ url: url, method: 'POST', body: body });
+    }
 
-export async function ajaxPut ({
-    url = '/',
-    body = null
-} = {}) {
-    return await makeFetch({ url: url, method: 'PUT', body: body });
+    static async ajaxPut ({
+        url = '/',
+        body = null
+    } = {}) {
+        return await makeFetch({ url: url, method: 'PUT', body: body });
+    }
 }

@@ -18,24 +18,26 @@ export class Router {
 
     open (page) {
         if (urls[page]) {
-            page = urls[page];
-        }
-
-        // TODO correct
-        //  это костыль для отображения динамически формируемых страниц ресторана
-        let realPage;
-        if (/([0-9]{1,30})/.test(page)) {
-            realPage = page;
-            page = urls.store;
+            window.history.replaceState({}, '', urls[page]);
+            if (this.routes.get(urls[page])) {
+                this.routes.get(urls[page]).render();
+            }
+            return
         }
 
         if ((/\/signin/.test(page) || /\/signup/.test(page)) && window.isUserAuth) {
-            this.open(urls.main);
+            this.open('main');
+            return
+        }
+
+        if (/\/restaurant\/./.test(page)) {
+            window.history.replaceState({}, '', page);
+            const id = page.substring('/restaurant'.length);
+            this.routes.get(urls.store).render(id);
             return;
         }
 
-        window.history.replaceState({}, '', page);
-        this.routes.get(page).render(realPage);
+        this.open('main');
     }
 
     addRoute (page, handler) {

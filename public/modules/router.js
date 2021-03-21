@@ -1,5 +1,6 @@
 const urls = {
     main: '/',
+    store: '/restaurant',
     login: '/signin',
     signup: '/signup',
     basket: '/basket',

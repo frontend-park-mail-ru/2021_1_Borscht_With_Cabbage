@@ -68,9 +68,8 @@ body {
     color: whitesmoke;
 }
 
-#auth_block {
-    padding-right: 16px;
-    padding-left: 16px;
+.navbar-auth_block {
+    padding: 0 16px;
     border-left: 1px solid var(--main-green_color);
     border-right: 1px solid var(--main-green_color);
 }
@@ -112,7 +111,7 @@ body {
 }
 
 .navbar-signin {
-    color: var(--profile-link__signin_color);
+    color: var(--profile-link-hover_color_darker);
 }
 
 .navbar-signin-text {

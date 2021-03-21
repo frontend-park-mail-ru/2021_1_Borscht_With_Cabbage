@@ -4,7 +4,7 @@ export const renderTopNavView = window.Handlebars.compile(`
 
     <div class="navbar-right_items">
         <input type="text" id="address" class="address" name="firstname" placeholder="Адрес доставки">
-        <div id="auth_block" style="float: right; margin-right: 16px"></div>
+        <div id="auth_block" class="navbar-auth_block" style="float: right; margin-right: 16px"></div>
         <a href="/basket" class="basket-link">
             <div class="basket-container">
                 <img src="static/cart.png" width="32" height="32" alt="Корзина" class="basket-image">
@@ -16,7 +16,7 @@ export const renderTopNavView = window.Handlebars.compile(`
 `);
 
 export const renderAuthBlock = window.Handlebars.compile(`
-        <a class="navbar-auth_user_block    " href="/user">
+        <a class="navbar-auth_user_block" href="/user">
             <img src="{{ user.avatar }}" class="navbar-avatar" alt="ava" id="avatar">
             <div class="navbar-username" id="navbar-username">
                 <h3>{{user.name}}</h3>

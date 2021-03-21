@@ -1,7 +1,7 @@
-import { NavBar } from '../../components/NavBar/NavBar.js';
-import { SignUp } from '../../components/SignUp/SignUp.js';
+import { NavBar } from '../components/NavBar/NavBar.js';
+import { Login } from '../components/SignIn/Login.js';
 
-export class SignUpView {
+export class SignInView {
     constructor (root, goTo) {
         this.goTo = goTo;
         this.root = root;
@@ -11,10 +11,10 @@ export class SignUpView {
         this.root.innerHTML = '';
         this.navbar = new NavBar({ root: this.root, goTo: this.goTo });
 
-        const signup = new SignUp({
+        const login = new Login({
             root: this.root,
             goTo: this.goTo
         });
-        signup.render()
+        login.render()
     }
 }

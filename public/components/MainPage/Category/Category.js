@@ -1,6 +1,6 @@
 import { renderCategory } from './CategoryTmpl.js';
 import { category } from './Category.constants.js'
-import { noOp } from '../../modules/utils.js';
+import { noOp } from '../../../modules/utils.js';
 
 export class CategoryComponent {
     constructor ({

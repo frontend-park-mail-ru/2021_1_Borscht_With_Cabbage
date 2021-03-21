@@ -1,4 +1,5 @@
-@import "colors.css";
+@import "public/static/colors.css";
+
 body, html {
     height: 100vh;
     margin: 0;
@@ -51,7 +52,7 @@ body {
 
 .address {
     float: right;
-    background-image: url('map.png');
+    background-image: url('../../static/map.png');
     background-position: left;
     background-repeat: no-repeat;
     background-color: var(--main-green_color_darker);

@@ -1,5 +1,5 @@
 import { renderFilter } from './FilterTmpl.js';
-import { noOp } from '../../modules/utils.js';
+import { noOp } from '../../../modules/utils.js';
 
 export class FilterComponent {
     constructor ({

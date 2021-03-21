@@ -44,7 +44,7 @@ export class Login {
         const regID = 'js_toRegistration';
         const reg = document.getElementById(regID);
         if (reg) {
-            form.addEventListener('click', () => {this.goTo('signup')})
+            reg.onclick = () => {this.goTo('signup')}
         }
     }
 

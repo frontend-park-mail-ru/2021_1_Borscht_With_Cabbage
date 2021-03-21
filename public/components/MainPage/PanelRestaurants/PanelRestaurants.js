@@ -1,5 +1,5 @@
 import { renderPanelRestaurants } from './PanelRestaurantsTmpl.js';
-import { noOp } from '../../modules/utils.js';
+import { noOp } from '../../../modules/utils.js';
 import { renderInfoRestaurant } from '../InfoRestaurant/InfoRestaurant.js';
 
 export class PanelRestaurantsComponent {

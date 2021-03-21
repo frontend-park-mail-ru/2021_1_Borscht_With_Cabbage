@@ -1,7 +1,7 @@
-import { NavBar } from '../../components/NavBar/NavBar.js';
-import { renderProfileView } from './profileTemplate.js'
-import { ProfileEdits } from '../../components/Profile/ProfileEdits.js';
-import { userGet } from '../../modules/api.js';
+import { NavBar } from '../components/NavBar/NavBar.js';
+import { renderProfileView } from '../components/Profile/ProfileTemplate.js'
+import { ProfileEdits } from '../components/Profile/ProfileEdits.js';
+import { userGet } from '../modules/api.js';
 
 export class ProfileView {
     constructor (root, goTo) {

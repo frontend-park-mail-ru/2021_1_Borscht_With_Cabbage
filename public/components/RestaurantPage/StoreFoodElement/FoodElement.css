@@ -1,29 +1,3 @@
-#store-container {
-    margin: 25px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-}
-
-#store-container > div {
-    flex-grow: 1;
-    margin: 0 20px;
-    padding: 16px;
-    border-radius: 32px;
-}
-
-#store-basket-food_list {
-
-}
-
-#store-basket-total {
-
-}
-
-#store-basket-order {
-
-}
-
 .store--food--add_buttons {
     float: right;
     display: flex;

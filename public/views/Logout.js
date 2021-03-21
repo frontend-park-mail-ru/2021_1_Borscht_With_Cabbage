@@ -1,6 +1,6 @@
-import { deleteUser } from '../../modules/auth.js';
-import { logoutGet } from '../../modules/api.js';
-import { noOp } from '../../modules/utils.js';
+import { deleteUser } from '../modules/auth.js';
+import { logoutGet } from '../modules/api.js';
+import { noOp } from '../modules/utils.js';
 
 export class Logout {
     constructor ({

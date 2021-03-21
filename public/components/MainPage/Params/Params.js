@@ -1,6 +1,6 @@
 import { renderParams } from './ParamsTmpl.js';
 import { params } from './Params.constants.js';
-import { noOp } from '../../modules/utils.js';
+import { noOp } from '../../../modules/utils.js';
 
 export class ParamsComponent {
     constructor ({

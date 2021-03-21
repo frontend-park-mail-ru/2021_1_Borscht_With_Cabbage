@@ -13,6 +13,7 @@ export class NavBar {
                 user: window.user,
                 serverUrl: window.serverAddress
             });
+        this.goProfileListener();
         } else {
             authBlock.innerHTML = renderNotAuthBlock({});
             this.goLoginListener();
@@ -20,9 +21,16 @@ export class NavBar {
     }
 
     goLoginListener() {
-        const loginLink = document.getElementById('js_go_login')
+        const loginLink = document.getElementById('js_goLogin')
         if (loginLink) {
             loginLink.addEventListener('click', () => {this.goTo('login')});
+        }
+    }
+
+    goProfileListener() {
+        const profileLink = document.getElementById('js_toProfile')
+        if (profileLink) {
+            profileLink.addEventListener('click', () => {this.goTo('profile')})
         }
     }
 }

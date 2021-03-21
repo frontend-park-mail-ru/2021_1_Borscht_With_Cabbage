@@ -70,6 +70,7 @@ export class ProfileEdits {
             if (info.avatar) {
                 document.getElementById('avatar').src = info.avatar;
                 window.user.avatar = info.avatar;
+                this.deletePreview()
             }
             document.getElementById('navbar-username').textContent = info.name;
             window.user.name = info.name;
@@ -150,6 +151,13 @@ export class ProfileEdits {
             document.getElementById('input--avatar--button'))
     }
 
+    deletePreview () {
+        const elemPreview = document.querySelector('.preview')
+        elemPreview.classList.add('removing')
+        elemPreview.addEventListener('transitionend', () => elemPreview.remove())
+        this.file = null
+    }
+
     setPreview (input, button) {
         this.file = null;
         const changeHandler = event => {
@@ -172,11 +180,8 @@ export class ProfileEdits {
                     size: bytesToSize(this.file.size)
                 }))
                 document.querySelector('.preview-remove')
-                    .addEventListener('click', (eve) => {
-                        const elemPreview = document.querySelector('.preview')
-                        elemPreview.classList.add('removing')
-                        elemPreview.addEventListener('transitionend', () => elemPreview.remove())
-                        this.file = null
+                    .addEventListener('click', () => {
+                        this.deletePreview()
                     })
             }
             reader.readAsDataURL(this.file)

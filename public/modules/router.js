@@ -17,16 +17,21 @@ export class Router {
     }
 
     open (page) {
+        const reverseUrls = Object.fromEntries(Object.entries(urls).map(([key, value]) => [value, key]))
+        if (reverseUrls[page]) {
+            page = reverseUrls[page]
+        }
+
+        if ((page === 'login' || page === 'signup') && window.isUserAuth) {
+            this.open('main');
+            return
+        }
+
         if (urls[page]) {
             window.history.replaceState({}, '', urls[page]);
             if (this.routes.get(urls[page])) {
                 this.routes.get(urls[page]).render();
             }
-            return
-        }
-
-        if ((/\/signin/.test(page) || /\/signup/.test(page)) && window.isUserAuth) {
-            this.open('main');
             return
         }
 

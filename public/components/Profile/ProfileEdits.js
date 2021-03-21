@@ -120,6 +120,29 @@ export class ProfileEdits {
                 () => renderInput(numberID, Validator.validatePhone(number.value))
             );
         }
+
+        const passwordID = 'password';
+        const password = document.getElementById(passwordID);
+        if (password) {
+            password.addEventListener('focusout',
+                () => renderInput(passwordID, Validator.validatePassword(password.value))
+            );
+        }
+
+        const repeatPasswordID = 'password_repeat';
+        const repeatPassword = document.getElementById(repeatPasswordID);
+        if (repeatPassword) {
+            repeatPassword.addEventListener('focusout',
+                () => renderInput(
+                    repeatPasswordID,
+                    Validator.validateEqualPassword(
+                        password.value,
+                        repeatPassword.value
+                    )
+                )
+            );
+        }
+
         maskPhone(number);
 
         number.focus();

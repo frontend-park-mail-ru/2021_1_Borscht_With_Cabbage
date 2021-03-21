@@ -2,9 +2,16 @@ export const renderTopNavView = window.Handlebars.compile(`
 <div class="topnav">
     <a class="name" href="/">Delivery Borscht</a>
 
-    <a href="/basket" style="float: right; margin-right: 16px"><img src="static/cart.png" width="32" height="32" alt="Корзина"></a>
-    <div id="auth_block"></div>
-    <input type="text" id="address" class="address" name="firstname" placeholder="Адрес доставки">
+    <div class="navbar-right_items">
+        <input type="text" id="address" class="address" name="firstname" placeholder="Адрес доставки">
+        <div id="auth_block" class="navbar-auth_block" style="float: right; margin-right: 16px"></div>
+        <a href="/basket" class="basket-link">
+            <div class="basket-container">
+                <img src="static/cart.png" width="32" height="32" alt="Корзина" class="basket-image">
+                <h3 class="basket-text">Корзина</h3>    
+            </div>
+        </a>
+    </div>
 </div>
 `);
 
@@ -12,7 +19,7 @@ export const renderAuthBlock = window.Handlebars.compile(`
         <a class="navbar-auth_user_block" href="/user">
             <img src="{{ user.avatar }}" class="navbar-avatar" alt="ava" id="avatar">
             <div class="navbar-username" id="navbar-username">
-                {{user.name}}
+                <h3>{{user.name}}</h3>
             </div>
         </a>
 `)
@@ -20,7 +27,7 @@ export const renderAuthBlock = window.Handlebars.compile(`
 export const renderNotAuthBlock = window.Handlebars.compile(`
         <h3 class="navbar-auth_user_block" id="js_go_login">
             <div class="navbar-signin">
-                signin
+                <h3 class="navbar-signin-text">Войти</h3>
             </div>
         </h3>
 `)

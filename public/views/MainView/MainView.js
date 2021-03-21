@@ -30,7 +30,7 @@ export class MainView {
 
     headerDraw () {
         this.root.innerHTML = '';
-        this.navbar = new NavBar({ root: this.root });
+        this.navbar = new NavBar({ root: this.root, goTo: this.goTo });
 
         this.creatorUrl = new CreatorUrl();
 

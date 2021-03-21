@@ -40,6 +40,12 @@ export class Login {
         if (form) {
             form.addEventListener('submit', this.formSubmit.bind(this));
         }
+
+        const regID = 'js_toRegistration';
+        const reg = document.getElementById(regID);
+        if (reg) {
+            form.addEventListener('click', () => {this.goTo('signup')})
+        }
     }
 
     formSubmit (event) {

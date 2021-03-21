@@ -19,7 +19,7 @@ export class ProfileView {
         console.log(data);
         if (status === 200) {
             this.root.innerHTML = '';
-            this.navbar = new NavBar({ root: this.root });
+            this.navbar = new NavBar({ root: this.root, goTo: this.goTo });
 
             const profile = document.createElement('div');
             profile.innerHTML = renderProfileView({}); // создаем правое меню

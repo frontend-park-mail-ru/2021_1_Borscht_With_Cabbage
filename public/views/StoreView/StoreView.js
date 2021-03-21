@@ -22,7 +22,7 @@ export class StoreView {
     storePageDraw (info, status) {
         if (status === 200) {
             this.root.innerHTML = '';
-            this.navbar = new NavBar({ root: this.root });
+            this.navbar = new NavBar({ root: this.root, goTo: this.goTo });
             const main = document.createElement('div');
             main.innerHTML = renderStoreView({});
             this.root.append(main);

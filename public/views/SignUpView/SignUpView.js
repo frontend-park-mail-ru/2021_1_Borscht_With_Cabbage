@@ -9,7 +9,7 @@ export class SignUpView {
 
     render () {
         this.root.innerHTML = '';
-        this.navbar = new NavBar({ root: this.root });
+        this.navbar = new NavBar({ root: this.root, goTo: this.goTo });
 
         const signup = new SignUp({
             root: this.root,

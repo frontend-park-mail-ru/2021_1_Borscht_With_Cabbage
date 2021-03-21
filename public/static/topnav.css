@@ -58,6 +58,10 @@ body {
     flex-direction: row;
 }
 
+.navbar-auth_user_block :hover {
+    color: var(--main-green_color);
+}
+
 .navbar-username {
     color: black;
 }

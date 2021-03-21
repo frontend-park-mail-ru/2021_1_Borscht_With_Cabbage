@@ -18,9 +18,9 @@ export const renderAuthBlock = window.Handlebars.compile(`
 `)
 
 export const renderNotAuthBlock = window.Handlebars.compile(`
-        <a class="navbar-auth_user_block" href="/signin">
+        <h3 class="navbar-auth_user_block" id="js_go_login">
             <div class="navbar-signin">
                 signin
             </div>
-        </a>
+        </h3>
 `)

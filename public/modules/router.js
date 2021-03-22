@@ -27,18 +27,20 @@ export class Router {
     }
 
     open (page, isBack = false) {
-        console.log('open', page)
         const reverseUrls = Object.fromEntries(Object.entries(urls).map(([key, value]) => [value, key]))
         if (reverseUrls[page]) {
             page = reverseUrls[page]
         }
 
         if ((page === 'login' || page === 'signup') && window.isUserAuth) {
-            this.open('main');
+            this.open('main', isBack);
             return
         }
 
         if (urls[page]) {
+            if (page === urls.logout && isBack) {
+                this.open('main', isBack);
+            }
             this.windowHistory(urls[page], isBack)
             if (this.routes.get(urls[page])) {
                 this.routes.get(urls[page]).render();
@@ -53,7 +55,7 @@ export class Router {
             return
         }
 
-        this.open('main');
+        this.open('main', isBack);
     }
 
     addRoute (page, handler) {

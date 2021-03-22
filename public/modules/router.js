@@ -14,35 +14,48 @@ export class Router {
         this.routes = new Map();
         this.catchFollowLinks = this.catchFollowLinks.bind(this);
         this.root.addEventListener('click', this.catchFollowLinks);
+        window.addEventListener('popstate', (event) => {
+            this.open(window.location.pathname, true);
+        })
     }
 
-    open (page) {
+    windowHistory (page, isBack) {
+        if (!isBack) {
+            window.history.pushState({}, '', page)
+        }
+        window.history.replaceState({}, '', page);
+    }
+
+    open (page, isBack = false) {
         const reverseUrls = Object.fromEntries(Object.entries(urls).map(([key, value]) => [value, key]))
         if (reverseUrls[page]) {
             page = reverseUrls[page]
         }
 
         if ((page === 'login' || page === 'signup') && window.isUserAuth) {
-            this.open('main');
+            this.open('main', isBack);
             return
         }
 
         if (urls[page]) {
-            window.history.replaceState({}, '', urls[page]);
+            if (page === urls.logout && isBack) {
+                this.open('main', isBack);
+            }
+            this.windowHistory(urls[page], isBack)
             if (this.routes.get(urls[page])) {
                 this.routes.get(urls[page]).render();
+                return
             }
-            return
         }
 
         if (/\/restaurant\/./.test(page)) {
-            window.history.replaceState({}, '', page);
+            this.windowHistory(page, isBack)
             const id = page.substring('/restaurant'.length);
             this.routes.get(urls.store).render(id);
-            return;
+            return
         }
 
-        this.open('main');
+        this.open('main', isBack);
     }
 
     addRoute (page, handler) {

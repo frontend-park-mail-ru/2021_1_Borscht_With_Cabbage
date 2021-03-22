@@ -3,31 +3,31 @@
     height: 250px;
 }
 
-.preview {
+.input-avatar__preview {
     position: relative;
     width: 180px; /*it depends from width .preview img*/
     overflow: hidden;
 }
 
-.preview.removing {
+.input-avatar__preview.removing {
     transform: scale(0);
     transition: transform .3s;
 }
 
-.preview img {
+.input-avatar__preview img {
     width: 180px; /*it depends from width .preview*/
     height: auto;
 }
 
-.preview:hover .preview-remove {
+.input-avatar__preview:hover .input-avatar__preview-remove {
     opacity: 1;
 }
 
-.preview:hover .preview--info {
+.input-avatar__preview:hover .input-avatar__preview-info {
     bottom: 4px;
 }
 
-.preview-remove {
+.input-avatar__preview-remove {
     opacity: 0;
     width: 20px;
     height: 20px;
@@ -43,7 +43,7 @@
     transition: opacity .22s;
 }
 
-.preview--info {
+.input-avatar__preview-info {
     position: absolute;
     right: 0;
     bottom: -30px;

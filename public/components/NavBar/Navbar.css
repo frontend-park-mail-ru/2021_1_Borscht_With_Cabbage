@@ -1,32 +1,13 @@
 @import "public/static/colors.css";
 
-body, html {
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    flex-direction: column;
-}
-
 .navbar {
     overflow: hidden;
     background-color: var(--navbar-white_color);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    height: 6em;
 }
 
-.title-container:hover {
-    background-color: white;
-}
-
-.navbar__project-name:hover{
-    color: var(--main-green_color);
-}
-
-.navbar__project-name {
+.navbar-title__project-name {
     color: black;
     font-weight: 700;
     font-size: 32px;
@@ -34,10 +15,19 @@ body {
     line-height: 2em;
 }
 
+.navbar-title {
+    float: left;
+    display: flex;
+    align-items: center;
+    height: 6em;
+    margin-left: 2em;
+}
+
 .navbar-right-items {
     float: right;
     display: flex;
-    align-items: center
+    align-items: center;
+    height: 6em;
 }
 
 .navbar-right-items__address {
@@ -46,7 +36,7 @@ body {
     background-position: left;
     background-repeat: no-repeat;
     background-color: var(--main-green_color_darker);
-    height: 1.8em;
+    height: 3em;
     border-radius: 8px;
     color: white;
     vertical-align: center;
@@ -90,10 +80,6 @@ body {
 .navbar-right-items-auth-user {
     display: flex;
     flex-direction: row;
-}
-
-.navbar-right-items-auth-user :hover {
-    color: var(--main-green_color);
 }
 
 .navbar-right-items-auth-user__username {

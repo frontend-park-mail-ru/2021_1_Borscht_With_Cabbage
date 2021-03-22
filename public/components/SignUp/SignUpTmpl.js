@@ -2,7 +2,7 @@ export const renderSignUp = window.Handlebars.compile(`
 <div class="authorization" >
     <div class="authorization-container" style="margin: 50px 0">
         <h2 class="authorization-container__title">Регистрация</h2>
-        <form id="auth-form">
+        <form id="authorization-form">
             <input type="email" id="email" placeholder="mail@mail.ru" name="email" data-name="Email">
             <p id="emailError" class="error">Email</p>
             <input type="tel" id="phone" placeholder="+7 (___) ___ ____" name="phone" value="+7 (___) ___ ____" data-name="Phone">

@@ -3,7 +3,7 @@ import { renderInput } from '../../../modules/rendering.js';
 import { userPut } from '../../../modules/api.js';
 import { Validator } from '../../../modules/validation.js';
 import { maskPhone } from '../../../modules/phoneMask.js';
-import { renderPreview } from '../PreviewTmpl.js';
+import { renderPreview } from './PreviewTmpl.js';
 import { bytesToSize } from '../../../modules/utils.js';
 
 export class ProfileEdits {
@@ -147,12 +147,12 @@ export class ProfileEdits {
         maskPhone(number);
 
         number.focus();
-        this.setPreview(document.getElementById('input--avatar'),
-            document.getElementById('input--avatar--button'))
+        this.setPreview(document.getElementById('input-avatar'),
+            document.getElementById('input-avatar-button'))
     }
 
     deletePreview () {
-        const elemPreview = document.querySelector('.preview')
+        const elemPreview = document.querySelector('.input-avatar__preview')
         elemPreview.classList.add('removing')
         elemPreview.addEventListener('transitionend', () => elemPreview.remove())
         this.file = null
@@ -165,7 +165,7 @@ export class ProfileEdits {
                 return;
             }
 
-            const preview = document.getElementById('profile--preview')
+            const preview = document.getElementById('profile-preview')
             if (preview) {
                 preview.innerHTML = ''
             }
@@ -179,7 +179,7 @@ export class ProfileEdits {
                     name: this.file.name,
                     size: bytesToSize(this.file.size)
                 }))
-                document.querySelector('.preview-remove')
+                document.querySelector('.input-avatar__preview-remove')
                     .addEventListener('click', () => {
                         this.deletePreview()
                     })

@@ -1,10 +1,10 @@
 import { renderProfileEdits } from './ProfileEditsTmpl.js';
-import { renderInput } from '../../modules/rendering.js';
-import { userPut } from '../../modules/api.js';
-import { Validator } from '../../modules/validation.js';
-import { maskPhone } from '../../modules/phoneMask.js';
-import { renderPreview } from './PreviewTmpl.js';
-import { bytesToSize } from '../../modules/utils.js';
+import { renderInput } from '../../../modules/rendering.js';
+import { userPut } from '../../../modules/api.js';
+import { Validator } from '../../../modules/validation.js';
+import { maskPhone } from '../../../modules/phoneMask.js';
+import { renderPreview } from '../PreviewTmpl.js';
+import { bytesToSize } from '../../../modules/utils.js';
 
 export class ProfileEdits {
     constructor (goTo, user) {
@@ -13,7 +13,7 @@ export class ProfileEdits {
     }
 
     render () {
-        const profilePlace = document.getElementById('profile-main_block')
+        const profilePlace = document.getElementById('profile-left-block')
         profilePlace.innerHTML = renderProfileEdits({
             user: this.user,
             serverUrl: window.serverAddress
@@ -24,7 +24,7 @@ export class ProfileEdits {
     }
 
     addSubmitListener () {
-        const formID = 'profile-form-userdata';
+        const formID = 'profile-userdata';
         const form = document.getElementById(formID);
         form.addEventListener('submit', this.formSubmit.bind(this));
     }
@@ -81,7 +81,7 @@ export class ProfileEdits {
         const phoneInput = document.getElementById('number');
         const value = phoneInput.value;
         phoneInput.value = phoneInput.value.replace(/\D/g, '');
-        const form = document.getElementById('profile-form-userdata');
+        const form = document.getElementById('profile-userdata');
         const formData = new FormData(form);
 
         if (!this.file) {

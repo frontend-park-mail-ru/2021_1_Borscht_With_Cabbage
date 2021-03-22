@@ -11,13 +11,13 @@ export class StoreBasket {
 
     render (goTo) {
         this.root.innerHTML = renderStoreBasket({});
-        document.getElementById('store-basket-order')
+        document.getElementById('restaurant-basket__order')
             .addEventListener('click', () => goTo('basket'));
     }
 
     append (food, isPlus) {
         const element = document.getElementById('chosen_food-id-' + food.id);
-        const totalSum = document.getElementById('store-basket-total');
+        const totalSum = document.getElementById('restaurant-basket__sum');
         if (isPlus) {
             if (element) {
                 this.elements.forEach(element => {
@@ -27,7 +27,7 @@ export class StoreBasket {
                 });
             } else { // if new element
                 const foodElement = new StoreBasketFood({
-                    root: document.getElementById('store-basket-food_list'),
+                    root: document.getElementById('restaurant-basket__items'),
                     food: food
                 });
                 foodElement.render();

@@ -1,4 +1,4 @@
-import { NavBar } from '../components/NavBar/NavBar.js';
+import { Navbar } from '../components/NavBar/Navbar.js';
 import { Login } from '../components/SignIn/Login.js';
 
 export class SignInView {
@@ -9,7 +9,7 @@ export class SignInView {
 
     render () {
         this.root.innerHTML = '';
-        this.navbar = new NavBar({ root: this.root, goTo: this.goTo });
+        this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
 
         const login = new Login({
             root: this.root,

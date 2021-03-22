@@ -12,7 +12,7 @@ body {
     flex-direction: column;
 }
 
-.topnav {
+.navbar {
     overflow: hidden;
     background-color: var(--navbar-white_color);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
@@ -22,21 +22,11 @@ body {
     background-color: white;
 }
 
-.topnav a {
-    float: left;
-    color: var(--navbar-href-white_color);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
+.navbar__project-name:hover{
+    color: var(--main-green_color);
 }
 
-.topnav a:hover {
-    background-color: var(--delivery-background_color);
-    color: black;
-}
-
-.topnav a.name {
+.navbar__project-name {
     color: black;
     font-weight: 700;
     font-size: 32px;
@@ -44,13 +34,13 @@ body {
     line-height: 2em;
 }
 
-.navbar-right_items {
+.navbar-right-items {
     float: right;
     display: flex;
     align-items: center
 }
 
-.address {
+.navbar-right-items__address {
     float: right;
     background-image: url('../../static/map.png');
     background-position: left;
@@ -69,56 +59,56 @@ body {
     color: whitesmoke;
 }
 
-.navbar-auth_block {
+.navbar-right-items-auth {
     padding: 0 16px;
     border-left: 1px solid var(--main-green_color);
     border-right: 1px solid var(--main-green_color);
 }
 
-.basket-link {
+.navbar-right-items-basket {
     display: block;
 }
 
-.basket-container {
+.navbar-right-items-basket-container {
     float: right;
     margin-right: 16px;
     display: flex;
     align-items: center
 }
 
-.basket-text {
+.navbar-right-items-basket-container__text {
     display: inline-block;
     color: black;
     font-weight: 500;
     margin-left: 8px;
 }
 
-.basket-image {
+.navbar-right-items-basket-container__image {
     display: inline-block;
 }
 
-.navbar-auth_user_block {
+.navbar-right-items-auth-user {
     display: flex;
     flex-direction: row;
 }
 
-.navbar-auth_user_block :hover {
+.navbar-right-items-auth-user :hover {
     color: var(--main-green_color);
 }
 
-.navbar-username {
+.navbar-right-items-auth-user__username {
     color: black;
 }
 
-.navbar-avatar {
+.navbar-right-items-auth-user__avatar {
     width: 50px;
     height: 50px;
 }
 
-.navbar-signin {
+.navbar-right-items-auth-user__signin {
     color: var(--profile-link-hover_color_darker);
 }
 
-.navbar-signin-text {
+.navbar-right-items-auth-user__text {
     font-weight: 500;
 }

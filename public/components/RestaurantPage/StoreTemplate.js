@@ -1,10 +1,10 @@
 export const renderStoreView = window.Handlebars.compile(`
-    <div id="store-container">
-        <div id="store-main">
-            <div id="store-title"></div>
-            <div id="food-list"></div>
+    <div class="restaurant">
+        <div id="restaurant-info">
+            <div id="restaurant-info__title"></div>
+            <div id="restaurant-info__food"></div>
         </div>
 
-        <div id="store-basket"></div>
+        <div id="restaurant-basket"></div>
     </div>
 `)

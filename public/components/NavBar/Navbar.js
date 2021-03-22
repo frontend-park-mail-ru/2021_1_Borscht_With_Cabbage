@@ -1,6 +1,6 @@
-import { renderAuthBlock, renderNotAuthBlock, renderTopNavView } from './topNavTemplate.js';
+import { renderAuthBlock, renderNotAuthBlock, renderTopNavView } from './NavbarTmpl.js';
 
-export class NavBar {
+export class Navbar {
     constructor ({
         root = document.body,
         goTo = null

@@ -1,4 +1,4 @@
-import { NavBar } from '../components/NavBar/NavBar.js';
+import { Navbar } from '../components/NavBar/Navbar.js';
 import { SignUp } from '../components/SignUp/SignUp.js';
 
 export class SignUpView {
@@ -9,7 +9,7 @@ export class SignUpView {
 
     render () {
         this.root.innerHTML = '';
-        this.navbar = new NavBar({ root: this.root, goTo: this.goTo });
+        this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
 
         const signup = new SignUp({
             root: this.root,

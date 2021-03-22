@@ -1,6 +1,6 @@
-import { NavBar } from '../components/NavBar/NavBar.js';
-import { renderProfileView } from '../components/Profile/ProfileTemplate.js'
-import { ProfileEdits } from '../components/Profile/ProfileEdits.js';
+import { Navbar } from '../components/NavBar/Navbar.js';
+import { renderProfileView } from '../components/Profile/ProfileTmpl.js'
+import { ProfileEdits } from '../components/Profile/ProfileEdits/ProfileEdits.js';
 import { userGet } from '../modules/api.js';
 
 export class ProfileView {
@@ -19,7 +19,7 @@ export class ProfileView {
         console.log(data);
         if (status === 200) {
             this.root.innerHTML = '';
-            this.navbar = new NavBar({ root: this.root, goTo: this.goTo });
+            this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
 
             const profile = document.createElement('div');
             profile.innerHTML = renderProfileView({}); // создаем правое меню

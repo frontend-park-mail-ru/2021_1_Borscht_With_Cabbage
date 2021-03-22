@@ -1,11 +1,11 @@
-#store-container {
+.restaurant {
     margin: 25px;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
 }
 
-#store-container > div {
+#restaurant > div {
     flex-grow: 1;
     margin: 0 20px;
     padding: 16px;

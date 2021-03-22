@@ -1,5 +1,5 @@
 import { renderStoreView } from '../components/RestaurantPage/StoreTemplate.js';
-import { NavBar } from '../components/NavBar/NavBar.js';
+import { Navbar } from '../components/NavBar/Navbar.js';
 import { storeGet } from '../modules/api.js';
 import { StoreTitle } from '../components/RestaurantPage/StoreTitle/StoreTitle.js';
 import { StoreFoodList } from '../components/RestaurantPage/StoreFoodList/StoreFoodList.js';
@@ -22,19 +22,19 @@ export class StoreView {
     storePageDraw (info, status) {
         if (status === 200) {
             this.root.innerHTML = '';
-            this.navbar = new NavBar({ root: this.root, goTo: this.goTo });
+            this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
             const main = document.createElement('div');
             main.innerHTML = renderStoreView({});
             this.root.append(main);
 
             this.storeTitle = new StoreTitle({
-                root: document.getElementById('store-title'),
+                root: document.getElementById('restaurant-info__title'),
                 title: info.title
             });
             this.storeTitle.render();
 
             this.storeBasket = new StoreBasket({
-                root: document.getElementById('store-basket')
+                root: document.getElementById('restaurant-basket')
             });
             this.storeBasket.render(this.goTo);
 
@@ -42,7 +42,7 @@ export class StoreView {
                 this.storeBasket.append(food, isPlus);
             };
             this.foodList = new StoreFoodList({
-                root: document.getElementById('food-list')
+                root: document.getElementById('restaurant-info__food')
             });
             this.foodList.render(info.foods, callbackAddInBasket.bind(this));
         } else {

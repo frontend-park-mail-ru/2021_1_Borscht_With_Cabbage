@@ -17,7 +17,7 @@ export class PanelRestaurantsComponent {
         const restaurantsElem = document.createElement('div');
         restaurantsElem.innerHTML = renderPanelRestaurants({});
         this.root.append(restaurantsElem);
-        const restaurantList = document.getElementById('restaurant_list')
+        const restaurantList = document.getElementById('restaurants_list')
         for (const restaurant of this.restaurants) {
             restaurantList.innerHTML += renderInfoRestaurant({
                 node: restaurant

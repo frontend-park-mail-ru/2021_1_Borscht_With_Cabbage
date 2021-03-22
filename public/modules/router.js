@@ -14,9 +14,20 @@ export class Router {
         this.routes = new Map();
         this.catchFollowLinks = this.catchFollowLinks.bind(this);
         this.root.addEventListener('click', this.catchFollowLinks);
+        window.addEventListener('popstate', (event) => {
+            this.open(window.location.pathname, true);
+        })
     }
 
-    open (page) {
+    windowHistory (page, isBack) {
+        if (!isBack) {
+            window.history.pushState({}, '', page)
+        }
+        window.history.replaceState({}, '', page);
+    }
+
+    open (page, isBack = false) {
+        console.log('open', page)
         const reverseUrls = Object.fromEntries(Object.entries(urls).map(([key, value]) => [value, key]))
         if (reverseUrls[page]) {
             page = reverseUrls[page]
@@ -28,18 +39,18 @@ export class Router {
         }
 
         if (urls[page]) {
-            window.history.replaceState({}, '', urls[page]);
+            this.windowHistory(urls[page], isBack)
             if (this.routes.get(urls[page])) {
                 this.routes.get(urls[page]).render();
+                return
             }
-            return
         }
 
         if (/\/restaurant\/./.test(page)) {
-            window.history.replaceState({}, '', page);
+            this.windowHistory(page, isBack)
             const id = page.substring('/restaurant'.length);
             this.routes.get(urls.store).render(id);
-            return;
+            return
         }
 
         this.open('main');

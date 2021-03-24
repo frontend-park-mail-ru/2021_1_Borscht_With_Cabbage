@@ -8,6 +8,9 @@ export class SignUpView {
     }
 
     render () {
+        if (window.isUserAuth) {
+            this.goTo('main')
+        }
         this.root.innerHTML = '';
         this.navbar = new NavBar({ root: this.root });
 

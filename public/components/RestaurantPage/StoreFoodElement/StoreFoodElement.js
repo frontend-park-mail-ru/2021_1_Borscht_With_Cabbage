@@ -8,10 +8,9 @@ export class StoreFoodElement {
         this.root = root;
         this.food = food;
         this.num = 0;
-        this.buttonID = 'dish__add-id' + this.food.id;
-        this.addButtonsID = 'dish-count-buttons__id-' + this.food.id;
-        this.plusButtonID = 'dish-count-buttons__plus' + this.food.id;
-        this.minusButtonID = 'dish-count-buttons__minus' + this.food.id;
+        this.buttonID = `[data-foodAddButtonID="${this.food.id}"]`
+        this.plusButtonID = `[data-foodPlusButtonID="${this.food.id}"]`
+        this.minusButtonID = `[data-foodMinusButtonID="${this.food.id}"]`
     }
 
     render () {
@@ -23,20 +22,20 @@ export class StoreFoodElement {
     }
 
     choose () {
-        const button = document.getElementById(this.buttonID);
+        const button = this.root.querySelector(this.buttonID)
         button.style.display = 'none';
-        const plusButton = document.getElementById(this.plusButtonID);
+        const plusButton = this.root.querySelector(this.plusButtonID)
         plusButton.style.display = 'block';
-        const minusButton = document.getElementById(this.minusButtonID);
+        const minusButton = this.root.querySelector(this.minusButtonID)
         minusButton.style.display = 'block';
     }
 
     unChoose () {
-        const button = document.getElementById(this.buttonID);
+        const button = this.root.querySelector(this.buttonID)
         button.style.display = 'block';
-        const plusButton = document.getElementById(this.plusButtonID);
+        const plusButton = this.root.querySelector(this.plusButtonID)
         plusButton.style.display = 'none';
-        const minusButton = document.getElementById(this.minusButtonID);
+        const minusButton = this.root.querySelector(this.minusButtonID)
         minusButton.style.display = 'none';
     }
 
@@ -55,7 +54,7 @@ export class StoreFoodElement {
             this.clickElement(this.num);
         };
 
-        document.getElementById(this.buttonID)
+        this.root.querySelector(this.buttonID)
             .addEventListener('click', this.addListener);
 
         this.plusListener = () => {
@@ -63,7 +62,7 @@ export class StoreFoodElement {
             this.num += 1;
             this.clickElement(this.num);
         };
-        document.getElementById(this.plusButtonID)
+        this.root.querySelector(this.plusButtonID)
             .addEventListener('click', this.plusListener);
 
         this.minusListener = () => {
@@ -71,7 +70,7 @@ export class StoreFoodElement {
             this.num -= 1;
             this.clickElement(this.num);
         };
-        document.getElementById(this.minusButtonID)
+        this.root.querySelector(this.minusButtonID)
             .addEventListener('click', this.minusListener);
     }
 }

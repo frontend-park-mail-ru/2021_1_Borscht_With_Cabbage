@@ -1,15 +1,15 @@
 export const renderFoodElement = window.Handlebars.compile(`
-        <li class="card" id="store-food-id{{food.id}}">
+        <li class="card" data-foodID="{{food.id}}">
             <span class="card__header card__name">{{food.name}}</span>
             <img class="card__image" src="{{food.image}}" alt="{{food.image}}">
             <span class="card__description">
                 {{food.description}}
             </span>
             <span class="card__sum">Цена: {{food.price}} рублей</span>
-            <button id="dish__add-id{{food.id}}" class="button">Добавить</button>
-            <div id="dish-count-buttons__id-{{food.id}}" class="restaurant-content__add-buttons">
-                <button id="dish-count-buttons__plus{{food.id}}">+</button>
-                <button id="dish-count-buttons__minus{{food.id}}">-</button>
+            <button data-foodAddButtonID="{{food.id}}" class="button">Добавить</button>
+            <div data-foodNumID="{{food.id}}" class="restaurant-content__add-buttons">
+                <button data-foodPlusButtonID="{{food.id}}">+</button>
+                <button data-foodMinusButtonID="{{food.id}}">-</button>
             </div>
         </li>
 `)

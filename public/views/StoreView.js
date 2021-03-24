@@ -12,8 +12,9 @@ export class StoreView {
     }
 
     render (url) {
+        const id = url.substring('/restaurant'.length);
         storeGet({
-            url: url
+            url: id
         })
             .then(r => this.storePageDraw(r.parsedJSON, r.status))
             .catch(r => console.log(`THis crash when post /store from ${r}`));

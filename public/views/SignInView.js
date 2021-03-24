@@ -8,6 +8,9 @@ export class SignInView {
     }
 
     render () {
+        if (window.isUserAuth) {
+            this.goTo('main')
+        }
         this.root.innerHTML = '';
         this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
 

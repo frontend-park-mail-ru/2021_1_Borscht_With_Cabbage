@@ -24,7 +24,7 @@ export class ProfileView {
             this.root.append(profile);
 
             // добавляем поля профиля и его изменения
-            const edits = new ProfileEdits(this.goTo, data);
+            const edits = new ProfileEdits({ root: this.root, goTo: this.goTo, user: data });
             edits.render()
         }
     }

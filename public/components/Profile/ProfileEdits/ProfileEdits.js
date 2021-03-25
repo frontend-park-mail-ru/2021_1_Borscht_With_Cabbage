@@ -3,14 +3,25 @@ import { renderInput } from '../../../modules/rendering.js';
 import { userPut } from '../../../modules/api.js';
 import { Validator } from '../../../modules/validation.js';
 import { maskPhone } from '../../../modules/phoneMask.js';
-import { renderPreview } from './PreviewTmpl.js';
-import { bytesToSize } from '../../../modules/utils.js';
 import eventBus from '../../../modules/eventBus.js';
+import { Preview } from '../Preview/Preview.js';
+import { noOp } from '../../../modules/utils.js';
+import user from '../../../modules/user.js';
 
 export class ProfileEdits {
-    constructor (goTo, user) {
+    constructor ({
+        root = document.body,
+        goTo = noOp,
+        user = null
+    }) {
+        this.root = root
         this.user = user
-        this.goTo = goTo;
+        this.goTo = goTo
+        this.file = null
+    }
+
+    makePreview () {
+        this.preview = new Preview(this.root, this.avatarInput, this.avatarButton)
     }
 
     render () {
@@ -19,6 +30,9 @@ export class ProfileEdits {
             user: this.user,
             serverUrl: window.serverAddress
         });
+        this.avatarInput = this.root.querySelector('#input-avatar')
+        this.avatarButton = this.root.querySelector('#input-avatar-button')
+        this.makePreview()
 
         this.addErrorListeners();
         this.addSubmitListener();
@@ -68,18 +82,15 @@ export class ProfileEdits {
             document.getElementById('name').value = info.name;
             document.getElementById('number').value = info.number;
             document.getElementById('number').focus();
-            // if (info.avatar) {
-            //     document.getElementById('avatar').src = info.avatar;
-            //     window.user.avatar = info.avatar;
             if (info.avatar) {
-                this.deletePreview()
+                this.preview.deletePreview()
+            } else {
+                info.avatar = user.avatar
             }
-            const userInfo = { name: info.name, avatar: info.avatar }
-            // user.auth(userInfo)
-            eventBus.emit('userSignIn', userInfo)
-            // }
-            // document.getElementById('navbar-username').textContent = info.name;
-            // window.user.name = info.name;
+            eventBus.emit('userSignIn', {
+                name: info.name,
+                avatar: info.avatar
+            })
         }
     }
 
@@ -90,6 +101,7 @@ export class ProfileEdits {
         const form = document.getElementById('profile-userdata');
         const formData = new FormData(form);
 
+        this.file = this.preview.getFile()
         if (!this.file) {
             formData.delete('avatar')
         }
@@ -151,51 +163,8 @@ export class ProfileEdits {
         }
 
         maskPhone(number);
-
         number.focus();
-        this.setPreview(document.getElementById('input-avatar'),
-            document.getElementById('input-avatar-button'))
-    }
 
-    deletePreview () {
-        const elemPreview = document.querySelector('.input-avatar__preview')
-        elemPreview.classList.add('removing')
-        elemPreview.addEventListener('transitionend', () => elemPreview.remove())
-        this.file = null
-    }
-
-    setPreview (input, button) {
-        this.file = null;
-        const changeHandler = event => {
-            if (!event.target.files.length) {
-                return;
-            }
-
-            const preview = document.getElementById('profile-preview')
-            if (preview) {
-                preview.innerHTML = ''
-            }
-
-            this.file = event.target.files[0]
-            const reader = new FileReader()
-
-            reader.onload = ev => {
-                input.insertAdjacentHTML('afterend', renderPreview({
-                    src: ev.target.result,
-                    name: this.file.name,
-                    size: bytesToSize(this.file.size)
-                }))
-                document.querySelector('.input-avatar__preview-remove')
-                    .addEventListener('click', () => {
-                        this.deletePreview()
-                    })
-            }
-            reader.readAsDataURL(this.file)
-        };
-
-        const triggerInput = () => input.click()
-
-        button.addEventListener('click', triggerInput)
-        input.addEventListener('change', changeHandler)
+        this.preview.setPreview()
     }
 }

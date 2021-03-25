@@ -1,6 +1,7 @@
 /**
  *  userSignIn
  *      data: { name, avatar }
+ *
  *  userLogout
  *      data: {}
  */

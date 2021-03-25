@@ -1,10 +1,12 @@
 import { SignUp } from '../components/SignUp/SignUp.js';
 import user from '../modules/user.js';
+import { SignUpController } from '../controllers/SignUpController.js';
 
 export class SignUpView {
     constructor (root, goTo) {
         this.goTo = goTo;
         this.root = root;
+        this.signUpController = new SignUpController()
     }
 
     render () {
@@ -14,7 +16,8 @@ export class SignUpView {
         this.root.innerHTML = '';
         const signup = new SignUp({
             root: this.root,
-            goTo: this.goTo
+            goTo: this.goTo,
+            controller: this.signUpController
         });
         signup.render()
     }

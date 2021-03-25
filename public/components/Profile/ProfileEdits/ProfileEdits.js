@@ -1,27 +1,35 @@
 import { renderProfileEdits } from './ProfileEditsTmpl.js';
 import { renderInput } from '../../../modules/rendering.js';
-import { userPut } from '../../../modules/api.js';
 import { Validator } from '../../../modules/validation.js';
 import { maskPhone } from '../../../modules/phoneMask.js';
 import eventBus from '../../../modules/eventBus.js';
 import { Preview } from '../Preview/Preview.js';
 import { noOp } from '../../../modules/utils.js';
 import user from '../../../modules/user.js';
+import ProfileEvents from '../../../events/ProfileEvents.js';
+import { ProfileController } from '../../../controllers/ProfileController.js';
 
 export class ProfileEdits {
     constructor ({
         root = document.body,
         goTo = noOp,
-        user = null
-    }) {
+        user = null,
+        controller = new ProfileController()
+    } = {}) {
         this.root = root
         this.user = user
         this.goTo = goTo
-        this.file = null
-    }
 
-    makePreview () {
-        this.preview = new Preview(this.root, this.avatarInput, this.avatarButton)
+        this.emailID = 'email'
+        this.nameID = 'name'
+        this.phoneID = 'number'
+        this.currentPasswordID = 'password_current'
+        this.newPasswordID = 'password'
+        this.repeatPasswordID = 'password_repeat'
+
+        this.controller = controller
+        eventBus.on(ProfileEvents.profileSetUserDataSuccess, this.updateInputs.bind(this))
+        eventBus.on(ProfileEvents.profileSetUserDataFailed, this.changeFailed.bind(this))
     }
 
     render () {
@@ -32,7 +40,8 @@ export class ProfileEdits {
         });
         this.avatarInput = this.root.querySelector('#input-avatar')
         this.avatarButton = this.root.querySelector('#input-avatar-button')
-        this.makePreview()
+
+        this.preview = new Preview(this.root, this.avatarInput, this.avatarButton)
 
         this.addErrorListeners();
         this.addSubmitListener();
@@ -45,38 +54,37 @@ export class ProfileEdits {
     }
 
     formSubmit (event) {
-        event.preventDefault();
-        if (this.updateErrorsState()) {
-            this.saveRequest();
+        event.preventDefault()
+
+        const errors = this.controller.setUserData({
+            email: document.getElementById(this.emailID).value,
+            name: document.getElementById(this.nameID).value,
+            phone: document.getElementById(this.phoneID).value.replace(/\D/g, ''),
+            currentPassword: document.getElementById(this.currentPasswordID).value,
+            newPassword: document.getElementById(this.newPasswordID).value,
+            repeatPassword: document.getElementById(this.repeatPasswordID).value,
+            avatar: this.preview.getFile()
+        })
+        if (errors.error === true) {
+            renderInput(this.emailID, errors.emailError)
+            renderInput(this.nameID, errors.nameError)
+            renderInput(this.phoneID, errors.phoneError)
+            renderInput(this.currentPasswordID, errors.currentPasswordError)
+            renderInput(this.newPasswordID, errors.newPasswordError)
+            renderInput(this.repeatPasswordID, errors.repeatPasswordError)
+        } else {
+            // TODO обратная связь что грузится и все хорошо
         }
     }
 
-    updateErrorsState () {
-        const emailID = 'email';
-        let emailError = false;
-        const email = document.getElementById(emailID);
-        if (email) {
-            emailError = Validator.validateEmail(email.value).result;
-        }
-
-        const nameID = 'name';
-        let nameError = false;
-        const name = document.getElementById(nameID);
-        if (name) {
-            nameError = Validator.validateName(name.value).result;
-        }
-
-        const numberID = 'number';
-        let numberError = false;
-        const number = document.getElementById(numberID);
-        if (number) {
-            numberError = Validator.validateName(number.value).result;
-        }
-
-        return emailError * nameError * numberError;
+    changeFailed (error) {
+        const serverError = document.getElementById('serverError')
+        serverError.hidden = false
+        serverError.textContent = error
     }
 
-    updateInputs (info, status) {
+    updateInputs ({ info, status }) {
+        console.log('updateInputs', info, status)
         if (status === 200) {
             document.getElementById('email').value = info.email;
             document.getElementById('name').value = info.name;
@@ -94,76 +102,60 @@ export class ProfileEdits {
         }
     }
 
-    saveRequest () {
-        const phoneInput = document.getElementById('number');
-        const value = phoneInput.value;
-        phoneInput.value = phoneInput.value.replace(/\D/g, '');
-        const form = document.getElementById('profile-userdata');
-        const formData = new FormData(form);
-
-        this.file = this.preview.getFile()
-        if (!this.file) {
-            formData.delete('avatar')
-        }
-
-        userPut({
-            data: formData
-        })
-            .then(r => this.updateInputs(r.parsedJSON, r.status))
-            .catch(r => console.log('Error in data saving ', r));
-
-        phoneInput.value = value;
-    }
-
     addErrorListeners () {
-        const emailID = 'email';
-        const email = document.getElementById(emailID);
+        const email = document.getElementById(this.emailID);
         if (email) {
             email.addEventListener('focusout',
-                () => renderInput(emailID, Validator.validateEmail(email.value))
+                () => renderInput(this.emailID, Validator.validateEmail(email.value))
             );
         }
 
-        const nameID = 'name';
-        const name = document.getElementById(nameID);
+        const name = document.getElementById(this.nameID);
         if (name) {
             name.addEventListener('focusout',
-                () => renderInput(nameID, Validator.validateName(name.value))
+                () => renderInput(this.nameID, Validator.validateName(name.value))
             );
         }
 
-        const numberID = 'number';
-        const number = document.getElementById(numberID);
-        if (number) {
-            number.addEventListener('focusout',
-                () => renderInput(numberID, Validator.validatePhone(number.value))
+        const phone = document.getElementById(this.phoneID);
+        if (phone) {
+            phone.addEventListener('focusout',
+                () => renderInput(this.phoneID, Validator.validatePhone(phone.value))
             );
         }
 
-        const passwordID = 'password';
-        const password = document.getElementById(passwordID);
-        if (password) {
-            password.addEventListener('focusout',
-                () => renderInput(passwordID, Validator.validatePassword(password.value))
-            );
-        }
-
-        const repeatPasswordID = 'password_repeat';
-        const repeatPassword = document.getElementById(repeatPasswordID);
-        if (repeatPassword) {
-            repeatPassword.addEventListener('focusout',
+        const newPassword = document.getElementById(this.newPasswordID);
+        if (newPassword) {
+            newPassword.addEventListener('focusout',
                 () => renderInput(
-                    repeatPasswordID,
-                    Validator.validateEqualPassword(
-                        password.value,
-                        repeatPassword.value
-                    )
+                    this.newPasswordID,
+                    Validator.validateChangeNewPassword(newPassword.value)
                 )
             );
         }
 
-        maskPhone(number);
-        number.focus();
+        const currentPassword = document.getElementById(this.currentPasswordID);
+        if (currentPassword) {
+            currentPassword.addEventListener('focusout',
+                () => renderInput(
+                    this.currentPasswordID,
+                    Validator.validateChangeOldPassword(currentPassword.value, newPassword.value)
+                )
+            );
+        }
+
+        const repeatPassword = document.getElementById(this.repeatPasswordID);
+        if (repeatPassword) {
+            repeatPassword.addEventListener('focusout',
+                () => renderInput(
+                    this.repeatPasswordID,
+                    Validator.validateChangePasswordRepeat(newPassword.value, repeatPassword.value)
+                )
+            );
+        }
+
+        maskPhone(phone);
+        phone.focus();
 
         this.preview.setPreview()
     }

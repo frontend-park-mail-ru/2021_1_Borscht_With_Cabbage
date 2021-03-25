@@ -1,19 +1,28 @@
 import { renderSignUp } from './SignUpTmpl.js';
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
-import { signupPost } from '../../modules/api.js';
 import { maskPhone } from '../../modules/phoneMask.js';
 import eventBus from '../../modules/eventBus.js';
 import { noOp } from '../../modules/utils.js';
-import AuthEvents from '../../events/AuthEvents.js';
+import { SignUpController } from '../../controllers/SignUpController.js';
+import SignUpEvents from '../../events/SignUpEvents.js';
 
 export class SignUp {
     constructor ({
         root = document.body,
-        goTo = noOp
-    }) {
-        this.root = root;
-        this.goTo = goTo;
+        goTo = noOp,
+        controller = new SignUpController()
+    } = {}) {
+        this.root = root
+        this.goTo = goTo
+        this.controller = controller
+        this.emailID = 'email'
+        this.nameID = 'name'
+        this.phoneID = 'phone'
+        this.passwordID = 'password'
+        this.repeatPasswordID = 'repeatPassword';
+        eventBus.on(SignUpEvents.userSignUpSuccess, this.signupSuccess.bind(this))
+        eventBus.on(SignUpEvents.userSignUpFailed, this.signupFailed.bind(this))
     }
 
     render () {
@@ -23,45 +32,40 @@ export class SignUp {
     }
 
     addSignUpEventListeners () {
-        const emailID = 'email';
-        const email = document.getElementById(emailID);
+        const email = document.getElementById(this.emailID);
         if (email) {
             email.addEventListener('focusout',
-                () => renderInput(emailID, Validator.validateEmail(email.value))
+                () => renderInput(this.emailID, Validator.validateEmail(email.value))
             );
         }
 
-        const nameID = 'name';
-        const name = document.getElementById(nameID);
+        const name = document.getElementById(this.nameID);
         if (name) {
             name.addEventListener('focusout',
-                () => renderInput(nameID, Validator.validateName(name.value))
+                () => renderInput(this.nameID, Validator.validateName(name.value))
             );
         }
 
-        const phoneID = 'phone';
-        const phone = document.getElementById(phoneID);
+        const phone = document.getElementById(this.phoneID);
         if (phone) {
             phone.addEventListener('focusout',
-                () => renderInput(phoneID, Validator.validatePhone(phone.value))
+                () => renderInput(this.phoneID, Validator.validatePhone(phone.value))
             );
         }
         maskPhone(phone);
 
-        const passwordID = 'password';
-        const password = document.getElementById(passwordID);
+        const password = document.getElementById(this.passwordID);
         if (password) {
             password.addEventListener('focusout',
-                () => renderInput(passwordID, Validator.validatePassword(password.value))
+                () => renderInput(this.passwordID, Validator.validatePassword(password.value))
             );
         }
 
-        const repeatPasswordID = 'repeatPassword';
-        const repeatPassword = document.getElementById(repeatPasswordID);
+        const repeatPassword = document.getElementById(this.repeatPasswordID);
         if (repeatPassword) {
             repeatPassword.addEventListener('focusout',
                 () => renderInput(
-                    repeatPasswordID,
+                    this.repeatPasswordID,
                     Validator.validateEqualPassword(
                         password.value,
                         repeatPassword.value
@@ -86,85 +90,32 @@ export class SignUp {
     }
 
     formSubmit (event) {
-        event.preventDefault();
-        if (this.updateErrorsState()) {
-            this.signupRequest();
+        event.preventDefault()
+        const errors = this.controller.signUp({
+            email: document.getElementById(this.emailID).value,
+            password: document.getElementById(this.passwordID).value,
+            name: document.getElementById(this.nameID).value,
+            phone: document.getElementById(this.phoneID).value.replace(/\D/g, ''),
+            repeatPassword: document.getElementById(this.repeatPasswordID).value
+        })
+        if (errors.error === true) {
+            renderInput(this.emailID, errors.emailError)
+            renderInput(this.passwordID, errors.passwordError)
+            renderInput(this.nameID, errors.nameError)
+            renderInput(this.phoneID, errors.phoneError)
+            renderInput(this.repeatPasswordID, errors.repeatPasswordError)
+        } else {
+            // TODO обратная связь что грузится и все хорошо
         }
     }
 
-    updateErrorsState () {
-        const emailID = 'email';
-        let emailError = false;
-        const email = document.getElementById(emailID);
-        if (email) {
-            emailError = Validator.validateEmail(email.value).result;
-        }
-
-        const nameID = 'name';
-        let nameError = false;
-        const name = document.getElementById(nameID);
-        if (name) {
-            nameError = Validator.validateName(name).result;
-        }
-
-        const phoneID = 'phone';
-        let phoneError = false;
-        const phone = document.getElementById(phoneID);
-        if (phone) {
-            phoneError = Validator.validatePhone(phone.value).result;
-        }
-
-        const passwordID = 'password';
-        let passwordError = false;
-        const password = document.getElementById(passwordID);
-        if (password) {
-            passwordError = Validator.validatePassword(password.value).result;
-        }
-
-        const repeatPasswordID = 'repeatPassword';
-        let repeatPasswordError = false;
-        const repeatPassword = document.getElementById(repeatPasswordID);
-        if (repeatPassword) {
-            repeatPasswordError = Validator.validateEqualPassword(password.value, repeatPassword.value).result;
-        }
-
-        return emailError * passwordError * repeatPasswordError * nameError * phoneError;
+    signupSuccess () {
+        this.goTo('main')
     }
 
-    signupRequest () {
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const nameInput = document.getElementById('name');
-        const phoneInput = document.getElementById('phone');
-
-        if (emailInput && passwordInput) {
-            const email = emailInput.value.trim();
-            const password = passwordInput.value.trim();
-            const name = nameInput.value.trim();
-            const phone = phoneInput.value.trim();
-
-            const reject = function (promise) {
-                const error = document.getElementById('serverError');
-                error.hidden = false;
-                error.textContent = promise.parsedJSON.result;
-            };
-
-            const resolve = function (promise) {
-                if (promise.status === 200) {
-                    this.goTo('main');
-                } else if (promise.status === 400) {
-                    reject(promise);
-                }
-            };
-
-            signupPost({
-                email: email,
-                password: password,
-                name: name,
-                phone: phone.replace(/\D/g, '')
-            })
-                .then(resolve.bind(this))
-                .catch(reject);
-        }
+    signupFailed (error) {
+        const serverError = document.getElementById('serverError');
+        serverError.hidden = false;
+        serverError.textContent = error;
     }
 }

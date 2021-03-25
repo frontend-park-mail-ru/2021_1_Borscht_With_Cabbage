@@ -2,27 +2,25 @@ import { CategoryComponent } from '../../components/MainPage/Category/Category.j
 import { ParamsComponent } from '../../components/MainPage/Params/Params.js'
 import { FilterComponent } from '../../components/MainPage/Filter/Filter.js'
 import { PanelRestaurantsComponent } from '../../components/MainPage/PanelRestaurants/PanelRestaurants.js'
-import { mainGet, restaurantsGet } from '../../modules/api.js';
-import { CreatorUrl } from './MainUtils.js';
+import { CreatorUrl } from '../../controllers/MainController/MainUtils.js';
+import { MainController } from '../../controllers/MainController/MainController.js';
+import eventBus from '../../modules/eventBus.js';
+import MainEvents from '../../events/MainEvents.js';
 
 export class MainView {
     constructor (root, goTo) {
         this.goTo = goTo;
         this.root = root;
+        this.mainController = new MainController()
+        eventBus.on(MainEvents.mainGetRestaurantsSuccess, this.contentDraw.bind(this))
+        eventBus.on(MainEvents.mainGetRestaurantsFailed, this.loadError.bind(this))
     }
 
     render () {
-        mainGet()
-            .then(r => this.mainPageDraw(r.status))
-            .catch(r => console.log(`THis crash when post /main from ${r}`));
+        this.mainPageDraw()
     }
 
-    mainPageDraw (status) {
-        if (status !== 200) {
-            this.goTo('login');
-            return;
-        }
-
+    mainPageDraw () {
         this.headerDraw();
         this.getContent();
     }
@@ -30,6 +28,8 @@ export class MainView {
     headerDraw () {
         this.root.innerHTML = '';
 
+        // TODO Переместить creatorUrl в controller (и все что не нужно для view тоже)
+        // TODO Заменить все callback`и на обращение к медиатору
         this.creatorUrl = new CreatorUrl();
 
         const category = new CategoryComponent({
@@ -61,12 +61,7 @@ export class MainView {
         this.root.append(this.content);
     }
 
-    contentDraw (info, status) {
-        if (status !== 200) {
-            this.goTo('login');
-            return;
-        }
-
+    contentDraw (info) {
         this.content.innerHTML = '';
         const restaurants = new PanelRestaurantsComponent({
             root: this.content,
@@ -80,9 +75,11 @@ export class MainView {
 
     getContent () {
         const url = this.creatorUrl.get();
+        this.mainController.getRestaurants(url)
+    }
 
-        restaurantsGet({ url: url })
-            .then(r => this.contentDraw(r.parsedJSON, r.status))
-            .catch(r => console.log(`THis crash when post /main from ${r}`));
+    loadError (error) {
+        // TODO изобразить сообщение о пропаввшем интернете
+        console.log('mainVIew -> loadError', error)
     }
 }

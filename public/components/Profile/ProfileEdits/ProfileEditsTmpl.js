@@ -8,15 +8,15 @@ export const renderProfileEdits = window.Handlebars.compile(`
     <input type="text" id="name" cplaceholder="Name Surname" name="name" value={{ user.name }} data-name="Имя">
     <p id="nameError" class="error">Имя</p>
     <input type="password" id="password_current" placeholder="******" data-name="Текущий пароль" name="password_current" autocomplete="on">
-    <p id="repeatPasswordError" class="error">Текущий пароль</p>
+    <p id="password_currentError" class="error">Текущий пароль</p>
     <input type="password" id="password" placeholder="******" data-name="Новый пароль" name="password" autocomplete="on">
     <p id="passwordError" class="error">Новый пароль</p>
     <input type="password" id="password_repeat" placeholder="******" data-name="Повторите пароль" name="password_repeat" autocomplete="on">
-    <p id="repeatPasswordError" class="error">Повторите пароль</p>
+    <p id="password_repeatError" class="error">Повторите пароль</p>
     <button class="button" id="input-avatar-button">Загрузить аватар</button>
     <input name="avatar" id="input-avatar" type="file" style="display: none;"/>
 
     <input type="submit" class="button" value="Изменить данные">
-    <p id="totalError" class="error"> </p>
+    <p id="serverError" class="error"> </p>
 </form>
 `)

@@ -8,7 +8,7 @@ export class StoreFoodList {
         this.root = root;
     }
 
-    render (foods, callback) {
+    render (foods) {
         this.root.innerHTML = renderStoreFoodList({});
         const foodList = document.getElementById('food-list-ul');
         this.elements = []
@@ -22,7 +22,7 @@ export class StoreFoodList {
                 this.elements.push(element);
             }
             this.elements.forEach((element) => {
-                element.addListener(callback);
+                element.addListener();
             });
         }
     }

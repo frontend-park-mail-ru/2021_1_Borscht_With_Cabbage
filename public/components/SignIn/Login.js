@@ -2,11 +2,13 @@ import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import { loginPost } from '../../modules/api.js';
 import { renderLogin } from './LoginTmpl.js';
+import eventBus from '../../modules/eventBus.js';
+import { noOp } from '../../modules/utils.js';
 
 export class Login {
     constructor ({
         root = document.body,
-        goTo = null
+        goTo = noOp
     }) {
         this.root = root;
         this.goTo = goTo;
@@ -44,7 +46,9 @@ export class Login {
         const regID = 'js_toRegistration';
         const reg = document.getElementById(regID);
         if (reg) {
-            reg.onclick = () => {this.goTo('signup')}
+            reg.onclick = () => {
+                this.goTo('signup')
+            }
         }
     }
 
@@ -88,8 +92,8 @@ export class Login {
             };
 
             const resolve = function (promise) {
-                console.log(promise)
                 if (promise.status === 200) {
+                    eventBus.emit('userSignIn', {})
                     this.goTo('main');
                 } else if (promise.status === 400) {
                     reject(promise);

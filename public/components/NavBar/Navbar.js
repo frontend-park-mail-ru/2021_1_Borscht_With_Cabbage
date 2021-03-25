@@ -1,36 +1,52 @@
 import { renderAuthBlock, renderNotAuthBlock, renderTopNavView } from './NavbarTmpl.js';
+import { noOp } from '../../modules/utils.js';
+import user from '../../modules/user.js';
+import eventBus from '../../modules/eventBus.js';
 
 export class Navbar {
     constructor ({
         root = document.body,
-        goTo = null
+        goTo = noOp
     } = {}) {
         this.goTo = goTo;
         root.innerHTML += renderTopNavView({});
-        const authBlock = document.getElementById('auth_block');
-        if (window.isUserAuth) {
-            authBlock.innerHTML = renderAuthBlock({
-                user: window.user,
-                serverUrl: window.serverAddress
-            });
-        this.goProfileListener();
+        if (user.isAuth) {
+            this.userAuth()
         } else {
-            authBlock.innerHTML = renderNotAuthBlock({});
-            this.goLoginListener();
+            this.userLogout()
         }
+        eventBus.on('userSignIn', this.userAuth.bind(this))
+        eventBus.on('userLogout', this.userLogout.bind(this))
     }
 
-    goLoginListener() {
+    userAuth () {
+        document.getElementById('auth_block').innerHTML = renderAuthBlock({
+            user: user,
+            serverUrl: window.serverAddress
+        });
+        this.goProfileListener();
+    }
+
+    userLogout () {
+        document.getElementById('auth_block').innerHTML = renderNotAuthBlock({});
+        this.goLoginListener();
+    }
+
+    goLoginListener () {
         const loginLink = document.getElementById('js_goLogin')
         if (loginLink) {
-            loginLink.addEventListener('click', () => {this.goTo('login')});
+            loginLink.addEventListener('click', () => {
+                this.goTo('login')
+            });
         }
     }
 
-    goProfileListener() {
+    goProfileListener () {
         const profileLink = document.getElementById('js_toProfile')
         if (profileLink) {
-            profileLink.addEventListener('click', () => {this.goTo('profile')})
+            profileLink.addEventListener('click', () => {
+                this.goTo('profile')
+            })
         }
     }
 }

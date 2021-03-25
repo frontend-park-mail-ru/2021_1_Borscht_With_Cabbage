@@ -1,5 +1,6 @@
 import { renderStoreBasket } from './StoreBasketTmpl.js';
 import { StoreBasketFood } from '../StoreBasketFood/StoreBasketFood.js';
+import eventBus from '../../../modules/eventBus.js';
 
 export class StoreBasket {
     constructor ({
@@ -10,6 +11,7 @@ export class StoreBasket {
         this.orderButtonSelector = '#restaurant-basket__order'
         this.totalSumSelector = '#restaurant-basket__sum'
         this.itemsSelector = '#restaurant-basket__items'
+        eventBus.on('chooseFood', this.append.bind(this))
     }
 
     render (goTo) {
@@ -18,7 +20,7 @@ export class StoreBasket {
             .addEventListener('click', () => goTo('basket'));
     }
 
-    append (food, isPlus) {
+    append ({ food, isPlus }) {
         const element = this.elements.find(el => el.food.id === food.id)
         const totalSum = this.root.querySelector(this.totalSumSelector)
         if (isPlus) {

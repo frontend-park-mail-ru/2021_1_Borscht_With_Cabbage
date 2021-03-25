@@ -3,11 +3,13 @@ import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import { signupPost } from '../../modules/api.js';
 import { maskPhone } from '../../modules/phoneMask.js';
+import eventBus from '../../modules/eventBus.js';
+import { noOp } from '../../modules/utils.js';
 
 export class SignUp {
     constructor ({
         root = document.body,
-        goTo = null
+        goTo = noOp
     }) {
         this.root = root;
         this.goTo = goTo;
@@ -76,7 +78,9 @@ export class SignUp {
         const loginID = 'js_toLogin';
         const login = document.getElementById(loginID);
         if (login) {
-            login.onclick = () => {this.goTo('login')}
+            login.onclick = () => {
+                this.goTo('login')
+            }
         }
     }
 
@@ -146,6 +150,7 @@ export class SignUp {
 
             const resolve = function (promise) {
                 if (promise.status === 200) {
+                    eventBus.emit('userSignIn', {})
                     this.goTo('main');
                 } else if (promise.status === 400) {
                     reject(promise);

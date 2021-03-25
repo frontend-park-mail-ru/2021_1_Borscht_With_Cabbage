@@ -39,13 +39,10 @@ export class StoreView {
             });
             this.storeBasket.render(this.goTo);
 
-            const callbackAddInBasket = function (food, isPlus) {
-                this.storeBasket.append(food, isPlus);
-            };
             this.foodList = new StoreFoodList({
                 root: document.getElementById('restaurant-info__food')
             });
-            this.foodList.render(info.foods, callbackAddInBasket.bind(this));
+            this.foodList.render(info.foods);
         } else {
             this.goTo('login');
         }

@@ -1,24 +1,17 @@
 import { authGet } from './api.js';
-
-// user = {
-//     name: '',
-//     avatar: ''
-// }
+import user from './user.js';
 
 export const saveUser = function (promise) {
-    window.isUserAuth = false;
-
+    console.log('saveUser', promise)
     if (promise.status === 200) {
-        window.user = promise.parsedJSON;
-        window.isUserAuth = true;
+        user.auth(promise.parsedJSON)
     }
 
     return promise;
 }
 
 export const deleteUser = function () {
-    window.isUserAuth = false;
-    window.user = null;
+    user.logout()
 }
 
 export function auth () {

@@ -2,6 +2,7 @@ import { renderAuthBlock, renderNotAuthBlock, renderTopNavView } from './NavbarT
 import { noOp } from '../../modules/utils.js';
 import user from '../../modules/user.js';
 import eventBus from '../../modules/eventBus.js';
+import AuthEvents from '../../events/AuthEvents.js';
 
 export class Navbar {
     constructor ({
@@ -16,8 +17,8 @@ export class Navbar {
         } else {
             this.userLogout()
         }
-        eventBus.on('userSignIn', this.userAuth.bind(this))
-        eventBus.on('userLogout', this.userLogout.bind(this))
+        eventBus.on(AuthEvents.userSignIn, this.userAuth.bind(this))
+        eventBus.on(AuthEvents.userLogout, this.userLogout.bind(this))
     }
 
     userAuth () {

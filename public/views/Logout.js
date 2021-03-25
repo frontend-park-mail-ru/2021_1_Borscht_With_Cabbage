@@ -1,6 +1,7 @@
 import { logoutGet } from '../modules/api.js';
 import { noOp } from '../modules/utils.js';
 import eventBus from '../modules/eventBus.js';
+import AuthEvents from '../events/AuthEvents.js';
 
 export class Logout {
     constructor ({
@@ -13,7 +14,7 @@ export class Logout {
     }
 
     render () {
-        eventBus.emit('userLogout', {})
+        eventBus.emit(AuthEvents.userLogout, {})
 
         logoutGet()
             .then(_ => this.goTo('main'))

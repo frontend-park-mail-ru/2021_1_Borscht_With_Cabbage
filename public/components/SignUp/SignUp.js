@@ -5,6 +5,7 @@ import { signupPost } from '../../modules/api.js';
 import { maskPhone } from '../../modules/phoneMask.js';
 import eventBus from '../../modules/eventBus.js';
 import { noOp } from '../../modules/utils.js';
+import AuthEvents from '../../events/AuthEvents.js';
 
 export class SignUp {
     constructor ({
@@ -150,7 +151,6 @@ export class SignUp {
 
             const resolve = function (promise) {
                 if (promise.status === 200) {
-                    eventBus.emit('userSignIn', promise.parsedJSON)
                     this.goTo('main');
                 } else if (promise.status === 400) {
                     reject(promise);

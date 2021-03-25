@@ -1,5 +1,6 @@
 import { renderFoodElement } from './StoreFoodElementTmpl.js';
 import eventBus from '../../../modules/eventBus.js';
+import BasketEvents from '../../../events/BasketEvents.js';
 
 export class StoreFoodElement {
     constructor ({
@@ -50,7 +51,7 @@ export class StoreFoodElement {
 
     addListener () {
         this.addListener = () => {
-            eventBus.emit('chooseFood', {
+            eventBus.emit(BasketEvents.chooseFood, {
                 food: this.food,
                 isPlus: true
             })
@@ -63,7 +64,7 @@ export class StoreFoodElement {
             .addEventListener('click', this.addListener);
 
         this.plusListener = () => {
-            eventBus.emit('chooseFood', {
+            eventBus.emit(BasketEvents.chooseFood, {
                 food: this.food,
                 isPlus: true
             })
@@ -75,7 +76,7 @@ export class StoreFoodElement {
             .addEventListener('click', this.plusListener);
 
         this.minusListener = () => {
-            eventBus.emit('chooseFood', {
+            eventBus.emit(BasketEvents.chooseFood, {
                 food: this.food,
                 isPlus: false
             })

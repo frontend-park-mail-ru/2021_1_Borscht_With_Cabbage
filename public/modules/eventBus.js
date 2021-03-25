@@ -1,12 +1,3 @@
-/**
- * events:
- *  userSignIn
- *      data: { name, avatar }
- *  userLogout
- *      data: {}
- *  chooseFood
- *      data: { food, isPlus }
- */
 class EventBus {
     constructor () {
         this.listeners = {}

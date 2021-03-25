@@ -1,5 +1,5 @@
 import { Http } from './http.js';
-import eventBus from './eventBus.js';
+import { auth } from './auth.js';
 
 /**
  * Send server post-request to user login and save email and avatar if status 200 ok
@@ -13,6 +13,7 @@ export function loginPost ({ login, password }) {
         url: '/signin',
         body: { login, password }
     })
+        .then(auth)
 }
 
 /**
@@ -34,6 +35,7 @@ export function signupPost ({ email, password, name, phone }) {
             phone
         }
     })
+        .then(auth)
 }
 
 /**
@@ -43,11 +45,7 @@ export function signupPost ({ email, password, name, phone }) {
  */
 export function authGet () {
     return Http.ajaxGet({ url: '/auth' })
-        .then(res => {
-            if (res.status === 200) {
-                eventBus.emit('userSignIn', res.parsedJSON)
-            }
-        })
+        .then(auth)
 }
 
 /**

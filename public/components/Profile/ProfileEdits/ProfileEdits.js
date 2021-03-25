@@ -84,12 +84,11 @@ export class ProfileEdits {
     }
 
     updateInputs ({ info, status }) {
-        console.log('updateInputs', info, status)
         if (status === 200) {
-            document.getElementById('email').value = info.email;
-            document.getElementById('name').value = info.name;
-            document.getElementById('number').value = info.number;
-            document.getElementById('number').focus();
+            document.getElementById(this.emailID).value = info.email;
+            document.getElementById(this.nameID).value = info.name;
+            document.getElementById(this.phoneID).value = info.number;
+            document.getElementById(this.phoneID).focus();
             if (info.avatar) {
                 this.preview.deletePreview()
             } else {
@@ -120,7 +119,7 @@ export class ProfileEdits {
         const phone = document.getElementById(this.phoneID);
         if (phone) {
             phone.addEventListener('focusout',
-                () => renderInput(this.phoneID, Validator.validatePhone(phone.value))
+                () => renderInput(this.phoneID, Validator.validatePhone(phone.value.replace(/\D/g, '')))
             );
         }
 

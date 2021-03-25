@@ -33,8 +33,8 @@ async function makeFetch ({
     const parsedJSON = await response.json();
 
     return {
-        status: response.status,
-        parsedJSON: parsedJSON
+        status: parsedJSON.code,
+        parsedJSON: parsedJSON.data
     };
 }
 

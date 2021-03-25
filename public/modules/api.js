@@ -22,17 +22,17 @@ export function loginPost ({ login, password }) {
  * @param {string} email
  * @param {string} password
  * @param {string} name
- * @param {string} phone
+ * @param {string} number
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function signupPost ({ email, password, name, phone }) {
+export function signupPost ({ email, password, name, number }) {
     return Http.ajaxPost({
         url: '/signup',
         body: {
             email,
             password,
             name,
-            phone
+            number
         }
     })
         .then(auth)

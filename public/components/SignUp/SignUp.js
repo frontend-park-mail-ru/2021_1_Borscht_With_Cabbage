@@ -18,7 +18,7 @@ export class SignUp {
         this.controller = controller
         this.emailID = 'email'
         this.nameID = 'name'
-        this.phoneID = 'phone'
+        this.phoneID = 'number'
         this.passwordID = 'password'
         this.repeatPasswordID = 'repeatPassword';
         eventBus.on(SignUpEvents.userSignUpSuccess, this.signupSuccess.bind(this))
@@ -46,13 +46,13 @@ export class SignUp {
             );
         }
 
-        const phone = document.getElementById(this.phoneID);
-        if (phone) {
-            phone.addEventListener('focusout',
-                () => renderInput(this.phoneID, Validator.validatePhone(phone.value))
+        const number = document.getElementById(this.phoneID);
+        if (number) {
+            number.addEventListener('focusout',
+                () => renderInput(this.phoneID, Validator.validatePhone(number.value))
             );
         }
-        maskPhone(phone);
+        maskPhone(number);
 
         const password = document.getElementById(this.passwordID);
         if (password) {
@@ -95,7 +95,7 @@ export class SignUp {
             email: document.getElementById(this.emailID).value,
             password: document.getElementById(this.passwordID).value,
             name: document.getElementById(this.nameID).value,
-            phone: document.getElementById(this.phoneID).value.replace(/\D/g, ''),
+            number: document.getElementById(this.phoneID).value.replace(/\D/g, ''),
             repeatPassword: document.getElementById(this.repeatPasswordID).value
         })
         if (errors.error === true) {

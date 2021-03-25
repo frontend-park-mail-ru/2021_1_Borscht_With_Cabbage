@@ -5,6 +5,7 @@ import { Validator } from '../../../modules/validation.js';
 import { maskPhone } from '../../../modules/phoneMask.js';
 import { renderPreview } from './PreviewTmpl.js';
 import { bytesToSize } from '../../../modules/utils.js';
+import eventBus from '../../../modules/eventBus.js';
 
 export class ProfileEdits {
     constructor (goTo, user) {
@@ -67,13 +68,18 @@ export class ProfileEdits {
             document.getElementById('name').value = info.name;
             document.getElementById('number').value = info.number;
             document.getElementById('number').focus();
+            // if (info.avatar) {
+            //     document.getElementById('avatar').src = info.avatar;
+            //     window.user.avatar = info.avatar;
             if (info.avatar) {
-                document.getElementById('avatar').src = info.avatar;
-                window.user.avatar = info.avatar;
                 this.deletePreview()
             }
-            document.getElementById('navbar-username').textContent = info.name;
-            window.user.name = info.name;
+            const userInfo = { name: info.name, avatar: info.avatar }
+            // user.auth(userInfo)
+            eventBus.emit('userSignIn', userInfo)
+            // }
+            // document.getElementById('navbar-username').textContent = info.name;
+            // window.user.name = info.name;
         }
     }
 

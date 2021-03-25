@@ -1,6 +1,10 @@
+import eventBus from './eventBus.js';
+
 class User {
     constructor () {
         this.logout()
+        eventBus.on('userSignIn', this.auth.bind(this))
+        eventBus.on('userLogout', this.logout.bind(this))
     }
 
     auth ({ name, avatar }) {

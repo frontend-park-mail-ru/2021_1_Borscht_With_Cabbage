@@ -150,7 +150,7 @@ export class SignUp {
 
             const resolve = function (promise) {
                 if (promise.status === 200) {
-                    eventBus.emit('userSignIn', {})
+                    eventBus.emit('userSignIn', promise.parsedJSON)
                     this.goTo('main');
                 } else if (promise.status === 400) {
                     reject(promise);

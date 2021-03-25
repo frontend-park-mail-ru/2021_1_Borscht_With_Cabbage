@@ -15,6 +15,9 @@ export const renderTopNavView = window.Handlebars.compile(`
         </a>
     </div>
 </div>
+<div class="view" id="view-place">
+
+</div>
 `);
 
 export const renderAuthBlock = window.Handlebars.compile(`

@@ -1,5 +1,4 @@
 import { renderStoreView } from '../components/RestaurantPage/StoreTemplate.js';
-import { Navbar } from '../components/NavBar/Navbar.js';
 import { storeGet } from '../modules/api.js';
 import { StoreTitle } from '../components/RestaurantPage/StoreTitle/StoreTitle.js';
 import { StoreFoodList } from '../components/RestaurantPage/StoreFoodList/StoreFoodList.js';
@@ -23,7 +22,6 @@ export class StoreView {
     storePageDraw (info, status) {
         if (status === 200) {
             this.root.innerHTML = '';
-            this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
             const main = document.createElement('div');
             main.innerHTML = renderStoreView({});
             this.root.append(main);

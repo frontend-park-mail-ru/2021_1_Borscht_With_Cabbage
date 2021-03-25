@@ -1,5 +1,5 @@
-import { Navbar } from '../components/NavBar/Navbar.js';
 import { Login } from '../components/SignIn/Login.js';
+import user from '../modules/user.js';
 
 export class SignInView {
     constructor (root, goTo) {
@@ -8,11 +8,10 @@ export class SignInView {
     }
 
     render () {
-        if (window.isUserAuth) {
+        if (user.isAuth) {
             this.goTo('main')
         }
         this.root.innerHTML = '';
-        this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
 
         const login = new Login({
             root: this.root,

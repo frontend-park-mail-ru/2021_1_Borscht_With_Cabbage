@@ -1,4 +1,3 @@
-import { deleteUser } from '../modules/auth.js';
 import { logoutGet } from '../modules/api.js';
 import { noOp } from '../modules/utils.js';
 import eventBus from '../modules/eventBus.js';
@@ -14,7 +13,6 @@ export class Logout {
     }
 
     render () {
-        deleteUser();
         eventBus.emit('userLogout', {})
 
         logoutGet()

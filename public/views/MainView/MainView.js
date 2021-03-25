@@ -1,4 +1,3 @@
-import { Navbar } from '../../components/NavBar/Navbar.js';
 import { CategoryComponent } from '../../components/MainPage/Category/Category.js'
 import { ParamsComponent } from '../../components/MainPage/Params/Params.js'
 import { FilterComponent } from '../../components/MainPage/Filter/Filter.js'
@@ -30,7 +29,6 @@ export class MainView {
 
     headerDraw () {
         this.root.innerHTML = '';
-        this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
 
         this.creatorUrl = new CreatorUrl();
 

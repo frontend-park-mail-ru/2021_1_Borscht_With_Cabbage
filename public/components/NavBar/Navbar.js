@@ -9,7 +9,8 @@ export class Navbar {
         goTo = noOp
     } = {}) {
         this.goTo = goTo;
-        root.innerHTML += renderTopNavView({});
+        this.root = root
+        this.root.innerHTML = renderTopNavView({});
         if (user.isAuth) {
             this.userAuth()
         } else {
@@ -48,5 +49,9 @@ export class Navbar {
                 this.goTo('profile')
             })
         }
+    }
+
+    getViewPlace () {
+        return this.root.querySelector('#view-place')
     }
 }

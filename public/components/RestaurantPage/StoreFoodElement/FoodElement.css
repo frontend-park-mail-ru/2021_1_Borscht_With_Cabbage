@@ -5,6 +5,7 @@
     float: right;
     display: flex;
     align-items: center;
+    margin-top: 20px;
 }
 
 .restaurant-content__add-buttons > button {

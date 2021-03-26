@@ -9,7 +9,8 @@ export const renderLogin = window.Handlebars.compile(`
             <p id="passwordError" class="error">Password</p>
             <input type="submit" class="button" value="Войти">
             <p id="serverError" class="error"> </p>
-            <p class="text" id="js_toRegistration" style="text-align: center;">Я тут впервые</p>
+            <p class="text link" id="js_toRegistration" style="text-align: center;">Я тут впервые</p>
+            <p class="text link" id="js_toRestaurantLog" style="text-align: center;">Войти как владелец ресторана</p>
         </form>
     </div>
 </div>

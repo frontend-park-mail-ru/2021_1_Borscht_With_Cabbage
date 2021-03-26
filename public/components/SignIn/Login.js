@@ -55,6 +55,14 @@ export class Login {
                 this.goTo('signup')
             }
         }
+
+        const restLogID = "js_toRestaurantLog";
+        const restaurantLog = document.getElementById(restLogID);
+        if (restaurantLog) {
+            restaurantLog.onclick = () => {
+                this.goTo('restaurantSignup')
+            }
+        }
     }
 
     formSubmit (event) {

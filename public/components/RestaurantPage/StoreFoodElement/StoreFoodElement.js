@@ -13,6 +13,7 @@ export class StoreFoodElement {
         this.buttonID = `[data-foodAddButtonID="${this.food.id}"]`
         this.plusButtonID = `[data-foodPlusButtonID="${this.food.id}"]`
         this.minusButtonID = `[data-foodMinusButtonID="${this.food.id}"]`
+        this.numButtonID = `[data-foodNumButtonID="${this.food.id}"]`
     }
 
     render () {
@@ -30,6 +31,9 @@ export class StoreFoodElement {
         plusButton.style.display = 'block';
         const minusButton = this.root.querySelector(this.minusButtonID)
         minusButton.style.display = 'block';
+        const numButton = this.root.querySelector(this.numButtonID)
+        numButton.textContent = this.num
+        numButton.style.display = 'block';
     }
 
     unChoose () {
@@ -39,6 +43,8 @@ export class StoreFoodElement {
         plusButton.style.display = 'none';
         const minusButton = this.root.querySelector(this.minusButtonID)
         minusButton.style.display = 'none';
+        const numButton = this.root.querySelector(this.numButtonID)
+        numButton.style.display = 'none';
     }
 
     clickElement (num) {

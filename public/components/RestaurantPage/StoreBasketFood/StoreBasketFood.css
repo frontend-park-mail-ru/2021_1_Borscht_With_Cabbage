@@ -1,0 +1,24 @@
+.store__basket__food__container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.store__basket__food__image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+}
+
+.store__basket__food__name {
+
+}
+
+.store__basket__food__price {
+
+}

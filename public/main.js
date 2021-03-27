@@ -1,7 +1,7 @@
 import { Router } from './modules/router.js';
 import { SignUpView } from './views/SignUpView.js';
 import { SignInView } from './views/SignInView.js';
-import { MainView } from './views/MainView/MainView.js';
+import { MainView } from './views/MainView.js';
 import { StoreView } from './views/StoreView.js';
 import { ProfileView } from './views/ProfileView.js';
 import { Logout } from './views/Logout.js';

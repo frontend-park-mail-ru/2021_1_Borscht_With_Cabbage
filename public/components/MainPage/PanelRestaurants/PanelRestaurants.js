@@ -1,16 +1,18 @@
 import { renderPanelRestaurants } from './PanelRestaurantsTmpl.js';
-import { noOp } from '../../../modules/utils.js';
 import { renderInfoRestaurant } from '../InfoRestaurant/InfoRestaurant.js';
+import { MainController } from '../../../controllers/MainController.js'
 
 export class PanelRestaurantsComponent {
     constructor ({
         root = document.body,
         restaurants,
-        callback = noOp
+        controller = new MainController(),
+        goTo
     } = {}) {
         this.restaurants = restaurants;
         this.root = root;
-        this.callback = callback;
+        this.controller = controller;
+        this.goTo = goTo;
     }
 
     render () {
@@ -24,10 +26,10 @@ export class PanelRestaurantsComponent {
             });
         }
 
-        this.addRestaurantListeners(this.callback);
+        this.addRestaurantListeners();
     }
 
-    addRestaurantListeners (callback) {
+    addRestaurantListeners () {
         const restaurantPanel = this.root.querySelector('.restaurants');
         if (!restaurantPanel) {
             return;
@@ -43,7 +45,7 @@ export class PanelRestaurantsComponent {
             if (idRestaurant) {
                 // TODO меняем элемент визуально как нибудь
 
-                callback(idRestaurant);
+                this.goTo('/restaurant/' + idRestaurant);
             }
         })
     }

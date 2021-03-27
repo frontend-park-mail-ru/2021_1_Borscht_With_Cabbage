@@ -10,3 +10,5 @@
 @import "../components/MainPage/Filter/Filter.css";
 @import "../components/MainPage/PanelRestaurants/PanelRestaurants.css";
 @import "../components/MainPage/Params/Params.css";
+@import "../components/MainPage/DropList/DropList.css";
+@import "../components/MainPage/MoreRestaurants/MoreRestaurants.css";

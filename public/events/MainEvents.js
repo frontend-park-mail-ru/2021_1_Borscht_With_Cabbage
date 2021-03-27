@@ -10,6 +10,7 @@ class MainEvents {
     constructor () {
         this.mainGetRestaurantsSuccess = 'mainGetRestaurantsSuccess'
         this.mainGetRestaurantsFailed = 'mainGetRestaurantsFailed'
+        this.mainClearContent = 'mainClearContent'
     }
 }
 

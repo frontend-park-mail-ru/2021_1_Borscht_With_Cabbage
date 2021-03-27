@@ -2,7 +2,8 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
+    margin-bottom: 24px;
 }
 
 .store__basket__food__image {
@@ -13,12 +14,38 @@
     border-radius: 50%;
     width: 48px;
     height: 48px;
+    object-fit: cover;
+    flex-grow: 1;
+}
+
+.store__basket__food__main-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 56px;
+    flex-grow: 2;
 }
 
 .store__basket__food__name {
-
+    font-weight: bolder;
+    font-size: 16px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .store__basket__food__price {
+    font-size: 14px;
+}
 
+.store__basket__food__num {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 25px;
+    width: 25px;
+    background: #FFFFFF;
+    border: solid 1px var(--grey);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
 }

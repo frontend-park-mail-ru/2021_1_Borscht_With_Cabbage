@@ -2,6 +2,7 @@
 @import "StoreFoodList/FoodList.css";
 @import "StoreBasketFood/StoreBasketFood.css";
 @import "NumButtons/NumButtons.css";
+@import "StoreBasket/StoreBasket.css";
 
 .restaurant {
     margin: 25px;

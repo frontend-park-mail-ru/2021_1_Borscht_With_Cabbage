@@ -5,18 +5,23 @@ import BasketEvents from '../../../events/BasketEvents.js';
 
 export class StoreBasket {
     constructor ({
-        root = document.body
+        root = document.body,
+        store
     } = {}) {
         this.root = root;
+        this.store = store;
         this.elements = [];
         this.orderButtonSelector = '#restaurant-basket__order'
         this.totalSumSelector = '#restaurant-basket__sum'
         this.itemsSelector = '#restaurant-basket__items'
+        this.deliverySelector = '#store__basket__delivery'
         eventBus.on(BasketEvents.chooseFood, this.append.bind(this))
     }
 
     render (goTo) {
-        this.root.innerHTML = renderStoreBasket({});
+        this.root.insertAdjacentHTML('beforeend', renderStoreBasket({
+            deliveryCost: this.store.deliveryCost
+        }));
         this.root.querySelector(this.orderButtonSelector)
             .addEventListener('click', () => goTo('basket'));
     }

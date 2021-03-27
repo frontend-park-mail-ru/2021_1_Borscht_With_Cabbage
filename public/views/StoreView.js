@@ -32,7 +32,8 @@ export class StoreView {
         this.storeTitle.render()
 
         this.storeBasket = new StoreBasket({
-            root: document.getElementById('restaurant-basket')
+            root: document.getElementById('restaurant-basket'),
+            store: info
         });
         this.storeBasket.render(this.goTo)
 

@@ -36,11 +36,11 @@ export class MainView {
             controller: this.mainController
         });
 
-        const filter = new FilterComponent({ root: this.root });
+        // const filter = new FilterComponent({ root: this.root });
 
         category.render();
         params.render();
-        filter.render();
+        // filter.render();
 
         // поле для отображения рестаранов
         this.content = document.createElement('div');

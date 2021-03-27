@@ -28,44 +28,5 @@ export class MoreRestaurantsComponent {
         btnMore.addEventListener('click', () => {
             this.controller.getRestaurants();
         })
-
-
-
-
-
-        // const paramsPanel = this.root.querySelector('.params-panel');
-        // if (!paramsPanel) {
-        //     return;
-        // }
-
-        // paramsPanel.addEventListener('click', e => {
-        //     const { target } = e;
-        //     e.preventDefault();
-
-        //     const item = target.closest('.panel__btn');
-        //     if (!item) {
-        //         return;
-        //     }
-
-        //     if (this.list) {
-        //         this.list.remove();
-        //     }
-        //     this.list = new DropListComponent({ 
-        //         root: item,
-        //         content: params[item.dataset.params].val,
-        //         callback: (value) => {
-        //             // элемент в котором нужно поменять значение параметра
-        //             item.childNodes[1].innerHTML = params[item.dataset.params]
-        //                                         .val[value].name;
-
-        //             this.controller.clickParams({ 
-        //                 name: item.dataset.params,
-        //                 value: value
-        //             });
-        //         }
-        //     });
-
-        //     this.list.add();
-        // })
     }
 }

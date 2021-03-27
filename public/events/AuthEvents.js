@@ -1,6 +1,6 @@
 /**
  *  userSignIn
- *      data: { name, avatar }
+ *      data: { name, avatar, role }
  *
  *  userLogout
  *      data: {}

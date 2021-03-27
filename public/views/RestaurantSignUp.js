@@ -11,7 +11,7 @@ export class RestaurantSignUpView {
 
     render () {
         if (user.isAuth) {
-            this.goTo('main')
+            this.goTo('main')  // TODO: goto restaurant profile
         }
         this.root.innerHTML = '';
         const signup = new RestaurantSignUp({

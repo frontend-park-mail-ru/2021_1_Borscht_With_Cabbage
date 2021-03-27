@@ -15,6 +15,10 @@ const urls = {
         constUrl: '/signup',
         regularUrl: null
     },
+    restaurantSignin: {
+        constUrl: '/restaurant/signin',
+        regularUrl: null
+    },
     restaurantSignup: {
         constUrl: '/restaurant/signup',
         regularUrl: null

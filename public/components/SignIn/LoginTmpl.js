@@ -2,6 +2,7 @@ export const renderLogin = window.Handlebars.compile(`
 <div class="authorization">
     <div class="authorization-container">
         <h2 class="authorization-container__title">Вход в систему</h2>
+        <a class="text link authorization-container__anotherAuth" style="text-align: center;" href="restaurant/signin">Войти как владелец ресторана</a>
         <form id="authorization-form">
             <input type="text" id="login" placeholder="mail@mail.ru" name="login" data-name="Email">
             <p id="loginError" class="error">Email</p>
@@ -9,8 +10,7 @@ export const renderLogin = window.Handlebars.compile(`
             <p id="passwordError" class="error">Password</p>
             <input type="submit" class="button" value="Войти">
             <p id="serverError" class="error"> </p>
-            <p class="text link" id="js_toRegistration" style="text-align: center;">Я тут впервые</p>
-            <p class="text link" id="js_toRestaurantLog" style="text-align: center;">Войти как владелец ресторана</p>
+            <a class="text link" style="text-align: center;" href="signup">Я тут впервые</a>
         </form>
     </div>
 </div>

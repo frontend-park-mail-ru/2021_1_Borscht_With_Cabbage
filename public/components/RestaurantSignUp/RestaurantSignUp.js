@@ -79,14 +79,6 @@ export class RestaurantSignUp {
         if (form) {
             form.addEventListener('submit', this.formSubmit.bind(this));
         }
-
-        // const loginID = 'js_toLogin'; todo
-        // const login = document.getElementById(loginID);
-        // if (login) {
-        //     login.onclick = () => {
-        //         this.goTo('login')
-        //     }
-        // }
     }
 
     formSubmit (event) {

@@ -1,6 +1,6 @@
 /**
  *  userSignUpSuccess
- *      data: { name, avatar }
+ *      data: { name, avatar, role }
  *
  *  userSignUpFailed
  *      data: { error }

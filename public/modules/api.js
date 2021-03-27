@@ -39,6 +39,22 @@ export function signupPost ({ email, password, name, number }) {
 }
 
 /**
+ * Send server post-request to user login and save email and avatar if status 200 ok
+ *
+ * @param {string} login
+ * @param {string} password
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+export function restaurantLoginPost ({ login, password }) {
+    return Http.ajaxPost({
+        url: '/restaurant/signin',
+        body: { login, password }
+    })
+        .then(auth)
+}
+
+
+/**
  * Send server post-request to user register and save username and avatar if status 200 ok
  *
  * @param {string} email

@@ -47,22 +47,6 @@ export class Login {
         if (form) {
             form.addEventListener('submit', this.formSubmit.bind(this));
         }
-
-        const regID = 'js_toRegistration';
-        const reg = document.getElementById(regID);
-        if (reg) {
-            reg.onclick = () => {
-                this.goTo('signup')
-            }
-        }
-
-        const restLogID = "js_toRestaurantLog";
-        const restaurantLog = document.getElementById(restLogID);
-        if (restaurantLog) {
-            restaurantLog.onclick = () => {
-                this.goTo('restaurantSignup')
-            }
-        }
     }
 
     formSubmit (event) {

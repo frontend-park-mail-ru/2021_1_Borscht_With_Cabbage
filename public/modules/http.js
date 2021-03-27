@@ -30,6 +30,7 @@ async function makeFetch ({
     method = 'GET'
 } = {}) {
     const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body }))
+
     const parsedJSON = await response.json();
 
     return {
@@ -49,7 +50,7 @@ export class Http {
         url = '/',
         body = null
     } = {}) {
-        return await makeFetch({ url: url, method: 'POST', body: body });
+    return await makeFetch({ url: url, method: 'POST', body: body });
     }
 
     static async ajaxPut ({

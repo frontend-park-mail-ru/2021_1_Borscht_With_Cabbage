@@ -46,6 +46,10 @@ input:focus {
     cursor: pointer;
 }
 
+.link {
+    display: block;
+}
+
 .link:hover {
     color: var(--main-green_color_darker);
 }

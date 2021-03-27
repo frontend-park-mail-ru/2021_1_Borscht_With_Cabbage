@@ -7,15 +7,18 @@ class User {
         eventBus.on('userLogout', this.logout.bind(this))
     }
 
-    auth ({ name, avatar }) {
+    auth ({ name, avatar, role }) {
+        console.log("auth:", role, name)
         this.name = name
         this.avatar = avatar
+        this.role = role
         this.isAuth = true
     }
 
     logout () {
         this.name = ''
         this.avatar = ''
+        this.role = ''
         this.isAuth = false
     }
 }

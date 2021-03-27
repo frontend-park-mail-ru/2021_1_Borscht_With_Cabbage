@@ -3,13 +3,20 @@ import { renderStoreTitle } from './StoreTitleTmpl.js';
 export class StoreTitle {
     constructor ({
         root = document.body,
-        title = 'Default restaurant'
+        store
     } = {}) {
         this.root = root;
-        this.title = title;
+        this.store = store;
     }
 
     render () {
-        this.root.innerHTML = renderStoreTitle(this.title);
+        this.root.innerHTML = renderStoreTitle({
+            name: this.store.title,
+            rating: this.store.rating,
+            deliveryCost: this.store.deliveryCost,
+            deliveryTime: this.store.time,
+            image: this.store.image
+        });
+        console.log(this.store)
     }
 }

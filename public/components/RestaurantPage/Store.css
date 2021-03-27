@@ -3,6 +3,7 @@
 @import "StoreBasketFood/StoreBasketFood.css";
 @import "NumButtons/NumButtons.css";
 @import "StoreBasket/StoreBasket.css";
+@import "StoreTitle/StoreTitle.css";
 
 .restaurant {
     margin: 25px;

@@ -4,12 +4,16 @@
  *
  *  userLogout
  *      data: {}
+ *
+ *  offline
+ *      data: { message }
  */
 
 class AuthEvents {
     constructor () {
-        this.userSignIn = 'userSignIn'
-        this.userLogout = 'userLogout'
+        this.userSignIn = 'userSignIn';
+        this.userLogout = 'userLogout';
+        this.offline = 'offlineRequest';
     }
 }
 

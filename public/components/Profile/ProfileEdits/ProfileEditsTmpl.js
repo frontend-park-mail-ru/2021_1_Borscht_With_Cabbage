@@ -14,7 +14,7 @@ export const renderProfileEdits = window.Handlebars.compile(`
     <input type="password" id="password_repeat" placeholder="******" data-name="Повторите пароль" name="password_repeat" autocomplete="on">
     <p id="password_repeatError" class="error">Повторите пароль</p>
     <button class="button" id="input-avatar-button">Загрузить аватар</button>
-    <input name="avatar" id="input-avatar" type="file" style="display: none;"/>
+    <input name="avatar" id="input-avatar" type="file" accept="image/*" style="display: none;"/>
 
     <input type="submit" class="button" value="Изменить данные">
     <p id="serverError" class="error"> </p>

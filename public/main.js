@@ -7,6 +7,9 @@ import { ProfileView } from './views/ProfileView.js';
 import { Logout } from './views/Logout.js';
 import { Navbar } from './components/NavBar/Navbar.js';
 import { authGet } from './modules/api.js';
+import registerSW from './registerSW.js';
+
+registerSW();
 
 const application = document.getElementById('app');
 
@@ -14,8 +17,8 @@ const router = new Router(application);
 
 const goTo = (page) => router.open(page);
 
-const navbar = new Navbar({ root: application, goTo: goTo })
-const view = navbar.getViewPlace()
+const navbar = new Navbar({ root: application, goTo: goTo });
+const view = navbar.getViewPlace();
 
 const signUpView = new SignUpView(view, goTo);
 const loginView = new SignInView(view, goTo);

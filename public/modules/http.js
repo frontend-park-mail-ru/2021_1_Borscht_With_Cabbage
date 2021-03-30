@@ -1,3 +1,7 @@
+import eventBus from './eventBus.js';
+import AuthEvents from '../events/AuthEvents.js';
+
+
 // window.serverAddress = 'http://89.208.197.150:5000';
 window.serverAddress = 'http://127.0.0.1:5000'
 
@@ -31,6 +35,9 @@ async function makeFetch ({
 } = {}) {
     const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body }))
     const parsedJSON = await response.json();
+    if (parsedJSON.code === 418) {
+        eventBus.emit(AuthEvents.offline, { message: parsedJSON.message })
+    }
 
     return {
         status: parsedJSON.code,

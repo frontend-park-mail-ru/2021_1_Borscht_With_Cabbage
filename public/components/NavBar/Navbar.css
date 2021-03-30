@@ -1,10 +1,9 @@
-@import "public/static/colors.css";
-
 .navbar {
     overflow: hidden;
     background-color: var(--navbar-white_color);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
     height: 6em;
+    position: relative;
 }
 
 .navbar-title__project-name {

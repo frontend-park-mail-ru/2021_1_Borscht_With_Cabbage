@@ -3,6 +3,7 @@ import { noOp } from '../../modules/utils.js';
 import user from '../../modules/user.js';
 import eventBus from '../../modules/eventBus.js';
 import AuthEvents from '../../events/AuthEvents.js';
+import { Toast } from '../Toast/Toast.js';
 
 export class Navbar {
     constructor ({
@@ -17,6 +18,7 @@ export class Navbar {
         } else {
             this.userLogout()
         }
+        this.toast = new Toast({ root: this.root.querySelector('.navbar-title') })
         eventBus.on(AuthEvents.userSignIn, this.userAuth.bind(this))
         eventBus.on(AuthEvents.userLogout, this.userLogout.bind(this))
     }

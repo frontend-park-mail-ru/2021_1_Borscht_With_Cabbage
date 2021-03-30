@@ -44,7 +44,8 @@ export function signupPost ({ email, password, name, number }) {
  * @returns {Promise<void>}
  */
 export function authGet () {
-    return Http.ajaxGet({ url: '/user/auth' }).then(auth);
+    return Http.ajaxGet({ url: '/user/auth' })
+        .then(auth);
 }
 
 /**

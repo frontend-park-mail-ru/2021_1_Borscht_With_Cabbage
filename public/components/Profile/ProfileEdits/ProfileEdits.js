@@ -28,11 +28,18 @@ export class ProfileEdits {
         this.repeatPasswordID = 'password_repeat'
 
         this.controller = controller
+        eventBus.on(ProfileEvents.profileGetUserDataSuccess, this.editsDraw.bind(this))
+        eventBus.on(ProfileEvents.profileGetUserDataFailed, this.loadError.bind(this))
         eventBus.on(ProfileEvents.profileSetUserDataSuccess, this.updateInputs.bind(this))
         eventBus.on(ProfileEvents.profileSetUserDataFailed, this.changeFailed.bind(this))
     }
 
     render () {
+        this.controller.getUserData()
+    }
+
+    editsDraw(data) {
+        this.user = data
         const profilePlace = document.getElementById('profile-left-block')
         profilePlace.innerHTML = renderProfileEdits({
             user: this.user,
@@ -45,6 +52,10 @@ export class ProfileEdits {
 
         this.addErrorListeners();
         this.addSubmitListener();
+    }
+
+    loadError (error) {
+        console.log('profileView -> loadError', error)
     }
 
     addSubmitListener () {

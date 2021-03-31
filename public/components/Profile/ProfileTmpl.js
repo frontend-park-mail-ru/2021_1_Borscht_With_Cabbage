@@ -3,7 +3,7 @@ export const renderProfileView = window.Handlebars.compile(`
     <div id="profile-left-block">
     </div>
 
-    <div id="profile-right-block">
+    <div id="profile-right-block" class="profile-right-block profile-card">
     </div>
 </div>
 `)

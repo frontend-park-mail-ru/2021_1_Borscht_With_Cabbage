@@ -1,11 +1,9 @@
-import { renderInput } from '../../../modules/rendering.js';
 import eventBus from '../../../modules/eventBus.js';
-import { Preview } from '../Preview/Preview.js';
 import { noOp } from '../../../modules/utils.js';
 import user from '../../../modules/user.js';
 import ProfileEvents from '../../../events/ProfileEvents.js';
 import { ProfileController } from '../../../controllers/ProfileController.js';
-import { renderOrders } from "./OrdersTmpl.js";
+import { renderOrders } from "./OrderTmpl.js";
 
 export class Orders {
     constructor ({

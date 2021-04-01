@@ -5,11 +5,9 @@ import { MainController } from '../../../controllers/MainController.js'
 export class PanelRestaurantsComponent {
     constructor ({
         root = document.body,
-        restaurants,
         controller = new MainController(),
         goTo
     } = {}) {
-        this.restaurants = restaurants;
         this.root = root;
         this.controller = controller;
         this.goTo = goTo;
@@ -19,14 +17,17 @@ export class PanelRestaurantsComponent {
         const restaurantsElem = document.createElement('div');
         restaurantsElem.innerHTML = renderPanelRestaurants({});
         this.root.append(restaurantsElem);
-        const restaurantList = document.getElementById('restaurants_list')
-        for (const restaurant of this.restaurants) {
-            restaurantList.innerHTML += renderInfoRestaurant({
+        this.restaurantList = document.getElementById('restaurants_list')
+
+        this.addRestaurantListeners();
+    }
+
+    add ({ restaurants }) {
+        for (const restaurant of restaurants) {
+            this.restaurantList.innerHTML += renderInfoRestaurant({
                 node: restaurant
             });
         }
-
-        this.addRestaurantListeners();
     }
 
     addRestaurantListeners () {

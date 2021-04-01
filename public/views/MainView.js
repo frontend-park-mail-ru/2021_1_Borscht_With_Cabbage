@@ -30,16 +30,15 @@ export class MainView {
             root: this.root,
             controller: this.mainController
         });
+        category.render();
 
         const params = new ParamsComponent({
             root: this.root,
             controller: this.mainController
         });
+        params.render();
 
         // const filter = new FilterComponent({ root: this.root });
-
-        category.render();
-        params.render();
         // filter.render();
 
         // поле для отображения рестаранов
@@ -53,16 +52,18 @@ export class MainView {
         });
 
         more.render();
-    }
 
-    contentDraw (info) {
-        const restaurants = new PanelRestaurantsComponent({
+        this.restaurants = new PanelRestaurantsComponent({
             root: this.content,
-            restaurants: info,
             controller: this.mainController,
             goTo: this.goTo
         });
+
         restaurants.render();
+    }
+
+    contentDraw (info) {
+        this.restaurants.add({ restaurants: info })
     }
 
     clearContent () {

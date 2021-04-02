@@ -1,5 +1,5 @@
 import { renderAuthBlock, renderNotAuthBlock, renderTopNavView } from './NavbarTmpl.js';
-import { noOp } from '../../modules/utils.js';
+import { noop } from '../../modules/utils.js';
 import user from '../../modules/user.js';
 import eventBus from '../../modules/eventBus.js';
 import AuthEvents from '../../events/AuthEvents.js';
@@ -7,7 +7,7 @@ import AuthEvents from '../../events/AuthEvents.js';
 export class Navbar {
     constructor ({
         root = document.body,
-        goTo = noOp
+        goTo = noop
     } = {}) {
         this.goTo = goTo;
         this.root = root
@@ -35,7 +35,7 @@ export class Navbar {
     }
 
     goLoginListener () {
-        const loginLink = document.getElementById('js_goLogin')
+        const loginLink = document.getElementById('js_go-login')
         if (loginLink) {
             loginLink.addEventListener('click', () => {
                 this.goTo('login')
@@ -44,7 +44,7 @@ export class Navbar {
     }
 
     goProfileListener () {
-        const profileLink = document.getElementById('js_toProfile')
+        const profileLink = document.getElementById('js-go-profile')
         if (profileLink) {
             profileLink.addEventListener('click', () => {
                 this.goTo('profile')

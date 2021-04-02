@@ -6,8 +6,8 @@ import ProfileEvents from '../events/ProfileEvents.js';
 
 export class ProfileView {
     constructor (root, goTo) {
-        this.goTo = goTo
-        this.root = root
+        this.goTo = goTo;
+        this.root = root;
         this.profileController = new ProfileController()
         eventBus.on(ProfileEvents.profileGetUserDataSuccess, this.userDraw.bind(this))
         eventBus.on(ProfileEvents.profileGetUserDataFailed, this.loadError.bind(this))

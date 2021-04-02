@@ -44,7 +44,7 @@ export class ProfileEdits {
         this.user = data
         const profilePlace = document.getElementById('profile-left-block')
         profilePlace.innerHTML = renderProfileEdits({
-            user: this.user,
+            user: this.user.data,
             serverUrl: window.serverAddress
         });
         this.avatarInput = this.root.querySelector('#input-avatar')
@@ -96,21 +96,21 @@ export class ProfileEdits {
         serverError.textContent = error
     }
 
-    updateInputs ({ info, status }) {
-        if (status === 200) {
-            document.getElementById(this.emailID).value = info.email;
-            document.getElementById(this.nameID).value = info.name;
-            document.getElementById(this.phoneID).value = info.number;
-            document.getElementById(this.phoneID).focus();
+
+    updateInputs (info, status) {
+        if (info.code === 200) {
+            console.log(info)
+            document.getElementById('email').value = info.data.email;
+            document.getElementById('name').value = info.data.name;
+            document.getElementById('number').value = info.data.number;
+            document.getElementById('number').focus();
             if (info.avatar) {
-                this.preview.deletePreview()
-            } else {
-                info.avatar = user.avatar
+                document.getElementById('avatar').src = info.data.avatar;
+                window.user.avatar = info.data.avatar;
+                this.deletePreview()
             }
-            eventBus.emit('userSignIn', {
-                name: info.name,
-                avatar: info.avatar
-            })
+            document.getElementById('navbar-username').textContent = info.data.name;
+            window.user.name = info.data.name;
         }
     }
 

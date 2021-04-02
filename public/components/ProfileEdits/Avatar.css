@@ -1,98 +1,33 @@
-#profile-container {
-    margin: 25px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-}
-
-#profile-container > div {
-    flex-grow: 1;
-    margin: 0 20px;
-    padding: 16px;
-    border-radius: 32px;
-}
-
-#profile-main_block {
-
-}
-
-#profile-right_block {
-
-}
-
-#profile-right_block > a {
-
-}
-
-.profile-order-node {
-
-}
-
-.profile-orders {
-
-}
-
-.profile-orders-title {
-
-}
-
-#profile-form-userdata {
-
-}
-
-#edit-login {
-
-}
-
-#edit-password {
-
-}
-
-.profile-chats {
-
-}
-
-.edit-input {
-    display: block;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-}
-
-.profile-link:hover {
-    color: var(--profile-link-hover_color);
-}
-
 .profile-avatar {
     width: 250px;
     height: 250px;
 }
 
-.preview {
+.input-avatar__preview {
     position: relative;
     width: 180px; /*it depends from width .preview img*/
     overflow: hidden;
 }
 
-.preview.removing {
+.input-avatar__preview.removing {
     transform: scale(0);
     transition: transform .3s;
 }
 
-.preview img {
+.input-avatar__preview img {
     width: 180px; /*it depends from width .preview*/
     height: auto;
 }
 
-.preview:hover .preview-remove {
+.input-avatar__preview:hover .input-avatar__preview-remove {
     opacity: 1;
 }
 
-.preview:hover .preview--info {
+.input-avatar__preview:hover .input-avatar__preview-info {
     bottom: 4px;
 }
 
-.preview-remove {
+.input-avatar__preview-remove {
     opacity: 0;
     width: 20px;
     height: 20px;
@@ -108,7 +43,7 @@
     transition: opacity .22s;
 }
 
-.preview--info {
+.input-avatar__preview-info {
     position: absolute;
     right: 0;
     bottom: -30px;

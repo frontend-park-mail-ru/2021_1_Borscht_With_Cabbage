@@ -1,0 +1,15 @@
+@import "ProfileEdits/Avatar.css";
+
+.profile {
+    margin: 25px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.profile > div {
+    flex-grow: 1;
+    margin: 0 20px;
+    padding: 16px;
+    border-radius: 32px;
+}

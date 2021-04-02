@@ -1,10 +1,10 @@
-import { NavBar } from '../../components/NavBar/NavBar.js';
-import { CategoryComponent } from '../../components/Category/Category.js'
+import { Navbar } from '../../components/NavBar/Navbar.js';
 import { ParamsComponent } from '../../components/Params/Params.js'
 import { FilterComponent } from '../../components/Filter/Filter.js'
 import { PanelRestaurantsComponent } from '../../components/PanelRestaurants/PanelRestaurants.js'
 import { mainGet, restaurantsGet } from '../../modules/api.js';
 import { CreatorUrl } from './MainUtils.js';
+import { CategoryComponent } from "../../components/Category/Category.js";
 
 export class MainView {
     constructor (root, goTo) {
@@ -30,7 +30,8 @@ export class MainView {
 
     headerDraw () {
         this.root.innerHTML = '';
-        this.navbar = new NavBar({ root: this.root });
+        this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
+        this.navbar.render()
 
         this.creatorUrl = new CreatorUrl();
 

@@ -7,11 +7,11 @@ import { authGet } from './api.js';
 
 export const saveUser = function (promise) {
     window.isUserAuth = false;
-
-    if (promise.status === 200) {
-        window.user = promise.parsedJSON;
+    if (promise.parsedJSON.code === 200) {
+        window.user = promise.parsedJSON.data;
         window.isUserAuth = true;
     }
+    console.log("user: ", window.user)
 
     return promise;
 }

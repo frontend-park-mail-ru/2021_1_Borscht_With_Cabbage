@@ -1,14 +1,14 @@
 export const renderInfoRestaurant = window.Handlebars.compile(`
-        <li class="content__slide" data-restaurant="{{node.id}}">      
-            <div class="content__header">
-                <span class="content__header-name">{{node.name}}</span>
-                <span class="content__header-time">{{node.time}}</span>
+        <li class="card" data-restaurant="{{node.id}}">      
+            <div class="card__header">
+                <span class="card__name">{{node.name}}</span>
+                <span>{{node.time}}</span>
             
-                <img class="content__image" src="static/food.jpg">
-                <span class="content__descript">{{node.description}}</span>
+                <img class="card__image" src="static/food.jpg">
+                <span class="card__description">{{node.description}}</span>
             
-                <span class="content__rating">Рейтинг: {{node.rating}}</span>
-                <span class="content__receipt">Средний чек: {{node.cost}} рублей</span>
+                <span class="card__rating">Рейтинг: {{node.rating}}</span>
+                <span>Средний чек: {{node.cost}} рублей</span>
             </div>
         </li>
 `);

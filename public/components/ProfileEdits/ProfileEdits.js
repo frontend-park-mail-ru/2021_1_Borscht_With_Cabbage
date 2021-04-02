@@ -15,7 +15,7 @@ export class ProfileEdits {
     render () {
         const profilePlace = document.getElementById('profile-left-block')
         profilePlace.innerHTML = renderProfileEdits({
-            user: this.user,
+            user: this.user.data,
             serverUrl: window.serverAddress
         });
 
@@ -62,18 +62,19 @@ export class ProfileEdits {
     }
 
     updateInputs (info, status) {
-        if (status === 200) {
-            document.getElementById('email').value = info.email;
-            document.getElementById('name').value = info.name;
-            document.getElementById('number').value = info.number;
+        if (info.code === 200) {
+            console.log(info)
+            document.getElementById('email').value = info.data.email;
+            document.getElementById('name').value = info.data.name;
+            document.getElementById('number').value = info.data.number;
             document.getElementById('number').focus();
             if (info.avatar) {
-                document.getElementById('avatar').src = info.avatar;
-                window.user.avatar = info.avatar;
+                document.getElementById('avatar').src = info.data.avatar;
+                window.user.avatar = info.data.avatar;
                 this.deletePreview()
             }
-            document.getElementById('navbar-username').textContent = info.name;
-            window.user.name = info.name;
+            document.getElementById('navbar-username').textContent = info.data.name;
+            window.user.name = info.data.name;
         }
     }
 

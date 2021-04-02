@@ -5,15 +5,9 @@ export const renderSignUp = window.Handlebars.compile(`
         <form id="authorization-form">
             <input type="email" id="email" placeholder="mail@mail.ru" name="email" data-name="Email">
             <p id="emailError" class="error">Email</p>
-<<<<<<< HEAD
             <input type="tel" id="phone" class="auth-input" placeholder="+7 (___) ___ ____" name="phone" value="+7 (___) ___ ____" data-name="Phone">
             <p id="numberError" class="error">Phone</p>
             <input type="text" id="name" class="auth-input" placeholder="Name Surname" name="name" data-name="Name">
-=======
-            <input type="tel" id="phone" placeholder="+7 (___) ___ ____" name="phone" value="+7 (___) ___ ____" data-name="Phone">
-            <p id="phoneError" class="error">Phone</p>
-            <input type="text" id="name" placeholder="Name Surname" name="name" data-name="Name">
->>>>>>> 9be3e2d87a66a10c39b1c66f7a91fd817f550fe8
             <p id="nameError" class="error">Name</p>
             <input type="password" id="password" placeholder="******" name="password" autocomplete="on" data-name="Password">
             <p id="passwordError" class="error">Password</p>

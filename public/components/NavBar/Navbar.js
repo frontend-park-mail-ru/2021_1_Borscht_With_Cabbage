@@ -6,22 +6,27 @@ export class Navbar {
         goTo = null
     } = {}) {
         this.goTo = goTo;
-        //root.innerHTML += renderTopNavView({});
+        this.root = root;
+    }
+
+    render() {
+        const newDiv = document.createElement('div')
+        newDiv.innerHTML = renderTopNavView({})
+        this.root.insertAdjacentElement('afterbegin', newDiv)
+
         const authBlock = document.getElementById('auth_block');
         if (window.isUserAuth) {
+            console.log("user is authorized")
             authBlock.innerHTML = renderAuthBlock({
                 user: window.user,
                 serverUrl: window.serverAddress
             });
-        this.goProfileListener();
+            this.goProfileListener();
         } else {
+            console.log("user is not authorized")
             authBlock.innerHTML = renderNotAuthBlock({});
             this.goLoginListener();
         }
-    }
-
-    render() {
-        root.innerHtml = renderTopNavView({})
     }
 
     goLoginListener() {

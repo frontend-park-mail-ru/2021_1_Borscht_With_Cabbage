@@ -1,16 +1,18 @@
-@import "../StoreFoodElement/FoodElement.css";
-@import "../StoreFoodList/FoodList.css";
+@import "public/components/StoreFoodElement/FoodElement.css";
+@import "public/components/StoreFoodList/FoodList.css";
+@import "public/components/StoreBasket/StoreBasketFood/StoreBasketFood.css";
+@import "public/components/NumButtons/NumButtons.css";
+@import "public/components/StoreBasket/StoreBasket.css";
+@import "public/components/StoreTitle/StoreTitle.css";
 
 .restaurant {
-    margin: 25px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: row;
 }
 
 .restaurant > div {
     flex-grow: 1;
-    margin: 0 20px;
     padding: 16px;
     border-radius: 32px;
 }

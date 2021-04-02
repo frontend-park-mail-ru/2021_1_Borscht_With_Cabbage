@@ -3,12 +3,12 @@ import { SignUpView } from './views/SignUpView.js';
 import { SignInView } from './views/SignInView.js';
 import { RestaurantSignInView } from "./views/RestaurantSignIn.js";
 import { RestaurantSignUpView } from "./views/RestaurantSignUp.js";
-import { MainView } from './views/MainView/MainView.js';
 import { StoreView } from './views/StoreView.js';
 import { ProfileView } from './views/ProfileView.js';
 import { Logout } from './views/Logout.js';
 import { Navbar } from './components/NavBar/Navbar.js';
 import { authGet } from './modules/api.js';
+import { MainView } from "./views/MainView.js";
 
 const application = document.getElementById('app');
 

@@ -1,7 +1,7 @@
 export const renderProfileEdits = window.Handlebars.compile(`
-<div class="profile-left-block-edits profile-card">
+<form id="profile-userdata" enctype="multipart/form-data">
     <h1>Личные данные</h1>
-
+    
     <input type="text" id="number" placeholder="+7 (___) ___ ____" name="number" value={{ user.number }} data-name="Номер телефона">
     <p id="numberError" class="error">Номер телефона</p>
     
@@ -22,4 +22,7 @@ export const renderProfileEdits = window.Handlebars.compile(`
     
     <button class="button" id="input-avatar-button">Загрузить аватар</button>
     <input name="avatar" id="input-avatar" type="file" style="display: none;"/>
+    <input type="submit" class="button" value="Изменить данные">
+    <p id="totalError" class="error"> </p>
+</form>
 `)

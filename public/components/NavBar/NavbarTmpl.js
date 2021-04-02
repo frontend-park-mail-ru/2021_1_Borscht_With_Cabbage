@@ -15,7 +15,7 @@ export const renderTopNavView = window.Handlebars.compile(`
         </a>
     </div>
 </div>
-<div class="view" id="view-place">
+<div class="view" id="view-place" style="position: relative;">
 
 </div>
 `);

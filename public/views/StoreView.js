@@ -21,30 +21,28 @@ export class StoreView {
         this.storeController.getDishes(url)
     }
 
-    storePageDraw (info, status) {
-        if (status === 200) {
-            this.root.innerHTML = '';
+    storePageDraw (info) {
+        this.root.innerHTML = ''
+        const main = document.createElement('div')
+        main.innerHTML = renderStoreView({})
+        this.root.append(main)
 
-            const main = document.createElement('div');
-            main.innerHTML = renderStoreView({});
-            this.root.append(main);
+        this.storeTitle = new StoreTitle({
+            root: document.getElementById('restaurant-info__title'),
+            store: info
+        });
+        this.storeTitle.render()
 
-            this.storeTitle = new StoreTitle({
-                root: document.getElementById('restaurant-info__title'),
-                title: info.title
-            });
-            this.storeTitle.render()
+        this.storeBasket = new StoreBasket({
+            root: document.getElementById('restaurant-basket'),
+            store: info
+        });
+        this.storeBasket.render(this.goTo)
 
-            this.storeBasket = new StoreBasket({
-                root: document.getElementById('restaurant-basket')
-            });
-            this.storeBasket.render(this.goTo)
-
-            this.foodList = new StoreFoodList({
-                root: document.getElementById('restaurant-info__food')
-            });
-            this.foodList.render(info.foods)
-        }
+        this.foodList = new StoreFoodList({
+            root: document.getElementById('restaurant-info__food')
+        });
+        this.foodList.render(info.foods)
     }
 
     loadError (error) {

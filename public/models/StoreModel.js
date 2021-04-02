@@ -12,6 +12,8 @@ export class StoreModel {
                     eventBus.emit(StoreEvents.storeGetDishesFailed, res.parsedJSON)
                 }
             })
-            .catch(res => eventBus.emit(StoreEvents.storeGetDishesFailed, res.parsedJSON));
+            .catch(res => {
+                eventBus.emit(StoreEvents.storeGetDishesFailed, res.parsedJSON)
+            });
     }
 }

@@ -1,13 +1,11 @@
-import { MainController } from '../../controllers/MainController/MainController.js';
-import eventBus from '../../modules/eventBus.js';
-import MainEvents from '../../events/MainEvents.js';
-import { Navbar } from '../../components/NavBar/Navbar.js';
-import { ParamsComponent } from '../../components/Params/Params.js'
-import { FilterComponent } from '../../components/Filter/Filter.js'
-import { PanelRestaurantsComponent } from '../../components/PanelRestaurants/PanelRestaurants.js'
-import { mainGet, restaurantsGet } from '../../modules/api.js';
-import { CategoryComponent } from "../../components/Category/Category.js";
-import { CreatorUrl } from "../../controllers/MainController/MainUtils.js";
+import { CategoryComponent } from '../components/Category/Category.js'
+import { ParamsComponent } from '../components/Params/Params.js'
+import { FilterComponent } from '../components/Filter/Filter.js'
+import { PanelRestaurantsComponent } from '../components/PanelRestaurants/PanelRestaurants.js'
+import { CreatorUrl } from '../controllers/MainController/MainUtils.js';
+import { MainController } from '../controllers/MainController/MainController.js';
+import eventBus from '../modules/eventBus.js';
+import MainEvents from '../events/MainEvents.js';
 
 export class MainView {
     constructor (root, goTo) {
@@ -29,7 +27,7 @@ export class MainView {
 
     headerDraw () {
         this.root.innerHTML = '';
-        
+
         // TODO Переместить creatorUrl в controller (и все что не нужно для view тоже)
         // TODO Заменить все callback`и на обращение к медиатору
         this.creatorUrl = new CreatorUrl();

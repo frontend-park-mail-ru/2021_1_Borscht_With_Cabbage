@@ -1,5 +1,5 @@
 import { renderPreview } from './PreviewTmpl.js';
-import { bytesToSize } from '../../../modules/utils.js';
+import { bytesToSize } from '../../modules/utils.js';
 
 export class Preview {
     constructor (root, input, button) {

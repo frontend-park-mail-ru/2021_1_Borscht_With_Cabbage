@@ -2,14 +2,14 @@ import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import { renderLogin } from './LoginTmpl.js';
 import eventBus from '../../modules/eventBus.js';
-import { noOp } from '../../modules/utils.js';
+import { noop } from '../../modules/utils.js';
 import { SignInController } from '../../controllers/SignInController.js';
 import SignInEvents from '../../events/SignInEvents.js';
 
 export class Login {
     constructor ({
         root = document.body,
-        goTo = noOp,
+        goTo = noop,
         controller = new SignInController()
     } = {}) {
         this.root = root;

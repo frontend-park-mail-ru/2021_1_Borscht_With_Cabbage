@@ -1,6 +1,6 @@
 import { renderNumButtons } from './NumButtonsTmpl.js';
-import eventBus from '../../../modules/eventBus.js';
-import BasketEvents from '../../../events/BasketEvents.js';
+import eventBus from '../../modules/eventBus.js';
+import BasketEvents from '../../events/BasketEvents.js';
 
 export class NumButtons {
     constructor ({ food, root, event, num = 0 } = {}) {

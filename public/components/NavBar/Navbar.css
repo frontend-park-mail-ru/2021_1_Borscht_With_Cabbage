@@ -1,5 +1,3 @@
-@import "public/static/colors.css";
-
 .navbar {
     overflow: hidden;
     background-color: var(--navbar-white_color);

@@ -3,14 +3,14 @@ import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import { maskPhone } from '../../modules/phoneMask.js';
 import eventBus from '../../modules/eventBus.js';
-import { noOp } from '../../modules/utils.js';
+import { noop } from '../../modules/utils.js';
 import { SignUpController } from '../../controllers/SignUpController.js';
 import SignUpEvents from '../../events/SignUpEvents.js';
 
 export class SignUp {
     constructor ({
         root = document.body,
-        goTo = noOp,
+        goTo = noop,
         controller = new SignUpController()
     } = {}) {
         this.root = root

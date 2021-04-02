@@ -10,15 +10,18 @@ export class Navbar {
         goTo = noop
     } = {}) {
         this.goTo = goTo;
-        this.root = root
+        this.root = root;
+        eventBus.on(AuthEvents.userSignIn, this.userAuth.bind(this))
+        eventBus.on(AuthEvents.userLogout, this.userLogout.bind(this))
+    }
+
+    render () {
         this.root.innerHTML = renderTopNavView({});
         if (user.isAuth) {
             this.userAuth()
         } else {
             this.userLogout()
         }
-        eventBus.on(AuthEvents.userSignIn, this.userAuth.bind(this))
-        eventBus.on(AuthEvents.userLogout, this.userLogout.bind(this))
     }
 
     userAuth () {
@@ -35,7 +38,7 @@ export class Navbar {
     }
 
     goLoginListener () {
-        const loginLink = document.getElementById('js_go-login')
+        const loginLink = document.getElementById('js-go-login')
         if (loginLink) {
             loginLink.addEventListener('click', () => {
                 this.goTo('login')

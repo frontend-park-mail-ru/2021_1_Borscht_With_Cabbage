@@ -6,7 +6,7 @@ export class Navbar {
         goTo = null
     } = {}) {
         this.goTo = goTo;
-        root.innerHTML += renderTopNavView({});
+        //root.innerHTML += renderTopNavView({});
         const authBlock = document.getElementById('auth_block');
         if (window.isUserAuth) {
             authBlock.innerHTML = renderAuthBlock({
@@ -18,6 +18,10 @@ export class Navbar {
             authBlock.innerHTML = renderNotAuthBlock({});
             this.goLoginListener();
         }
+    }
+
+    render() {
+        root.innerHtml = renderTopNavView({})
     }
 
     goLoginListener() {

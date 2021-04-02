@@ -24,6 +24,7 @@ export class StoreView {
         if (status === 200) {
             this.root.innerHTML = '';
             this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
+            this.navbar.render()
             const main = document.createElement('div');
             main.innerHTML = renderStoreView({});
             this.root.append(main);

@@ -31,6 +31,7 @@ export class MainView {
     headerDraw () {
         this.root.innerHTML = '';
         this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
+        this.navbar.render()
 
         this.creatorUrl = new CreatorUrl();
 

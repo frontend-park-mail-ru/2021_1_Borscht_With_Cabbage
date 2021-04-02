@@ -35,10 +35,16 @@ export class Login {
             );
         }
 
-        const formID = 'auth-form';
+        const formID = 'authorization-form';
         const form = document.getElementById(formID);
         if (form) {
             form.addEventListener('submit', this.formSubmit.bind(this));
+        }
+
+        const regID = 'js_toRegistration';
+        const reg = document.getElementById(regID);
+        if (reg) {
+            reg.onclick = () => {this.goTo('signup')}
         }
     }
 

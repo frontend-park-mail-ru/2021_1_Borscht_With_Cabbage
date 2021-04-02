@@ -44,7 +44,7 @@ export function signupPost ({ email, password, name, phone }) {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function authGet () {
-    return Http.ajaxGet({ url: '/user/auth' });
+    return Http.ajaxGet({ url: '/auth' });
 }
 
 /**

@@ -13,7 +13,7 @@ export class ProfileEdits {
     }
 
     render () {
-        const profilePlace = document.getElementById('profile-main_block')
+        const profilePlace = document.getElementById('profile-left-block')
         profilePlace.innerHTML = renderProfileEdits({
             user: this.user,
             serverUrl: window.serverAddress
@@ -24,7 +24,7 @@ export class ProfileEdits {
     }
 
     addSubmitListener () {
-        const formID = 'profile-form-userdata';
+        const formID = 'profile-userdata';
         const form = document.getElementById(formID);
         form.addEventListener('submit', this.formSubmit.bind(this));
     }
@@ -81,7 +81,7 @@ export class ProfileEdits {
         const phoneInput = document.getElementById('number');
         const value = phoneInput.value;
         phoneInput.value = phoneInput.value.replace(/\D/g, '');
-        const form = document.getElementById('profile-form-userdata');
+        const form = document.getElementById('profile-userdata');
         const formData = new FormData(form);
 
         if (!this.file) {
@@ -147,12 +147,12 @@ export class ProfileEdits {
         maskPhone(number);
 
         number.focus();
-        this.setPreview(document.getElementById('input--avatar'),
-            document.getElementById('input--avatar--button'))
+        this.setPreview(document.getElementById('input-avatar'),
+            document.getElementById('input-avatar-button'))
     }
 
     deletePreview () {
-        const elemPreview = document.querySelector('.preview')
+        const elemPreview = document.querySelector('.input-avatar__preview')
         elemPreview.classList.add('removing')
         elemPreview.addEventListener('transitionend', () => elemPreview.remove())
         this.file = null
@@ -165,7 +165,7 @@ export class ProfileEdits {
                 return;
             }
 
-            const preview = document.getElementById('profile--preview')
+            const preview = document.getElementById('profile-preview')
             if (preview) {
                 preview.innerHTML = ''
             }
@@ -179,7 +179,7 @@ export class ProfileEdits {
                     name: this.file.name,
                     size: bytesToSize(this.file.size)
                 }))
-                document.querySelector('.preview-remove')
+                document.querySelector('.input-avatar__preview-remove')
                     .addEventListener('click', () => {
                         this.deletePreview()
                     })

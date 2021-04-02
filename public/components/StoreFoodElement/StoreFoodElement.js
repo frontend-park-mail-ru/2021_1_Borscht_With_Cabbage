@@ -8,10 +8,10 @@ export class StoreFoodElement {
         this.root = root;
         this.food = food;
         this.num = 0;
-        this.buttonID = 'store-food_list-add-id' + this.food.id;
-        this.addButtonsID = 'store--food--add_buttons-id-' + this.food.id;
-        this.plusButtonID = 'store-food_list-plus-id' + this.food.id;
-        this.minusButtonID = 'store-food_list-minus-id' + this.food.id;
+        this.buttonID = 'dish__add-id' + this.food.id;
+        this.addButtonsID = 'dish-count-buttons__id-' + this.food.id;
+        this.plusButtonID = 'dish-count-buttons__plus_' + this.food.id;
+        this.minusButtonID = 'dish-count-buttons__minus_' + this.food.id;
     }
 
     render () {

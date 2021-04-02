@@ -1,4 +1,4 @@
-export const noOp = () => {
+export const noop = () => {
 };
 
 export function bytesToSize (bytes) {

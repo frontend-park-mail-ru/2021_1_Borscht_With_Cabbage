@@ -1,41 +1,13 @@
-@import "colors.css";
-body, html {
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-}
+@import "public/static/colors.css";
 
-body {
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    flex-direction: column;
-}
-
-.topnav {
+.navbar {
     overflow: hidden;
     background-color: var(--navbar-white_color);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    height: 6em;
 }
 
-.title-container:hover {
-    background-color: white;
-}
-
-.topnav a {
-    float: left;
-    color: var(--navbar-href-white_color);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
-.topnav a:hover {
-    background-color: var(--delivery-background_color);
-    color: black;
-}
-
-.topnav a.name {
+.navbar_title__project-name {
     color: black;
     font-weight: 700;
     font-size: 32px;
@@ -43,19 +15,28 @@ body {
     line-height: 2em;
 }
 
-.navbar-right_items {
-    float: right;
+.navbar_title {
+    float: left;
     display: flex;
-    align-items: center
+    align-items: center;
+    height: 6em;
+    margin-left: 2em;
 }
 
-.address {
+.navbar_right-items {
     float: right;
-    background-image: url('map.png');
+    display: flex;
+    align-items: center;
+    height: 6em;
+}
+
+.navbar_right-items__address {
+    float: right;
+    background-image: url('../../static/map.png');
     background-position: left;
     background-repeat: no-repeat;
     background-color: var(--main-green_color_darker);
-    height: 1.8em;
+    height: 3em;
     border-radius: 8px;
     color: white;
     vertical-align: center;
@@ -68,52 +49,56 @@ body {
     color: whitesmoke;
 }
 
-.navbar-auth_block {
+.navbar_right-items-auth {
     padding: 0 16px;
     border-left: 1px solid var(--main-green_color);
     border-right: 1px solid var(--main-green_color);
+    float: right;
+    margin-right: 16px
 }
 
-.basket-link {
+.navbar_right-items_basket {
     display: block;
 }
 
-.basket-container {
+.navbar_right-items_basket_container {
     float: right;
     margin-right: 16px;
     display: flex;
     align-items: center
 }
 
-.basket-text {
+.navbar_right-items_basket_container__text {
     display: inline-block;
     color: black;
     font-weight: 500;
     margin-left: 8px;
 }
 
-.basket-image {
+.navbar_basket-image {
     display: inline-block;
+    width: 32px;
+    height: 32px
 }
 
-.navbar-auth_user_block {
+.navbar_right-items_auth_user {
     display: flex;
     flex-direction: row;
 }
 
-.navbar-username {
+.navbar_right-items_auth-user__username {
     color: black;
 }
 
-.navbar-avatar {
+.navbar_right-items_auth-user__avatar {
     width: 50px;
     height: 50px;
 }
 
-.navbar-signin {
+.navbar_right-items_auth_user__signin {
     color: var(--profile-link-hover_color_darker);
 }
 
-.navbar-signin-text {
+.navbar_right-items_auth_user__text {
     font-weight: 500;
 }

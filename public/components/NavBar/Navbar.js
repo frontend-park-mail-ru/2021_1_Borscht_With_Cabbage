@@ -36,6 +36,7 @@ export class Navbar {
     }
 
     userAuth () {
+        console.log("user", user)
         document.getElementById('auth_block').innerHTML = renderAuthBlock({
             user: user,
             serverUrl: window.serverAddress
@@ -56,7 +57,6 @@ export class Navbar {
             });
         }
     }
-
 
     goProfileListener() {
         const profileLink = document.getElementById('js-go-profile')

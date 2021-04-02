@@ -17,6 +17,7 @@ const router = new Router(application);
 const goTo = (page) => router.open(page);
 
 const navbar = new Navbar({ root: application, goTo: goTo })
+navbar.render()
 const view = navbar.getViewPlace()
 
 const signUpView = new SignUpView(view, goTo);

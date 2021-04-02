@@ -6,8 +6,8 @@ import { ParamsComponent } from '../../components/Params/Params.js'
 import { FilterComponent } from '../../components/Filter/Filter.js'
 import { PanelRestaurantsComponent } from '../../components/PanelRestaurants/PanelRestaurants.js'
 import { mainGet, restaurantsGet } from '../../modules/api.js';
-import { CreatorUrl } from './MainUtils.js';
 import { CategoryComponent } from "../../components/Category/Category.js";
+import { CreatorUrl } from "../../controllers/MainController/MainUtils.js";
 
 export class MainView {
     constructor (root, goTo) {
@@ -29,10 +29,7 @@ export class MainView {
 
     headerDraw () {
         this.root.innerHTML = '';
-
-        this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
-        this.navbar.render()
-
+        
         // TODO Переместить creatorUrl в controller (и все что не нужно для view тоже)
         // TODO Заменить все callback`и на обращение к медиатору
         this.creatorUrl = new CreatorUrl();

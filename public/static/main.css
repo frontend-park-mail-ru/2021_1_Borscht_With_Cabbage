@@ -5,8 +5,8 @@
 @import "../components/SignIn/Authorization.css";
 @import "../components/Profile/Profile.css";
 @import "../components/RestaurantPage/Store.css";
-@import "../components/MainPage/InfoRestaurant/InfoRestaurant.css";
-@import "../components/MainPage/Category/Category.css";
-@import "../components/MainPage/Filter/Filter.css";
-@import "../components/MainPage/PanelRestaurants/PanelRestaurants.css";
-@import "../components/MainPage/Params/Params.css";
+@import "../components/InfoRestaurant/InfoRestaurant.css";
+@import "../components/Category/Category.css";
+@import "../components/Filter/Filter.css";
+@import "../components/PanelRestaurants/PanelRestaurants.css";
+@import "../components/Params/Params.css";

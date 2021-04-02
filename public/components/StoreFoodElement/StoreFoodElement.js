@@ -10,8 +10,8 @@ export class StoreFoodElement {
         this.num = 0;
         this.buttonID = 'dish__add-id' + this.food.id;
         this.addButtonsID = 'dish-count-buttons__id-' + this.food.id;
-        this.plusButtonID = 'dish-count-buttons__plus' + this.food.id;
-        this.minusButtonID = 'dish-count-buttons__minus' + this.food.id;
+        this.plusButtonID = 'dish-count-buttons__plus_' + this.food.id;
+        this.minusButtonID = 'dish-count-buttons__minus_' + this.food.id;
     }
 
     render () {

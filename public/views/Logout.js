@@ -1,11 +1,11 @@
 import { deleteUser } from '../modules/auth.js';
 import { logoutGet } from '../modules/api.js';
-import { noOp } from '../modules/utils.js';
+import { noop } from '../modules/utils.js';
 
 export class Logout {
     constructor ({
         root = document.body,
-        goTo = noOp
+        goTo = noop
     } = {}) {
         this.goTo = goTo;
         this.root = root;

@@ -1,10 +1,10 @@
 import { Navbar } from '../../components/NavBar/Navbar.js';
-import { CategoryComponent } from '../../components/MainPage/Category/Category.js'
-import { ParamsComponent } from '../../components/MainPage/Params/Params.js'
-import { FilterComponent } from '../../components/MainPage/Filter/Filter.js'
-import { PanelRestaurantsComponent } from '../../components/MainPage/PanelRestaurants/PanelRestaurants.js'
+import { ParamsComponent } from '../../components/Params/Params.js'
+import { FilterComponent } from '../../components/Filter/Filter.js'
+import { PanelRestaurantsComponent } from '../../components/PanelRestaurants/PanelRestaurants.js'
 import { mainGet, restaurantsGet } from '../../modules/api.js';
 import { CreatorUrl } from './MainUtils.js';
+import { CategoryComponent } from "../../components/Category/Category.js";
 
 export class MainView {
     constructor (root, goTo) {

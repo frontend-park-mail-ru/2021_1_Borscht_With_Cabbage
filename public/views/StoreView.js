@@ -1,9 +1,9 @@
 import { renderStoreView } from '../components/RestaurantPage/StoreTemplate.js';
 import { Navbar } from '../components/NavBar/Navbar.js';
 import { storeGet } from '../modules/api.js';
-import { StoreTitle } from '../components/RestaurantPage/StoreTitle/StoreTitle.js';
-import { StoreFoodList } from '../components/RestaurantPage/StoreFoodList/StoreFoodList.js';
-import { StoreBasket } from '../components/RestaurantPage/StoreBasket/StoreBasket.js';
+import { StoreTitle } from '../components/StoreTitle/StoreTitle.js';
+import { StoreFoodList } from '../components/StoreFoodList/StoreFoodList.js';
+import { StoreBasket } from '../components/StoreBasket/StoreBasket.js';
 
 export class StoreView {
     constructor (root, goTo) {

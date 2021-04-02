@@ -21,14 +21,14 @@ export class Navbar {
     }
 
     goLoginListener() {
-        const loginLink = document.getElementById('js_goLogin')
+        const loginLink = document.getElementById('js-go-login')
         if (loginLink) {
             loginLink.addEventListener('click', () => {this.goTo('login')});
         }
     }
 
     goProfileListener() {
-        const profileLink = document.getElementById('js_toProfile')
+        const profileLink = document.getElementById('js-go-profile')
         if (profileLink) {
             profileLink.addEventListener('click', () => {this.goTo('profile')})
         }

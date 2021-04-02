@@ -1,6 +1,6 @@
 import { Navbar } from '../components/NavBar/Navbar.js';
 import { renderProfileView } from '../components/Profile/ProfileTmpl.js'
-import { ProfileEdits } from '../components/Profile/ProfileEdits/ProfileEdits.js';
+import { ProfileEdits } from '../components/ProfileEdits/ProfileEdits.js';
 import { userGet } from '../modules/api.js';
 
 export class ProfileView {

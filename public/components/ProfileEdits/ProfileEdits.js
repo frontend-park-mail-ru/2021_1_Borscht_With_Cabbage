@@ -1,10 +1,10 @@
 import { renderProfileEdits } from './ProfileEditsTmpl.js';
-import { renderInput } from '../../../modules/rendering.js';
-import { userPut } from '../../../modules/api.js';
-import { Validator } from '../../../modules/validation.js';
-import { maskPhone } from '../../../modules/phoneMask.js';
+import { renderInput } from '../../modules/rendering.js';
+import { userPut } from '../../modules/api.js';
+import { Validator } from '../../modules/validation.js';
+import { maskPhone } from '../../modules/phoneMask.js';
 import { renderPreview } from './PreviewTmpl.js';
-import { bytesToSize } from '../../../modules/utils.js';
+import { bytesToSize } from '../../modules/utils.js';
 
 export class ProfileEdits {
     constructor (goTo, user) {

@@ -1,5 +1,5 @@
 import { renderStoreBasket } from './StoreBasketTmpl.js';
-import { StoreBasketFood } from '../StoreBasketFood/StoreBasketFood.js';
+import { StoreBasketFood } from './StoreBasketFood/StoreBasketFood.js';
 
 export class StoreBasket {
     constructor ({

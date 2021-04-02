@@ -6,7 +6,7 @@ export const renderSignUp = window.Handlebars.compile(`
             <input type="email" id="email" class="auth-input" placeholder="mail@mail.ru" name="email" data-name="Email">
             <p id="emailError" class="error">Email</p>
             <input type="tel" id="phone" class="auth-input" placeholder="+7 (___) ___ ____" name="phone" value="+7 (___) ___ ____" data-name="Phone">
-            <p id="phoneError" class="error">Phone</p>
+            <p id="numberError" class="error">Phone</p>
             <input type="text" id="name" class="auth-input" placeholder="Name Surname" name="name" data-name="Name">
             <p id="nameError" class="error">Name</p>
             <input type="password" id="password" class="auth-input" placeholder="******" name="password" autocomplete="on" data-name="Password">

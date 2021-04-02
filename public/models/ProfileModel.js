@@ -1,4 +1,4 @@
-import { userGet, userPut } from '../modules/api.js';
+import { userOrdersGet, userGet, userPut } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import ProfileEvents from '../events/ProfileEvents.js';
 
@@ -32,4 +32,16 @@ export class ProfileModel {
             })
             .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON));
     }
+
+    getOrders () {
+        userOrdersGet ()
+            .then(res => {
+                    if (res.status === 200) {
+                        eventBus.emit(ProfileEvents.profileGetOrdersSuccess, res.parsedJSON)
+                    } else {
+                        eventBus.emit(ProfileEvents.profileGetOrdersFailed, res.parsedJSON)
+                    }
+                })
+            .catch(res => eventBus.emit(ProfileEvents.profileGetOrdersFailed, res.parsedJSON));
+            }
 }

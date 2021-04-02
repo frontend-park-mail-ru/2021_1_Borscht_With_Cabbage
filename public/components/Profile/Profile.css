@@ -1,4 +1,5 @@
 @import "ProfileEdits/Avatar.css";
+@import "Orders/Order/Order.css ";
 
 .profile {
     margin: 25px;
@@ -21,7 +22,7 @@
     border-radius: 8px;
 }
 
-.profile-left-block {
+.profile-left-block-edits {
     max-width: 36em;
     min-width: 24em;
     max-height: 56em;

@@ -1,5 +1,5 @@
 export const renderProfileEdits = window.Handlebars.compile(`
-<div class="profile-left-block profile-card">
+<div class="profile-left-block-edits profile-card">
     <h1>Личные данные</h1>
     <form id="profile-userdata" enctype="multipart/form-data">
         <input type="text" id="number" placeholder="+7 (___) ___ ____" name="number" data-name="Номер телефона" value={{ user.number }} >

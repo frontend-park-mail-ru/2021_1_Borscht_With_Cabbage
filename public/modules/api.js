@@ -144,3 +144,12 @@ export function userPut ({ data = null }) {
 export function logoutGet () {
     return Http.ajaxGet({ url: '/logout' });
 }
+
+/**
+ * Send server get-request to get user's active orders
+ *
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+export function userOrdersGet () {
+    return Http.ajaxGet({ url: '/user/orders' });
+}

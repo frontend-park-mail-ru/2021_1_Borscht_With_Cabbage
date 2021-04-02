@@ -14,6 +14,10 @@ export class SignUpView {
             this.goTo('main')
         }
         this.root.innerHTML = '';
+
+        this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
+        this.navbar.render()
+
         const signup = new SignUp({
             root: this.root,
             goTo: this.goTo,

@@ -1,18 +1,20 @@
 import { renderProfileEdits } from './ProfileEditsTmpl.js';
-import { renderInput } from '../../../modules/rendering.js';
-import { Validator } from '../../../modules/validation.js';
-import { maskPhone } from '../../../modules/phoneMask.js';
-import eventBus from '../../../modules/eventBus.js';
-import { Preview } from '../Preview/Preview.js';
-import { noOp } from '../../../modules/utils.js';
-import user from '../../../modules/user.js';
-import ProfileEvents from '../../../events/ProfileEvents.js';
-import { ProfileController } from '../../../controllers/ProfileController.js';
+import { renderInput } from '../../modules/rendering.js';
+import { userPut } from '../../modules/api.js';
+import { Validator } from '../../modules/validation.js';
+import { maskPhone } from '../../modules/phoneMask.js';
+import { renderPreview } from './PreviewTmpl.js';
+import { bytesToSize } from '../../modules/utils.js';
+import { noop } from '../../modules/utils.js';
+import { ProfileController } from "../../controllers/ProfileController.js";
+import eventBus from "../../modules/eventBus.js";
+import ProfileEvents from "../../events/ProfileEvents.js";
+import { Preview } from "../Profile/Preview/Preview.js";
 
 export class ProfileEdits {
     constructor ({
         root = document.body,
-        goTo = noOp,
+        goTo = noop,
         user = null,
         controller = new ProfileController()
     } = {}) {

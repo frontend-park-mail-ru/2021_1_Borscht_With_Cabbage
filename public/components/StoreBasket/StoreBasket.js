@@ -1,7 +1,7 @@
 import { renderStoreBasket } from './StoreBasketTmpl.js';
-import { StoreBasketFood } from '../StoreBasketFood/StoreBasketFood.js';
-import eventBus from '../../../modules/eventBus.js';
-import BasketEvents from '../../../events/BasketEvents.js';
+import eventBus from '../../modules/eventBus.js';
+import BasketEvents from '../../events/BasketEvents.js';
+import { StoreBasketFood } from './StoreBasketFood/StoreBasketFood.js';
 
 export class StoreBasket {
     constructor ({

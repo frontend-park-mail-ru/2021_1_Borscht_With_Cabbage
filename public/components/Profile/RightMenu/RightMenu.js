@@ -1,6 +1,6 @@
 import { renderRightMenu } from "./RightMenuTmpl.js";
 import { ProfileController } from "../../../controllers/ProfileController.js";
-import { ProfileEdits } from "../ProfileEdits/ProfileEdits.js";
+import { ProfileEdits } from "../../ProfileEdits/ProfileEdits.js";
 import { Orders } from "../Orders/Orders.js";
 
 export class RightMenu {

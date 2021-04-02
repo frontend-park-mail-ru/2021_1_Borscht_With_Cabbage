@@ -82,7 +82,7 @@ export function restaurantSignupPost ({ email, password, title, number }) {
  * @returns {Promise<void>}
  */
 export function authGet () {
-    return Http.ajaxGet({ url: '/user/auth' });
+    return Http.ajaxGet({ url: '/auth' });
 }
 
 /**

@@ -1,5 +1,4 @@
 export const renderCategory = window.Handlebars.compile(`
-
 <div class="cuisines-panel cuisines-panel__container">
     <ul class="cuisines-panel__slider">
         {{#each category}}

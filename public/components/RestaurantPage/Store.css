@@ -1,5 +1,5 @@
-@import "StoreFoodElement/FoodElement.css";
-@import "StoreFoodList/FoodList.css";
+@import "../StoreFoodElement/FoodElement.css";
+@import "../StoreFoodList/FoodList.css";
 
 .restaurant {
     margin: 25px;

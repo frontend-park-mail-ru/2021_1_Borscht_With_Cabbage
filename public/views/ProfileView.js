@@ -1,8 +1,9 @@
 import { renderProfileView } from '../components/Profile/ProfileTmpl.js'
-import { ProfileEdits } from '../components/Profile/ProfileEdits/ProfileEdits.js';
 import { ProfileController } from '../controllers/ProfileController.js';
 import { RightMenu } from "../components/Profile/RightMenu/RightMenu.js";
 import { Orders } from "../components/Profile/Orders/Orders.js";
+import { ProfileEdits } from '../components/ProfileEdits/ProfileEdits.js';
+import { userGet } from '../modules/api.js';
 
 export class ProfileView {
     constructor (root, goTo) {

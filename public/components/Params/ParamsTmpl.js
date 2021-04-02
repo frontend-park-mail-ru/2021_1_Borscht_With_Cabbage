@@ -1,5 +1,4 @@
 export const renderParams = window.Handlebars.compile(`
-
 <div class="params-panel">
     <ul class="params-panel__slider">
         {{#each params}}

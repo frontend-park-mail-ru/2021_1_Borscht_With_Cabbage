@@ -1,11 +1,11 @@
 import { renderCategory } from './CategoryTmpl.js';
 import { category } from './Category.constants.js'
-import { noOp } from '../../../modules/utils.js';
+import { noop } from '../../modules/utils.js';
 
 export class CategoryComponent {
     constructor ({
         root = document.body,
-        callback = noOp
+        callback = noop
     } = {}) {
         this.root = root;
 

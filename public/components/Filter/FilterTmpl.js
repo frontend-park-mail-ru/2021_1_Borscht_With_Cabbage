@@ -1,5 +1,4 @@
 export const renderFilter = window.Handlebars.compile(`
-
 <div class="filter-panel">
     <img src="" alt="">
     <span class="filter-panel__text">Сортировать по</span>

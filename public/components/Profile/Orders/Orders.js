@@ -1,5 +1,5 @@
 import eventBus from '../../../modules/eventBus.js';
-import { noOp } from '../../../modules/utils.js';
+import { noop } from '../../../modules/utils.js';
 import ProfileEvents from '../../../events/ProfileEvents.js';
 import { ProfileController } from '../../../controllers/ProfileController.js';
 import { OrderElement } from "./Order/Order.js";
@@ -8,7 +8,7 @@ import { renderOrderList } from "./OrdersListTmpt.js";
 export class Orders {
     constructor ({
         root = document.body,
-        goTo = noOp,
+        goTo = noop,
         user = null,
         controller = new ProfileController()
     } = {}) {

@@ -1,4 +1,4 @@
-import { noOp } from "../../modules/utils.js";
+import { noop } from "../../modules/utils.js";
 import { RestaurantSignUpController } from "../../controllers/RestaurantSignUpController.js";
 import eventBus from "../../modules/eventBus.js";
 import SignUpEvents from "../../events/SignUpEvents.js";
@@ -10,7 +10,7 @@ import { maskPhone } from "../../modules/phoneMask.js";
 export class RestaurantSignUp {
     constructor ({
         root = document.body,
-        goTo = noOp,
+        goTo = noop,
         controller = new RestaurantSignUpController()
     } = {}) {
         this.root = root

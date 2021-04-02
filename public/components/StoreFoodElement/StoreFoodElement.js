@@ -1,6 +1,6 @@
 import { renderFoodElement } from './StoreFoodElementTmpl.js';
-import eventBus from '../../../modules/eventBus.js';
-import BasketEvents from '../../../events/BasketEvents.js';
+import eventBus from '../../modules/eventBus.js';
+import BasketEvents from '../../events/BasketEvents.js';
 
 export class StoreFoodElement {
     constructor ({
@@ -10,10 +10,11 @@ export class StoreFoodElement {
         this.root = root;
         this.food = food;
         this.num = 0;
-        this.buttonID = `[data-foodAddButtonID="${this.food.id}"]`
-        this.plusButtonID = `[data-foodPlusButtonID="${this.food.id}"]`
-        this.minusButtonID = `[data-foodMinusButtonID="${this.food.id}"]`
-        this.numButtonID = `[data-foodNumButtonID="${this.food.id}"]`
+
+        this.buttonID = 'dish__add-id' + this.food.id;
+        this.addButtonsID = 'dish-count-buttons__id-' + this.food.id;
+        this.plusButtonID = 'dish-count-buttons__plus_' + this.food.id;
+        this.minusButtonID = 'dish-count-buttons__minus_' + this.food.id;
     }
 
     render () {
@@ -31,9 +32,6 @@ export class StoreFoodElement {
         plusButton.style.display = 'block';
         const minusButton = this.root.querySelector(this.minusButtonID)
         minusButton.style.display = 'block';
-        const numButton = this.root.querySelector(this.numButtonID)
-        numButton.textContent = this.num
-        numButton.style.display = 'block';
     }
 
     unChoose () {
@@ -43,8 +41,6 @@ export class StoreFoodElement {
         plusButton.style.display = 'none';
         const minusButton = this.root.querySelector(this.minusButtonID)
         minusButton.style.display = 'none';
-        const numButton = this.root.querySelector(this.numButtonID)
-        numButton.style.display = 'none';
     }
 
     clickElement (num) {

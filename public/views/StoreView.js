@@ -1,10 +1,12 @@
 import { renderStoreView } from '../components/RestaurantPage/StoreTemplate.js';
-import { StoreTitle } from '../components/RestaurantPage/StoreTitle/StoreTitle.js';
-import { StoreFoodList } from '../components/RestaurantPage/StoreFoodList/StoreFoodList.js';
-import { StoreBasket } from '../components/RestaurantPage/StoreBasket/StoreBasket.js';
 import { StoreController } from '../controllers/StoreController.js';
 import eventBus from '../modules/eventBus.js';
 import StoreEvents from '../events/StoreEvents.js';
+import { Navbar } from '../components/NavBar/Navbar.js';
+import { storeGet } from '../modules/api.js';
+import { StoreTitle } from '../components/StoreTitle/StoreTitle.js';
+import { StoreFoodList } from '../components/StoreFoodList/StoreFoodList.js';
+import { StoreBasket } from '../components/StoreBasket/StoreBasket.js';
 
 export class StoreView {
     constructor (root, goTo) {
@@ -19,27 +21,32 @@ export class StoreView {
         this.storeController.getDishes(url)
     }
 
-    storePageDraw (info) {
-        this.root.innerHTML = ''
-        const main = document.createElement('div')
-        main.innerHTML = renderStoreView({})
-        this.root.append(main)
+    storePageDraw (info, status) {
+        if (status === 200) {
+            this.root.innerHTML = '';
+            this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
+            this.navbar.render()
 
-        this.storeTitle = new StoreTitle({
-            root: document.getElementById('restaurant-info__title'),
-            title: info.title
-        });
-        this.storeTitle.render()
+            const main = document.createElement('div');
+            main.innerHTML = renderStoreView({});
+            this.root.append(main);
 
-        this.storeBasket = new StoreBasket({
-            root: document.getElementById('restaurant-basket')
-        });
-        this.storeBasket.render(this.goTo)
+            this.storeTitle = new StoreTitle({
+                root: document.getElementById('restaurant-info__title'),
+                title: info.title
+            });
+            this.storeTitle.render()
 
-        this.foodList = new StoreFoodList({
-            root: document.getElementById('restaurant-info__food')
-        });
-        this.foodList.render(info.foods)
+            this.storeBasket = new StoreBasket({
+                root: document.getElementById('restaurant-basket')
+            });
+            this.storeBasket.render(this.goTo)
+
+            this.foodList = new StoreFoodList({
+                root: document.getElementById('restaurant-info__food')
+            });
+            this.foodList.render(info.foods)
+        }
     }
 
     loadError (error) {

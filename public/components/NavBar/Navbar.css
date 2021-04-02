@@ -7,7 +7,7 @@
     height: 6em;
 }
 
-.navbar-title__project-name {
+.navbar_title__project-name {
     color: black;
     font-weight: 700;
     font-size: 32px;
@@ -15,7 +15,7 @@
     line-height: 2em;
 }
 
-.navbar-title {
+.navbar_title {
     float: left;
     display: flex;
     align-items: center;
@@ -23,14 +23,14 @@
     margin-left: 2em;
 }
 
-.navbar-right-items {
+.navbar_right-items {
     float: right;
     display: flex;
     align-items: center;
     height: 6em;
 }
 
-.navbar-right-items__address {
+.navbar_right-items__address {
     float: right;
     background-image: url('../../static/map.png');
     background-position: left;
@@ -49,52 +49,56 @@
     color: whitesmoke;
 }
 
-.navbar-right-items-auth {
+.navbar_right-items-auth {
     padding: 0 16px;
     border-left: 1px solid var(--main-green_color);
     border-right: 1px solid var(--main-green_color);
+    float: right;
+    margin-right: 16px
 }
 
-.navbar-right-items-basket {
+.navbar_right-items_basket {
     display: block;
 }
 
-.navbar-right-items-basket-container {
+.navbar_right-items_basket_container {
     float: right;
     margin-right: 16px;
     display: flex;
     align-items: center
 }
 
-.navbar-right-items-basket-container__text {
+.navbar_right-items_basket_container__text {
     display: inline-block;
     color: black;
     font-weight: 500;
     margin-left: 8px;
 }
 
-.navbar-right-items-basket-container__image {
+.navbar_basket-image {
     display: inline-block;
+    width: 32px;
+    height: 32px
 }
 
-.navbar-right-items-auth-user {
+.navbar_right-items_auth_user {
     display: flex;
     flex-direction: row;
 }
 
-.navbar-right-items-auth-user__username {
+.navbar_right-items_auth-user__username {
     color: black;
 }
 
-.navbar-right-items-auth-user__avatar {
+.navbar_right-items_auth-user__avatar {
     width: 50px;
     height: 50px;
 }
 
-.navbar-right-items-auth-user__signin {
+.navbar_right-items_auth_user__signin {
     color: var(--profile-link-hover_color_darker);
 }
 
-.navbar-right-items-auth-user__text {
+.navbar_right-items_auth_user__text {
     font-weight: 500;
 }

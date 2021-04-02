@@ -1,21 +1,35 @@
 import { renderAuthBlock, renderNotAuthBlock, renderTopNavView } from './NavbarTmpl.js';
-import { noOp } from '../../modules/utils.js';
 import user from '../../modules/user.js';
 import eventBus from '../../modules/eventBus.js';
 import AuthEvents from '../../events/AuthEvents.js';
+import { noop } from '../../modules/utils.js';
 
 export class Navbar {
     constructor ({
         root = document.body,
-        goTo = noOp
+        goTo = noop
     } = {}) {
         this.goTo = goTo;
-        this.root = root
-        this.root.innerHTML = renderTopNavView({});
-        if (user.isAuth) {
-            this.userAuth()
+        this.root = root;
+    }
+
+    render() {
+        const newDiv = document.createElement('div')
+        newDiv.innerHTML = renderTopNavView({})
+        this.root.insertAdjacentElement('afterbegin', newDiv)
+
+        const authBlock = document.getElementById('auth_block');
+        if (window.isUserAuth) {
+            console.log("user is authorized")
+            authBlock.innerHTML = renderAuthBlock({
+                user: window.user,
+                serverUrl: window.serverAddress
+            });
+            this.goProfileListener();
         } else {
-            this.userLogout()
+            console.log("user is not authorized")
+            authBlock.innerHTML = renderNotAuthBlock({});
+            this.goLoginListener();
         }
         eventBus.on(AuthEvents.userSignIn, this.userAuth.bind(this))
         eventBus.on(AuthEvents.userLogout, this.userLogout.bind(this))
@@ -34,8 +48,8 @@ export class Navbar {
         this.goLoginListener();
     }
 
-    goLoginListener () {
-        const loginLink = document.getElementById('js_goLogin')
+    goLoginListener() {
+        const loginLink = document.getElementById('js-go-login')
         if (loginLink) {
             loginLink.addEventListener('click', () => {
                 this.goTo('login')
@@ -43,8 +57,9 @@ export class Navbar {
         }
     }
 
-    goProfileListener () {
-        const profileLink = document.getElementById('js_toProfile')
+
+    goProfileListener() {
+        const profileLink = document.getElementById('js-go-profile')
         if (profileLink) {
             profileLink.addEventListener('click', () => {
                 this.goTo('profile')

@@ -15,6 +15,9 @@ export class SignInView {
         }
         this.root.innerHTML = '';
 
+        this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
+        this.navbar.render()
+
         const login = new Login({
             root: this.root,
             goTo: this.goTo,

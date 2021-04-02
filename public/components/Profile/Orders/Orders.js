@@ -27,10 +27,6 @@ export class Orders {
     ordersDraw(orders) {
         document.getElementById('profile-left-block').innerHTML =  renderOrderList({})
         const orderList = document.getElementById('orders-list')
-        //let ordersLayout = ""
-       // let ordersLayout = document.createElement('div')
-       //  const profilePlace = document.getElementById('profile-left-block')
-       //  let orderLayout = document.createElement('div')
 
         if (orders) {
             for (const order of orders) {
@@ -40,26 +36,8 @@ export class Orders {
                     order: order
                 });
                 element.render();
-                // console.log("hi")
-                // for (const dish of order.foods) {
-                //     console.log(dish)
-                //     console.log( renderDish({dish: dish}))
-                //     dishBlock.innerHTML += renderDish({dish: dish})
-                //     console.log("dde")
-                // }
-                //profilePlace.innerHTML = renderOrder({order: order})
-                //console.log(ordersLayout)
-
-                //profilePlace.innerHTML = renderOrder({order: order});
-               // const orderBlock = document.getElementById('profile-left-block-order-food-list-'+order.id )
-                //orderBlock.innerHTML = dishBlock
             }
         }
-        //console.log(ordersLayout)
-        //document.insertAdjacentText(ordersLayout, profilePlace)
-        //this.root.insertBefore(ordersLayout, profilePlace)
-        //profilePlace.innerHtml = ordersLayout
-        //console.log(profilePlace.innerHtml)
     }
 
     loadError (error) {

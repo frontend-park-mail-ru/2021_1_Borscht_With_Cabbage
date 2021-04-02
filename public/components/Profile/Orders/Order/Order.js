@@ -24,11 +24,11 @@ export class OrderElement {
                 console.log(dish)
 
                // const dishhh = dishPlace.createElement('div')
-               //  const dishElement = new DishElement({
-               //      root: dishPlace,
-               //      dish: dish
-               //  });
-               //  dishElement.render();
+                const dishElement = new DishElement({
+                    root: dishPlace,
+                    dish: dish
+                });
+                dishElement.render();
             }
         }
     }

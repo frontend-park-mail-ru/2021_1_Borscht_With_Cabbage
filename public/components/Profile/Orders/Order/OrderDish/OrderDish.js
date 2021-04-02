@@ -13,8 +13,10 @@ export class DishElement {
         if (this.dish) {
            // const dishPlace = document.getElementById('profile-left-block-order-food-list-'+this.dish.id);
             console.log("dishPlace: ", this.root)
-
-            console.log(this.root.innerHTML)
+            // const dishElem = document.createElement('div');
+            // dishElem.innerHTML = renderDish({ dish: this.dish});
+            // console.log("hi")
+            // this.root.append(dishElem);
             this.root.innerHTML += renderDish({ dish: this.dish });
             console.log("dish", this.root.innerHTML)
         }

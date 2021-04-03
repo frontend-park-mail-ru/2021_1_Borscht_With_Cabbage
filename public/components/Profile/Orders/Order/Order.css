@@ -1,3 +1,5 @@
+@import "OrderDish/Dish.css";
+
 .profile-left-block-orders {
     padding: 0;
     max-width: 42em;
@@ -8,14 +10,14 @@
 
 .profile-left-block-restaurant {
     width: 100%;
-    border-bottom: 2px solid #acbdac;
+    border-bottom: 2px solid var(--main-green_color_darker);
 }
 
 .profile-left-block-order-date-and-address {
     padding: 4px 0;
     width: 100%;
     height: 6em;
-    border-bottom: 1px solid #acbdac;
+    border-bottom: 1px solid var(--main-green_color_darker);
 }
 
 .profile-left-block-restaurant__name, .profile-left-block-order__date, .profile-left-block-order__address {
@@ -24,7 +26,7 @@
 
 .profile-left-block-order-contents, .profile-left-block-order-state {
     width: 100%;
-    border-bottom: 2px solid #acbdac;
+    border-bottom: 2px solid var(--main-green_color_darker);
 }
 
 .profile-left-block-order-contents-sum{

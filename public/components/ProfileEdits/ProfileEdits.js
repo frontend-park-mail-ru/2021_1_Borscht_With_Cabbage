@@ -122,6 +122,7 @@ export class ProfileEdits {
             } else {
                 info.avatar = user.avatar
             }
+           // console.log(info)
             eventBus.emit('userSignIn', {
                 name: info.name,
                 avatar: info.avatar

@@ -53,3 +53,7 @@ input:focus {
 .link:hover {
     color: var(--main-green_color_darker);
 }
+
+.block {
+    display: block;
+}

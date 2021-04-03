@@ -57,3 +57,13 @@ input:focus {
 .block {
     display: block;
 }
+
+.number-in-circle {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    background: var(--grey);
+    margin: 1em;
+    border-radius: 50%;
+    text-align: center;
+}

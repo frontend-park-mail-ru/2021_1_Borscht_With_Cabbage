@@ -10,6 +10,8 @@ class AuthEvents {
     constructor () {
         this.userSignIn = 'userSignIn'
         this.userLogout = 'userLogout'
+        this.restaurantSignIn = 'restaurantSignIn'
+        this.restaurantLogout = 'restaurantLogout'
     }
 }
 

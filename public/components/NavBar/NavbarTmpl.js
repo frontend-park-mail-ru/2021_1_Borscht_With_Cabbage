@@ -20,6 +20,21 @@ export const renderTopNavView = window.Handlebars.compile(`
 </div>
 `);
 
+export const renderTopNavRestaurantView = window.Handlebars.compile(`
+<div class="navbar">
+    <div class="navbar_title">
+        <a class="navbar_title__project-name link" href="/restaurant/admin">Delivery Borscht Restaurant</a>
+    </div>
+
+    <div class="navbar_right-items">
+        <div id="auth_block" class="navbar_right-items-auth"></div>
+    </div>
+</div>
+<div class="view" id="view-place" style="position: relative;">
+
+</div>
+`);
+
 export const renderAuthBlock = window.Handlebars.compile(`
         <h3 class="navbar_right-items_auth_user link" id="js-go-profile">
             <img src="{{ user.avatar }}" class="navbar_right-items_auth-user__avatar" alt="ava" id="avatar">

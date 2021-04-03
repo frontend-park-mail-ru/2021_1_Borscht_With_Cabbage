@@ -76,6 +76,6 @@ export class RestaurantSignIn {
     }
 
     loginSuccess () {
-        this.goTo('main')
+        this.goTo('restaurantMain')
     }
 }

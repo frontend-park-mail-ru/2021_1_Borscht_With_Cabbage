@@ -1,4 +1,4 @@
-import user from '../modules/user.js';
+import restaurant from '../modules/restaurant.js';
 import { RestaurantSignInController } from "../controllers/RestaurantSignInController.js";
 import { RestaurantSignIn } from "../components/RestaurantSignIn/RestaurantSignIn.js";
 
@@ -10,8 +10,8 @@ export class RestaurantSignInView {
     }
 
     render () {
-        if (user.isAuth) {
-            this.goTo('main') // TODO: goto restaurant profile
+        if (restaurant.isAuth) {
+            this.goTo('restaurantMain');
         }
         this.root.innerHTML = '';
 

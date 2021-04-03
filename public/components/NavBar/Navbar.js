@@ -1,7 +1,9 @@
 import { renderAuthBlock, renderNotAuthBlock, renderTopNavView } from './NavbarTmpl.js';
+import { renderTopNavRestaurantView } from './NavbarTmpl.js';
 
 import { noop } from '../../modules/utils.js';
 import user from '../../modules/user.js';
+import restaurant from '../../modules/restaurant.js';
 import eventBus from '../../modules/eventBus.js';
 import AuthEvents from '../../events/AuthEvents.js';
 
@@ -14,15 +16,31 @@ export class Navbar {
         this.root = root;
         eventBus.on(AuthEvents.userSignIn, this.userAuth.bind(this))
         eventBus.on(AuthEvents.userLogout, this.userLogout.bind(this))
+        eventBus.on(AuthEvents.restaurantSignIn, this.restaurantAuth.bind(this))
+        eventBus.on(AuthEvents.restaurantLogout, this.restaurantLogout.bind(this))
     }
 
     render () {
+        this.renderUser();
+    }
+
+    renderUser () {
+        console.log('Navbar user');
         this.root.innerHTML = renderTopNavView({});
         if (user.isAuth) {
-            this.userAuth()
+            this.userAuth();
         } else {
-            this.userLogout()
+            this.userLogout();
         }
+    }
+
+    renderRestaurant () {
+        if (restaurant.isAuth) {
+            console.log('Navbar restaurant');
+            this.root.innerHTML = renderTopNavRestaurantView({});
+            return;
+        }
+        this.renderUser();
     }
 
     userAuth () {
@@ -36,6 +54,19 @@ export class Navbar {
     userLogout () {
         document.getElementById('auth_block').innerHTML = renderNotAuthBlock({});
         this.goLoginListener();
+    }
+
+    restaurantAuth () {
+        this.renderRestaurant();
+        document.getElementById('auth_block').innerHTML = renderAuthBlock({
+            user: restaurant,
+            serverUrl: window.serverAddress
+        });
+        this.goProfileListener();
+    }
+
+    restaurantLogout () {
+        this.renderUser();
     }
 
 

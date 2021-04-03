@@ -102,7 +102,7 @@ export class RestaurantSignUp {
     }
 
     signupSuccess () {
-        this.goTo('main')
+        this.goTo('restaurantMain')
     }
 
     signupFailed (error) {

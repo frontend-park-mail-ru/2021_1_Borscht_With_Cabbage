@@ -77,6 +77,27 @@ export function restaurantSignupPost ({ email, password, title, number }) {
 }
 
 /**
+ * Send server post-request to add dish and get data about dish (id, name and avatar)
+ *
+ * @param {string} name
+ * @param {string} description
+ * @param {int} price
+ * @param {int} weight
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+ export function restaurantAddDishPost ({ name, description, price, weight}) {
+    return Http.ajaxPost({
+        url: '/restaurant/dish',
+        body: {
+            name,
+            description,
+            price,
+            weight
+        }
+    });
+}
+
+/**
  * Send server get-request to check if user auth and get data about him (username and avatar)
  *
  * @returns {Promise<void>}

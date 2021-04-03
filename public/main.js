@@ -29,7 +29,7 @@ const mainView = new MainView(view, goTo);
 const storeView = new StoreView(view, goTo);
 const profileView = new ProfileView(view, goTo);
 const logout = new Logout({ root: view, goTo: goTo });
-const restaurantMainView = new RestaurantMainView({ root: view, goTo: goTo });
+const restaurantMainView = new RestaurantMainView(view, goTo);
 
 router.addRoute('login', loginView);
 router.addRoute('signup', signUpView);

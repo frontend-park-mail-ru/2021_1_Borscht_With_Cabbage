@@ -1,37 +1,35 @@
 export const renderTopNavView = window.Handlebars.compile(`
 <div class="navbar">
-    <div class="navbar_title">
-        <a class="navbar_title__project-name link" href="/">Delivery Borscht</a>
-    </div>
-
-    <div class="navbar_right-items">
-        <input type="text" id="address" class="navbar_right-items__address" name="firstname" placeholder="Адрес доставки">
-        <div id="auth_block" class="navbar_right-items-auth"></div>
-        <a href="/basket" class="navbar_right-items_basket">
-            <div class="navbar_right-items_basket_container">
-                <img src="../../static/cart.png" alt="Корзина" class="navbar_basket-image">
-                <h3 class="navbar_right-items_basket_container__text link">Корзина</h3>    
-            </div>
-        </a>
-    </div>
 </div>
 <div class="view" id="view-place" style="position: relative;">
 
 </div>
 `);
 
-export const renderTopNavRestaurantView = window.Handlebars.compile(`
-<div class="navbar">
-    <div class="navbar_title">
-        <a class="navbar_title__project-name link" href="/restaurant/admin">Delivery Borscht Restaurant</a>
-    </div>
-
-    <div class="navbar_right-items">
-        <div id="auth_block" class="navbar_right-items-auth"></div>
-    </div>
+export const renderTopNavUserView = window.Handlebars.compile(`
+<div class="navbar_title">
+    <a class="navbar_title__project-name link" href="/">Delivery Borscht</a>
 </div>
-<div class="view" id="view-place" style="position: relative;">
 
+<div class="navbar_right-items">
+    <input type="text" id="address" class="navbar_right-items__address" name="firstname" placeholder="Адрес доставки">
+    <div id="auth_block" class="navbar_right-items-auth"></div>
+    <a href="/basket" class="navbar_right-items_basket">
+        <div class="navbar_right-items_basket_container">
+            <img src="../../static/cart.png" alt="Корзина" class="navbar_basket-image">
+            <h3 class="navbar_right-items_basket_container__text link">Корзина</h3>    
+        </div>
+    </a>
+</div>
+`);
+
+export const renderTopNavRestaurantView = window.Handlebars.compile(`
+<div class="navbar_title">
+    <a class="navbar_title__project-name link" href="/restaurant/admin">Delivery Borscht Restaurant</a>
+</div>
+
+<div class="navbar_right-items">
+    <div id="auth_block" class="navbar_right-items-auth"></div>
 </div>
 `);
 

@@ -1,17 +1,17 @@
-// import { restaurantsGet } from '../modules/api.js';
+import { restaurantAddDishPost } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
-// import MainEvents from '../events/MainEvents.js';
+import AddingDishEvents from '../events/AddingDish.js';
 
 export class RestaurantMainModel {
-    getRestaurants (url) {
-        // restaurantsGet({ url: url })
-        //     .then(res => {
-        //         if (res.status === 200) {
-        //             eventBus.emit(MainEvents.mainGetRestaurantsSuccess, res.parsedJSON)
-        //         } else {
-        //             eventBus.emit(MainEvents.mainGetRestaurantsFailed, res.parsedJSON)
-        //         }
-        //     })
-        //     .catch(res => eventBus.emit(MainEvents.mainGetRestaurantsFailed, res.parsedJSON));
+    addDish ({ name, description, price, weight}) {
+        restaurantAddDishPost({ name, description, price, weight})
+            .then(res => {
+                if (res.status === 200) {
+                    eventBus.emit(AddingDishEvents.addingDishSuccess, {})
+                } else {
+                    eventBus.emit(AddingDishEvents.addingDishFailed, res.parsedJSON)
+                }
+            })
+            .catch(res => eventBus.emit(AddingDishEvents.addingDishFailed, res.parsedJSON));
     }
 }

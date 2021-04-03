@@ -1,6 +1,6 @@
 import { RestaurantMainController } from '../controllers/RestaurantMainController.js';
 import eventBus from '../modules/eventBus.js';
-import { RestaurantMenu } from '../components/RestaurantMenu/RestaurantMenu.js'
+import { RestaurantMenuComponent } from '../components/RestaurantMenu/RestaurantMenu.js'
 // import MainEvents from '../events/MainEvents.js';
 
 export class RestaurantMainView {
@@ -15,7 +15,7 @@ export class RestaurantMainView {
     render () {
         this.root.innerHTML = '';
 
-        const menu = new RestaurantMenu({
+        const menu = new RestaurantMenuComponent({
             root: this.root,
             goTo: this.goTo,
             controller: this.mainController

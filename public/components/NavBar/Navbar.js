@@ -1,5 +1,5 @@
 import { renderAuthBlock, renderNotAuthBlock, renderTopNavView } from './NavbarTmpl.js';
-import { renderTopNavRestaurantView } from './NavbarTmpl.js';
+import { renderTopNavRestaurantView, renderTopNavUserView } from './NavbarTmpl.js';
 
 import { noop } from '../../modules/utils.js';
 import user from '../../modules/user.js';
@@ -21,12 +21,14 @@ export class Navbar {
     }
 
     render () {
+        this.root.innerHTML = renderTopNavView({});
+        this.navbar = this.root.querySelector('.navbar');
         this.renderUser();
     }
 
     renderUser () {
         console.log('Navbar user');
-        this.root.innerHTML = renderTopNavView({});
+        this.navbar.innerHTML = renderTopNavUserView({});
         if (user.isAuth) {
             this.userAuth();
         } else {
@@ -37,7 +39,7 @@ export class Navbar {
     renderRestaurant () {
         if (restaurant.isAuth) {
             console.log('Navbar restaurant');
-            this.root.innerHTML = renderTopNavRestaurantView({});
+            this.navbar.innerHTML = renderTopNavRestaurantView({});
             return;
         }
         this.renderUser();

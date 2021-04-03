@@ -18,6 +18,7 @@ export class StoreView {
     }
 
     render (url) {
+        console.log('render StoreView'); // TODO: понять почему рендорится при отображении главной страницы с ресторанами
         this.storeController.getDishes(url)
     }
 

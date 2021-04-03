@@ -1,9 +1,11 @@
 import eventBus from '../../modules/eventBus.js';
 import { noop } from '../../modules/utils.js';
 import { RestaurantMainController } from "../../controllers/RestaurantMainController.js";
+import { RestaurantAddingDish } from '../RestaurantAddDish/RestaurantAddingDish.js';
 import { renderRestaurantMenu } from "./RestaurantMenuTmpl.js";
+import AddingDishEvents from "../../events/AddingDish.js";
 
-export class RestaurantMenu {
+export class RestaurantMenuComponent {
     constructor ({
         root = document.body,
         goTo = noop,
@@ -11,65 +13,38 @@ export class RestaurantMenu {
     } = {}) {
         this.root = root;
         this.goTo = goTo;
-        this.controller = controller
+        this.controller = controller;
+        eventBus.on(AddingDishEvents.addingDishSuccess, this.addingSuccess.bind(this));
     }
 
     render () {
-        console.log('restaurant menu');
-        this.root.innerHTML = renderRestaurantMenu({});
+        this.root.innerHTML += renderRestaurantMenu({});
 
-        // this.addLoginEventListeners();
+        this.addAddDishEventListeners();
     }
 
-    // addLoginEventListeners () {
-    //     const login = document.getElementById(this.loginID);
-    //     if (login) {
-    //         login.addEventListener('focusout',
-    //             () => renderInput(this.loginID, Validator.validateEmail(login.value))
-    //         );
-    //     }
+    addAddDishEventListeners () {
+        const addDish = this.root.querySelector('.menu-container__add-section');
+        if (!addDish) {
+            return;
+        }
 
-    //     const password = document.getElementById(this.passwordID);
-    //     if (password) {
-    //         password.addEventListener('focusout',
-    //             () => renderInput(this.passwordID, Validator.validatePassword(password.value))
-    //         );
-    //     }
+        addDish.addEventListener('click', e => {
+            e.preventDefault();
 
-    //     const formID = 'authorization-form';
-    //     const form = document.getElementById(formID);
-    //     if (form) {
-    //         form.addEventListener('submit', this.formSubmit.bind(this));
-    //     }
+            this.addingDishItem = document.createElement('div');
+            this.root.append(this.addingDishItem);
 
-    //     const regID = 'js_toLogin';
-    //     const reg = document.getElementById(regID);
-    //     if (reg) {
-    //         reg.onclick = () => {
-    //             this.goTo('login')
-    //         }
-    //     }
-    // }
+            const addingDish = new RestaurantAddingDish({
+                root: this.addingDishItem,
+                goTo: this.goTo,
+                controller: this.controller
+            });
+            addingDish.render();
+        });
+    }
 
-    // formSubmit (event) {
-    //     event.preventDefault()
-    //     const errors = this.controller.signIn(document.getElementById(this.loginID).value,
-    //         document.getElementById(this.passwordID).value)
-    //     if (errors.error === true) {
-    //         renderInput(this.loginID, errors.loginError)
-    //         renderInput(this.passwordID, errors.passwordError)
-    //     } else {
-    //         // TODO обратная связь что грузится и все хорошо
-    //     }
-    // }
-
-    // loginFailed (error) {
-    //     const serverError = document.getElementById('serverError')
-    //     serverError.hidden = false
-    //     serverError.textContent = error
-    // }
-
-    // loginSuccess () {
-    //     this.goTo('restaurantMain')
-    // }
+    addingSuccess () {
+        this.addingDishItem.innerHTML = '';
+    }
 }

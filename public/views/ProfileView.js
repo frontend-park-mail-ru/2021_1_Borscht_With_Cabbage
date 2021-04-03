@@ -1,13 +1,13 @@
 import { renderProfileView } from '../components/Profile/ProfileTmpl.js'
-import { ProfileEdits } from '../components/Profile/ProfileEdits/ProfileEdits.js';
+import { ProfileEdits } from '../components/ProfileEdits/ProfileEdits.js';
 import { ProfileController } from '../controllers/ProfileController.js';
 import eventBus from '../modules/eventBus.js';
-import ProfileEvents from '../events/ProfileEvents.js';
+import { ProfileEvents } from '../events/ProfileEvents.js';
 
 export class ProfileView {
     constructor (root, goTo) {
-        this.goTo = goTo
-        this.root = root
+        this.goTo = goTo;
+        this.root = root;
         this.profileController = new ProfileController()
         eventBus.on(ProfileEvents.profileGetUserDataSuccess, this.userDraw.bind(this))
         eventBus.on(ProfileEvents.profileGetUserDataFailed, this.loadError.bind(this))

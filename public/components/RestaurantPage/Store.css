@@ -1,9 +1,9 @@
-@import "StoreFoodElement/FoodElement.css";
-@import "StoreFoodList/FoodList.css";
-@import "StoreBasketFood/StoreBasketFood.css";
-@import "NumButtons/NumButtons.css";
-@import "StoreBasket/StoreBasket.css";
-@import "StoreTitle/StoreTitle.css";
+@import "public/components/StoreFoodElement/FoodElement.css";
+@import "public/components/StoreFoodList/FoodList.css";
+@import "public/components/StoreBasket/StoreBasketFood/StoreBasketFood.css";
+@import "public/components/NumButtons/NumButtons.css";
+@import "public/components/StoreBasket/StoreBasket.css";
+@import "public/components/StoreTitle/StoreTitle.css";
 
 .restaurant {
     display: flex;

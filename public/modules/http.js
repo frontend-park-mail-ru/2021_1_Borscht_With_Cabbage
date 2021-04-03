@@ -1,5 +1,5 @@
 import eventBus from './eventBus.js';
-import AuthEvents from '../events/AuthEvents.js';
+import { AuthEvents } from '../events/AuthEvents.js';
 
 
 // window.serverAddress = 'http://89.208.197.150:5000';
@@ -11,7 +11,7 @@ function getParams ({
 }) {
     const headers = {
         'Access-Control-Allow-Origin': '*'
-    }
+    };
     if (method !== 'PUT') {
         headers['Content-Type'] = 'application/json';
         body = JSON.stringify(body);
@@ -21,7 +21,7 @@ function getParams ({
         method: method,
         credentials: 'include',
         headers: headers
-    }
+    };
     if (method !== 'GET') {
         init.body = body;
     }
@@ -33,7 +33,7 @@ async function makeFetch ({
     body = null,
     method = 'GET'
 } = {}) {
-    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body }))
+    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body }));
     const parsedJSON = await response.json();
     if (parsedJSON.code === 418) {
         eventBus.emit(AuthEvents.offline, { message: parsedJSON.message })

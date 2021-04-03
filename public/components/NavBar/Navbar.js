@@ -1,60 +1,68 @@
 import { renderAuthBlock, renderNotAuthBlock, renderTopNavView } from './NavbarTmpl.js';
-import { noOp } from '../../modules/utils.js';
+import { noop } from '../../modules/utils.js';
 import user from '../../modules/user.js';
 import eventBus from '../../modules/eventBus.js';
-import AuthEvents from '../../events/AuthEvents.js';
+import { AuthEvents } from '../../events/AuthEvents.js';
 import { Toast } from '../Toast/Toast.js';
 
 export class Navbar {
     constructor ({
         root = document.body,
-        goTo = noOp
+        goTo = noop
     } = {}) {
         this.goTo = goTo;
-        this.root = root
+        this.root = root;
+        this.toast = new Toast({ root: this.root.querySelector('.navbar-title') })
+        eventBus.on(AuthEvents.userSignIn, this.renderAuth.bind(this))
+        eventBus.on(AuthEvents.userLogout, this.renderNotAuth.bind(this))
+    }
+
+    render () {
         this.root.innerHTML = renderTopNavView({});
         if (user.isAuth) {
-            this.userAuth()
+            this.renderAuth();
         } else {
-            this.userLogout()
+            this.renderNotAuth();
         }
-        this.toast = new Toast({ root: this.root.querySelector('.navbar-title') })
-        eventBus.on(AuthEvents.userSignIn, this.userAuth.bind(this))
-        eventBus.on(AuthEvents.userLogout, this.userLogout.bind(this))
     }
 
-    userAuth () {
-        document.getElementById('auth_block').innerHTML = renderAuthBlock({
-            user: user,
-            serverUrl: window.serverAddress
-        });
-        this.goProfileListener();
+    renderAuth () {
+        const authBlock = document.getElementById('auth_block');
+        if (authBlock) {
+            authBlock.innerHTML = renderAuthBlock({
+                user: user
+            });
+            this.goProfileListener();
+        }
     }
 
-    userLogout () {
-        document.getElementById('auth_block').innerHTML = renderNotAuthBlock({});
-        this.goLoginListener();
+    renderNotAuth () {
+        const authBlock = document.getElementById('auth_block');
+        if (authBlock) {
+            authBlock.innerHTML = renderNotAuthBlock({});
+            this.goLoginListener();
+        }
     }
 
     goLoginListener () {
-        const loginLink = document.getElementById('js_goLogin')
+        const loginLink = document.getElementById('js-go-login')
         if (loginLink) {
             loginLink.addEventListener('click', () => {
-                this.goTo('login')
+                this.goTo('login');
             });
         }
     }
 
     goProfileListener () {
-        const profileLink = document.getElementById('js_toProfile')
+        const profileLink = document.getElementById('js-go-profile')
         if (profileLink) {
             profileLink.addEventListener('click', () => {
-                this.goTo('profile')
+                this.goTo('profile');
             })
         }
     }
 
     getViewPlace () {
-        return this.root.querySelector('#view-place')
+        return this.root.querySelector('#view-place');
     }
 }

@@ -26,6 +26,10 @@ const urls = {
     logout: {
         constUrl: '/logout',
         regularUrl: null
+    },
+    restaurantMain: {
+        constUrl: '/restaurant/admin',
+        regularUrl: null
     }
 };
 

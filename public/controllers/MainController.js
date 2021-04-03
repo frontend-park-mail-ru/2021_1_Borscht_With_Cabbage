@@ -23,9 +23,10 @@ export class MainController {
     }
 
     getRestaurants () {
-        const url = this.#getUrl()
+        console.log('getRestaurants');
+        const url = this.#getUrl();
         this.request.offset += this.request.limit;
-        this.mainModel.getRestaurants(url)
+        this.mainModel.getRestaurants(url);
     }
 
     clickCategory ({ name }) {

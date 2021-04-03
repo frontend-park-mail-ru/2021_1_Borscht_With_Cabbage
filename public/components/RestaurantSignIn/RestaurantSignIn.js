@@ -17,8 +17,8 @@ export class RestaurantSignIn {
         this.controller = controller
         this.loginID = 'login'
         this.passwordID = 'password'
-        eventBus.on(SignInEvents.userSignInSuccess, this.loginSuccess.bind(this))
-        eventBus.on(SignInEvents.userSignInFailed, this.loginFailed.bind(this))
+        eventBus.on(SignInEvents.restaurantSignInSuccess, this.loginSuccess.bind(this))
+        eventBus.on(SignInEvents.restaurantSignInFailed, this.loginFailed.bind(this))
     }
 
     render () {
@@ -76,6 +76,7 @@ export class RestaurantSignIn {
     }
 
     loginSuccess () {
-        this.goTo('restaurantMain')
+        console.log('success autorization restaurant');
+        this.goTo('restaurantMain');
     }
 }

@@ -10,6 +10,8 @@ class SignUpEvents {
     constructor () {
         this.userSignUpSuccess = 'userSignUpSuccess'
         this.userSignUpFailed = 'userSignUpFailed'
+        this.restaurantSignUpSuccess = 'restaurantSignUpSuccess'
+        this.restaurantSignUpFailed = 'restaurantSignUpFailed'
     }
 }
 

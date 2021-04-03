@@ -26,6 +26,7 @@ export class MoreRestaurantsComponent {
         }
 
         btnMore.addEventListener('click', () => {
+            console.log('moreRestaurant button clicked');
             this.controller.getRestaurants();
         })
     }

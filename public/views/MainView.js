@@ -1,9 +1,9 @@
-import { CategoryComponent } from '../components/MainPage/Category/Category.js'
-import { ParamsComponent } from '../components/MainPage/Params/Params.js'
-import { FilterComponent } from '../components/MainPage/Filter/Filter.js'
-import { PanelRestaurantsComponent } from '../components/MainPage/PanelRestaurants/PanelRestaurants.js'
+import { CategoryComponent } from '../components/Category/Category.js'
+import { ParamsComponent } from '../components/Params/Params.js'
+import { FilterComponent } from '../components/Filter/Filter.js'
+import { PanelRestaurantsComponent } from '../components/PanelRestaurants/PanelRestaurants.js'
 import { MainController } from '../controllers/MainController.js';
-import { MoreRestaurantsComponent } from '../components/MainPage/MoreRestaurants/MoreRestaurants.js';
+import { MoreRestaurantsComponent } from '../components/MoreRestaurants/MoreRestaurants.js';
 import eventBus from '../modules/eventBus.js';
 import MainEvents from '../events/MainEvents.js';
 
@@ -18,6 +18,7 @@ export class MainView {
     }
 
     render () {
+        console.log('render MainView');
         this.headerDraw();
         this.mainController.init();
         this.mainController.getRestaurants();
@@ -59,7 +60,7 @@ export class MainView {
             goTo: this.goTo
         });
 
-        restaurants.render();
+        this.restaurants.render();
     }
 
     contentDraw (info) {

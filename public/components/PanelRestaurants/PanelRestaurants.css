@@ -1,4 +1,4 @@
-.restaurants-content__slider {
+#restaurants_list {
     display: flex;
     flex-wrap: wrap;
 }

@@ -7,11 +7,11 @@ export class RestaurantSignUpModel {
         restaurantSignupPost({ email, password, title, number })
             .then(res => {
                 if (res.status === 200) {
-                    eventBus.emit(SignUpEvents.userSignUpSuccess, {})
+                    eventBus.emit(SignUpEvents.restaurantSignUpSuccess, {})
                 } else {
-                    eventBus.emit(SignUpEvents.userSignUpFailed, res.parsedJSON)
+                    eventBus.emit(SignUpEvents.restaurantSignUpFailed, res.parsedJSON)
                 }
             })
-            .catch(res => eventBus.emit(SignUpEvents.userSignUpFailed, res.parsedJSON));
+            .catch(res => eventBus.emit(SignUpEvents.restaurantSignUpFailed, res.parsedJSON));
     }
 }

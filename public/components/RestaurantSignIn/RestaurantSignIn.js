@@ -1,16 +1,16 @@
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
-import { renderLogin } from './LoginTmpl.js';
 import eventBus from '../../modules/eventBus.js';
 import { noop } from '../../modules/utils.js';
-import { SignInController } from '../../controllers/SignInController.js';
+import { RestaurantSignInController } from "../../controllers/RestaurantSignInController.js";
 import SignInEvents from '../../events/SignInEvents.js';
+import { renderRestaurantLogin } from "./RestaurantSignInTmpl.js";
 
-export class Login {
+export class RestaurantSignIn {
     constructor ({
         root = document.body,
         goTo = noop,
-        controller = new SignInController()
+        controller = new RestaurantSignInController()
     } = {}) {
         this.root = root;
         this.goTo = goTo;
@@ -22,7 +22,7 @@ export class Login {
     }
 
     render () {
-        this.root.innerHTML += renderLogin({});
+        this.root.innerHTML += renderRestaurantLogin({});
 
         this.addLoginEventListeners();
     }
@@ -46,6 +46,14 @@ export class Login {
         const form = document.getElementById(formID);
         if (form) {
             form.addEventListener('submit', this.formSubmit.bind(this));
+        }
+
+        const regID = 'js_toLogin';
+        const reg = document.getElementById(regID);
+        if (reg) {
+            reg.onclick = () => {
+                this.goTo('login')
+            }
         }
     }
 

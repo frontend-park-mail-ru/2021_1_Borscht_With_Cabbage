@@ -1,23 +1,23 @@
-import { renderSignUp } from './SignUpTmpl.js';
-import { renderInput } from '../../modules/rendering.js';
-import { Validator } from '../../modules/validation.js';
-import { maskPhone } from '../../modules/phoneMask.js';
-import eventBus from '../../modules/eventBus.js';
-import { noop } from '../../modules/utils.js';
-import { SignUpController } from '../../controllers/SignUpController.js';
-import SignUpEvents from '../../events/SignUpEvents.js';
+import { noop } from "../../modules/utils.js";
+import { RestaurantSignUpController } from "../../controllers/RestaurantSignUpController.js";
+import eventBus from "../../modules/eventBus.js";
+import SignUpEvents from "../../events/SignUpEvents.js";
+import { renderRestaurantSignUp } from "./RestaurantSignUpTmpl.js"; // todo
+import { renderInput } from "../../modules/rendering.js"; // todo
+import { Validator } from "../../modules/validation.js";
+import { maskPhone } from "../../modules/phoneMask.js";
 
-export class SignUp {
+export class RestaurantSignUp {
     constructor ({
         root = document.body,
         goTo = noop,
-        controller = new SignUpController()
+        controller = new RestaurantSignUpController()
     } = {}) {
         this.root = root
         this.goTo = goTo
         this.controller = controller
         this.emailID = 'email'
-        this.nameID = 'name'
+        this.titleID = 'title'
         this.phoneID = 'number'
         this.passwordID = 'password'
         this.repeatPasswordID = 'repeatPassword';
@@ -26,7 +26,7 @@ export class SignUp {
     }
 
     render () {
-        this.root.innerHTML += renderSignUp({});
+        this.root.innerHTML += renderRestaurantSignUp({});
 
         this.addSignUpEventListeners();
     }
@@ -39,12 +39,12 @@ export class SignUp {
             );
         }
 
-        const name = document.getElementById(this.nameID);
-        if (name) {
-            name.addEventListener('focusout',
-                () => renderInput(this.nameID, Validator.validateName(name.value))
-            );
-        }
+        // const name = document.getElementById(this.titleID); // todo
+        // if (name) {
+        //     name.addEventListener('focusout',
+        //         () => renderInput(this.titleID, Validator.validateName(name.value))
+        //     );
+        // }
 
         const number = document.getElementById(this.phoneID);
         if (number) {
@@ -86,14 +86,14 @@ export class SignUp {
         const errors = this.controller.signUp({
             email: document.getElementById(this.emailID).value,
             password: document.getElementById(this.passwordID).value,
-            name: document.getElementById(this.nameID).value,
+            title: document.getElementById(this.titleID).value,
             number: document.getElementById(this.phoneID).value.replace(/\D/g, ''),
             repeatPassword: document.getElementById(this.repeatPasswordID).value
         })
         if (errors.error === true) {
             renderInput(this.emailID, errors.emailError)
             renderInput(this.passwordID, errors.passwordError)
-            renderInput(this.nameID, errors.nameError)
+            renderInput(this.titleID, errors.titleError)
             renderInput(this.phoneID, errors.phoneError)
             renderInput(this.repeatPasswordID, errors.repeatPasswordError)
         } else {

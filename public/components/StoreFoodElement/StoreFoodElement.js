@@ -1,6 +1,6 @@
 import { renderFoodElement } from './StoreFoodElementTmpl.js';
-import eventBus from '../../../modules/eventBus.js';
-import BasketEvents from '../../../events/BasketEvents.js';
+import eventBus from '../../modules/eventBus.js';
+import BasketEvents from '../../events/BasketEvents.js';
 import { NumButtons } from '../NumButtons/NumButtons.js';
 
 export class StoreFoodElement {

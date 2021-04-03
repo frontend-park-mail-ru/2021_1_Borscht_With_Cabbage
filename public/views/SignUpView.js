@@ -1,6 +1,7 @@
 import { SignUp } from '../components/SignUp/SignUp.js';
 import user from '../modules/user.js';
 import { SignUpController } from '../controllers/SignUpController.js';
+import { Navbar } from "../components/NavBar/Navbar.js";
 
 export class SignUpView {
     constructor (root, goTo) {
@@ -14,6 +15,7 @@ export class SignUpView {
             this.goTo('main')
         }
         this.root.innerHTML = '';
+
         const signup = new SignUp({
             root: this.root,
             goTo: this.goTo,

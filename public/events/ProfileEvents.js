@@ -18,6 +18,8 @@ class ProfileEvents {
         this.profileGetUserDataFailed = 'profileGetUserDataFailed'
         this.profileSetUserDataSuccess = 'profileSetUserDataSuccess'
         this.profileSetUserDataFailed = 'profileSetUserDataFailed'
+        this.profileGetOrdersSuccess = 'profileGetOrdersSuccess'
+        this.profileGetOrdersFailed = 'profileGetOrdersFailed'
     }
 }
 

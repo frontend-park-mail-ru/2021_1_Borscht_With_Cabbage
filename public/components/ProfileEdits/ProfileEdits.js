@@ -2,12 +2,14 @@ import { renderProfileEdits } from './ProfileEditsTmpl.js';
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import { maskPhone } from '../../modules/phoneMask.js';
-import eventBus from '../../modules/eventBus.js';
-import { Preview } from '../Preview/Preview.js';
+import { renderPreview } from './PreviewTmpl.js';
+import { bytesToSize } from '../../modules/utils.js';
 import { noop } from '../../modules/utils.js';
+import { ProfileController } from "../../controllers/ProfileController.js";
+import eventBus from "../../modules/eventBus.js";
 import user from '../../modules/user.js';
 import ProfileEvents from '../../events/ProfileEvents.js';
-import { ProfileController } from '../../controllers/ProfileController.js';
+import { Preview } from "../Preview/Preview.js";
 
 export class ProfileEdits {
     constructor ({
@@ -28,11 +30,18 @@ export class ProfileEdits {
         this.repeatPasswordID = 'password_repeat'
 
         this.controller = controller
+        eventBus.on(ProfileEvents.profileGetUserDataSuccess, this.editsDraw.bind(this))
+        eventBus.on(ProfileEvents.profileGetUserDataFailed, this.loadError.bind(this))
         eventBus.on(ProfileEvents.profileSetUserDataSuccess, this.updateInputs.bind(this))
         eventBus.on(ProfileEvents.profileSetUserDataFailed, this.changeFailed.bind(this))
     }
 
     render () {
+        this.controller.getUserData()
+    }
+
+    editsDraw(data) {
+        this.user = data
         const profilePlace = document.getElementById('profile-left-block')
         profilePlace.innerHTML = renderProfileEdits({
             user: this.user,
@@ -45,6 +54,10 @@ export class ProfileEdits {
 
         this.addErrorListeners();
         this.addSubmitListener();
+    }
+
+    loadError (error) {
+        console.log('profileView -> loadError', error)
     }
 
     addSubmitListener () {
@@ -83,6 +96,21 @@ export class ProfileEdits {
         serverError.textContent = error
     }
 
+
+    // updateInputs (info, status) {
+    //     if (info.code === 200) {
+    //         console.log(info)
+    //         document.getElementById('email').value = info.data.email;
+    //         document.getElementById('name').value = info.data.name;
+    //         document.getElementById('number').value = info.data.number;
+    //         document.getElementById('number').focus();
+    //         if (info.avatar) {
+    //             document.getElementById('avatar').src = info.data.avatar;
+    //             window.user.avatar = info.data.avatar;
+    //             this.deletePreview()
+    //         }
+    //         document.getElementById('navbar-username').textContent = info.data.name;
+    //         window.user.name = info.data.name;
     updateInputs ({ info, status }) {
         if (status === 200) {
             document.getElementById(this.emailID).value = info.email;
@@ -94,6 +122,7 @@ export class ProfileEdits {
             } else {
                 info.avatar = user.avatar
             }
+           // console.log(info)
             eventBus.emit('userSignIn', {
                 name: info.name,
                 avatar: info.avatar

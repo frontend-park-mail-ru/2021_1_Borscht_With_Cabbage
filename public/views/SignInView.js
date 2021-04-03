@@ -1,6 +1,7 @@
 import { Login } from '../components/SignIn/Login.js';
 import user from '../modules/user.js';
 import { SignInController } from '../controllers/SignInController.js';
+import { Navbar } from "../components/NavBar/Navbar.js";
 
 export class SignInView {
     constructor (root, goTo) {

@@ -1,10 +1,12 @@
 import { renderStoreView } from '../components/RestaurantPage/StoreTemplate.js';
-import { StoreTitle } from '../components/StoreTitle/StoreTitle.js';
-import { StoreFoodList } from '../components/StoreFoodList/StoreFoodList.js';
-import { StoreBasket } from '../components/StoreBasket/StoreBasket.js';
 import { StoreController } from '../controllers/StoreController.js';
 import eventBus from '../modules/eventBus.js';
 import StoreEvents from '../events/StoreEvents.js';
+import { Navbar } from '../components/NavBar/Navbar.js';
+import { storeGet } from '../modules/api.js';
+import { StoreTitle } from '../components/StoreTitle/StoreTitle.js';
+import { StoreFoodList } from '../components/StoreFoodList/StoreFoodList.js';
+import { StoreBasket } from '../components/StoreBasket/StoreBasket.js';
 
 export class StoreView {
     constructor (root, goTo) {

@@ -3,10 +3,6 @@
  *      data: { food, isPlus }
  */
 
-class BasketEvents {
-    constructor () {
-        this.chooseFood = 'chooseFood'
-    }
+export const BasketEvents = {
+    chooseFood: 'chooseFood'
 }
-
-export default new BasketEvents()

@@ -4,15 +4,19 @@ import { StoreFoodList } from '../components/StoreFoodList/StoreFoodList.js';
 import { StoreBasket } from '../components/StoreBasket/StoreBasket.js';
 import { StoreController } from '../controllers/StoreController.js';
 import eventBus from '../modules/eventBus.js';
-import StoreEvents from '../events/StoreEvents.js';
+import { StoreEvents } from '../events/StoreEvents.js';
+import { noop } from '../modules/utils.js';
 
 export class StoreView {
-    constructor (root, goTo) {
-        this.goTo = goTo
-        this.root = root
-        this.storeController = new StoreController()
-        eventBus.on(StoreEvents.storeGetDishesSuccess, this.storePageDraw.bind(this))
-        eventBus.on(StoreEvents.storeGetDishesFailed, this.loadError.bind(this))
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
+        this.goTo = goTo;
+        this.root = root;
+        this.storeController = new StoreController();
+        eventBus.on(StoreEvents.storeGetDishesSuccess, this.storePageDraw.bind(this));
+        eventBus.on(StoreEvents.storeGetDishesFailed, this.loadError.bind(this));
     }
 
     render (url) {

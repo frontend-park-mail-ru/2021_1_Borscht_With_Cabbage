@@ -1,4 +1,4 @@
-.store__title__container {
+.store-title__container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -7,37 +7,37 @@
     margin: 21px 0px 0 0px;
 }
 
-.store__title__image {
+.store-title__image {
     flex-grow: 2;
 }
 
-.store__title__main {
+.store-title__main {
     flex-grow: 10;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.store__title__name {
+.store-title__name {
     font-size: 24px;
     font-weight: bolder;
     margin-bottom: 16px;
 }
 
-.store__title__info {
+.store-title__info {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.store__title__delivery-time {
+.store-title__delivery-time {
 
 }
 
-.store__title__delivery-cost {
+.store-title__delivery-cost {
 
 }
 
-.store__title__rating {
+.store-title__rating {
 
 }

@@ -1,5 +1,5 @@
-.store__basket {
-    background: var(--light-grey);
+.store-basket {
+    background: var(--light-grey_color);
     min-height: 70vh;
     display: inline-block;
     position: sticky;
@@ -12,20 +12,20 @@
     /*left: auto;*/
 }
 
-.store__basket__total {
+.store-basket__total {
     position: absolute;
     right: 0;
     margin-right: 24px;
     margin-bottom: 8px;
 }
 
-.store__basket__button {
+.store-basket__button {
     position: absolute;
     right: 0;
     margin-right: 24px;
 }
 
-.store__basket__info {
+.store-basket__info {
     margin-top: 32px;
     text-align: justify-all;
 

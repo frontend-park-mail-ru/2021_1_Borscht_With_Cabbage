@@ -12,13 +12,9 @@
  *      data: { error }
  */
 
-class ProfileEvents {
-    constructor () {
-        this.profileGetUserDataSuccess = 'profileGetUserDataSuccess'
-        this.profileGetUserDataFailed = 'profileGetUserDataFailed'
-        this.profileSetUserDataSuccess = 'profileSetUserDataSuccess'
-        this.profileSetUserDataFailed = 'profileSetUserDataFailed'
-    }
+export const ProfileEvents = {
+    profileGetUserDataSuccess: 'profileGetUserDataSuccess',
+    profileGetUserDataFailed: 'profileGetUserDataFailed',
+    profileSetUserDataSuccess: 'profileSetUserDataSuccess',
+    profileSetUserDataFailed: 'profileSetUserDataFailed'
 }
-
-export default new ProfileEvents()

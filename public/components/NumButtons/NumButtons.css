@@ -1,4 +1,4 @@
-.restaurant-content__add-buttons {
+.restaurant-content__num-buttons {
     position: absolute;
     top: 0;
     right: 0;
@@ -8,14 +8,14 @@
     margin-top: 20px;
 }
 
-.restaurant-content__add-buttons > button {
+.restaurant-content__num-buttons > button {
     display: inline-block;
     margin: 8px 8px 8px 0;
     width: 25px;
     height: 25px;
     cursor: pointer;
     border-radius: 50%;
-    background: #FFFFFF;
+    background: var(--white_color);
     box-sizing: border-box;
 }
 
@@ -24,11 +24,11 @@
 }
 
 .minus {
-    border: 1px solid var(--red);
+    border: 1px solid var(--red_color);
 }
 
 .num {
-    border: 1px solid var(--grey);
+    border: 1px solid var(--grey_color);
     font-size: 12px;
     text-align: center;
 }

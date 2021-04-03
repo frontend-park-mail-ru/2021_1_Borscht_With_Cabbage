@@ -2,7 +2,7 @@ import { renderProfileView } from '../components/Profile/ProfileTmpl.js'
 import { ProfileEdits } from '../components/ProfileEdits/ProfileEdits.js';
 import { ProfileController } from '../controllers/ProfileController.js';
 import eventBus from '../modules/eventBus.js';
-import ProfileEvents from '../events/ProfileEvents.js';
+import { ProfileEvents } from '../events/ProfileEvents.js';
 
 export class ProfileView {
     constructor (root, goTo) {

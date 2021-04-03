@@ -1,6 +1,6 @@
 import { renderFoodElement } from './StoreFoodElementTmpl.js';
-import eventBus from '../../../modules/eventBus.js';
-import BasketEvents from '../../../events/BasketEvents.js';
+import eventBus from '../../modules/eventBus.js';
+import { BasketEvents } from '../../events/BasketEvents.js';
 import { NumButtons } from '../NumButtons/NumButtons.js';
 
 export class StoreFoodElement {
@@ -11,19 +11,19 @@ export class StoreFoodElement {
         this.root = root;
         this.food = food;
         this.num = 0;
-        this.buttonID = `[data-foodAddButtonID="${this.food.id}"]`
-        this.numButtonsSelector = `[data-foodID="${this.food.id}"]`
+        this.buttonID = `[data-foodAddButtonID="${this.food.id}"]`;
+        this.numButtonsSelector = `[data-foodID="${this.food.id}"]`;
         eventBus.on(BasketEvents.chooseFood, ({ food, isPlus }) => {
             if (food.id === this.food.id) {
                 if (isPlus) {
                     this.num += 1
                     if (this.num === 1) {
-                        this.choose()
+                        this.choose();
                     }
                 } else {
-                    this.num -= 1
+                    this.num -= 1;
                     if (!this.num) {
-                        this.unChoose()
+                        this.unChoose();
                     }
                 }
             }
@@ -38,18 +38,18 @@ export class StoreFoodElement {
                 food: this.food,
                 root: this.root.querySelector(this.numButtonsSelector).querySelector('.card__header'),
                 event: BasketEvents.chooseFood
-            })
-            this.numButtons.render()
+            });
+            this.numButtons.render();
         }
     }
 
     choose () {
-        const button = this.root.querySelector(this.buttonID)
+        const button = this.root.querySelector(this.buttonID);
         button.style.display = 'none';
     }
 
     unChoose () {
-        const button = this.root.querySelector(this.buttonID)
+        const button = this.root.querySelector(this.buttonID);
         button.style.display = 'block';
     }
 
@@ -66,7 +66,7 @@ export class StoreFoodElement {
             eventBus.emit(BasketEvents.chooseFood, {
                 food: this.food,
                 isPlus: true
-            })
+            });
 
             this.num = 1;
             this.clickElement(this.num);
@@ -75,6 +75,6 @@ export class StoreFoodElement {
         this.root.querySelector(this.buttonID)
             .addEventListener('click', this.addButtonListener);
 
-        this.numButtons.addEventListeners()
+        this.numButtons.addEventListeners();
     }
 }

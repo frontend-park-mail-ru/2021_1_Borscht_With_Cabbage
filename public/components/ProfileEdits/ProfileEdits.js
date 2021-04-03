@@ -6,8 +6,9 @@ import eventBus from '../../modules/eventBus.js';
 import { Preview } from '../Preview/Preview.js';
 import { noop } from '../../modules/utils.js';
 import user from '../../modules/user.js';
-import ProfileEvents from '../../events/ProfileEvents.js';
+import { ProfileEvents } from '../../events/ProfileEvents.js';
 import { ProfileController } from '../../controllers/ProfileController.js';
+import { AuthEvents } from '../../events/AuthEvents.js';
 
 export class ProfileEdits {
     constructor ({
@@ -16,32 +17,36 @@ export class ProfileEdits {
         user = null,
         controller = new ProfileController()
     } = {}) {
-        this.root = root
-        this.user = user
-        this.goTo = goTo
+        this.root = root;
+        this.user = user;
+        this.goTo = goTo;
 
-        this.emailID = 'email'
-        this.nameID = 'name'
-        this.phoneID = 'number'
-        this.currentPasswordID = 'password_current'
-        this.newPasswordID = 'password'
-        this.repeatPasswordID = 'password_repeat'
+        this.emailID = 'email';
+        this.nameID = 'name';
+        this.phoneID = 'number';
+        this.currentPasswordID = 'password_current';
+        this.newPasswordID = 'password';
+        this.repeatPasswordID = 'password_repeat';
 
-        this.controller = controller
-        eventBus.on(ProfileEvents.profileSetUserDataSuccess, this.updateInputs.bind(this))
-        eventBus.on(ProfileEvents.profileSetUserDataFailed, this.changeFailed.bind(this))
+        this.controller = controller;
+        eventBus.on(ProfileEvents.profileSetUserDataSuccess, this.updateInputs.bind(this));
+        eventBus.on(ProfileEvents.profileSetUserDataFailed, this.changeFailed.bind(this));
     }
 
     render () {
-        const profilePlace = document.getElementById('profile-left-block')
+        const profilePlace = document.getElementById('profile-left-block');
         profilePlace.innerHTML = renderProfileEdits({
             user: this.user,
             serverUrl: window.serverAddress
         });
-        this.avatarInput = this.root.querySelector('#input-avatar')
-        this.avatarButton = this.root.querySelector('#input-avatar-button')
+        this.avatarInput = this.root.querySelector('#input-avatar');
+        this.avatarButton = this.root.querySelector('#input-avatar-button');
 
-        this.preview = new Preview(this.root, this.avatarInput, this.avatarButton)
+        this.preview = new Preview({
+            root: this.root,
+            input: this.avatarInput,
+            button: this.avatarButton
+        });
 
         this.addErrorListeners();
         this.addSubmitListener();
@@ -64,8 +69,8 @@ export class ProfileEdits {
             newPassword: document.getElementById(this.newPasswordID).value,
             repeatPassword: document.getElementById(this.repeatPasswordID).value,
             avatar: this.preview.getFile()
-        })
-        if (errors.error === true) {
+        });
+        if (errors.error) {
             renderInput(this.emailID, errors.emailError)
             renderInput(this.nameID, errors.nameError)
             renderInput(this.phoneID, errors.phoneError)
@@ -94,7 +99,7 @@ export class ProfileEdits {
             } else {
                 info.avatar = user.avatar
             }
-            eventBus.emit('userSignIn', {
+            eventBus.emit(AuthEvents.userSignIn, {
                 name: info.name,
                 avatar: info.avatar
             })
@@ -156,6 +161,6 @@ export class ProfileEdits {
         maskPhone(phone);
         phone.focus();
 
-        this.preview.setPreview()
+        this.preview.setPreview();
     }
 }

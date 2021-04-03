@@ -5,7 +5,7 @@ import { maskPhone } from '../../modules/phoneMask.js';
 import eventBus from '../../modules/eventBus.js';
 import { noop } from '../../modules/utils.js';
 import { SignUpController } from '../../controllers/SignUpController.js';
-import SignUpEvents from '../../events/SignUpEvents.js';
+import { SignUpEvents } from '../../events/SignUpEvents.js';
 
 export class SignUp {
     constructor ({
@@ -13,16 +13,16 @@ export class SignUp {
         goTo = noop,
         controller = new SignUpController()
     } = {}) {
-        this.root = root
-        this.goTo = goTo
-        this.controller = controller
-        this.emailID = 'email'
-        this.nameID = 'name'
-        this.phoneID = 'number'
-        this.passwordID = 'password'
+        this.root = root;
+        this.goTo = goTo;
+        this.controller = controller;
+        this.emailID = 'email';
+        this.nameID = 'name';
+        this.phoneID = 'number';
+        this.passwordID = 'password';
         this.repeatPasswordID = 'repeatPassword';
-        eventBus.on(SignUpEvents.userSignUpSuccess, this.signupSuccess.bind(this))
-        eventBus.on(SignUpEvents.userSignUpFailed, this.signupFailed.bind(this))
+        eventBus.on(SignUpEvents.userSignUpSuccess, this.signupSuccess.bind(this));
+        eventBus.on(SignUpEvents.userSignUpFailed, this.signupFailed.bind(this));
     }
 
     render () {
@@ -84,33 +84,33 @@ export class SignUp {
         const login = document.getElementById(loginID);
         if (login) {
             login.onclick = () => {
-                this.goTo('login')
+                this.goTo('login');
             }
         }
     }
 
     formSubmit (event) {
-        event.preventDefault()
+        event.preventDefault();
         const errors = this.controller.signUp({
             email: document.getElementById(this.emailID).value,
             password: document.getElementById(this.passwordID).value,
             name: document.getElementById(this.nameID).value,
             number: document.getElementById(this.phoneID).value.replace(/\D/g, ''),
             repeatPassword: document.getElementById(this.repeatPasswordID).value
-        })
+        });
         if (errors.error === true) {
-            renderInput(this.emailID, errors.emailError)
-            renderInput(this.passwordID, errors.passwordError)
-            renderInput(this.nameID, errors.nameError)
-            renderInput(this.phoneID, errors.phoneError)
-            renderInput(this.repeatPasswordID, errors.repeatPasswordError)
+            renderInput(this.emailID, errors.emailError);
+            renderInput(this.passwordID, errors.passwordError);
+            renderInput(this.nameID, errors.nameError);
+            renderInput(this.phoneID, errors.phoneError);
+            renderInput(this.repeatPasswordID, errors.repeatPasswordError);
         } else {
             // TODO обратная связь что грузится и все хорошо
         }
     }
 
     signupSuccess () {
-        this.goTo('main')
+        this.goTo('main');
     }
 
     signupFailed (error) {

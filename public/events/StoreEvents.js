@@ -6,11 +6,7 @@
  *      data: { error }
  */
 
-class StoreEvents {
-    constructor () {
-        this.storeGetDishesSuccess = 'storeGetDishesSuccess'
-        this.storeGetDishesFailed = 'storeGetDishesFailed'
-    }
+export const StoreEvents = {
+    storeGetDishesSuccess: 'storeGetDishesSuccess',
+    storeGetDishesFailed: 'storeGetDishesFailed'
 }
-
-export default new StoreEvents()

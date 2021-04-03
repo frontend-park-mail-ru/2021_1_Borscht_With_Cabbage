@@ -11,7 +11,7 @@ export class StoreFoodList {
     render (foods) {
         this.root.innerHTML = renderStoreFoodList({});
         const foodList = document.getElementById('food-list-ul');
-        this.elements = []
+        this.elements = [];
         if (foods) {
             for (const food of foods) {
                 const element = new StoreFoodElement({

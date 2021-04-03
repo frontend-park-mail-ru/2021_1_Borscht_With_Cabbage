@@ -6,11 +6,7 @@
  *      data: { error }
  */
 
-class SignInEvents {
-    constructor () {
-        this.userSignInSuccess = 'userSignInSuccess'
-        this.userSignInFailed = 'userSignInFailed'
-    }
+export const SignInEvents = {
+    userSignInSuccess: 'userSignInSuccess',
+    userSignInFailed: 'userSignInFailed'
 }
-
-export default new SignInEvents()

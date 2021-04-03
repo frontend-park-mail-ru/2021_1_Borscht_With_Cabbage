@@ -1,8 +1,15 @@
 /**
- *  chooseFood
- *      data: { food, isPlus }
+ *  basketGetBasketSuccess
+ *      data: { basket }
+ *
+ *  basketGetBasketFailed
+ *      data: {}
+ *
  */
 
 export const BasketEvents = {
-    chooseFood: 'chooseFood'
+    basketGetBasketSuccess: 'basketGetBasketSuccess',
+    basketGetBasketFailed: 'basketGetBasketFailed',
+    basketOrderSuccess: 'basketOrderSuccess',
+    basketOrderFailed: 'basketOrderFailed'
 }

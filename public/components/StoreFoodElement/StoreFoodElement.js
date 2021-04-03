@@ -1,6 +1,6 @@
 import { renderFoodElement } from './StoreFoodElementTmpl.js';
 import eventBus from '../../modules/eventBus.js';
-import { BasketEvents } from '../../events/BasketEvents.js';
+import { ChangeBasketEvents } from '../../events/ChangeBasketEvents.js';
 import { NumButtons } from '../NumButtons/NumButtons.js';
 
 export class StoreFoodElement {
@@ -13,7 +13,7 @@ export class StoreFoodElement {
         this.num = 0;
         this.buttonID = `[data-foodAddButtonID="${this.food.id}"]`;
         this.numButtonsSelector = `[data-foodID="${this.food.id}"]`;
-        eventBus.on(BasketEvents.chooseFood, ({ food, isPlus }) => {
+        eventBus.on(ChangeBasketEvents.chooseFood, ({ food, isPlus }) => {
             if (food.id === this.food.id) {
                 if (isPlus) {
                     this.num += 1
@@ -37,7 +37,7 @@ export class StoreFoodElement {
             this.numButtons = new NumButtons({
                 food: this.food,
                 root: this.root.querySelector(this.numButtonsSelector).querySelector('.card__header'),
-                event: BasketEvents.chooseFood
+                event: ChangeBasketEvents.chooseFood
             });
             this.numButtons.render();
         }
@@ -63,7 +63,7 @@ export class StoreFoodElement {
 
     addListener () {
         this.addButtonListener = () => {
-            eventBus.emit(BasketEvents.chooseFood, {
+            eventBus.emit(ChangeBasketEvents.chooseFood, {
                 food: this.food,
                 isPlus: true
             });

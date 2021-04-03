@@ -1,7 +1,7 @@
 import { renderStoreBasket } from './StoreBasketTmpl.js';
 import { StoreBasketFood } from './StoreBasketFood/StoreBasketFood.js';
 import eventBus from '../../modules/eventBus.js';
-import { BasketEvents } from '../../events/BasketEvents.js';
+import { ChangeBasketEvents } from '../../events/ChangeBasketEvents.js';
 
 export class StoreBasket {
     constructor ({
@@ -15,7 +15,7 @@ export class StoreBasket {
         this.totalSumSelector = '#restaurant-basket__sum';
         this.itemsSelector = '#restaurant-basket__items';
         this.deliverySelector = '#store__basket__delivery';
-        eventBus.on(BasketEvents.chooseFood, this.append.bind(this));
+        eventBus.on(ChangeBasketEvents.chooseFood, this.append.bind(this));
     }
 
     render (goTo) {

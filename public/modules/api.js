@@ -107,3 +107,33 @@ export function userPut ({ data = null }) {
 export function logoutGet () {
     return Http.ajaxGet({ url: '/logout' });
 }
+
+/**
+ * Send server get basket request
+ *
+ * @returns {Promise<{parsedJSON: any, status: number}>}
+ */
+export function basketGet () {
+    return Http.ajaxGet({ url: '/basket' });
+}
+
+/**
+ * Send server post to order food
+ *
+ * @param address
+ * @param number
+ * @param comments
+ * @returns {Promise<{parsedJSON: any, status: number}>}
+ */
+export function orderPost ({
+    address = '',
+    number = '',
+    comments = ''
+} = {}) {
+    return Http.ajaxPost({
+        url: '/user/order',
+        address: address,
+        number: number,
+        comments: comments
+    });
+}

@@ -10,5 +10,6 @@ export const AuthEvents = {
     userSignIn: 'userSignIn',
     userLogout: 'userLogout',
     restaurantSignIn: 'restaurantSignIn',
-    restaurantLogout: 'restaurantLogout'
+    restaurantLogout: 'restaurantLogout',
+    notAuth: 'notAuth'
 }

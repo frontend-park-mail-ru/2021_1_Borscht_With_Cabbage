@@ -14,38 +14,21 @@ export class Navbar {
     } = {}) {
         this.goTo = goTo;
         this.root = root;
-        eventBus.on(AuthEvents.userSignIn, this.renderAuth.bind(this));
+        eventBus.on(AuthEvents.userSignIn, this.renderUserAuth.bind(this));
         eventBus.on(AuthEvents.userLogout, this.renderNotAuth.bind(this));
-        eventBus.on(AuthEvents.restaurantSignIn, this.restaurantAuth.bind(this));
-        eventBus.on(AuthEvents.restaurantLogout, this.restaurantLogout.bind(this));
+        eventBus.on(AuthEvents.restaurantSignIn, this.renderRestaurantAuth.bind(this));
+        eventBus.on(AuthEvents.restaurantLogout, this.renderNotAuth.bind(this));
+        eventBus.on(AuthEvents.notAuth, this.renderNotAuth.bind(this));
     }
 
     render () {
         this.root.innerHTML = renderTopNavView({});
         this.navbar = this.root.querySelector('.navbar');
-        this.renderUser();
     }
 
-    renderUser () {
+    renderUserAuth () {
         console.log('Navbar user');
         this.navbar.innerHTML = renderTopNavUserView({});
-        if (user.isAuth) {
-            this.renderAuth();
-        } else {
-            this.renderNotAuth();
-        }
-    }
-
-    renderRestaurant () {
-        if (restaurant.isAuth) {
-            console.log('Navbar restaurant');
-            this.navbar.innerHTML = renderTopNavRestaurantView({});
-            return;
-        }
-        this.renderUser();
-    }
-
-    renderAuth () {
         const authBlock = document.getElementById('auth_block');
         if (authBlock) {
             authBlock.innerHTML = renderAuthBlock({
@@ -56,6 +39,8 @@ export class Navbar {
     }
 
     renderNotAuth () {
+        console.log('Navbar user');
+        this.navbar.innerHTML = renderTopNavUserView({});
         const authBlock = document.getElementById('auth_block');
         if (authBlock) {
             authBlock.innerHTML = renderNotAuthBlock({});
@@ -63,19 +48,14 @@ export class Navbar {
         }
     }
 
-    restaurantAuth () {
-        this.renderRestaurant();
+    renderRestaurantAuth () {
+        console.log('Navbar restaurant');
+        this.navbar.innerHTML = renderTopNavRestaurantView({});
         document.getElementById('auth_block').innerHTML = renderAuthBlock({
             user: restaurant,
-            serverUrl: window.serverAddress
         });
         this.goProfileListener();
     }
-
-    restaurantLogout () {
-        this.renderUser();
-    }
-
 
     goLoginListener () {
         const loginLink = document.getElementById('js-go-login')

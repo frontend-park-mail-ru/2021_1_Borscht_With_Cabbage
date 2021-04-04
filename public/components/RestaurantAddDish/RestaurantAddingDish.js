@@ -36,6 +36,21 @@ export class RestaurantAddingDish {
         });
 
         this.addAddingDishEventListeners();
+        this.addCloseAddingEventListeners();
+    }
+
+    addCloseAddingEventListeners() {
+        console.log('addCloseAddingEventListeners');
+        const close = this.root.querySelector('.adding-dish');
+        if (!close) {
+            return;
+        }
+
+        close.addEventListener('click', e => {
+            if (e.target === close) {
+                eventBus.emit(DishEvents.closeAddingDishComponent, {});
+            }
+        })
     }
 
     addAddingDishEventListeners () {

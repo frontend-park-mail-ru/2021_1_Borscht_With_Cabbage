@@ -19,6 +19,7 @@ export class RestaurantMenuComponent {
         eventBus.on(DishEvents.addingDishSuccess, this.addingSuccess.bind(this));
         eventBus.on(DishEvents.getAllDishSuccess, this.appendDishes.bind(this));
         eventBus.on(DishEvents.getAllDishFailed, this.dishLoadingError.bind(this));
+        eventBus.on(DishEvents.closeAddingDishComponent, this.closeAddingDishComponent.bind(this));
     }
 
     render () {
@@ -49,6 +50,9 @@ export class RestaurantMenuComponent {
     appendDishes (dishes) {
         // TODO: в будущем, когда будут разделы в меню, надо будет поменять
         const content = this.root.querySelector('.menu-container__content');
+        if (!content) {
+            return;
+        }
         content.innerHTML = '';
         dishes.forEach(dish => {
             this.appendDish(content, dish);
@@ -74,6 +78,10 @@ export class RestaurantMenuComponent {
             });
             addingDish.render();
         });
+    }
+
+    closeAddingDishComponent () {
+        this.addingDishItem.innerHTML = '';
     }
 
     addingSuccess (dish) {

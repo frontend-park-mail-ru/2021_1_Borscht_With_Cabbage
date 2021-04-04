@@ -11,4 +11,6 @@
 @import "../components/Params/Params.css";
 @import "../components/DropList/DropList.css";
 @import "../components/MoreRestaurants/MoreRestaurants.css";
-@import "../components/DishAdding/DishAdding.css"
+@import "../components/DishAdding/DishAdding.css";
+@import "../components/RestaurantMenu/RestaurantMenu.css";
+@import "../components/RestaurantAddDish/RestaurantAddingDish.css"

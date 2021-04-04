@@ -8,8 +8,8 @@ class Restaurant {
         eventBus.on(AuthEvents.restaurantLogout, this.logout.bind(this))
     }
 
-    auth ({ name, avatar }) {
-        this.name = name
+    auth ({ title, avatar }) {
+        this.name = title
         this.avatar = avatar
         this.isAuth = true
     }

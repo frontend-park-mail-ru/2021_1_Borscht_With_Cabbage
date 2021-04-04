@@ -2,7 +2,7 @@ import { noop } from "../../modules/utils.js";
 import { RestaurantMainController } from "../../controllers/RestaurantMainController.js";
 import { renderRestaurantAddingDish } from "./RestaurantAddingDishTmpl.js";
 import eventBus from "../../modules/eventBus.js";
-import AddingDishEvents from "../../events/AddingDish.js";
+import DishEvents from "../../events/Dish.js";
 import { Validator } from "../../modules/validation.js";
 import { renderInput } from "../../modules/rendering.js";
 
@@ -19,7 +19,7 @@ export class RestaurantAddingDish {
         this.descriptionID = 'description';
         this.priceID = 'price';
         this.weightID = 'weight';
-        eventBus.on(AddingDishEvents.addingDishFailed, this.addingFailed.bind(this));
+        eventBus.on(DishEvents.addingDishFailed, this.addingFailed.bind(this));
     }
 
     render () {

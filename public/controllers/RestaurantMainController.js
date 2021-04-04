@@ -7,7 +7,7 @@ export class RestaurantMainController {
     }
 
     getDishes () { 
-
+        this.mainModel.getDish();
     }
 
     addDish ({ name, description, price, weight }) {

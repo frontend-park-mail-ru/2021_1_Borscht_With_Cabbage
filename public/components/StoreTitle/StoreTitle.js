@@ -17,6 +17,5 @@ export class StoreTitle {
             deliveryTime: this.store.time,
             image: this.store.image
         });
-        console.log(this.store)
     }
 }

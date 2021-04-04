@@ -1,5 +1,5 @@
 import eventBus from './eventBus.js';
-import AuthEvents from '../events/AuthEvents.js';
+import { AuthEvents } from '../events/AuthEvents.js';
 
 class Restaurant {
     constructor () {

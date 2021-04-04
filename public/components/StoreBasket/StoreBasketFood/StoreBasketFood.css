@@ -1,4 +1,4 @@
-.store__basket__food__container {
+.store-basket__food-container {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -6,7 +6,7 @@
     margin-bottom: 24px;
 }
 
-.store__basket__food__image {
+.store-basket__food-image {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -18,14 +18,14 @@
     flex-grow: 1;
 }
 
-.store__basket__food__main-info {
+.store-basket__food__main-info {
     display: flex;
     flex-direction: column;
     margin-left: 56px;
     flex-grow: 2;
 }
 
-.store__basket__food__name {
+.store-basket__food-name {
     font-weight: bolder;
     font-size: 16px;
     margin-bottom: 8px;
@@ -33,18 +33,18 @@
     text-overflow: ellipsis;
 }
 
-.store__basket__food__price {
+.store-basket__food-price {
     font-size: 14px;
 }
 
-.store__basket__food__num {
+.store-basket__food-num {
     position: absolute;
     bottom: 0;
     right: 0;
     height: 25px;
     width: 25px;
     background: #FFFFFF;
-    border: solid 1px var(--grey);
+    border: solid 1px var(--grey_color);
     border-radius: 50%;
     text-align: center;
     line-height: 24px;

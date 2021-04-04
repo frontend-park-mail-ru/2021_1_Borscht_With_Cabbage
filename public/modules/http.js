@@ -7,7 +7,7 @@ function getParams ({
 }) {
     const headers = {
         'Access-Control-Allow-Origin': '*'
-    }
+    };
     if (method !== 'PUT') {
         headers['Content-Type'] = 'application/json';
         body = JSON.stringify(body);
@@ -17,7 +17,7 @@ function getParams ({
         method: method,
         credentials: 'include',
         headers: headers
-    }
+    };
     if (method !== 'GET') {
         init.body = body;
     }
@@ -29,8 +29,7 @@ async function makeFetch ({
     body = null,
     method = 'GET'
 } = {}) {
-    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body }))
-
+    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body }));
     const parsedJSON = await response.json();
 
     return {

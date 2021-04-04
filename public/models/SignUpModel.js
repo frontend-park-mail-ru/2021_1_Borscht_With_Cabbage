@@ -1,5 +1,5 @@
 import { signupPost } from '../modules/api.js';
-import SignUpEvents from '../events/SignUpEvents.js';
+import { SignUpEvents } from '../events/SignUpEvents.js';
 import eventBus from '../modules/eventBus.js';
 
 export class SignUpModel {
@@ -7,9 +7,9 @@ export class SignUpModel {
         signupPost({ email, password, name, number })
             .then(res => {
                 if (res.status === 200) {
-                    eventBus.emit(SignUpEvents.userSignUpSuccess, {})
+                    eventBus.emit(SignUpEvents.userSignUpSuccess, {});
                 } else {
-                    eventBus.emit(SignUpEvents.userSignUpFailed, res.parsedJSON)
+                    eventBus.emit(SignUpEvents.userSignUpFailed, res.parsedJSON);
                 }
             })
             .catch(res => eventBus.emit(SignUpEvents.userSignUpFailed, res.parsedJSON));

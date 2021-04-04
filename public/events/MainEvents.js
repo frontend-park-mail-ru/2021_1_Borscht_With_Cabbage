@@ -6,12 +6,8 @@
  *      data: { error }
  */
 
-class MainEvents {
-    constructor () {
-        this.mainGetRestaurantsSuccess = 'mainGetRestaurantsSuccess'
-        this.mainGetRestaurantsFailed = 'mainGetRestaurantsFailed'
-        this.mainClearContent = 'mainClearContent'
-    }
+export const MainEvents = {
+    mainGetRestaurantsSuccess: 'mainGetRestaurantsSuccess',
+    mainGetRestaurantsFailed: 'mainGetRestaurantsFailed',
+    mainClearContent: 'mainClearContent'
 }
-
-export default new MainEvents()

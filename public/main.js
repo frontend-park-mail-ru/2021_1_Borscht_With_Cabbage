@@ -21,17 +21,17 @@ const navbar = new Navbar({ root: application, goTo: goTo })
 navbar.render()
 const view = navbar.getViewPlace()
 
-const signUpView = new SignUpView(view, goTo);
-const loginView = new SignInView(view, goTo);
-const restSignInView = new RestaurantSignInView(view, goTo)
-const restSignUpView = new RestaurantSignUpView(view, goTo)
+const signUpView = new SignUpView({ root: view, goTo: goTo });
+const signInView = new SignInView({ root: view, goTo: goTo });
+const restSignInView = new RestaurantSignInView({ root: view, goTo: goTo });
+const restSignUpView = new RestaurantSignUpView({ root: view, goTo: goTo });
 const mainView = new MainView(view, goTo);
-const storeView = new StoreView(view, goTo);
+const storeView = new StoreView({ root: view, goTo: goTo });
 const profileView = new ProfileView(view, goTo);
 const logout = new Logout({ root: view, goTo: goTo });
 const restaurantMainView = new RestaurantMainView(view, goTo);
 
-router.addRoute('login', loginView);
+router.addRoute('login', signInView);
 router.addRoute('signup', signUpView);
 router.addRoute('restaurantSignin', restSignInView)
 router.addRoute('restaurantSignup', restSignUpView)

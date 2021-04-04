@@ -114,7 +114,8 @@ export function restaurantSignupPost ({ email, password, title, number }) {
  * @returns {Promise<void>}
  */
 export function authGet () {
-    return Http.ajaxGet({ url: '/auth' });
+    return Http.ajaxGet({ url: '/auth' }) // TODO: разобраться с /user/auth что из этого надо
+        .then(auth)
 }
 
 /**

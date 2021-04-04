@@ -1,15 +1,15 @@
 import { userOrdersGet, userGet, userPut } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
-import ProfileEvents from '../events/ProfileEvents.js';
+import { ProfileEvents } from '../events/ProfileEvents.js';
 
 export class ProfileModel {
     getUserData () {
         userGet()
             .then(res => {
                 if (res.status === 200) {
-                    eventBus.emit(ProfileEvents.profileGetUserDataSuccess, res.parsedJSON)
+                    eventBus.emit(ProfileEvents.profileGetUserDataSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(ProfileEvents.profileGetUserDataFailed, res.parsedJSON)
+                    eventBus.emit(ProfileEvents.profileGetUserDataFailed, res.parsedJSON);
                 }
             })
             .catch(res => eventBus.emit(ProfileEvents.profileGetUserDataFailed, res.parsedJSON));
@@ -21,13 +21,12 @@ export class ProfileModel {
         })
             .then(res => {
                 if (res.status === 200) {
-                    console.log(res.parsedJSON)
                     eventBus.emit(ProfileEvents.profileSetUserDataSuccess, {
                         info: res.parsedJSON,
                         status: res.status
-                    })
+                    });
                 } else {
-                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON)
+                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON);
                 }
             })
             .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON));

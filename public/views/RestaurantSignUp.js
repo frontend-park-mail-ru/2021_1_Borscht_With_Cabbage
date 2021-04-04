@@ -3,7 +3,10 @@ import restaurant from "../modules/restaurant.js";
 import { RestaurantSignUp } from "../components/RestaurantSignUp/RestaurantSignUp.js";
 
 export class RestaurantSignUpView {
-    constructor (root, goTo) {
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
         this.goTo = goTo;
         this.root = root;
         this.signUpController = new RestaurantSignUpController()

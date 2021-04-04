@@ -1,6 +1,6 @@
 import { restaurantLoginPost } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
-import SignInEvents from '../events/SignInEvents.js';
+import { SignInEvents } from '../events/SignInEvents.js';
 
 export class RestaurantSignInModel {
     signIn (login, password) {

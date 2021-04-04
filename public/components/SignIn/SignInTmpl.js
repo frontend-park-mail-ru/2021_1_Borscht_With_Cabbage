@@ -14,4 +14,4 @@ export const renderLogin = window.Handlebars.compile(`
         </form>
     </div>
 </div>
-`)
+`);

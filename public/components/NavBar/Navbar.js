@@ -5,7 +5,7 @@ import { noop } from '../../modules/utils.js';
 import user from '../../modules/user.js';
 import restaurant from '../../modules/restaurant.js';
 import eventBus from '../../modules/eventBus.js';
-import AuthEvents from '../../events/AuthEvents.js';
+import { AuthEvents } from '../../events/AuthEvents.js';
 
 export class Navbar {
     constructor ({
@@ -14,10 +14,10 @@ export class Navbar {
     } = {}) {
         this.goTo = goTo;
         this.root = root;
-        eventBus.on(AuthEvents.userSignIn, this.userAuth.bind(this))
-        eventBus.on(AuthEvents.userLogout, this.userLogout.bind(this))
-        eventBus.on(AuthEvents.restaurantSignIn, this.restaurantAuth.bind(this))
-        eventBus.on(AuthEvents.restaurantLogout, this.restaurantLogout.bind(this))
+        eventBus.on(AuthEvents.userSignIn, this.renderAuth.bind(this));
+        eventBus.on(AuthEvents.userLogout, this.renderNotAuth.bind(this));
+        eventBus.on(AuthEvents.restaurantSignIn, this.restaurantAuth.bind(this));
+        eventBus.on(AuthEvents.restaurantLogout, this.restaurantLogout.bind(this));
     }
 
     render () {
@@ -30,9 +30,9 @@ export class Navbar {
         console.log('Navbar user');
         this.navbar.innerHTML = renderTopNavUserView({});
         if (user.isAuth) {
-            this.userAuth();
+            this.renderAuth();
         } else {
-            this.userLogout();
+            this.renderNotAuth();
         }
     }
 
@@ -45,17 +45,22 @@ export class Navbar {
         this.renderUser();
     }
 
-    userAuth () {
-        document.getElementById('auth_block').innerHTML = renderAuthBlock({
-            user: user,
-            serverUrl: window.serverAddress
-        });
-        this.goProfileListener();
+    renderAuth () {
+        const authBlock = document.getElementById('auth_block');
+        if (authBlock) {
+            authBlock.innerHTML = renderAuthBlock({
+                user: user
+            });
+            this.goProfileListener();
+        }
     }
 
-    userLogout () {
-        document.getElementById('auth_block').innerHTML = renderNotAuthBlock({});
-        this.goLoginListener();
+    renderNotAuth () {
+        const authBlock = document.getElementById('auth_block');
+        if (authBlock) {
+            authBlock.innerHTML = renderNotAuthBlock({});
+            this.goLoginListener();
+        }
     }
 
     restaurantAuth () {
@@ -76,7 +81,7 @@ export class Navbar {
         const loginLink = document.getElementById('js-go-login')
         if (loginLink) {
             loginLink.addEventListener('click', () => {
-                this.goTo('login')
+                this.goTo('login');
             });
         }
     }
@@ -85,12 +90,12 @@ export class Navbar {
         const profileLink = document.getElementById('js-go-profile')
         if (profileLink) {
             profileLink.addEventListener('click', () => {
-                this.goTo('profile')
+                this.goTo('profile');
             })
         }
     }
 
     getViewPlace () {
-        return this.root.querySelector('#view-place')
+        return this.root.querySelector('#view-place');
     }
 }

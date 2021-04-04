@@ -1,6 +1,6 @@
 import { MainModel } from '../models/MainModel.js';
 import eventBus from '../modules/eventBus.js';
-import MainEvents from '../events/MainEvents.js';
+import { MainEvents } from '../events/MainEvents.js';
 
 export class MainController {
     constructor () {

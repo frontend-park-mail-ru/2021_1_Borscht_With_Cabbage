@@ -1,7 +1,7 @@
 import { logoutGet } from '../modules/api.js';
 import { noop } from '../modules/utils.js';
 import eventBus from '../modules/eventBus.js';
-import AuthEvents from '../events/AuthEvents.js';
+import { AuthEvents } from '../events/AuthEvents.js';
 
 export class Logout {
     constructor ({
@@ -14,10 +14,10 @@ export class Logout {
     }
 
     render () {
-        eventBus.emit(AuthEvents.userLogout, {})
+        eventBus.emit(AuthEvents.userLogout, {});
 
         logoutGet()
             .then(_ => this.goTo('main'))
-            .catch(r => console.log(`error /logout ${r}`))
+            .catch(r => console.log(`error /logout ${r}`));
     }
 }

@@ -3,7 +3,7 @@ import { Validator } from '../../modules/validation.js';
 import eventBus from '../../modules/eventBus.js';
 import { noop } from '../../modules/utils.js';
 import { RestaurantSignInController } from "../../controllers/RestaurantSignInController.js";
-import SignInEvents from '../../events/SignInEvents.js';
+import { SignInEvents } from '../../events/SignInEvents.js';
 import { renderRestaurantLogin } from "./RestaurantSignInTmpl.js";
 
 export class RestaurantSignIn {

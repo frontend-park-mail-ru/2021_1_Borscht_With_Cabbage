@@ -1,21 +1,21 @@
 import { renderStoreBasket } from './StoreBasketTmpl.js';
 import { StoreBasketFood } from './StoreBasketFood/StoreBasketFood.js';
 import eventBus from '../../modules/eventBus.js';
-import BasketEvents from '../../events/BasketEvents.js';
+import { BasketEvents } from '../../events/BasketEvents.js';
 
 export class StoreBasket {
     constructor ({
         root = document.body,
-        store
+        store = null
     } = {}) {
         this.root = root;
         this.store = store;
         this.elements = [];
-        this.orderButtonSelector = '#restaurant-basket__order'
-        this.totalSumSelector = '#restaurant-basket__sum'
-        this.itemsSelector = '#restaurant-basket__items'
-        this.deliverySelector = '#store__basket__delivery'
-        eventBus.on(BasketEvents.chooseFood, this.append.bind(this))
+        this.orderButtonSelector = '#restaurant-basket__order';
+        this.totalSumSelector = '#restaurant-basket__sum';
+        this.itemsSelector = '#restaurant-basket__items';
+        this.deliverySelector = '#store__basket__delivery';
+        eventBus.on(BasketEvents.chooseFood, this.append.bind(this));
     }
 
     render (goTo) {
@@ -27,8 +27,8 @@ export class StoreBasket {
     }
 
     append ({ food, isPlus }) {
-        const element = this.elements.find(el => el.food.id === food.id)
-        const totalSum = this.root.querySelector(this.totalSumSelector)
+        const element = this.elements.find(el => el.food.id === food.id);
+        const totalSum = this.root.querySelector(this.totalSumSelector);
         if (isPlus) {
             if (element) {
                 this.elements.forEach(element => {

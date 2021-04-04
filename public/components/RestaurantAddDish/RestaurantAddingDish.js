@@ -2,7 +2,7 @@ import { noop } from "../../modules/utils.js";
 import { RestaurantMainController } from "../../controllers/RestaurantMainController.js";
 import { renderRestaurantAddingDish } from "./RestaurantAddingDishTmpl.js";
 import eventBus from "../../modules/eventBus.js";
-import DishEvents from "../../events/Dish.js";
+import { DishEvents } from "../../events/DishEvents.js";
 import { Validator } from "../../modules/validation.js";
 import { renderInput } from "../../modules/rendering.js";
 

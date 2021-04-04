@@ -88,22 +88,22 @@ export class Validator {
 
     static validateChangeNewPassword (newPassword) {
         if (newPassword === '') {
-            return { result: true }
+            return { result: true };
         }
-        return this.validatePassword(newPassword)
+        return this.validatePassword(newPassword);
     }
 
     static validateChangeOldPassword (oldPassword, newPassword) {
         if (newPassword === '') {
-            return { result: true }
+            return { result: true };
         }
-        return this.validatePassword(oldPassword)
+        return this.validatePassword(oldPassword);
     }
 
     static validateChangePasswordRepeat (newPassword, newPasswordRepeat) {
         if (newPassword === '') {
-            return { result: true }
+            return { result: true };
         }
-        return this.validateEqualPassword(newPassword, newPasswordRepeat)
+        return this.validateEqualPassword(newPassword, newPasswordRepeat);
     }
 }

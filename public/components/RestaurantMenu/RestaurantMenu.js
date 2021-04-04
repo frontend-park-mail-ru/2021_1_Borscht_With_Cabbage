@@ -5,7 +5,7 @@ import { RestaurantAddingDish } from '../RestaurantAddDish/RestaurantAddingDish.
 import { renderRestaurantMenu } from './RestaurantMenuTmpl.js';
 import { DishComponent } from '../Dish/Dish.js'
 import { renderDishAdding } from '../DishAdding/DishAdding.js'
-import DishEvents from '../../events/Dish.js';
+import { DishEvents } from '../../events/DishEvents.js';
 
 export class RestaurantMenuComponent {
     constructor ({

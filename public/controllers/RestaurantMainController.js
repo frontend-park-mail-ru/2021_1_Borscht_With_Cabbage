@@ -16,7 +16,7 @@ export class RestaurantMainController {
         const priceError = Validator.validateNumber(price);
         const weightError = Validator.validateNumber(weight);
 
-        if (nameError.result * descriptionError.result * priceError.result * weightError.result) {
+        if (nameError.result && descriptionError.result && priceError.result && weightError.result) {
             this.mainModel.addDish({ name, description, price: Number(price), weight: Number(weight) });
             return {
                 error: false

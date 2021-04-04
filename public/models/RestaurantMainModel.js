@@ -1,6 +1,6 @@
 import { restaurantAddDishPost, allDishesGet } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
-import DishEvents from '../events/Dish.js';
+import { DishEvents } from '../events/DishEvents.js';
 
 export class RestaurantMainModel {
     getDish () {

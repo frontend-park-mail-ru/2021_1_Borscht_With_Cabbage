@@ -5,7 +5,7 @@ import { PanelRestaurantsComponent } from '../components/PanelRestaurants/PanelR
 import { MainController } from '../controllers/MainController.js';
 import { MoreRestaurantsComponent } from '../components/MoreRestaurants/MoreRestaurants.js';
 import eventBus from '../modules/eventBus.js';
-import MainEvents from '../events/MainEvents.js';
+import { MainEvents } from '../events/MainEvents.js';
 
 export class MainView {
     constructor (root, goTo) {

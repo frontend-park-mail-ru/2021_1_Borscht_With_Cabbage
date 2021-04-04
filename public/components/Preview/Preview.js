@@ -2,7 +2,11 @@ import { renderPreview } from './PreviewTmpl.js';
 import { bytesToSize } from '../../modules/utils.js';
 
 export class Preview {
-    constructor (root, input, button) {
+    constructor ({
+        root = document.body,
+        input = null,
+        button = null
+    } = {}) {
         this.root = root
         this.file = null
         this.input = input

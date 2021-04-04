@@ -7,11 +7,11 @@ export class RestaurantSignInController {
     }
 
     signIn (login, password) {
-        const loginError = Validator.validateEmail(login)
-        const passwordError = Validator.validatePassword(password)
+        const loginError = Validator.validateEmail(login);
+        const passwordError = Validator.validatePassword(password);
 
         if (loginError.result * passwordError.result) {
-            this.signInModel.signIn(login, password)
+            this.signInModel.signIn(login, password);
             return {
                 error: false
             }

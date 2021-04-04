@@ -1,7 +1,7 @@
 import { noop } from "../../modules/utils.js";
 import { RestaurantSignUpController } from "../../controllers/RestaurantSignUpController.js";
 import eventBus from "../../modules/eventBus.js";
-import SignUpEvents from "../../events/SignUpEvents.js";
+import { SignUpEvents } from "../../events/SignUpEvents.js";
 import { renderRestaurantSignUp } from "./RestaurantSignUpTmpl.js"; // todo
 import { renderInput } from "../../modules/rendering.js"; // todo
 import { Validator } from "../../modules/validation.js";

@@ -6,13 +6,9 @@
  *      data: {}
  */
 
-class AuthEvents {
-    constructor () {
-        this.userSignIn = 'userSignIn'
-        this.userLogout = 'userLogout'
-        this.restaurantSignIn = 'restaurantSignIn'
-        this.restaurantLogout = 'restaurantLogout'
-    }
+export const AuthEvents = {
+    userSignIn: 'userSignIn',
+    userLogout: 'userLogout',
+    restaurantSignIn: 'restaurantSignIn',
+    restaurantLogout: 'restaurantLogout'
 }
-
-export default new AuthEvents()

@@ -1,6 +1,6 @@
 import { restaurantSignupPost } from "../modules/api.js";
 import eventBus from "../modules/eventBus.js";
-import SignUpEvents from "../events/SignUpEvents.js";
+import { SignUpEvents } from "../events/SignUpEvents.js";
 
 export class RestaurantSignUpModel {
     signUp ({ email, password, title, number }) {

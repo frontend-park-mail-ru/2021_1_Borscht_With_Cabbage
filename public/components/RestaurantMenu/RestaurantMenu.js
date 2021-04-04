@@ -22,7 +22,7 @@ export class RestaurantMenuComponent {
     }
 
     render () {
-        this.root.innerHTML += renderRestaurantMenu({});
+        this.root.innerHTML = renderRestaurantMenu({});
 
         this.controller.getDishes();
     }
@@ -49,6 +49,7 @@ export class RestaurantMenuComponent {
     appendDishes (dishes) {
         // TODO: в будущем, когда будут разделы в меню, надо будет поменять
         const content = this.root.querySelector('.menu-container__content');
+        content.innerHTML = '';
         dishes.forEach(dish => {
             this.appendDish(content, dish);
         });
@@ -77,6 +78,7 @@ export class RestaurantMenuComponent {
 
     addingSuccess (dish) {
         this.addingDishItem.innerHTML = '';
-        this.appendDish(dish);
+        const content = this.root.querySelector('.menu-container__content');
+        this.appendDish(content, dish);
     }
 }

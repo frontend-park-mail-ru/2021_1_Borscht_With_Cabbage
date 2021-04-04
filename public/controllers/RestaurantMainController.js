@@ -6,18 +6,30 @@ export class RestaurantMainController {
         this.mainModel = new RestaurantMainModel();
     }
 
-    getDishes () { 
+    getDishes (dish) { 
         this.mainModel.getDish();
     }
 
-    addDish ({ name, description, price, weight }) {
-        const nameError = Validator.validateName(name);
-        const descriptionError = Validator.validateDescription(description);
-        const priceError = Validator.validateNumber(price);
-        const weightError = Validator.validateNumber(weight);
+    updateDish () {
+        if (!dish.id) {
+            return {
+                error: true
+            }
+        }
+        const actonFunc = this.mainModel.updateDish;
+        return this.correctAndSendDish(dish, actonFunc);
+    }
+
+    correctAndSendDish (dish, action) {
+        const nameError = Validator.validateName(dish.name);
+        const descriptionError = Validator.validateDescription(dish.description);
+        const priceError = Validator.validateNumber(dish.price);
+        const weightError = Validator.validateNumber(dish.weight);
 
         if (nameError.result && descriptionError.result && priceError.result && weightError.result) {
-            this.mainModel.addDish({ name, description, price: Number(price), weight: Number(weight) });
+            dish.price = Number(dish.price);
+            dish.weight = Number(dish.weight);
+            action(dish);
             return {
                 error: false
             }
@@ -30,5 +42,10 @@ export class RestaurantMainController {
                 weightError
             }
         }
+    }
+
+    addDish (dish) {
+        const actonFunc = this.mainModel.addDish;
+        return this.correctAndSendDish(dish, actonFunc)
     }
 }

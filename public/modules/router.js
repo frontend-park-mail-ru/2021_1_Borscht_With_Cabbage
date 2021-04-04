@@ -36,7 +36,7 @@ const urls = {
         regularUrl: null
     },
     restaurantMain: {
-        constUrl: '/restaurant/admin',
+        constUrl: '/restaurant',
         regularUrl: null
     }
 };

@@ -25,7 +25,7 @@ export const renderTopNavUserView = window.Handlebars.compile(`
 
 export const renderTopNavRestaurantView = window.Handlebars.compile(`
 <div class="navbar_title">
-    <a class="navbar_title__project-name link" href="/restaurant/admin">Delivery Borscht Restaurant</a>
+    <a class="navbar_title__project-name link" href="/restaurant">Delivery Borscht Restaurant</a>
 </div>
 
 <div class="navbar_right-items">

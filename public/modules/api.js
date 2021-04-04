@@ -100,6 +100,29 @@ export function restaurantSignupPost ({ email, password, title, number }) {
 /**
  * Send server post-request to add dish and get data about dish (id, name and avatar)
  *
+ * @param {int} id
+ * @param {string} name
+ * @param {string} description
+ * @param {int} price
+ * @param {int} weight
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+ export function restaurantUpdateDishPut ({ id, name, description, price, weight}) {
+    return Http.ajaxPut({
+        url: '/restaurant/dish',
+        body: {
+            id,
+            name,
+            description,
+            price,
+            weight
+        }
+    });
+}
+
+/**
+ * Send server post-request to add dish and get data about dish (id, name and avatar)
+ *
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
  export function allDishesGet () {

@@ -1,0 +1,19 @@
+.card-add__image {
+    height: 124px;
+    width: 124px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 32px;
+    margin-top: 32px;
+}
+
+.card-add {
+    text-align: center;
+    cursor: pointer;
+}
+
+.card-add__description {
+    font-size: 1.75em;
+    padding-left: 32px;
+    padding-right: 32px;
+}

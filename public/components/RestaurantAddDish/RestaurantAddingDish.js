@@ -10,20 +10,30 @@ export class RestaurantAddingDish {
     constructor ({
         root = document.body,
         goTo = noop,
-        controller = new RestaurantMainController()
+        controller = new RestaurantMainController(),
+        dish
     } = {}) {
         this.root = root;
         this.goTo = goTo;
         this.controller = controller;
+        this.dish = dish;
         this.nameID = 'name';
         this.descriptionID = 'description';
         this.priceID = 'price';
         this.weightID = 'weight';
         eventBus.on(DishEvents.addingDishFailed, this.addingFailed.bind(this));
+        eventBus.on(DishEvents.updateDishFailed, this.addingFailed.bind(this));
     }
 
     render () {
-        this.root.innerHTML += renderRestaurantAddingDish({});
+        let buttonName = 'Добавить блюдо';
+        if (this.dish) {
+            buttonName = 'Обновить';
+        }
+        this.root.innerHTML += renderRestaurantAddingDish({
+            buttonName: buttonName,
+            dish: this.dish
+        });
 
         this.addAddingDishEventListeners();
     }
@@ -65,13 +75,23 @@ export class RestaurantAddingDish {
     }
 
     formSubmit (event) {
-        event.preventDefault()
-        const errors = this.controller.addDish({
-            name: document.getElementById(this.nameID).value,
-            description: document.getElementById(this.descriptionID).value,
-            price: document.getElementById(this.priceID).value,
-            weight: document.getElementById(this.weightID).value
-        })
+        event.preventDefault();
+
+        if (!this.dish) {
+            this.dish = {};
+        }
+        this.dish.name = document.getElementById(this.nameID).value;
+        this.dish.description = document.getElementById(this.descriptionID).value;
+        this.dish.price = document.getElementById(this.priceID).value;
+        this.dish.weight = document.getElementById(this.weightID).value;
+
+        let errors;
+        if (this.dish.id) {
+            errors = this.controller.updateDish(this.dish);
+        } else {
+            errors = this.controller.addDish(this.dish);
+        }
+
         if (errors.error === true) {
             renderInput(this.nameID, errors.nameError)
             renderInput(this.descriptionID, errors.descriptionError)

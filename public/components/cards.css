@@ -10,6 +10,7 @@
     border-radius: 8px;
     margin-right: 24px;
     margin-bottom: 24px;
+    flex-basis: 0;
 }
 
 .card__header {
@@ -50,4 +51,21 @@
     margin: 16px 12px;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.card__header-top {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.card__header-icons {
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+.card__header-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
 }

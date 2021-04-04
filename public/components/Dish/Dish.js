@@ -1,5 +1,6 @@
 import { renderDish } from './DishTmpl.js';
 import eventBus from '../../modules/eventBus.js';
+import { RestaurantAddingDish } from '../RestaurantAddDish/RestaurantAddingDish.js';
 // import BasketEvents from '../../events/BasketEvents.js';
 
 export class DishComponent {
@@ -17,6 +18,17 @@ export class DishComponent {
         if (this.dish) {
             this.root.innerHTML += renderDish({ dish: this.dish });
         }
+    }
+
+    addEditDishEventListener () {
+        const editDish = card.querySelector('.icon-edit');
+        if (!editDish) {
+            return;
+        }
+
+        editDish.addEventListener('click', e => {
+
+        });
     }
 
     // choose () {

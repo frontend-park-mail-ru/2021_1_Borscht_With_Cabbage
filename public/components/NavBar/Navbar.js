@@ -59,8 +59,4 @@ export class Navbar {
             })
         }
     }
-
-    getViewPlace () {
-        return this.root.querySelector('#view-place');
-    }
 }

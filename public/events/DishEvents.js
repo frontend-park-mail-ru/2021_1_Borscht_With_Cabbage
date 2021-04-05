@@ -9,8 +9,10 @@
  export const DishEvents = {
     addingDishSuccess: 'addingDishSuccess',
     addingDishFailed: 'addingDishFailed',
-    updateDishSuccess: 'updateDishSuccess',
-    updateDishFailed: 'updateDishFailed',
+    updateDishDataSuccess: 'updateDishDataSuccess',
+    updateDishDataFailed: 'updateDishDataFailed',
+    updateDishImageSuccess: 'updateDishImageSuccess',
+    updateDishImageFailed: 'updateDishImageFailed',
     getAllDishSuccess: 'getAllDishSuccess',
     getAllDishFailed: 'getAllDishFailed',
     closeAddingDishComponent: 'closeAddingDishComponent',

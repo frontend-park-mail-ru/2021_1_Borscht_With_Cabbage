@@ -11,13 +11,25 @@ export class RestaurantMainController {
     }
 
     updateDish (dish) {
+        console.log(dish);
         if (!dish.id) {
             return {
                 error: true
             }
         }
-        const actonFunc = this.mainModel.updateDish;
-        return this.correctAndSendDish(dish, actonFunc);
+        const actonFunc = this.mainModel.updateDataDish;
+        const result = this.correctAndSendDish(dish, actonFunc);
+
+        // загрузка изображения
+        if (!dish.image) {
+            return result;
+        }
+        const formData = new FormData();
+        formData.append('image', dish.image);
+        formData.append('id', dish.id);
+        this.mainModel.updateImageDish({id: dish.id, data: formData});
+
+        return result;
     }
 
     correctAndSendDish (dish, action) {
@@ -45,6 +57,7 @@ export class RestaurantMainController {
     }
 
     addDish (dish) {
+        console.log(dish);
         const actonFunc = this.mainModel.addDish;
         return this.correctAndSendDish(dish, actonFunc)
     }

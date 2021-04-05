@@ -19,7 +19,8 @@ export class RestaurantMenuComponent {
         this.goTo = goTo;
         this.controller = controller;
         eventBus.on(DishEvents.addingDishSuccess, this.addingDishSuccess.bind(this));
-        eventBus.on(DishEvents.updateDishSuccess, this.updateDishSuccess.bind(this));
+        eventBus.on(DishEvents.updateDishDataSuccess, this.updateDishSuccess.bind(this));
+        eventBus.on(DishEvents.updateDishImageSuccess, this.updateDishSuccess.bind(this));
         eventBus.on(DishEvents.getAllDishSuccess, this.appendDishes.bind(this));
         eventBus.on(DishEvents.getAllDishFailed, this.dishLoadingError.bind(this));
         eventBus.on(DishEvents.closeAddingDishComponent, this.closeAddingDishComponent.bind(this));
@@ -72,7 +73,15 @@ export class RestaurantMenuComponent {
         if (!content) {
             return;
         }
+
         content.innerHTML = '';
+        const dishAddingBtn = document.createElement('li');
+        dishAddingBtn.classList.add('card-add', 'card');
+        dishAddingBtn.innerHTML = renderDishAdding();
+        content.appendChild(dishAddingBtn);
+        this.addAddDishEventListeners();
+
+
         dishes.forEach(dish => {
             this.appendDish(content, dish);
         });

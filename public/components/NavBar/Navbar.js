@@ -25,7 +25,7 @@ export class Navbar {
     }
 
     renderUserAuth () {
-        console.log('Navbar user', user);
+        console.log('Navbar user');
         this.root.innerHTML = renderTopNavUserView({});
         const authBlock = document.getElementById('auth_block');
         if (authBlock) {
@@ -47,7 +47,7 @@ export class Navbar {
     }
 
     renderRestaurantAuth () {
-        console.log('Navbar restaurant', restaurant);
+        console.log('Navbar restaurant');
         this.root.innerHTML = renderTopNavRestaurantView({});
         document.getElementById('auth_block').innerHTML = renderAuthBlock({
             user: restaurant,

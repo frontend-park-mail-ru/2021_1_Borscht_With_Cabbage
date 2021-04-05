@@ -5,6 +5,7 @@ import eventBus from "../../modules/eventBus.js";
 import { DishEvents } from "../../events/DishEvents.js";
 import { Validator } from "../../modules/validation.js";
 import { renderInput } from "../../modules/rendering.js";
+import { Preview } from '../Preview/Preview.js'
 
 export class RestaurantAddingDish {
     constructor ({
@@ -34,6 +35,16 @@ export class RestaurantAddingDish {
             buttonName: buttonName,
             dish: this.dish
         });
+
+        this.imageInput = this.root.querySelector('#input-avatar');
+        this.imageButton = this.root.querySelector('#input-avatar-button');
+
+        this.preview = new Preview({
+            root: this.root,
+            input: this.imageInput,
+            button: this.imageButton
+        });
+        this.preview.setPreview();
 
         this.addAddingDishEventListeners();
         this.addCloseAddingEventListeners();
@@ -98,6 +109,7 @@ export class RestaurantAddingDish {
         this.dish.description = document.getElementById(this.descriptionID).value;
         this.dish.price = document.getElementById(this.priceID).value;
         this.dish.weight = document.getElementById(this.weightID).value;
+        this.dish.image = this.preview.getFile();
 
         let errors;
         if (this.dish.id) {

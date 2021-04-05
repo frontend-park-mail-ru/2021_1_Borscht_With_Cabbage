@@ -3,16 +3,17 @@ window.serverAddress = 'http://127.0.0.1:5000'
 
 function getParams ({
     method = 'GET',
-    body = null
+    body = null,
+    type
 }) {
     const headers = {
         'Access-Control-Allow-Origin': '*'
     };
     // TODO: надо разобраться с этими всеми запросами
-    // if (method !== 'PUT') {
+    if (type === 'application/json') {
         headers['Content-Type'] = 'application/json';
         body = JSON.stringify(body);
-    // }
+    }
     const init = {
         mode: 'cors',
         method: method,
@@ -28,9 +29,10 @@ function getParams ({
 async function makeFetch ({
     url = '/',
     body = null,
-    method = 'GET'
+    method = 'GET',
+    type
 } = {}) {
-    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body }));
+    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body, type: type }));
     const parsedJSON = await response.json();
 
     return {
@@ -43,17 +45,24 @@ export class Http {
     static async ajaxGet ({
         url = '/'
     } = {}) {
-        return await makeFetch({ url: url, method: 'GET' });
+        return await makeFetch({ url: url, method: 'GET', type: 'application/json' });
     }
 
     static async ajaxPost ({
         url = '/',
         body = null
     } = {}) {
-    return await makeFetch({ url: url, method: 'POST', body: body });
+    return await makeFetch({ url: url, method: 'POST', body: body, type: 'application/json' });
     }
 
-    static async ajaxPut ({
+    static async ajaxPutJson ({
+        url = '/',
+        body = null
+    } = {}) {
+        return await makeFetch({ url: url, method: 'PUT', body: body, type: 'application/json'});
+    }
+
+    static async ajaxPutFormData ({
         url = '/',
         body = null
     } = {}) {
@@ -64,6 +73,6 @@ export class Http {
         url = '/',
         body = null
     } = {}) {
-        return await makeFetch({ url: url, method: 'DELETE', body: body });
+        return await makeFetch({ url: url, method: 'DELETE', body: body, type: 'application/json'});
     }
 }

@@ -1,5 +1,5 @@
-import { restaurantAddDishPost, allDishesGet } from '../modules/api.js';
-import { restaurantUpdateDishPut, restaurantDeleteDish } from '../modules/api.js';
+import { restaurantAddDishPost, allDishesGet, restaurantUpdateDishImagePut } from '../modules/api.js';
+import { restaurantUpdateDishDataPut, restaurantDeleteDish } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import { DishEvents } from '../events/DishEvents.js';
 
@@ -27,17 +27,30 @@ export class RestaurantMainModel {
             .catch(res => eventBus.emit(DishEvents.addingDishFailed, res.parsedJSON));
     }
 
-    updateDish ({ id, name, description, price, weight }) {
-        restaurantUpdateDishPut({ id, name, description, price, weight})
+    updateDataDish ({ id, name, description, price, weight }) {
+        restaurantUpdateDishDataPut({ id, name, description, price, weight})
             .then(res => {
                 if (res.status === 200) {
-                    eventBus.emit(DishEvents.updateDishSuccess + id, res.parsedJSON);
-                    eventBus.emit(DishEvents.updateDishSuccess, res.parsedJSON);
+                    eventBus.emit(DishEvents.updateDishDataSuccess + id, res.parsedJSON);
+                    eventBus.emit(DishEvents.updateDishDataSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(DishEvents.updateDishFailed, res.parsedJSON);
+                    eventBus.emit(DishEvents.updateDishDataFailed, res.parsedJSON);
                 }
             })
-            .catch(res => eventBus.emit(DishEvents.updateDishFailed, res.parsedJSON));
+            .catch(res => eventBus.emit(DishEvents.updateDishDataFailed, res.parsedJSON));
+    }
+
+    updateImageDish ({ id, data }) {
+        restaurantUpdateDishImagePut({ data: data })
+            .then(res => {
+                if (res.status === 200) {
+                    eventBus.emit(DishEvents.updateDishImageSuccess + id, res.parsedJSON);
+                    eventBus.emit(DishEvents.updateDishImageSuccess, res.parsedJSON);
+                } else {
+                    eventBus.emit(DishEvents.updateDishImageFailed, res.parsedJSON);
+                }
+            })
+            .catch(res => eventBus.emit(DishEvents.updateDishImageFailed, res.parsedJSON));
     }
 
     deleteDish ({ id }) {

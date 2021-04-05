@@ -120,8 +120,8 @@ export function restaurantSignupPost ({ email, password, title, number }) {
  * @param {int} weight
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
- export function restaurantUpdateDishPut ({ id, name, description, price, weight}) {
-    return Http.ajaxPut({
+ export function restaurantUpdateDishDataPut ({ id, name, description, price, weight}) {
+    return Http.ajaxPutJson({
         url: '/restaurant/dish',
         body: {
             id,
@@ -130,6 +130,19 @@ export function restaurantSignupPost ({ email, password, title, number }) {
             price,
             weight
         }
+    });
+}
+
+/**
+ * Send server put-request with formData to put image dish
+ *
+ * @param {FormData} data with image id
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+ export function restaurantUpdateDishImagePut ({ data = null }) {
+    return Http.ajaxPutFormData({
+        url: '/restaurant/dish/image',
+        body: data
     });
 }
 
@@ -199,7 +212,7 @@ export function userGet () {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function userPut ({ data = null }) {
-    return Http.ajaxPut({
+    return Http.ajaxPutJson({
         url: '/user',
         body: data
     });

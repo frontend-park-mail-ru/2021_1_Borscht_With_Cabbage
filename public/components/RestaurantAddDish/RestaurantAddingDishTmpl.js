@@ -11,6 +11,10 @@ export const renderRestaurantAddingDish = window.Handlebars.compile(`
             <p id="priceError" class="error">Цена</p>
             <input type="number" id="weight" placeholder="Вес" name="weight" data-name="Weight" value="{{dish.weight}}">
             <p id="weightError" class="error">Вес</p>
+
+            <button class="button" id="input-avatar-button">Загрузить аватар</button>
+            <input name="avatar" id="input-avatar" type="file" style="display: none;"/>
+            
             <input type="submit" class="button" value="{{buttonName}}">
             <p id="serverError" class="error"> </p>
         </form>

@@ -10,6 +10,7 @@ export class DishComponent {
     } = {}) {
         this.root = root;
         this.dish = dish;
+        eventBus.on(DishEvents.updateDishSuccess + dish.id, this.updateDishSuccess.bind(this));
     }
 
     render () {
@@ -41,5 +42,15 @@ export class DishComponent {
         deleteDish.addEventListener('click', e => {
             eventBus.emit(DishEvents.deleteDish, this.dish);
         });
+    }
+
+
+    updateDishSuccess (dish) {
+        if (!dish) {
+            return;
+        }
+        this.root.querySelector('.card__name').textContent = dish.name;
+        this.root.querySelector('.card__sum').textContent = dish.price;
+        this.root.querySelector('.card__description').textContent = dish.description;
     }
 }

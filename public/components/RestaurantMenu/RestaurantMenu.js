@@ -18,8 +18,8 @@ export class RestaurantMenuComponent {
         this.root = root;
         this.goTo = goTo;
         this.controller = controller;
-        eventBus.on(DishEvents.addingDishSuccess, this.addingSuccess.bind(this));
-        eventBus.on(DishEvents.updateDishSuccess, this.updateSuccess.bind(this));
+        eventBus.on(DishEvents.addingDishSuccess, this.addingDishSuccess.bind(this));
+        eventBus.on(DishEvents.updateDishSuccess, this.updateDishSuccess.bind(this));
         eventBus.on(DishEvents.getAllDishSuccess, this.appendDishes.bind(this));
         eventBus.on(DishEvents.getAllDishFailed, this.dishLoadingError.bind(this));
         eventBus.on(DishEvents.closeAddingDishComponent, this.closeAddingDishComponent.bind(this));
@@ -103,13 +103,13 @@ export class RestaurantMenuComponent {
         this.addingDishItem.innerHTML = '';
     }
 
-    addingSuccess (dish) {
+    addingDishSuccess (dish) {
         this.addingDishItem.innerHTML = '';
         const content = this.root.querySelector('.menu-container__content');
         this.appendDish(content, dish);
     }
 
-    updateSuccess (dish) {
+    updateDishSuccess (dish) {
         this.addingDishItem.innerHTML = '';
     }
 
@@ -148,7 +148,6 @@ export class RestaurantMenuComponent {
     deleteDishSuccess () {
         console.log('deleteDishSuccess', this.deleteDish);
         if (!this.deleteDish) {
-            console
             return;
         }
         const deleteItem = this.root.querySelector(`[data-dish-id="${this.deleteDish.id}"]`);

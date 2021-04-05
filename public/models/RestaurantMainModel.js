@@ -7,9 +7,9 @@ export class RestaurantMainModel {
     getDish () {
         allDishesGet().then(res => {
                 if (res.status === 200) {
-                    eventBus.emit(DishEvents.getAllDishSuccess, res.parsedJSON)
+                    eventBus.emit(DishEvents.getAllDishSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(DishEvents.getAllDishFailed, res.parsedJSON)
+                    eventBus.emit(DishEvents.getAllDishFailed, res.parsedJSON);
                 }
             })
             .catch(res => eventBus.emit(DishEvents.getAllDishFailed, res.parsedJSON));
@@ -19,9 +19,9 @@ export class RestaurantMainModel {
         restaurantAddDishPost({ name, description, price, weight})
             .then(res => {
                 if (res.status === 200) {
-                    eventBus.emit(DishEvents.addingDishSuccess, res.parsedJSON)
+                    eventBus.emit(DishEvents.addingDishSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(DishEvents.addingDishFailed, res.parsedJSON)
+                    eventBus.emit(DishEvents.addingDishFailed, res.parsedJSON);
                 }
             })
             .catch(res => eventBus.emit(DishEvents.addingDishFailed, res.parsedJSON));
@@ -31,9 +31,10 @@ export class RestaurantMainModel {
         restaurantUpdateDishPut({ id, name, description, price, weight})
             .then(res => {
                 if (res.status === 200) {
-                    eventBus.emit(DishEvents.updateDishSuccess, res.parsedJSON)
+                    eventBus.emit(DishEvents.updateDishSuccess + id, res.parsedJSON);
+                    eventBus.emit(DishEvents.updateDishSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(DishEvents.updateDishFailed, res.parsedJSON)
+                    eventBus.emit(DishEvents.updateDishFailed, res.parsedJSON);
                 }
             })
             .catch(res => eventBus.emit(DishEvents.updateDishFailed, res.parsedJSON));
@@ -44,10 +45,10 @@ export class RestaurantMainModel {
             .then(res => {
                 if (res.status === 200) {
                     console.log('model success');
-                    eventBus.emit(DishEvents.deleteDishSuccess)
+                    eventBus.emit(DishEvents.deleteDishSuccess);
                 } else {
                     console.log('model failed');
-                    eventBus.emit(DishEvents.deleteDishFailed, res.parsedJSON)
+                    eventBus.emit(DishEvents.deleteDishFailed, res.parsedJSON);
                 }
             })
             .catch(res => {

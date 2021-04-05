@@ -10,6 +10,7 @@ import { RestaurantMainView } from './views/RestaurantMain.js';
 import { Navbar } from './components/NavBar/Navbar.js';
 import { authGet } from './modules/api.js';
 import { MainView } from "./views/MainView.js";
+import { InitViews } from './components/InitViews/InitViews.js';
 
 const application = document.getElementById('app');
 
@@ -17,9 +18,13 @@ const router = new Router(application);
 
 const goTo = (page) => router.open(page);
 
-const navbar = new Navbar({ root: application, goTo: goTo })
-navbar.render()
-const view = navbar.getViewPlace()
+const initViews = new InitViews({ root: application });
+initViews.render();
+const navbarView = initViews.getNavbarPlace();
+const view = initViews.getViewPlace();
+
+const navbar = new Navbar({ root: navbarView, goTo: goTo });
+navbar.render();
 
 const signUpView = new SignUpView({ root: view, goTo: goTo });
 const signInView = new SignInView({ root: view, goTo: goTo });

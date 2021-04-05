@@ -1,11 +1,3 @@
-export const renderTopNavView = window.Handlebars.compile(`
-<div class="navbar">
-</div>
-<div class="view" id="view-place" style="position: relative;">
-
-</div>
-`);
-
 export const renderTopNavUserView = window.Handlebars.compile(`
 <div class="navbar_title">
     <a class="navbar_title__project-name link" href="/">Delivery Borscht</a>

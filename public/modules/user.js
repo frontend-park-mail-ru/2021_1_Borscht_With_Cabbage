@@ -12,7 +12,7 @@ class User {
         name = '',
         avatar = ''
     } = {}) {
-        if (name && avatar) {
+        if (name) {
             this.name = name;
             this.avatar = avatar;
             this.isAuth = true;

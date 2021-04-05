@@ -1,4 +1,4 @@
-import { renderAuthBlock, renderNotAuthBlock, renderTopNavView } from './NavbarTmpl.js';
+import { renderAuthBlock, renderNotAuthBlock } from './NavbarTmpl.js';
 import { renderTopNavRestaurantView, renderTopNavUserView } from './NavbarTmpl.js';
 
 import { noop } from '../../modules/utils.js';
@@ -22,13 +22,11 @@ export class Navbar {
     }
 
     render () {
-        this.root.innerHTML = renderTopNavView({});
-        this.navbar = this.root.querySelector('.navbar');
     }
 
     renderUserAuth () {
-        console.log('Navbar user');
-        this.navbar.innerHTML = renderTopNavUserView({});
+        console.log('Navbar user', user);
+        this.root.innerHTML = renderTopNavUserView({});
         const authBlock = document.getElementById('auth_block');
         if (authBlock) {
             authBlock.innerHTML = renderAuthBlock({
@@ -40,7 +38,7 @@ export class Navbar {
 
     renderNotAuth () {
         console.log('Navbar user');
-        this.navbar.innerHTML = renderTopNavUserView({});
+        this.root.innerHTML = renderTopNavUserView({});
         const authBlock = document.getElementById('auth_block');
         if (authBlock) {
             authBlock.innerHTML = renderNotAuthBlock({});
@@ -49,8 +47,8 @@ export class Navbar {
     }
 
     renderRestaurantAuth () {
-        console.log('Navbar restaurant');
-        this.navbar.innerHTML = renderTopNavRestaurantView({});
+        console.log('Navbar restaurant', restaurant);
+        this.root.innerHTML = renderTopNavRestaurantView({});
         document.getElementById('auth_block').innerHTML = renderAuthBlock({
             user: restaurant,
         });
@@ -73,9 +71,5 @@ export class Navbar {
                 this.goTo('profile');
             })
         }
-    }
-
-    getViewPlace () {
-        return this.root.querySelector('#view-place');
     }
 }

@@ -25,5 +25,21 @@ export class ConfirmationComponent {
                 confirmationItem.remove();
                 eventBus.emit(ConfirmationEvents.confirmationFailed);
             });
+
+        this.addCloseConfirmationEventListeners(confirmationItem);
+    }
+
+    addCloseConfirmationEventListeners (confirmationItem) {
+        const close = this.root.querySelector('.confirmation');
+        if (!close) {
+            return;
+        }
+
+        close.addEventListener('click', e => {
+            if (e.target === close) {
+                confirmationItem.remove();
+                eventBus.emit(ConfirmationEvents.confirmationFailed);
+            }
+        })
     }
 }

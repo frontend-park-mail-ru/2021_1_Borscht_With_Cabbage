@@ -46,8 +46,13 @@ export class RestaurantMenuComponent {
         if (dishAddingBtn) {
             dishAddingBtn.remove();
         }
-        const dishItem = new DishComponent({ root: content, dish: dish });
-        dishItem.render();
+
+        const dishItem = document.createElement('li');
+        dishItem.classList.add('card');
+        dishItem.dataset.dishId = dish.id;
+        content.appendChild(dishItem);
+        const dishComponent = new DishComponent({ root: dishItem, dish: dish });
+        dishComponent.render();
 
         dishAddingBtn = document.createElement('li');
         dishAddingBtn.classList.add('card-add', 'card');
@@ -137,13 +142,24 @@ export class RestaurantMenuComponent {
 
     confirmationFailed () {
         this.deleteDish = null;
+        console.log('confirmationFailed');
     }
 
     deleteDishSuccess () {
-        console.log('deleteDishSuccess');
+        console.log('deleteDishSuccess', this.deleteDish);
+        if (!this.deleteDish) {
+            console
+            return;
+        }
+        const deleteItem = this.root.querySelector(`[data-dish-id="${this.deleteDish.id}"]`);
+        console.log('deleteItem', deleteItem);
+        deleteItem.remove();
+        this.deleteDish = null;
     }
 
     deleteDishFailed () {
+        // TODO: показать ошибку сервера пользователю
+        // this.deleteDish = null;
         console.log('deleteDishFailed');
     }
 }

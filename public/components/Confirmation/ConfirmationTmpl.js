@@ -1,9 +1,11 @@
 export const renderConfirmation = window.Handlebars.compile(`
 <div class="confirmation">
     <div class="confirmation-container">
-        <h2 class="menu-container__title">Вы действительно хотите удалить?</h2>
-        <span class="confirmation-success">Да</span>
-        <span class="confirmation-failed">Нет</span>
+        <span class="confirmation-container__title">Вы действительно хотите удалить?</span>
+        <span class="confirmation-container__btn">
+            <span class="confirmation-success confirmation-btn">Да</span>
+            <span class="confirmation-failed confirmation-btn">Нет</span>
+        </span>
     </div>
 </div>
 `)

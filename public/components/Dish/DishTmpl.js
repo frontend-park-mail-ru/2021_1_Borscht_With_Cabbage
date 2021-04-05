@@ -1,5 +1,5 @@
 export const renderDish = window.Handlebars.compile(`
-    <div class="card__header data-dishID="{{dish.id}}">
+    <div class="card__header">
         <div class="card__header-top">
             <span class="card__name">{{dish.name}}</span>
             <div class="card__header-icons">

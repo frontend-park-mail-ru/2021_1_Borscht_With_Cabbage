@@ -43,11 +43,16 @@ export class RestaurantMainModel {
         restaurantDeleteDish({ id: id })
             .then(res => {
                 if (res.status === 200) {
+                    console.log('model success');
                     eventBus.emit(DishEvents.deleteDishSuccess)
                 } else {
+                    console.log('model failed');
                     eventBus.emit(DishEvents.deleteDishFailed, res.parsedJSON)
                 }
             })
-            .catch(res => eventBus.emit(DishEvents.deleteDishFailed, res.parsedJSON));
+            .catch(res => {
+                console.log('model failed');
+                // TODO: понять почему здесь вызывается когда проходит по then
+            });
     }
 }

@@ -14,10 +14,7 @@ export class DishComponent {
 
     render () {
         if (this.dish) {
-            this.dishItem = document.createElement('li');
-            this.dishItem.classList.add('card');
-            this.dishItem.innerHTML += renderDish({ dish: this.dish });
-            this.root.appendChild(this.dishItem);
+            this.root.innerHTML += renderDish({ dish: this.dish });
 
             this.addEditDishEventListener();
             this.addDeleteDishEventListener();
@@ -25,7 +22,7 @@ export class DishComponent {
     }
 
     addEditDishEventListener () {
-        const editDish = this.dishItem.querySelector('.icon-edit');
+        const editDish = this.root.querySelector('.icon-edit');
         if (!editDish) {
             return;
         }
@@ -36,7 +33,7 @@ export class DishComponent {
     }
 
     addDeleteDishEventListener () {
-        const deleteDish = this.dishItem.querySelector('.icon-delete');
+        const deleteDish = this.root.querySelector('.icon-delete');
         if (!deleteDish) {
             return;
         }
@@ -45,39 +42,4 @@ export class DishComponent {
             eventBus.emit(DishEvents.deleteDish, this.dish);
         });
     }
-
-    // choose () {
-    //     const button = this.root.querySelector(this.buttonID)
-    //     button.style.display = 'none';
-    // }
-
-    // unChoose () {
-    //     const button = this.root.querySelector(this.buttonID)
-    //     button.style.display = 'block';
-    // }
-
-    // clickElement (num) {
-    //     if (num === 0) {
-    //         this.unChoose();
-    //     } else {
-    //         this.choose();
-    //     }
-    // }
-
-    // addListener () {
-    //     this.addButtonListener = () => {
-    //         eventBus.emit(BasketEvents.chooseFood, {
-    //             food: this.food,
-    //             isPlus: true
-    //         })
-
-    //         this.num = 1;
-    //         this.clickElement(this.num);
-    //     };
-
-    //     this.root.querySelector(this.buttonID)
-    //         .addEventListener('click', this.addButtonListener);
-
-    //     this.numButtons.addEventListeners()
-    // }
 }

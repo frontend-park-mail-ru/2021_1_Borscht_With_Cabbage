@@ -1,4 +1,5 @@
 import { restaurantAddDishPost, allDishesGet } from '../modules/api.js';
+import { restaurantUpdateDishPut, restaurantDeleteDish } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import { DishEvents } from '../events/DishEvents.js';
 
@@ -36,5 +37,17 @@ export class RestaurantMainModel {
                 }
             })
             .catch(res => eventBus.emit(DishEvents.updateDishFailed, res.parsedJSON));
+    }
+
+    deleteDish ({ id }) {
+        restaurantDeleteDish({ id: id })
+            .then(res => {
+                if (res.status === 200) {
+                    eventBus.emit(DishEvents.deleteDishSuccess)
+                } else {
+                    eventBus.emit(DishEvents.deleteDishFailed, res.parsedJSON)
+                }
+            })
+            .catch(res => eventBus.emit(DishEvents.deleteDishFailed, res.parsedJSON));
     }
 }

@@ -1,7 +1,7 @@
 import { renderDish } from './DishTmpl.js';
 import eventBus from '../../modules/eventBus.js';
 import { RestaurantAddingDish } from '../RestaurantAddDish/RestaurantAddingDish.js';
-// import BasketEvents from '../../events/BasketEvents.js';
+import { DishEvents } from '../../events/DishEvents.js'
 
 export class DishComponent {
     constructor ({
@@ -10,24 +10,39 @@ export class DishComponent {
     } = {}) {
         this.root = root;
         this.dish = dish;
-        this.num = 0;
-        this.buttonID = `[data-dishAddButtonID="${this.dish.id}"]`
     }
 
     render () {
         if (this.dish) {
-            this.root.innerHTML += renderDish({ dish: this.dish });
+            this.dishItem = document.createElement('li');
+            this.dishItem.classList.add('card');
+            this.dishItem.innerHTML += renderDish({ dish: this.dish });
+            this.root.appendChild(this.dishItem);
+
+            this.addEditDishEventListener();
+            this.addDeleteDishEventListener();
         }
     }
 
     addEditDishEventListener () {
-        const editDish = card.querySelector('.icon-edit');
+        const editDish = this.dishItem.querySelector('.icon-edit');
         if (!editDish) {
             return;
         }
-
+        
         editDish.addEventListener('click', e => {
+            eventBus.emit(DishEvents.editDish, this.dish);
+        });
+    }
 
+    addDeleteDishEventListener () {
+        const deleteDish = this.dishItem.querySelector('.icon-delete');
+        if (!deleteDish) {
+            return;
+        }
+        
+        deleteDish.addEventListener('click', e => {
+            eventBus.emit(DishEvents.deleteDish, this.dish);
         });
     }
 

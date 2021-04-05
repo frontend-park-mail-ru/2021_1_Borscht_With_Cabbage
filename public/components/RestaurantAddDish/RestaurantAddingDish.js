@@ -28,7 +28,7 @@ export class RestaurantAddingDish {
     render () {
         let buttonName = 'Добавить блюдо';
         if (this.dish) {
-            buttonName = 'Обновить';
+            buttonName = 'Обновить блюдо';
         }
         this.root.innerHTML += renderRestaurantAddingDish({
             buttonName: buttonName,
@@ -40,7 +40,6 @@ export class RestaurantAddingDish {
     }
 
     addCloseAddingEventListeners() {
-        console.log('addCloseAddingEventListeners');
         const close = this.root.querySelector('.adding-dish');
         if (!close) {
             return;

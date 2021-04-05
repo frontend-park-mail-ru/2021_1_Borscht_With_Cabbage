@@ -1,7 +1,7 @@
 export const renderRestaurantAddingDish = window.Handlebars.compile(`
 <div class="adding-dish" >
     <div class="adding-dish-container" style="margin: 50px 0">
-        <h2 class="adding-dish-container__title">Добавить блюдо</h2>
+        <h2 class="adding-dish-container__title">{{buttonName}}</h2>
         <form id="adding-dish-form">
             <input type="text" id="name" placeholder="Название блюда" name="name" data-name="Name" value="{{dish.name}}">
             <p id="nameError" class="error">Название блюда</p>

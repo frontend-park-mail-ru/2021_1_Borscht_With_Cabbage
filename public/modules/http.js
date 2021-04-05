@@ -8,10 +8,11 @@ function getParams ({
     const headers = {
         'Access-Control-Allow-Origin': '*'
     };
-    if (method !== 'PUT') {
+    // TODO: надо разобраться с этими всеми запросами
+    // if (method !== 'PUT') {
         headers['Content-Type'] = 'application/json';
         body = JSON.stringify(body);
-    }
+    // }
     const init = {
         mode: 'cors',
         method: method,
@@ -57,5 +58,12 @@ export class Http {
         body = null
     } = {}) {
         return await makeFetch({ url: url, method: 'PUT', body: body });
+    }
+
+    static async ajaxDelete ({
+        url = '/',
+        body = null
+    } = {}) {
+        return await makeFetch({ url: url, method: 'DELETE', body: body });
     }
 }

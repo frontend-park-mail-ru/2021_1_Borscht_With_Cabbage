@@ -10,7 +10,7 @@ export class RestaurantMainController {
         this.mainModel.getDish();
     }
 
-    updateDish () {
+    updateDish (dish) {
         if (!dish.id) {
             return {
                 error: true
@@ -47,5 +47,14 @@ export class RestaurantMainController {
     addDish (dish) {
         const actonFunc = this.mainModel.addDish;
         return this.correctAndSendDish(dish, actonFunc)
+    }
+
+    deleteDish (id) {
+        if (!id) {
+            return {
+                error: true
+            }
+        }
+        return this.mainModel.deleteDish({ id: Number(id) });
     }
 }

@@ -85,7 +85,7 @@ export function restaurantSignupPost ({ email, password, title, number }) {
  * @param {int} weight
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
- export function restaurantAddDishPost ({ name, description, price, weight}) {
+ export function restaurantAddDishPost ({ name, description, price, weight }) {
     return Http.ajaxPost({
         url: '/restaurant/dish',
         body: {
@@ -98,7 +98,20 @@ export function restaurantSignupPost ({ email, password, title, number }) {
 }
 
 /**
- * Send server post-request to add dish and get data about dish (id, name and avatar)
+ * Send server delete-request to delete dish
+ *
+ * @param {int} id
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+ export function restaurantDeleteDish ({ id }) {
+    return Http.ajaxDelete({
+        url: '/restaurant/dish',
+        body: { id }
+    });
+}
+
+/**
+ * Send server post-request to update dish and get data about dish (id, name and avatar)
  *
  * @param {int} id
  * @param {string} name

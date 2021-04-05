@@ -13,5 +13,9 @@
     updateDishFailed: 'updateDishFailed',
     getAllDishSuccess: 'getAllDishSuccess',
     getAllDishFailed: 'getAllDishFailed',
-    closeAddingDishComponent: 'closeAddingDishComponent'
+    closeAddingDishComponent: 'closeAddingDishComponent',
+    editDish: 'editDish',
+    deleteDish: 'deleteDish',
+    deleteDishSuccess: 'deleteDishSuccess',
+    deleteDishFailed: 'deleteDishFailed'
 }

@@ -21,6 +21,7 @@ export class RestaurantMenuComponent {
         eventBus.on(DishEvents.addingDishSuccess, this.addingDishSuccess.bind(this));
         eventBus.on(DishEvents.updateDishDataSuccess, this.updateDishSuccess.bind(this));
         eventBus.on(DishEvents.updateDishImageSuccess, this.updateDishSuccess.bind(this));
+        eventBus.on(DishEvents.updateDishImageFailed, this.updateDishFailed.bind(this));
         eventBus.on(DishEvents.getAllDishSuccess, this.appendDishes.bind(this));
         eventBus.on(DishEvents.getAllDishFailed, this.dishLoadingError.bind(this));
         eventBus.on(DishEvents.closeAddingDishComponent, this.closeAddingDishComponent.bind(this));
@@ -120,6 +121,10 @@ export class RestaurantMenuComponent {
 
     updateDishSuccess (dish) {
         this.addingDishItem.innerHTML = '';
+    }
+
+    updateDishFailed (message) {
+        
     }
 
     editDish (dish) {

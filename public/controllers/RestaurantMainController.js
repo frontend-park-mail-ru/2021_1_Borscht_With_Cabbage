@@ -1,9 +1,13 @@
 import { Validator } from '../modules/validation.js';
 import { RestaurantMainModel } from '../models/RestaurantMainModel.js';
+import { DishEvents } from '../events/DishEvents.js';
+import eventBus from '../modules/eventBus.js';
 
 export class RestaurantMainController {
     constructor () {
         this.mainModel = new RestaurantMainModel();
+        eventBus.on(DishEvents.addingDishSuccess, this.addingDishDataSuccess.bind(this));
+        eventBus.on(DishEvents.addingDishFailed, this.addingDishDataFailed.bind(this));
     }
 
     getDishes (dish) { 
@@ -59,7 +63,23 @@ export class RestaurantMainController {
     addDish (dish) {
         console.log(dish);
         const actonFunc = this.mainModel.addDish;
+        this.imageDish = dish.image;
         return this.correctAndSendDish(dish, actonFunc)
+    }
+
+    addingDishDataSuccess ({ id }) {
+        if (this.imageDish) {
+            const formData = new FormData();
+            formData.append('image', this.imageDish);
+            formData.append('id', id);
+            this.mainModel.updateImageDish({id: id, data: formData});
+
+            this.imageDish = null;
+        }
+    }
+
+    addingDishDataFailed () {
+        this.imageDish = null;
     }
 
     deleteDish (id) {

@@ -57,5 +57,6 @@ export class DishComponent {
 
     updateDishImageSuccess ({filename}) {
         console.log(filename);
+        this.root.querySelector('.card__image').style.backgroundImage = `url(${filename})`;
     }
 }

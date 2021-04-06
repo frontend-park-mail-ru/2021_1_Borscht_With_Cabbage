@@ -23,7 +23,7 @@ export class RestaurantAddingDish {
         this.priceID = 'price';
         this.weightID = 'weight';
         eventBus.on(DishEvents.addingDishFailed, this.addingFailed.bind(this));
-        eventBus.on(DishEvents.updateDishFailed, this.addingFailed.bind(this));
+        eventBus.on(DishEvents.updateDishDataFailed, this.addingFailed.bind(this));
     }
 
     render () {

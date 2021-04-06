@@ -67,7 +67,7 @@ input:focus {
     width: 36px;
     height: 36px;
     line-height: 36px;
-    background: var(--grey);
+    background: var(--grey_color);
     margin: 1em;
     border-radius: 50%;
     text-align: center;

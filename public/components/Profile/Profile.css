@@ -1,5 +1,5 @@
 @import "Orders/Order/Order.css ";
-@import "../ProfileEdits/ProfileEdits.css";
+@import "ProfileEdits/ProfileEdits.css";
 
 .profile {
     margin: 25px;

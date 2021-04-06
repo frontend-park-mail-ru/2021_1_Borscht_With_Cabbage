@@ -1,6 +1,6 @@
 import { RestaurantSignUpController } from "../controllers/RestaurantSignUpController.js";
 import restaurant from "../modules/restaurant.js";
-import { RestaurantSignUp } from "../components/RestaurantSignUp/RestaurantSignUp.js";
+import { RestaurantSignUp } from "../components/Restaurant/RestaurantSignUp/RestaurantSignUp.js";
 
 export class RestaurantSignUpView {
     constructor ({

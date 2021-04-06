@@ -62,3 +62,13 @@ input:focus {
     display: flex;
     flex-wrap: wrap;
 }
+
+.number-in-circle {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    background: var(--grey);
+    margin: 1em;
+    border-radius: 50%;
+    text-align: center;
+}

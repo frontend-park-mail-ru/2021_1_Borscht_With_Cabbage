@@ -21,8 +21,8 @@ export class RestaurantSignUp {
         this.phoneID = 'number'
         this.passwordID = 'password'
         this.repeatPasswordID = 'repeatPassword';
-        eventBus.on(SignUpEvents.userSignUpSuccess, this.signupSuccess.bind(this))
-        eventBus.on(SignUpEvents.userSignUpFailed, this.signupFailed.bind(this))
+        eventBus.on(SignUpEvents.restaurantSignUpSuccess, this.signupSuccess.bind(this))
+        eventBus.on(SignUpEvents.restaurantSignUpFailed, this.signupFailed.bind(this))
     }
 
     render () {

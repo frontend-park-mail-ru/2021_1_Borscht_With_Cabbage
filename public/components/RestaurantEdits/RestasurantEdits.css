@@ -1,0 +1,17 @@
+.profile-card {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 6px solid rgba(0, 0, 0, 0.12);;
+    border-radius: 8px;
+}
+
+.profile-left-block-edits {
+    max-width: 36em;
+    min-width: 24em;
+    max-height: 56em;
+    min-height: 32em;
+    padding: 2em;
+    margin-left: 16em;
+}

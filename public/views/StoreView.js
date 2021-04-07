@@ -1,7 +1,7 @@
-import { renderStoreView } from '../components/RestaurantPage/StoreTemplate.js';
-import { StoreTitle } from '../components/StoreTitle/StoreTitle.js';
-import { StoreFoodList } from '../components/StoreFoodList/StoreFoodList.js';
-import { StoreBasket } from '../components/StoreBasket/StoreBasket.js';
+import { renderStoreView } from '../components/Store/StorePage/StoreTemplate.js';
+import { StoreTitle } from '../components/Store/StoreTitle/StoreTitle.js';
+import { StoreFoodList } from '../components/Store/StoreFoodList/StoreFoodList.js';
+import { StoreBasket } from '../components/Store/StoreBasket/StoreBasket.js';
 import { StoreController } from '../controllers/StoreController.js';
 import eventBus from '../modules/eventBus.js';
 import { StoreEvents } from '../events/StoreEvents.js';

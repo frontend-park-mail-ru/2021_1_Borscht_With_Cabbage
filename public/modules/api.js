@@ -235,3 +235,16 @@ export function logoutGet () {
 export function userOrdersGet () {
     return Http.ajaxGet({ url: '/user/orders' });
 }
+
+/**
+ * Send server put-request with formData to put info about restaurant
+ *
+ * @param {FormData} data with avatar title email phone deliveryCost
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+export function restaurantPut ({ data = null }) {
+    return Http.ajaxPutJson({
+        url: '/restaurant/user',
+        body: data
+    });
+}

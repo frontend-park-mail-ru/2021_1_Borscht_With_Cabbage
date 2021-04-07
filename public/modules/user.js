@@ -10,11 +10,18 @@ class User {
 
     auth ({
         name = '',
-        avatar = ''
+        avatar = '',
+        deliveryCost = '',
+        email = '',
+        number = ''
     } = {}) {
         if (name) {
             this.name = name;
             this.avatar = avatar;
+
+            this.deliveryCost = deliveryCost;
+            this.email = email;
+            this.number = number;
             this.isAuth = true;
         }
     }
@@ -26,4 +33,4 @@ class User {
     }
 }
 
-export default  new User()
+export default new User()

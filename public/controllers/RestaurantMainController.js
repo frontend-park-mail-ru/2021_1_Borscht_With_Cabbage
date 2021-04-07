@@ -10,7 +10,7 @@ export class RestaurantMainController {
         eventBus.on(DishEvents.addingDishFailed, this.addingDishDataFailed.bind(this));
     }
 
-    getDishes (dish) { 
+    getDishes (dish) {
         this.mainModel.getDish();
     }
 
@@ -31,7 +31,7 @@ export class RestaurantMainController {
         const formData = new FormData();
         formData.append('image', dish.image);
         formData.append('id', dish.id);
-        this.mainModel.updateImageDish({id: dish.id, data: formData});
+        this.mainModel.updateImageDish({ id: dish.id, data: formData });
 
         return result;
     }
@@ -89,5 +89,56 @@ export class RestaurantMainController {
             }
         }
         return this.mainModel.deleteDish({ id: Number(id) });
+    }
+
+    setRestaurantData ({
+        email,
+        title,
+        phone,
+        currentPassword,
+        newPassword,
+        repeatPassword,
+        avatar,
+        deliveryCost
+    } = {}) {
+        const emailError = Validator.validateEmail(email);
+        const titleError = Validator.validateName(title);
+        const phoneError = Validator.validatePhone(phone);
+        const currentPasswordError = Validator.validateChangeOldPassword(currentPassword, newPassword);
+        const newPasswordError = Validator.validateChangeNewPassword(newPassword);
+        const repeatPasswordError = Validator.validateChangePasswordRepeat(newPassword, repeatPassword);
+        const deliveryCostError = Validator.validateRealNumber(deliveryCost)
+
+        if (emailError.result && titleError.result && phoneError.result && deliveryCostError.result &&
+            currentPasswordError.result && newPasswordError.result && repeatPasswordError.result
+        ) {
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('title', title);
+            formData.append('number', phone);
+            formData.append('password_current', currentPassword);
+            formData.append('deliveryCost', deliveryCost);
+            formData.append('password', newPassword);
+            formData.append('password_repeat', repeatPassword); // TODO it is need?
+            if (avatar) {
+                formData.append('avatar', avatar);
+            }
+
+            this.mainModel.setRestaurantData(formData);
+            return {
+                error: false
+            };
+        } else {
+            return {
+                error: true,
+                emailError,
+                titleError,
+                phoneError,
+                deliveryCostError,
+                currentPasswordError,
+                newPasswordError,
+                repeatPasswordError
+            };
+        }
     }
 }

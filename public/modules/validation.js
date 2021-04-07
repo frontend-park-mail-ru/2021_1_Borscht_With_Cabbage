@@ -106,4 +106,17 @@ export class Validator {
         }
         return this.validateEqualPassword(newPassword, newPasswordRepeat);
     }
+
+    static validateRealNumber (num) {
+        if (num === '') {
+            return blankResult;
+        }
+        if (isNaN(num)) {
+            return {
+                result: false,
+                text: 'Введите число'
+            };
+        }
+        return { result: true };
+    }
 }

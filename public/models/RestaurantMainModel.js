@@ -1,7 +1,8 @@
-import { restaurantAddDishPost, allDishesGet, restaurantUpdateDishImagePut } from '../modules/api.js';
+import { restaurantAddDishPost, allDishesGet, restaurantUpdateDishImagePut, restaurantPut } from '../modules/api.js';
 import { restaurantUpdateDishDataPut, restaurantDeleteDish } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import { DishEvents } from '../events/DishEvents.js';
+import { ProfileEvents } from '../events/ProfileEvents.js';
 
 export class RestaurantMainModel {
     getDish () {
@@ -68,5 +69,22 @@ export class RestaurantMainModel {
                 console.log('model failed');
                 // TODO: понять почему здесь вызывается когда проходит по then
             });
+    }
+
+    setRestaurantData (data) {
+        restaurantPut({
+            data: data
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    eventBus.emit(ProfileEvents.profileSetUserDataSuccess, {
+                        info: res.parsedJSON,
+                        status: res.status
+                    });
+                } else {
+                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON);
+                }
+            })
+            .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON));
     }
 }

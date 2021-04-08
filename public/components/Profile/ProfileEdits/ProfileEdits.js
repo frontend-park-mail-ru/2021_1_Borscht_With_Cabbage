@@ -99,10 +99,7 @@ export class ProfileEdits {
             } else {
                 info.avatar = user.avatar
             }
-            eventBus.emit(AuthEvents.userSignIn, {
-                name: info.name,
-                avatar: info.avatar
-            })
+            eventBus.emit(AuthEvents.userSignIn, info)
         }
     }
 

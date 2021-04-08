@@ -244,7 +244,7 @@ export function userOrdersGet () {
  */
 export function restaurantPut ({ data = null }) {
     return Http.ajaxPutFormData({
-        url: '/restaurant/user',
+        url: '/restaurant',
         body: data
     });
 }

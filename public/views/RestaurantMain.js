@@ -31,7 +31,6 @@ export class RestaurantMainView {
         const edits = new RestaurantEdits({
             root: this.root.querySelector('#restaurant-left-block'),
             goTo: this.goTo,
-            user: user,
             controller: this.mainController
         });
 

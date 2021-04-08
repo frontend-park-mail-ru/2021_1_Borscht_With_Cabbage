@@ -212,7 +212,7 @@ export function userGet () {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function userPut ({ data = null }) {
-    return Http.ajaxPutJson({
+    return Http.ajaxPutFormData({
         url: '/user',
         body: data
     });
@@ -243,7 +243,7 @@ export function userOrdersGet () {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function restaurantPut ({ data = null }) {
-    return Http.ajaxPutJson({
+    return Http.ajaxPutFormData({
         url: '/restaurant/user',
         body: data
     });

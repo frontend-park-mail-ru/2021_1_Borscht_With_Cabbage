@@ -4,7 +4,7 @@ window.serverAddress = 'http://127.0.0.1:5000'
 function getParams ({
     method = 'GET',
     body = null,
-    type
+    type = 'application/json'
 }) {
     const headers = {
         'Access-Control-Allow-Origin': '*'
@@ -45,34 +45,34 @@ export class Http {
     static async ajaxGet ({
         url = '/'
     } = {}) {
-        return await makeFetch({ url: url, method: 'GET', type: 'application/json' });
+        return await makeFetch({ url: url, method: 'GET' });
     }
 
     static async ajaxPost ({
         url = '/',
         body = null
     } = {}) {
-    return await makeFetch({ url: url, method: 'POST', body: body, type: 'application/json' });
+        return await makeFetch({ url: url, method: 'POST', body: body });
     }
 
     static async ajaxPutJson ({
         url = '/',
         body = null
     } = {}) {
-        return await makeFetch({ url: url, method: 'PUT', body: body, type: 'application/json'});
+        return await makeFetch({ url: url, method: 'PUT', body: body });
     }
 
     static async ajaxPutFormData ({
         url = '/',
         body = null
     } = {}) {
-        return await makeFetch({ url: url, method: 'PUT', body: body });
+        return await makeFetch({ url: url, method: 'PUT', body: body, type: '' });
     }
 
     static async ajaxDelete ({
         url = '/',
         body = null
     } = {}) {
-        return await makeFetch({ url: url, method: 'DELETE', body: body, type: 'application/json'});
+        return await makeFetch({ url: url, method: 'DELETE', body: body });
     }
 }

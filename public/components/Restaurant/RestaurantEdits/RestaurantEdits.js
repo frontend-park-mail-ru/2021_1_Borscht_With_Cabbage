@@ -8,7 +8,7 @@ import { AuthEvents } from '../../../events/AuthEvents.js';
 import { Validator } from '../../../modules/validation.js';
 import { maskPhone } from '../../../modules/phoneMask.js';
 import { noop } from '../../../modules/utils.js';
-import restaurant from '../../../modules/restaurant.js';
+import user from '../../../modules/user.js';
 
 export class RestaurantEdits {
     constructor ({
@@ -34,7 +34,7 @@ export class RestaurantEdits {
 
     render () {
         this.root.innerHTML = renderRestaurantEdits({
-            user: restaurant
+            user: user
         });
         this.avatarInput = this.root.querySelector('#input-avatar');
         this.avatarButton = this.root.querySelector('#input-avatar-button');
@@ -95,10 +95,10 @@ export class RestaurantEdits {
             if (info.avatar) {
                 this.preview.deletePreview()
             } else {
-                info.avatar = restaurant.avatar
+                info.avatar = user.avatar
             }
             console.log('restaurantEdits ->', info)
-            eventBus.emit(AuthEvents.restaurantSignIn, info)
+            eventBus.emit(AuthEvents.userSignIn, info)
         }
     }
 

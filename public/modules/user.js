@@ -10,14 +10,15 @@ class User {
 
     auth ({
         name = '',
+        title = '',
         avatar = '',
         deliveryCost = '',
         email = '',
         number = '',
         role = ''
     } = {}) {
-        if (name) {
-            this.name = name;
+        if (name || title) {
+            this.name = name || title;
             this.avatar = avatar;
 
             this.deliveryCost = deliveryCost;

@@ -1,6 +1,6 @@
 import { RestaurantSignUpController } from "../controllers/RestaurantSignUpController.js";
-import restaurant from "../modules/restaurant.js";
 import { RestaurantSignUp } from "../components/Restaurant/RestaurantSignUp/RestaurantSignUp.js";
+import user from '../modules/user.js';
 
 export class RestaurantSignUpView {
     constructor ({
@@ -13,7 +13,7 @@ export class RestaurantSignUpView {
     }
 
     render () {
-        if (restaurant.isAuth) {
+        if (user.isAuth) {
             this.goTo('restaurantMain')
         }
         this.root.innerHTML = '';

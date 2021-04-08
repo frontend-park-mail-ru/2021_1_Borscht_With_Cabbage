@@ -1,12 +1,8 @@
 import { RestaurantMainController } from '../controllers/RestaurantMainController.js';
-import eventBus from '../modules/eventBus.js';
 import { RestaurantMenuComponent } from '../components/Restaurant/RestaurantMenu/RestaurantMenu.js'
-import user from '../modules/user.js';
 import { RestaurantEdits } from '../components/Restaurant/RestaurantEdits/RestaurantEdits.js';
 import { renderRestaurantView } from '../components/Restaurant/RestaurantMainTmpl.js';
 import { RestaurantRightMenu } from '../components/Restaurant/RestaurantRightMenu/RightMenu.js';
-
-// import MainEvents from '../events/MainEvents.js';
 
 export class RestaurantMainView {
     constructor (root, goTo) {

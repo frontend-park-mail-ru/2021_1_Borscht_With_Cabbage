@@ -4,20 +4,19 @@ import { ProfileEvents } from '../../../events/ProfileEvents.js';
 import { renderRestaurantEdits } from './RestaurantEditsTmpl.js';
 import { Preview } from '../../Preview/Preview.js';
 import { renderInput } from '../../../modules/rendering.js';
-import user from '../../../modules/user.js';
 import { AuthEvents } from '../../../events/AuthEvents.js';
 import { Validator } from '../../../modules/validation.js';
 import { maskPhone } from '../../../modules/phoneMask.js';
+import { noop } from '../../../modules/utils.js';
+import user from '../../../modules/user.js';
 
 export class RestaurantEdits {
     constructor ({
         root = document.body,
         goTo = noop,
-        user = null,
         controller = new RestaurantMainController()
     } = {}) {
         this.root = root;
-        this.user = user;
         this.goTo = goTo;
 
         this.emailID = 'email';
@@ -35,7 +34,7 @@ export class RestaurantEdits {
 
     render () {
         this.root.innerHTML = renderRestaurantEdits({
-            user: this.user
+            user: user
         });
         this.avatarInput = this.root.querySelector('#input-avatar');
         this.avatarButton = this.root.querySelector('#input-avatar-button');
@@ -98,10 +97,8 @@ export class RestaurantEdits {
             } else {
                 info.avatar = user.avatar
             }
-            eventBus.emit(AuthEvents.userSignIn, {
-                name: info.name,
-                avatar: info.avatar
-            })
+            console.log('restaurantEdits ->', info)
+            eventBus.emit(AuthEvents.userSignIn, info)
         }
     }
 

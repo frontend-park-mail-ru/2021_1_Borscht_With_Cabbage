@@ -2,16 +2,16 @@ export const renderRestaurantEdits = window.Handlebars.compile(`
 <form id="restaurant-userdata" enctype="multipart/form-data">
     <h1>Личные данные</h1>
     
-    <input type="text" id="number" placeholder="+7 (___) ___ ____" name="number"  data-name="Номер телефона" value={{ user.number }}>
+    <input type="text" id="number" placeholder="+7 (___) ___ ____" name="number"  data-name="Номер телефона" value="{{ user.number }}">
     <p id="numberError" class="error">Номер телефона</p>
     
-    <input type="email" id="email" placeholder="mail@mail.ru" name="email"  data-name="Почта" value={{ user.email }}>
+    <input type="email" id="email" placeholder="mail@mail.ru" name="email"  data-name="Почта" value="{{ user.email }}">
     <p id="emailError" class="error">Почта</p>
     
-    <input type="text" id="name" placeholder="Name Surname" name="name"  data-name="Имя" value={{ user.name }}>
+    <input type="text" id="name" placeholder="Name Surname" name="name"  data-name="Имя" value="{{ user.name }}">
     <p id="nameError" class="error">Имя</p>
     
-    <input type="number" id="deliveryCost" placeholder="Стоимость доставки" name="deliveryCost" data-name="Стоимость доставки" value={{ user.deliveryCost }} >
+    <input type="number" id="deliveryCost" placeholder="Стоимость доставки" name="deliveryCost" data-name="Стоимость доставки" value="{{ user.deliveryCost }}" >
     <p id="deliveryCostError" class="error">Стоимость доставки</p>
     
     <input type="password" id="password_current" placeholder="******" data-name="Текущий пароль" name="password_current" autocomplete="on">

@@ -1,9 +1,9 @@
 .menu-container {
-    box-shadow: 0 0 4px rgb(0 0 0 / 50%);
+    /* box-shadow: 0 0 4px rgb(0 0 0 / 50%);
     margin-bottom: 60px;
     padding-top: 36px;
     padding-bottom: 36px;
-    position: relative;
+    position: relative; */
 }
 
 .menu-container__title {

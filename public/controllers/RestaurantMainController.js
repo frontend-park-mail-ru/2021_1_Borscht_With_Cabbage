@@ -10,7 +10,59 @@ export class RestaurantMainController {
         eventBus.on(DishEvents.addingDishFailed, this.addingDishDataFailed.bind(this));
     }
 
-    getDishes (dish) {
+    addSection (section) {
+        const nameError = Validator.validateName(section.name);
+        if (nameError.result) {
+            this.mainModel.addSection(section);
+            return {
+                error: false
+            }
+        } else {
+            return {
+                error: true,
+                nameError,
+                descriptionError,
+                priceError,
+                weightError
+            }
+        }
+    }
+
+    updateSection (section) {
+        if (!section.id) {
+            return {
+                error: true
+            }
+        }
+
+        section.id = Number(section.id);
+        const nameError = Validator.validateName(section.name);
+        if (nameError.result) {
+            this.mainModel.updateSection(section);
+            return {
+                error: false
+            }
+        } else {
+            return {
+                error: true,
+                nameError,
+                descriptionError,
+                priceError,
+                weightError
+            }
+        }
+    }
+
+    deleteSection (id) {
+        if (!id) {
+            return {
+                error: true
+            }
+        }
+        return this.mainModel.deleteSection({ id: Number(id) });
+    }
+
+    getDishes () {
         this.mainModel.getDish();
     }
 

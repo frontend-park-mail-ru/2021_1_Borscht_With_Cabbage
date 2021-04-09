@@ -3,7 +3,9 @@ import { noop } from '../../../modules/utils.js';
 import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
 import { renderRestaurantMenu } from './RestaurantMenuTmpl.js';
 import { DishEvents } from '../../../events/DishEvents.js';
-import { SectionComponent } from '../Section/Section.js'
+import { SectionEvents } from '../../../events/SectionEvents.js'
+import { SectionComponent } from '../Section/Section.js';
+import { RestaurantAddingSection } from '../RestaurantAddingSection/RestaurantAddingSection.js'
 
 export class RestaurantMenuComponent {
     constructor ({
@@ -16,12 +18,27 @@ export class RestaurantMenuComponent {
         this.controller = controller;
         eventBus.on(DishEvents.getAllDishSuccess, this.appendSections.bind(this));
         eventBus.on(DishEvents.getAllDishFailed, this.dishLoadingError.bind(this));
+        eventBus.on(SectionEvents.addingSectionSuccess, this.addingSuccess.bind(this));
+        eventBus.on(SectionEvents.closeAddingSectionComponent, this.closeAddingSectionComponent.bind(this));
+        eventBus.on(SectionEvents.updateSection, this.updateSection.bind(this));
+        eventBus.on(SectionEvents.deleteSectionSuccess, this.deleteSection.bind(this));
     }
 
     render () {
         this.root.innerHTML = renderRestaurantMenu({});
 
+        this.addAddSectionEventListeners();
         this.controller.getDishes();
+    }
+
+    addingSuccess (section) {
+        this.closeAddingSectionComponent();
+        this.appendSection(section);
+    }
+
+    closeAddingSectionComponent () {
+        console.log(this.addingSectionItem);
+        this.addingSectionItem.remove();
     }
 
     dishLoadingError (error) {
@@ -30,29 +47,57 @@ export class RestaurantMenuComponent {
 
     appendSections (sections) {
         sections.forEach(section => {
-            const sectionItem = new SectionComponent ({root: this.root, section: section, controller: this.controller});
-            sectionItem.render();
+            this.appendSection(section);
         });
     }
 
-    // addAddDishEventListeners () {
-    //     const addDish = this.root.querySelector('.card-add');
-    //     if (!addDish) {
-    //         return;
-    //     }
+    appendSection (section) {
+        const content = this.root.querySelector('.menu-container__content');
+        if (!content) {
+            return;
+        }
 
-    //     addDish.addEventListener('click', e => {
-    //         e.preventDefault();
+        const sectionItem = new SectionComponent ({root: content, section: section, controller: this.controller});
+        sectionItem.render();
+    }
 
-    //         this.addingDishItem = document.createElement('div');
-    //         this.root.append(this.addingDishItem);
+    addAddSectionEventListeners () {
+        const addSection = this.root.querySelector('.menu-container__btn');
+        if (!addSection) {
+            return;
+        }
 
-    //         const addingDish = new RestaurantAddingDish({
-    //             root: this.addingDishItem,
-    //             goTo: this.goTo,
-    //             controller: this.controller
-    //         });
-    //         addingDish.render();
-    //     });
-    // }
+        addSection.addEventListener('click', e => {
+            e.preventDefault();
+
+            this.addingSectionItem = document.createElement('div');
+            this.root.append(this.addingSectionItem);
+
+            const addingSection = new RestaurantAddingSection({
+                root: this.addingSectionItem,
+                controller: this.controller
+            });
+            addingSection.render();
+        });
+    }
+
+    updateSection (section) {
+        console.log(section);
+        this.addingSectionItem = document.createElement('div');
+        this.root.append(this.addingSectionItem);
+
+        const addingSection = new RestaurantAddingSection({
+            root: this.addingSectionItem,
+            controller: this.controller,
+            section: section
+        });
+        addingSection.render();
+    }
+
+    deleteSection ({id}) {
+        console.log('deleteSectionSuccess', id);
+        const deleteItem = this.root.querySelector(`[data-section-id="${id}"]`);
+        console.log('deleteItem', deleteItem);
+        deleteItem.remove();
+    }
 }

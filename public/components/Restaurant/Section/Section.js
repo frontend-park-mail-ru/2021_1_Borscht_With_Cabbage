@@ -5,6 +5,9 @@ import { RestaurantAddingDish } from '../RestaurantAddDish/RestaurantAddingDish.
 import { DishComponent } from '../Dish/Dish.js'
 import { renderDishAdding } from '../DishAdding/DishAdding.js'
 import { DishEvents } from '../../../events/DishEvents.js';
+import { SectionEvents } from '../../../events/SectionEvents.js';
+import { ConfirmationEvents } from '../../../events/ConfirmationEvents.js';
+import { ConfirmationComponent } from '../../Confirmation/Confirmation.js';
 
 export class SectionComponent {
     constructor ({
@@ -12,26 +15,34 @@ export class SectionComponent {
         section = null,
         controller = new RestaurantMainController()
     } = {}) {
-        console.log('section:', section);
         this.root = root;
         this.section = section;
         this.controller = controller;
-        eventBus.on(DishEvents.addingDishSuccess + section.sectionId, this.addingDishSuccess.bind(this));
-        eventBus.on(DishEvents.closeAddingDishComponent + section.sectionId, this.closeAddingDishComponent.bind(this));
-        eventBus.on(DishEvents.editDish + section.sectionId, this.editDish.bind(this));
-        eventBus.on(DishEvents.deleteDish + section.sectionId, this.deleteDish.bind(this));
-        eventBus.on(DishEvents.deleteDishSuccess + section.sectionId, this.deleteDishSuccess.bind(this));
-        eventBus.on(DishEvents.deleteDishFailed + section.sectionId, this.deleteDishFailed.bind(this));
+
+        if (!this.section.dishes) {
+            this.section.dishes = [];
+        }
+        eventBus.on(DishEvents.addingDishSuccess + section.id, this.addingDishSuccess.bind(this));
+        eventBus.on(DishEvents.closeAddingDishComponent + section.id, this.closeAddingDishComponent.bind(this));
+        eventBus.on(DishEvents.editDish + section.id, this.editDish.bind(this));
+        eventBus.on(DishEvents.deleteDishSuccess + section.id, this.deleteDishSuccess.bind(this));
+        eventBus.on(DishEvents.deleteDishFailed + section.id, this.deleteDishFailed.bind(this));
+        eventBus.on(SectionEvents.updateSectionSuccess + section.id, this.updateSectionSuccess.bind(this));
+        eventBus.on(ConfirmationEvents.confirmationSuccess + 's' + section.id, this.confirmationSuccess.bind(this));
+        eventBus.on(ConfirmationEvents.confirmationFailed + 's' + section.id, this.confirmationFailed.bind(this));
     }
 
     render () {
         if (this.section) {
-            const sectionItem = document.createElement('div');
-            sectionItem.innerHTML += renderSection({ section: this.section });
-            this.root.append(sectionItem);
+            this.sectionItem = document.createElement('li');
+            this.sectionItem.innerHTML += renderSection({ section: this.section });
+            this.root.append(this.sectionItem);
         }
 
-        this.container = this.root.querySelector(`[data-section-list-id="${this.section.sectionId}"]`);
+        this.container = this.root.querySelector(`[data-section-list-id="${this.section.id}"]`);
+        this.addUpdateSectionEventListener();
+        this.addDeleteSectionEventListener();
+
         this.appendDishes(this.section.dishes);
     }
 
@@ -98,7 +109,7 @@ export class SectionComponent {
                 root: this.addingDishItem,
                 goTo: this.goTo,
                 controller: this.controller,
-                section: this.section.sectionId
+                section: this.section.id
             });
             addingDish.render();
         });
@@ -128,25 +139,57 @@ export class SectionComponent {
         addingDish.render();
     }
 
-    deleteDish (dish) {
-        this.deleteDish = dish;
-        this.controller.deleteDish(dish.id, this.section.sectionId);
-    }
-
-    deleteDishSuccess () {
-        console.log('deleteDishSuccess', this.deleteDish);
-        if (!this.deleteDish) {
-            return;
-        }
-        const deleteItem = this.root.querySelector(`[data-dish-id="${this.deleteDish.id}"]`);
+    deleteDishSuccess ({id}) {
+        console.log('deleteDishSuccess', id);
+        const deleteItem = this.root.querySelector(`[data-dish-id="${id}"]`);
         console.log('deleteItem', deleteItem);
         deleteItem.remove();
-        this.deleteDish = null;
     }
 
     deleteDishFailed () {
         // TODO: показать ошибку сервера пользователю
-        // this.deleteDish = null;
         console.log('deleteDishFailed');
+    }
+
+    addUpdateSectionEventListener () {
+        const editDish = this.sectionItem.querySelector('.icon-edit');
+        if (!editDish) {
+            return;
+        }
+        
+        editDish.addEventListener('click', () => {
+            const section = {
+                id: this.section.id,
+                name: this.section.name
+            }
+            eventBus.emit(SectionEvents.updateSection, section);
+        });
+    }
+
+    addDeleteSectionEventListener () {
+        const deleteDish = this.sectionItem.querySelector('.icon-delete');
+        if (!deleteDish) {
+            return;
+        }
+        
+        deleteDish.addEventListener('click', () => {
+            const confirmation = new ConfirmationComponent({ root: this.root, id: 's' + this.section.id });
+            confirmation.render();
+        });
+    }
+
+    confirmationSuccess () {
+        this.controller.deleteSection(this.section.id);
+    }
+
+    confirmationFailed () {
+        console.log('confirmationFailed');
+    }
+
+    updateSectionSuccess (section) {
+        if (!section) {
+            return;
+        }
+        this.sectionItem.querySelector('.section-container__name').textContent = section.name;
     }
 }

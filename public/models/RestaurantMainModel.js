@@ -1,8 +1,9 @@
-import { restaurantAddDishPost, allDishesGet, restaurantUpdateDishImagePut, restaurantPut } from '../modules/api.js';
+import { restaurantAddDishPost, allDishesGet, restaurantUpdateDishImagePut, restaurantPut, sectionAddPost, sectionUpdatePut, sectionDelete } from '../modules/api.js';
 import { restaurantUpdateDishDataPut, restaurantDeleteDish } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import { DishEvents } from '../events/DishEvents.js';
 import { ProfileEvents } from '../events/ProfileEvents.js';
+import { SectionEvents } from '../events/SectionEvents.js';
 
 export class RestaurantMainModel {
     getDish () {
@@ -60,7 +61,7 @@ export class RestaurantMainModel {
             .then(res => {
                 if (res.status === 200) {
                     console.log('model success');
-                    eventBus.emit(DishEvents.deleteDishSuccess + sectionId);
+                    eventBus.emit(DishEvents.deleteDishSuccess + sectionId, res.parsedJSON);
                 } else {
                     console.log('model failed');
                     eventBus.emit(DishEvents.deleteDishFailed + sectionId, res.parsedJSON);
@@ -87,5 +88,47 @@ export class RestaurantMainModel {
                 }
             })
             .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON));
+    }
+
+    addSection ({ name }) {
+        sectionAddPost({ name })
+            .then(res => {
+                if (res.status === 200) {
+                    console.log('success');
+                    eventBus.emit(SectionEvents.addingSectionSuccess, res.parsedJSON);
+                } else {
+                    eventBus.emit(SectionEvents.addingSectionFailed, res.parsedJSON);
+                }
+            })
+            .catch(res => {});
+    }
+
+    updateSection ({ id, name }) {
+        sectionUpdatePut({ id, name })
+            .then(res => {
+                if (res.status === 200) {
+                    eventBus.emit(SectionEvents.updateSectionSuccess, res.parsedJSON);
+                    eventBus.emit(SectionEvents.updateSectionSuccess + id, res.parsedJSON);
+                } else {
+                    eventBus.emit(SectionEvents.updateSectionFailed, res.parsedJSON);
+                }
+            })
+            .catch(res => {});
+    }
+
+    deleteSection ({ id }) {
+        sectionDelete({ id })
+            .then(res => {
+                if (res.status === 200) {
+                    console.log('model success');
+                    eventBus.emit(SectionEvents.deleteSectionSuccess, res.parsedJSON);
+                } else {
+                    eventBus.emit(SectionEvents.deleteSectionFailed, res.parsedJSON);
+                }
+            })
+            .catch(res => {
+                console.log('model failed');
+                // TODO: понять почему здесь вызывается когда проходит по then
+            });
     }
 }

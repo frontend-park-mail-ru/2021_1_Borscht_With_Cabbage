@@ -16,10 +16,11 @@ export class RestaurantMainModel {
             .catch(res => eventBus.emit(DishEvents.getAllDishFailed, res.parsedJSON));
     }
 
-    addDish ({ name, description, price, weight }) {
-        restaurantAddDishPost({ name, description, price, weight})
+    addDish ({ name, description, price, weight, section }) {
+        restaurantAddDishPost({ name, description, price, weight, section })
             .then(res => {
                 if (res.status === 200) {
+                    eventBus.emit(DishEvents.addingDishSuccess + section, res.parsedJSON);
                     eventBus.emit(DishEvents.addingDishSuccess, res.parsedJSON);
                 } else {
                     eventBus.emit(DishEvents.addingDishFailed, res.parsedJSON);
@@ -54,15 +55,15 @@ export class RestaurantMainModel {
             .catch(res => eventBus.emit(DishEvents.updateDishImageFailed, res.parsedJSON));
     }
 
-    deleteDish ({ id }) {
+    deleteDish ({ id, sectionId }) {
         restaurantDeleteDish({ id: id })
             .then(res => {
                 if (res.status === 200) {
                     console.log('model success');
-                    eventBus.emit(DishEvents.deleteDishSuccess);
+                    eventBus.emit(DishEvents.deleteDishSuccess + sectionId);
                 } else {
                     console.log('model failed');
-                    eventBus.emit(DishEvents.deleteDishFailed, res.parsedJSON);
+                    eventBus.emit(DishEvents.deleteDishFailed + sectionId, res.parsedJSON);
                 }
             })
             .catch(res => {

@@ -5,8 +5,10 @@ import { ConfirmationEvents } from '../../events/ConfirmationEvents.js'
 export class ConfirmationComponent {
     constructor ({
         root = document.body,
+        id = 0
     } = {}) {
         this.root = root;
+        this.id = id;
     }
 
     render () {
@@ -17,13 +19,13 @@ export class ConfirmationComponent {
         confirmationItem.querySelector('.confirmation-success')
             .addEventListener('click', () => {
                 confirmationItem.remove();
-                eventBus.emit(ConfirmationEvents.confirmationSuccess);
+                eventBus.emit(ConfirmationEvents.confirmationSuccess + this.id);
             });
 
         confirmationItem.querySelector('.confirmation-failed')
             .addEventListener('click', () => {
                 confirmationItem.remove();
-                eventBus.emit(ConfirmationEvents.confirmationFailed);
+                eventBus.emit(ConfirmationEvents.confirmationFailed + this.id);
             });
 
         this.addCloseConfirmationEventListeners(confirmationItem);
@@ -38,7 +40,7 @@ export class ConfirmationComponent {
         close.addEventListener('click', e => {
             if (e.target === close) {
                 confirmationItem.remove();
-                eventBus.emit(ConfirmationEvents.confirmationFailed);
+                eventBus.emit(ConfirmationEvents.confirmationFailed + this.id);
             }
         })
     }

@@ -85,14 +85,15 @@ export function restaurantSignupPost ({ email, password, title, number }) {
  * @param {int} weight
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
- export function restaurantAddDishPost ({ name, description, price, weight }) {
+ export function restaurantAddDishPost ({ name, description, price, weight, section }) {
     return Http.ajaxPost({
         url: '/restaurant/dish',
         body: {
             name,
             description,
             price,
-            weight
+            weight,
+            section
         }
     });
 }

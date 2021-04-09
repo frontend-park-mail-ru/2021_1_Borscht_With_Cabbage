@@ -12,23 +12,28 @@ export class RestaurantAddingDish {
         root = document.body,
         goTo = noop,
         controller = new RestaurantMainController(),
-        dish
+        dish,
+        section
     } = {}) {
         this.root = root;
         this.goTo = goTo;
         this.controller = controller;
         this.dish = dish;
+        this.section = section;
         this.nameID = 'name';
         this.descriptionID = 'description';
         this.priceID = 'price';
         this.weightID = 'weight';
         eventBus.on(DishEvents.addingDishFailed, this.addingFailed.bind(this));
         eventBus.on(DishEvents.updateDishDataFailed, this.addingFailed.bind(this));
+        eventBus.on(DishEvents.updateDishDataSuccess, this.closeItem.bind(this));
+        eventBus.on(DishEvents.updateDishImageSuccess, this.closeItem.bind(this));
+        eventBus.on(DishEvents.updateDishImageFailed, this.addingFailed.bind(this));
     }
 
     render () {
         let buttonName = 'Добавить блюдо';
-        if (this.dish) {
+        if (this.dish && this.dish.id) {
             buttonName = 'Обновить блюдо';
         }
         this.root.innerHTML += renderRestaurantAddingDish({
@@ -58,9 +63,13 @@ export class RestaurantAddingDish {
 
         close.addEventListener('click', e => {
             if (e.target === close) {
-                eventBus.emit(DishEvents.closeAddingDishComponent, {});
+                this.closeItem();
             }
         })
+    }
+
+    closeItem () {
+        eventBus.emit(DishEvents.closeAddingDishComponent + this.section, {});
     }
 
     addAddingDishEventListeners () {
@@ -110,9 +119,11 @@ export class RestaurantAddingDish {
         this.dish.price = document.getElementById(this.priceID).value;
         this.dish.weight = document.getElementById(this.weightID).value;
         this.dish.image = this.preview.getFile();
+        this.dish.section = this.section;
 
         let errors;
         if (this.dish.id) {
+            console.log('update');
             errors = this.controller.updateDish(this.dish);
         } else {
             errors = this.controller.addDish(this.dish);

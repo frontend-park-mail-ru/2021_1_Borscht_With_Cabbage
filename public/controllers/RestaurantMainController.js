@@ -82,13 +82,13 @@ export class RestaurantMainController {
         this.imageDish = null;
     }
 
-    deleteDish (id) {
+    deleteDish (id, sectionId) {
         if (!id) {
             return {
                 error: true
             }
         }
-        return this.mainModel.deleteDish({ id: Number(id) });
+        return this.mainModel.deleteDish({ id: Number(id), sectionId: sectionId });
     }
 
     setRestaurantData ({

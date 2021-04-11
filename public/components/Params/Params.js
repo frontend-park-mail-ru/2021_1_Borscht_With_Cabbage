@@ -1,4 +1,4 @@
-import { renderParams } from './ParamsTmpl.js';
+import renderParams from './ParamsTmpl.hbs';
 import { params } from './Params.constants.js';
 import { noop } from '../../modules/utils.js';
 

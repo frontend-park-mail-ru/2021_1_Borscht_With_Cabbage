@@ -1,4 +1,4 @@
-import { renderSignUp } from './SignUpTmpl.js';
+import SignUpTemplate from './SignUpTmpl.hbs';
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import { maskPhone } from '../../modules/phoneMask.js';
@@ -26,7 +26,7 @@ export class SignUp {
     }
 
     render () {
-        this.root.innerHTML += renderSignUp({});
+        this.root.innerHTML += SignUpTemplate({});
 
         this.addSignUpEventListeners();
     }

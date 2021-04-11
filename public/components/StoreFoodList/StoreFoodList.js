@@ -1,4 +1,4 @@
-import { renderStoreFoodList } from './StoreFoodListTmpl.js';
+import renderStoreFoodList from './StoreFoodListTmpl.hbs';
 import { StoreFoodElement } from '../StoreFoodElement/StoreFoodElement.js';
 
 export class StoreFoodList {

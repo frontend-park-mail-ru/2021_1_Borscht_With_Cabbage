@@ -1,4 +1,4 @@
-import { renderProfileEdits } from './ProfileEditsTmpl.js';
+import renderProfileEdits from './ProfileEditsTmpl.hbs';
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import { maskPhone } from '../../modules/phoneMask.js';

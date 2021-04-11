@@ -1,4 +1,4 @@
-import { renderStoreTitle } from './StoreTitleTmpl.js';
+import renderStoreTitle from './StoreTitleTmpl.hbs';
 
 export class StoreTitle {
     constructor ({

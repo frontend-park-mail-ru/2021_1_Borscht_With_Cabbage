@@ -1,4 +1,4 @@
-import { renderStoreView } from '../components/RestaurantPage/StoreTemplate.js';
+import renderStoreView from '../components/RestaurantPage/StoreTmpl.hbs';
 import { StoreTitle } from '../components/StoreTitle/StoreTitle.js';
 import { StoreFoodList } from '../components/StoreFoodList/StoreFoodList.js';
 import { StoreBasket } from '../components/StoreBasket/StoreBasket.js';

@@ -30,7 +30,7 @@
 
 .navbar_right-items__address {
     float: right;
-    background-image: url('../../static/map.png');
+    background-image: url('../../static/img/map.png');
     background-position: left;
     background-repeat: no-repeat;
     background-color: var(--main-green_color_darker);

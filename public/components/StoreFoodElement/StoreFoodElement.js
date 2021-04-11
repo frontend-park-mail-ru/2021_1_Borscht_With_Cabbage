@@ -1,4 +1,4 @@
-import { renderFoodElement } from './StoreFoodElementTmpl.js';
+import renderFoodElement from './StoreFoodElementTmpl.hbs';
 import eventBus from '../../modules/eventBus.js';
 import { BasketEvents } from '../../events/BasketEvents.js';
 import { NumButtons } from '../NumButtons/NumButtons.js';

@@ -1,4 +1,4 @@
-import { renderStoreBasket } from './StoreBasketTmpl.js';
+import renderStoreBasket from './StoreBasketTmpl.hbs';
 import { StoreBasketFood } from './StoreBasketFood/StoreBasketFood.js';
 import eventBus from '../../modules/eventBus.js';
 import { BasketEvents } from '../../events/BasketEvents.js';

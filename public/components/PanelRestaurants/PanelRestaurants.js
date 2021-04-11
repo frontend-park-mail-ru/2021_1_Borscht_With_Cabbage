@@ -1,6 +1,6 @@
-import { renderPanelRestaurants } from './PanelRestaurantsTmpl.js';
+import renderPanelRestaurants from './PanelRestaurantsTmpl.hbs';
 import { noop } from '../../modules/utils.js';
-import { renderInfoRestaurant } from '../InfoRestaurant/InfoRestaurant.js';
+import renderInfoRestaurant from '../InfoRestaurant/InfoRestaurantTmpl.hbs';
 
 export class PanelRestaurantsComponent {
     constructor ({

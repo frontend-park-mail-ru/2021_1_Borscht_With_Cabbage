@@ -1,4 +1,4 @@
-import { renderPreview } from './PreviewTmpl.js';
+import renderPreview from './PreviewTmpl.hbs';
 import { bytesToSize } from '../../modules/utils.js';
 
 export class Preview {

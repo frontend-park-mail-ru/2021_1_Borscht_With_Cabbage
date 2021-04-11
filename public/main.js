@@ -9,6 +9,20 @@ import { Navbar } from './components/NavBar/Navbar.js';
 import { authGet } from './modules/api.js';
 import { InitViews } from './components/InitViews/InitViews.js';
 
+// import './static/css/colors.css';
+// import './components/basicStyles.css';
+// import './components/cards.css';
+// import './components/NavBar/Navbar.css';
+// import './components/SignIn/Authorization.css';
+// import './components/Profile/Profile.css';
+// import './components/RestaurantPage/Store.css';
+// import './components/InfoRestaurant/InfoRestaurant.css';
+// import './components/Category/Category.css';
+// import './components/Filter/Filter.css';
+// import './components/PanelRestaurants/PanelRestaurants.css';
+// import './components/Params/Params.css';
+import './static/css/main.css';
+
 const application = document.getElementById('app');
 
 const router = new Router(application);

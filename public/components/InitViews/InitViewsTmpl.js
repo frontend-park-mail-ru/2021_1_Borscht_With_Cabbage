@@ -1,4 +1,4 @@
-export const renderInitViews = Handlebars.compile(`
+export const renderInitViews = window.Handlebars.compile(`
     <div class="navbar" id="navbar">
     
     </div>

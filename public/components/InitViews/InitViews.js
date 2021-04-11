@@ -6,6 +6,7 @@ export class InitViews {
     } = {}) {
         this.root = root;
     }
+
     render () {
         this.root.innerHTML = renderInitViews({});
     }

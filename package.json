@@ -9,8 +9,13 @@
     "express": "^4.17.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix ."
   },
+  "pre-commit": [
+    "lint-fix"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/frontend-park-mail-ru/2021_1_Borscht_With_Cabbage.git"
@@ -28,6 +33,7 @@
     "esm": "^3.2.25",
     "handlebars": "^4.7.7",
     "jsdoc": "^3.6.6",
+    "pre-commit": "^1.2.2",
     "standard": "^16.0.3",
     "uuid": "^8.3.2"
   }

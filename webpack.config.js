@@ -5,11 +5,23 @@ const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const PATHS = {
+    src: path.join(__dirname, './public/'),
+    dist: path.join(__dirname, 'dist'),
+};
+
 module.exports = {
     entry: __dirname + '/public/main.js',
     output: {
         publicPath: '/',
         path: __dirname + '/dist/'
+    },
+    devServer: {
+        stats: {
+            children: false,
+            maxModules: 0
+        },
+        port: 3000 // Specify a port number to listen for requests
     },
     module: {
         rules: [

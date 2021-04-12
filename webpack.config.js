@@ -7,21 +7,25 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const PATHS = {
     src: path.join(__dirname, './public/'),
-    dist: path.join(__dirname, 'dist'),
+    dist: path.resolve(__dirname, 'dist'),
 };
 
 module.exports = {
-    entry: __dirname + '/public/main.js',
+    entry: path.join(PATHS.src, 'main.js'),
     output: {
         publicPath: '/',
-        path: __dirname + '/dist/'
+        path: __dirname + '/dist/',
+        filename: 'main.js'
     },
     devServer: {
         stats: {
             children: false,
             maxModules: 0
         },
-        port: 3000 // Specify a port number to listen for requests
+        port: 3000, // Specify a port number to listen for requests
+        contentBase: PATHS.dist,
+        historyApiFallback: true,
+        compress: false,
     },
     module: {
         rules: [
@@ -41,8 +45,8 @@ module.exports = {
                             plugins: [
                                 '@babel/plugin-transform-runtime',
                                 '@babel/plugin-transform-modules-commonjs',
-                                "@babel/plugin-proposal-class-properties",
-                                "@babel/plugin-proposal-private-methods"
+                                '@babel/plugin-proposal-class-properties',
+                                '@babel/plugin-proposal-private-methods'
                             ]
                         }
                     }

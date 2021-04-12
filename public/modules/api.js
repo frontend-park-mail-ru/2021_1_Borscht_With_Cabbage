@@ -85,14 +85,15 @@ export function restaurantSignupPost ({ email, password, title, number }) {
  * @param {int} weight
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function restaurantAddDishPost ({ name, description, price, weight }) {
+export function restaurantAddDishPost ({ name, description, price, weight, section }) {
     return Http.ajaxPost({
         url: '/restaurant/dish',
         body: {
             name,
             description,
             price,
-            weight
+            weight,
+            section
         }
     });
 }
@@ -134,6 +135,51 @@ export function restaurantUpdateDishDataPut ({ id, name, description, price, wei
 }
 
 /**
+ * Send server post-request to add section and get data about dish (id, name and avatar)
+ *
+ * @param {string} name
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+ export function sectionAddPost ({ name }) {
+    return Http.ajaxPost({
+        url: '/restaurant/section',
+        body: {
+            name
+        }
+    });
+}
+
+/**
+ * Send server delete-request to delete section
+ *
+ * @param {int} id
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+ export function sectionDelete ({ id }) {
+    return Http.ajaxDelete({
+        url: '/restaurant/section',
+        body: { id }
+    });
+}
+
+/**
+ * Send server post-request to update section and get data about dish (id, name and avatar)
+ *
+ * @param {int} id
+ * @param {string} name
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+ export function sectionUpdatePut ({ id, name }) {
+    return Http.ajaxPutJson({
+        url: '/restaurant/section',
+        body: {
+            id,
+            name
+        }
+    });
+}
+
+/**
  * Send server put-request with formData to put image dish
  *
  * @param {FormData} data with image id
@@ -163,8 +209,8 @@ export function allDishesGet () {
  * @returns {Promise<void>}
  */
 export function authGet () {
-    return Http.ajaxGet({ url: '/user/auth' })
-        .then(auth);
+    return Http.ajaxGet({ url: '/auth' }) // TODO: разобраться с /user/auth что из этого надо
+        .then(auth)
 }
 
 /**

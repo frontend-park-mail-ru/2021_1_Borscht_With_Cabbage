@@ -1,12 +1,68 @@
 import { Validator } from '../modules/validation.js';
 import { RestaurantMainModel } from '../models/RestaurantMainModel.js';
+import { DishEvents } from '../events/DishEvents.js';
+import eventBus from '../modules/eventBus.js';
 
 export class RestaurantMainController {
     constructor () {
         this.mainModel = new RestaurantMainModel();
+        eventBus.on(DishEvents.addingDishSuccess, this.addingDishDataSuccess.bind(this));
+        eventBus.on(DishEvents.addingDishFailed, this.addingDishDataFailed.bind(this));
     }
 
-    getDishes (dish) {
+    addSection (section) {
+        const nameError = Validator.validateName(section.name);
+        if (nameError.result) {
+            this.mainModel.addSection(section);
+            return {
+                error: false
+            }
+        } else {
+            return {
+                error: true,
+                nameError,
+                descriptionError,
+                priceError,
+                weightError
+            }
+        }
+    }
+
+    updateSection (section) {
+        if (!section.id) {
+            return {
+                error: true
+            }
+        }
+
+        section.id = Number(section.id);
+        const nameError = Validator.validateName(section.name);
+        if (nameError.result) {
+            this.mainModel.updateSection(section);
+            return {
+                error: false
+            }
+        } else {
+            return {
+                error: true,
+                nameError,
+                descriptionError,
+                priceError,
+                weightError
+            }
+        }
+    }
+
+    deleteSection (id) {
+        if (!id) {
+            return {
+                error: true
+            }
+        }
+        return this.mainModel.deleteSection({ id: Number(id) });
+    }
+
+    getDishes () {
         this.mainModel.getDish();
     }
 
@@ -59,16 +115,32 @@ export class RestaurantMainController {
     addDish (dish) {
         console.log(dish);
         const actonFunc = this.mainModel.addDish;
+        this.imageDish = dish.image;
         return this.correctAndSendDish(dish, actonFunc)
     }
 
-    deleteDish (id) {
+    addingDishDataSuccess ({ id }) {
+        if (this.imageDish) {
+            const formData = new FormData();
+            formData.append('image', this.imageDish);
+            formData.append('id', id);
+            this.mainModel.updateImageDish({id: id, data: formData});
+
+            this.imageDish = null;
+        }
+    }
+
+    addingDishDataFailed () {
+        this.imageDish = null;
+    }
+
+    deleteDish (id, sectionId) {
         if (!id) {
             return {
                 error: true
             }
         }
-        return this.mainModel.deleteDish({ id: Number(id) });
+        return this.mainModel.deleteDish({ id: Number(id), sectionId: sectionId });
     }
 
     setRestaurantData ({

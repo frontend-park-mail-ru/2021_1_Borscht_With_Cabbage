@@ -1,13 +1,11 @@
 import eventBus from '../../../modules/eventBus.js';
 import { noop } from '../../../modules/utils.js';
 import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
-import { RestaurantAddingDish } from '../RestaurantAddDish/RestaurantAddingDish.js';
 import renderRestaurantMenu from './RestaurantMenuTmpl.hbs';
-import { DishComponent } from '../Dish/Dish.js'
-import renderDishAdding from '../DishAdding/DishAddingTmpl.hbs'
 import { DishEvents } from '../../../events/DishEvents.js';
-import { ConfirmationComponent } from '../../Confirmation/Confirmation.js'
-import { ConfirmationEvents } from '../../../events/ConfirmationEvents.js'
+import { SectionEvents } from '../../../events/SectionEvents.js'
+import { SectionComponent } from '../Section/Section.js';
+import { RestaurantAddingSection } from '../RestaurantAddingSection/RestaurantAddingSection.js'
 
 export class RestaurantMenuComponent {
     constructor ({
@@ -18,156 +16,88 @@ export class RestaurantMenuComponent {
         this.root = root;
         this.goTo = goTo;
         this.controller = controller;
-        eventBus.on(DishEvents.addingDishSuccess, this.addingDishSuccess.bind(this));
-        eventBus.on(DishEvents.updateDishDataSuccess, this.updateDishSuccess.bind(this));
-        eventBus.on(DishEvents.updateDishImageSuccess, this.updateDishSuccess.bind(this));
-        eventBus.on(DishEvents.getAllDishSuccess, this.appendDishes.bind(this));
+        eventBus.on(DishEvents.getAllDishSuccess, this.appendSections.bind(this));
         eventBus.on(DishEvents.getAllDishFailed, this.dishLoadingError.bind(this));
-        eventBus.on(DishEvents.closeAddingDishComponent, this.closeAddingDishComponent.bind(this));
-        eventBus.on(DishEvents.editDish, this.editDish.bind(this));
-        eventBus.on(DishEvents.deleteDish, this.deleteDish.bind(this));
-        eventBus.on(ConfirmationEvents.confirmationSuccess, this.confirmationSuccess.bind(this));
-        eventBus.on(ConfirmationEvents.confirmationFailed, this.confirmationFailed.bind(this));
-        eventBus.on(DishEvents.deleteDishSuccess, this.deleteDishSuccess.bind(this));
-        eventBus.on(DishEvents.deleteDishFailed, this.deleteDishFailed.bind(this));
+        eventBus.on(SectionEvents.addingSectionSuccess, this.addingSuccess.bind(this));
+        eventBus.on(SectionEvents.closeAddingSectionComponent, this.closeAddingSectionComponent.bind(this));
+        eventBus.on(SectionEvents.updateSection, this.updateSection.bind(this));
+        eventBus.on(SectionEvents.deleteSectionSuccess, this.deleteSection.bind(this));
     }
 
     render () {
         this.root.innerHTML = renderRestaurantMenu({});
 
+        this.addAddSectionEventListeners();
         this.controller.getDishes();
     }
 
-    appendDish (content, dish) {
-        if(!content || !dish) {
-            return;
-        }
+    addingSuccess (section) {
+        this.closeAddingSectionComponent();
+        this.appendSection(section);
+    }
 
-        let dishAddingBtn = content.querySelector('.card-add');
-        if (dishAddingBtn) {
-            dishAddingBtn.remove();
-        }
-
-        const dishItem = document.createElement('li');
-        dishItem.classList.add('card');
-        dishItem.dataset.dishId = dish.id;
-        content.appendChild(dishItem);
-        const dishComponent = new DishComponent({ root: dishItem, dish: dish });
-        dishComponent.render();
-
-        dishAddingBtn = document.createElement('li');
-        dishAddingBtn.classList.add('card-add', 'card');
-        dishAddingBtn.innerHTML = renderDishAdding();
-        content.appendChild(dishAddingBtn);
-
-        this.addAddDishEventListeners();
+    closeAddingSectionComponent () {
+        console.log(this.addingSectionItem);
+        this.addingSectionItem.remove();
     }
 
     dishLoadingError (error) {
         // TODO: показать пользователю ошибку
     }
 
-    appendDishes (dishes) {
-        // TODO: в будущем, когда будут разделы в меню, надо будет поменять
+    appendSections (sections) {
+        sections.forEach(section => {
+            this.appendSection(section);
+        });
+    }
+
+    appendSection (section) {
         const content = this.root.querySelector('.menu-container__content');
         if (!content) {
             return;
         }
 
-        content.innerHTML = '';
-        const dishAddingBtn = document.createElement('li');
-        dishAddingBtn.classList.add('card-add', 'card');
-        dishAddingBtn.innerHTML = renderDishAdding({});
-        content.appendChild(dishAddingBtn);
-        this.addAddDishEventListeners();
-
-
-        dishes.forEach(dish => {
-            this.appendDish(content, dish);
-        });
+        const sectionItem = new SectionComponent ({root: content, section: section, controller: this.controller});
+        sectionItem.render();
     }
 
-    addAddDishEventListeners () {
-        const addDish = this.root.querySelector('.card-add');
-        if (!addDish) {
+    addAddSectionEventListeners () {
+        const addSection = this.root.querySelector('.menu-container__btn');
+        if (!addSection) {
             return;
         }
 
-        addDish.addEventListener('click', e => {
+        addSection.addEventListener('click', e => {
             e.preventDefault();
 
-            this.addingDishItem = document.createElement('div');
-            this.root.append(this.addingDishItem);
+            this.addingSectionItem = document.createElement('div');
+            this.root.append(this.addingSectionItem);
 
-            const addingDish = new RestaurantAddingDish({
-                root: this.addingDishItem,
-                goTo: this.goTo,
+            const addingSection = new RestaurantAddingSection({
+                root: this.addingSectionItem,
                 controller: this.controller
             });
-            addingDish.render();
+            addingSection.render();
         });
     }
 
-    closeAddingDishComponent () {
-        this.addingDishItem.innerHTML = '';
-    }
+    updateSection (section) {
+        console.log(section);
+        this.addingSectionItem = document.createElement('div');
+        this.root.append(this.addingSectionItem);
 
-    addingDishSuccess (dish) {
-        this.addingDishItem.innerHTML = '';
-        const content = this.root.querySelector('.menu-container__content');
-        this.appendDish(content, dish);
-    }
-
-    updateDishSuccess (dish) {
-        this.addingDishItem.innerHTML = '';
-    }
-
-    editDish (dish) {
-        this.addingDishItem = document.createElement('div');
-        this.root.append(this.addingDishItem);
-
-        const addingDish = new RestaurantAddingDish({
-            root: this.addingDishItem,
-            goTo: this.goTo,
+        const addingSection = new RestaurantAddingSection({
+            root: this.addingSectionItem,
             controller: this.controller,
-            dish: dish
+            section: section
         });
-        addingDish.render();
+        addingSection.render();
     }
 
-    deleteDish (dish) {
-        this.deleteDish = dish;
-        const confirmation = new ConfirmationComponent({ root: this.root });
-        confirmation.render();
-    }
-
-    confirmationSuccess () {
-        if(!this.deleteDish) {
-            return;
-        }
-
-        this.controller.deleteDish(this.deleteDish.id);
-    }
-
-    confirmationFailed () {
-        this.deleteDish = null;
-        console.log('confirmationFailed');
-    }
-
-    deleteDishSuccess () {
-        console.log('deleteDishSuccess', this.deleteDish);
-        if (!this.deleteDish) {
-            return;
-        }
-        const deleteItem = this.root.querySelector(`[data-dish-id="${this.deleteDish.id}"]`);
+    deleteSection ({id}) {
+        console.log('deleteSectionSuccess', id);
+        const deleteItem = this.root.querySelector(`[data-section-id="${id}"]`);
         console.log('deleteItem', deleteItem);
         deleteItem.remove();
-        this.deleteDish = null;
-    }
-
-    deleteDishFailed () {
-        // TODO: показать ошибку сервера пользователю
-        // this.deleteDish = null;
-        console.log('deleteDishFailed');
     }
 }

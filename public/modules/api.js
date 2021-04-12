@@ -83,6 +83,7 @@ export function restaurantSignupPost ({ email, password, title, number }) {
  * @param {string} description
  * @param {int} price
  * @param {int} weight
+ * @param {string} section
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function restaurantAddDishPost ({ name, description, price, weight, section }) {
@@ -258,9 +259,21 @@ export function userGet () {
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function userPut ({ data = null }) {
-    return Http.ajaxPutFormData({
+    return Http.ajaxPutJson({
         url: '/user',
         body: data
+    });
+}
+
+/**
+ *
+ * @param data
+ * @returns {Promise<{parsedJSON: *, status: *}>}
+ */
+export function userAvatarPut ({ avatar = null }) {
+    return Http.ajaxPutFormData({
+        url: '/user/avatar',
+        body: avatar
     });
 }
 

@@ -1,4 +1,4 @@
-import { userOrdersGet, userGet, userPut } from '../modules/api.js';
+import { userOrdersGet, userGet, userPut, userAvatarPut } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import { ProfileEvents } from '../events/ProfileEvents.js';
 
@@ -15,11 +15,15 @@ export class ProfileModel {
             .catch(res => eventBus.emit(ProfileEvents.profileGetUserDataFailed, res.parsedJSON));
     }
 
-    setUserData (data) {
-        userPut({
+    setUserData (data, avatar) {
+        const textData = userPut({
             data: data
-        })
+        });
+        const avatarData = userAvatarPut({ avatar });
+
+        Promise.all([textData, avatarData])
             .then(res => {
+                console.log(res)
                 if (res.status === 200) {
                     eventBus.emit(ProfileEvents.profileSetUserDataSuccess, {
                         info: res.parsedJSON,
@@ -33,14 +37,14 @@ export class ProfileModel {
     }
 
     getOrders () {
-        userOrdersGet ()
+        userOrdersGet()
             .then(res => {
-                    if (res.status === 200) {
-                        eventBus.emit(ProfileEvents.profileGetOrdersSuccess, res.parsedJSON)
-                    } else {
-                        eventBus.emit(ProfileEvents.profileGetOrdersFailed, res.parsedJSON)
-                    }
-                })
+                if (res.status === 200) {
+                    eventBus.emit(ProfileEvents.profileGetOrdersSuccess, res.parsedJSON)
+                } else {
+                    eventBus.emit(ProfileEvents.profileGetOrdersFailed, res.parsedJSON)
+                }
+            })
             .catch(res => eventBus.emit(ProfileEvents.profileGetOrdersFailed, res.parsedJSON));
-            }
+    }
 }

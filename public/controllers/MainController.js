@@ -32,18 +32,18 @@ export class MainController {
     clickCategory ({ name }) {
         eventBus.emit(MainEvents.mainClearContent);
 
-        this.#chengeCategory({ name: name });
+        this.#changeCategory({ name: name });
         this.getRestaurants();
     }
 
     clickParams (params) {
         eventBus.emit(MainEvents.mainClearContent);
 
-        this.#chengeParams(params);
+        this.#changeParams(params);
         this.getRestaurants();
     }
 
-    #chengeParams ({ name: name, value }) {
+    #changeParams ({ name: name, value }) {
         if (!name) {
             return;
         }
@@ -52,7 +52,7 @@ export class MainController {
         this.request.offset = 0;
     }
 
-    #chengeCategory ({ name }) {
+    #changeCategory ({ name }) {
         const index = this.request.category.indexOf(name);
 
         if (index === -1) {

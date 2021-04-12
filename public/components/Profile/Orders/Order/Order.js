@@ -1,6 +1,6 @@
 import renderOrder from "./OrderTmpl.hbs";
-import { renderDishesList } from "./OrderDish/DishList.js";
-import { renderDish } from "./OrderDish/DishTmpl.js";
+import renderDishesList from "./OrderDish/DishList.hbs";
+import renderDish from "./OrderDish/DishTmpl.hbs";
 
 export class OrderElement {
     constructor ({

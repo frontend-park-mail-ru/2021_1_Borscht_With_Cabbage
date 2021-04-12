@@ -38,8 +38,12 @@ module.exports = {
                         loader: 'babel-loader',
                         options: {
                             presets: ['@babel/preset-env'],
-                            plugins: ['@babel/plugin-transform-runtime',
-                                '@babel/plugin-transform-modules-commonjs']
+                            plugins: [
+                                '@babel/plugin-transform-runtime',
+                                '@babel/plugin-transform-modules-commonjs',
+                                "@babel/plugin-proposal-class-properties",
+                                "@babel/plugin-proposal-private-methods"
+                            ]
                         }
                     }
                 ]
@@ -69,7 +73,7 @@ module.exports = {
             ]
         }),
         new MiniCssExtractPlugin({
-            filename: 'main12.css'
+            filename: 'main.css'
         })
     ]
 }

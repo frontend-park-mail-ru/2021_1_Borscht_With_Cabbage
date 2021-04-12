@@ -9,6 +9,7 @@ import { Navbar } from './components/NavBar/Navbar.js';
 import { authGet } from './modules/api.js';
 import { InitViews } from './components/InitViews/InitViews.js';
 import registerSW from './registerSW.js';
+import { BasketView } from './views/BasketView.js';
 
 registerSW();
 
@@ -31,6 +32,7 @@ const signInView = new SignInView({ root: view, goTo: goTo });
 const mainView = new MainView(view, goTo);
 const storeView = new StoreView({ root: view, goTo: goTo });
 const profileView = new ProfileView(view, goTo);
+const basketView = new BasketView({ root: view, goTo: goTo })
 const logout = new Logout({ root: view, goTo: goTo });
 
 router.addRoute('login', signInView);
@@ -38,6 +40,7 @@ router.addRoute('signup', signUpView);
 router.addRoute('profile', profileView);
 router.addRoute('main', mainView);
 router.addRoute('store', storeView);
+router.addRoute('basket', basketView)
 router.addRoute('logout', logout);
 
 authGet()

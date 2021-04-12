@@ -296,15 +296,27 @@ export function userOrdersGet () {
 }
 
 /**
- * Send server put-request with formData to put info about restaurant
+ * Send server put-request with formData to put info about user
  *
- * @param {FormData} data with avatar title email phone deliveryCost
+ * @param {FormData} data with avatar name email phone
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function restaurantPut ({ data = null }) {
-    return Http.ajaxPutFormData({
+    return Http.ajaxPutJson({
         url: '/restaurant',
         body: data
+    });
+}
+
+/**
+ *
+ * @param data
+ * @returns {Promise<{parsedJSON: *, status: *}>}
+ */
+export function restaurantAvatarPut ({ avatar = null }) {
+    return Http.ajaxPutFormData({
+        url: '/restaurant/avatar',
+        body: avatar
     });
 }
 

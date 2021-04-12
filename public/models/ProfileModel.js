@@ -21,18 +21,16 @@ export class ProfileModel {
 
         Promise.all([textData, avatarData])
             .then(res => {
-                console.log(res)
-                const data = {};
-                data.status = Math.max(res[0].status, res[1].status);
-                data.parsedJSON = Object.assign(res[0].parsedJSON, res[1].parsedJSON);
-                console.log('data -> ', data);
-                if (res.status === 200) {
+                const data_ = {};
+                data_.status = Math.max(res[0].status, res[1].status);
+                data_.parsedJSON = Object.assign(res[0].parsedJSON, res[1].parsedJSON);
+                if (data_.status === 200) {
                     eventBus.emit(ProfileEvents.profileSetUserDataSuccess, {
-                        info: data.parsedJSON,
-                        status: data.status
+                        info: data_.parsedJSON,
+                        status: data_.status
                     });
                 } else {
-                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON);
+                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, data_.parsedJSON);
                 }
             })
             .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON));

@@ -26,12 +26,6 @@ export class ProfileController {
             currentPasswordError.result && newPasswordError.result && repeatPasswordError.result
         ) {
             const formData = new FormData();
-            // formData.append('email', email);
-            // formData.append('name', name);
-            // formData.append('number', phone);
-            // formData.append('password_current', currentPassword);
-            // formData.append('password', newPassword);
-            // formData.append('password_repeat', repeatPassword);
             if (avatar) {
                 formData.append('avatar', avatar);
             }

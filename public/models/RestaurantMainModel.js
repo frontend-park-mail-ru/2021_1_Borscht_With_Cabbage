@@ -1,4 +1,12 @@
-import { restaurantAddDishPost, allDishesGet, restaurantUpdateDishImagePut, restaurantPut, sectionAddPost, sectionUpdatePut, sectionDelete } from '../modules/api.js';
+import {
+    restaurantAddDishPost,
+    allDishesGet,
+    restaurantUpdateDishImagePut,
+    restaurantPut,
+    sectionAddPost,
+    sectionUpdatePut,
+    sectionDelete, restaurantAvatarPut
+} from '../modules/api.js';
 import { restaurantUpdateDishDataPut, restaurantDeleteDish } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import { DishEvents } from '../events/DishEvents.js';
@@ -8,12 +16,12 @@ import { SectionEvents } from '../events/SectionEvents.js';
 export class RestaurantMainModel {
     getDish () {
         allDishesGet().then(res => {
-                if (res.status === 200) {
-                    eventBus.emit(DishEvents.getAllDishSuccess, res.parsedJSON);
-                } else {
-                    eventBus.emit(DishEvents.getAllDishFailed, res.parsedJSON);
-                }
-            })
+            if (res.status === 200) {
+                eventBus.emit(DishEvents.getAllDishSuccess, res.parsedJSON);
+            } else {
+                eventBus.emit(DishEvents.getAllDishFailed, res.parsedJSON);
+            }
+        })
             .catch(res => eventBus.emit(DishEvents.getAllDishFailed, res.parsedJSON));
     }
 
@@ -31,7 +39,7 @@ export class RestaurantMainModel {
     }
 
     updateDataDish ({ id, name, description, price, weight }) {
-        restaurantUpdateDishDataPut({ id, name, description, price, weight})
+        restaurantUpdateDishDataPut({ id, name, description, price, weight })
             .then(res => {
                 if (res.status === 200) {
                     eventBus.emit(DishEvents.updateDishDataSuccess + id, res.parsedJSON);
@@ -73,18 +81,22 @@ export class RestaurantMainModel {
             });
     }
 
-    setRestaurantData (data) {
-        restaurantPut({
-            data: data
-        })
+    setRestaurantData (data, avatar) {
+        const textData = restaurantPut({ data });
+        const avatarData = restaurantAvatarPut({ avatar })
+
+        Promise.all([textData, avatarData])
             .then(res => {
-                if (res.status === 200) {
+                const data_ = {};
+                data_.status = Math.max(res[0].status, res[1].status);
+                data_.parsedJSON = Object.assign(res[0].parsedJSON, res[1].parsedJSON);
+                if (data_.status === 200) {
                     eventBus.emit(ProfileEvents.profileSetUserDataSuccess, {
-                        info: res.parsedJSON,
-                        status: res.status
+                        info: data_.parsedJSON,
+                        status: data_.status
                     });
                 } else {
-                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON);
+                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, data_.parsedJSON);
                 }
             })
             .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON));
@@ -100,7 +112,8 @@ export class RestaurantMainModel {
                     eventBus.emit(SectionEvents.addingSectionFailed, res.parsedJSON);
                 }
             })
-            .catch(res => {});
+            .catch(res => {
+            });
     }
 
     updateSection ({ id, name }) {
@@ -113,7 +126,8 @@ export class RestaurantMainModel {
                     eventBus.emit(SectionEvents.updateSectionFailed, res.parsedJSON);
                 }
             })
-            .catch(res => {});
+            .catch(res => {
+            });
     }
 
     deleteSection ({ id }) {

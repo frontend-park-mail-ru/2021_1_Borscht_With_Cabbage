@@ -165,18 +165,19 @@ export class RestaurantMainController {
             currentPasswordError.result && newPasswordError.result && repeatPasswordError.result
         ) {
             const formData = new FormData();
-            formData.append('email', email);
-            formData.append('title', title);
-            formData.append('number', phone);
-            formData.append('password_current', currentPassword);
-            formData.append('deliveryCost', deliveryCost);
-            formData.append('password', newPassword);
-            formData.append('password_repeat', repeatPassword); // TODO it is need?
             if (avatar) {
                 formData.append('avatar', avatar);
             }
 
-            this.mainModel.setRestaurantData(formData);
+            this.mainModel.setRestaurantData({
+                email,
+                title,
+                deliveryCost: Number.parseInt(deliveryCost),
+                number: phone,
+                password_current: currentPassword,
+                password: newPassword,
+                password_repeat: repeatPassword
+            }, formData);
             return {
                 error: false
             };

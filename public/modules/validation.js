@@ -40,6 +40,25 @@ export class Validator {
         return { result: true };
     }
 
+    static validateDescription (text) {
+        if (text === '') {
+            return blankResult;
+        }
+        return { result: true };
+    }
+
+    static validateNumber (number) {
+        // TODO: валидация целого числа 
+        number = Number(number);
+        if (!number) {
+            return {
+                result: false,
+                text: 'Введите число'
+            };
+        }
+        return { result: true };
+    }
+
     static validatePhone (number) {
         if (number === '') {
             return blankResult;
@@ -86,5 +105,18 @@ export class Validator {
             return { result: true };
         }
         return this.validateEqualPassword(newPassword, newPasswordRepeat);
+    }
+
+    static validateRealNumber (num) {
+        if (num === '') {
+            return blankResult;
+        }
+        if (isNaN(num)) {
+            return {
+                result: false,
+                text: 'Введите число'
+            };
+        }
+        return { result: true };
     }
 }

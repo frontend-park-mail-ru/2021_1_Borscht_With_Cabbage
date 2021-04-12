@@ -2,8 +2,8 @@ import { CategoryComponent } from '../components/Category/Category.js'
 import { ParamsComponent } from '../components/Params/Params.js'
 import { FilterComponent } from '../components/Filter/Filter.js'
 import { PanelRestaurantsComponent } from '../components/PanelRestaurants/PanelRestaurants.js'
-import { CreatorUrl } from '../controllers/MainController/MainUtils.js';
-import { MainController } from '../controllers/MainController/MainController.js';
+import { MainController } from '../controllers/MainController.js';
+import { MoreRestaurantsComponent } from '../components/MoreRestaurants/MoreRestaurants.js';
 import eventBus from '../modules/eventBus.js';
 import { MainEvents } from '../events/MainEvents.js';
 
@@ -14,68 +14,61 @@ export class MainView {
         this.mainController = new MainController()
         eventBus.on(MainEvents.mainGetRestaurantsSuccess, this.contentDraw.bind(this))
         eventBus.on(MainEvents.mainGetRestaurantsFailed, this.loadError.bind(this))
+        eventBus.on(MainEvents.mainClearContent, this.clearContent.bind(this))
     }
 
     render () {
-        this.mainPageDraw()
-    }
-
-    mainPageDraw () {
+        console.log('render MainView');
         this.headerDraw();
-        this.getContent();
+        this.mainController.init();
+        this.mainController.getRestaurants();
     }
 
     headerDraw () {
         this.root.innerHTML = '';
 
-        // TODO Переместить creatorUrl в controller (и все что не нужно для view тоже)
-        // TODO Заменить все callback`и на обращение к медиатору
-        this.creatorUrl = new CreatorUrl();
-
         const category = new CategoryComponent({
             root: this.root,
-            callback: (category) => {
-                // вызывается когда выбираем какуе-нибудь категорию
-                this.creatorUrl.clickCategory({ name: category })
-                this.getContent();
-            }
+            controller: this.mainController
         });
+        category.render();
 
         const params = new ParamsComponent({
             root: this.root,
-            callback: (params) => {
-                this.creatorUrl.clickParams(params)
-                this.getContent()
-            }
+            controller: this.mainController
         });
-
-        const filter = new FilterComponent({ root: this.root });
-
-        category.render();
         params.render();
-        filter.render();
+
+        // const filter = new FilterComponent({ root: this.root });
+        // filter.render();
 
         // поле для отображения рестаранов
         this.content = document.createElement('div');
         this.content.innerHTML = '';
         this.root.append(this.content);
+
+        const more = new MoreRestaurantsComponent({
+            root: this.root,
+            controller: this.mainController
+        });
+
+        more.render();
+
+        this.restaurants = new PanelRestaurantsComponent({
+            root: this.content,
+            controller: this.mainController,
+            goTo: this.goTo
+        });
+
+        this.restaurants.render();
     }
 
     contentDraw (info) {
-        this.content.innerHTML = '';
-        const restaurants = new PanelRestaurantsComponent({
-            root: this.content,
-            restaurants: info,
-            callback: (idRestaurant) => {
-                this.goTo('/restaurant/' + idRestaurant);
-            }
-        });
-        restaurants.render();
+        this.restaurants.add({ restaurants: info })
     }
 
-    getContent () {
-        const url = this.creatorUrl.get();
-        this.mainController.getRestaurants(url)
+    clearContent () {
+        this.content.innerHTML = '';
     }
 
     loadError (error) {

@@ -1,0 +1,32 @@
+.profile-left-block_order-dish-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    border-bottom: 2px solid var(--light-grey);
+    margin: 0 16px;
+}
+
+.profile-left-block-order-dishes__name {
+    text-align: left;
+    margin-left: 4em;
+}
+
+.profile-left-block-order-dishes__price {
+    text-align: left;
+    margin-left: 4em;
+}
+
+.profile-left-block_order-dish-list_right-block {
+    text-align: right;
+    margin-right: 2em;
+}
+
+.profile-left-block-order-dishes__num {
+
+}
+
+.profile-left-block_order-dish-list-photo {
+}
+
+.profile-left-block_order-dish-list-photo__image {
+}

@@ -10,33 +10,36 @@ class User {
 
     auth ({
         name = '',
+        title = '',
         avatar = '',
-        address = '',
-        uid = 0,
+        deliveryCost = '',
         email = '',
-        number = ''
+        number = '',
+        role = '',
+        address = '',
     } = {}) {
-        if (name && avatar) {
-            this.name = name;
+        if (name || title) {
+            this.name = name || title;
             this.avatar = avatar;
-            this.isAuth = true;
 
             this.address = address;
-            this.uid = uid;
+            this.deliveryCost = deliveryCost;
             this.email = email;
             this.number = number;
+            this.role = role;
+            this.isAuth = true;
         }
     }
 
     logout () {
         this.name = '';
         this.avatar = '';
-        this.isAuth = false;
-
         this.address = '';
-        this.uid = '';
+        this.deliveryCost = '';
         this.email = '';
         this.number = '';
+        this.role = '';
+        this.isAuth = false;
     }
 }
 

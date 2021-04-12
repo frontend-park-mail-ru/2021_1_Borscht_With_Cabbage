@@ -1,0 +1,10 @@
+.menu-container {
+
+}
+
+.menu-container__title {
+    padding-inline-start: 40px;
+    font-size: 32px;
+    margin-top: 0;
+    margin-bottom: 36px;
+}

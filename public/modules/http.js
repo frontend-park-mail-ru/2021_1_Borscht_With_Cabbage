@@ -7,12 +7,14 @@ window.serverAddress = 'http://127.0.0.1:5000'
 
 function getParams ({
     method = 'GET',
-    body = null
+    body = null,
+    type = 'application/json'
 }) {
     const headers = {
         'Access-Control-Allow-Origin': '*'
     };
-    if (method !== 'PUT') {
+    // TODO: надо разобраться с этими всеми запросами
+    if (type === 'application/json') {
         headers['Content-Type'] = 'application/json';
         body = JSON.stringify(body);
     }
@@ -31,9 +33,10 @@ function getParams ({
 async function makeFetch ({
     url = '/',
     body = null,
-    method = 'GET'
+    method = 'GET',
+    type
 } = {}) {
-    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body }));
+    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body, type: type }));
     const parsedJSON = await response.json();
     if (parsedJSON.code === 418) {
         eventBus.emit(AuthEvents.offline, { message: parsedJSON.message })
@@ -59,10 +62,24 @@ export class Http {
         return await makeFetch({ url: url, method: 'POST', body: body });
     }
 
-    static async ajaxPut ({
+    static async ajaxPutJson ({
         url = '/',
         body = null
     } = {}) {
         return await makeFetch({ url: url, method: 'PUT', body: body });
+    }
+
+    static async ajaxPutFormData ({
+        url = '/',
+        body = null
+    } = {}) {
+        return await makeFetch({ url: url, method: 'PUT', body: body, type: '' });
+    }
+
+    static async ajaxDelete ({
+        url = '/',
+        body = null
+    } = {}) {
+        return await makeFetch({ url: url, method: 'DELETE', body: body });
     }
 }

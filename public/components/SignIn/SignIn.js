@@ -47,14 +47,6 @@ export class SignIn {
         if (form) {
             form.addEventListener('submit', this.formSubmit.bind(this));
         }
-
-        const regID = 'js_toRegistration';
-        const reg = document.getElementById(regID);
-        if (reg) {
-            reg.onclick = () => {
-                this.goTo('signup')
-            }
-        }
     }
 
     formSubmit (event) {

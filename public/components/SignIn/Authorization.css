@@ -19,3 +19,7 @@
 .authorization-container__title {
     text-align: center
 }
+
+.authorization-container__anotherAuth {
+    margin-bottom: 2em;
+}

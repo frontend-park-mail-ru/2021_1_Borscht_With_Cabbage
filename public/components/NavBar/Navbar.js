@@ -1,4 +1,5 @@
-import renderTopNavView from './NavbarTmpl.hbs';
+import renderTopNavUserView from './NavbarUserTmpl.hbs';
+import renderTopNavRestaurantView from './NavbarRestaurantTmpl.hbs';
 import renderAuthBlock from './AuthBlockTmpl.hbs';
 import renderNotAuthBlock from './NotAuthBlockTmpl.hbs';
 import { noop } from '../../modules/utils.js';
@@ -14,31 +15,37 @@ export class Navbar {
     } = {}) {
         this.goTo = goTo;
         this.root = root;
+        eventBus.on(AuthEvents.userSignIn, this.renderUserAuth.bind(this));
+        eventBus.on(AuthEvents.userLogout, this.renderNotAuth.bind(this));
+        // eventBus.on(AuthEvents.restaurantSignIn, this.renderRestaurantAuth.bind(this));
+        // eventBus.on(AuthEvents.restaurantLogout, this.renderNotAuth.bind(this));
+        eventBus.on(AuthEvents.notAuth, this.renderNotAuth.bind(this));
         this.toast = new Toast({ root: this.root.querySelector('.navbar-title') })
-        eventBus.on(AuthEvents.userSignIn, this.renderAuth.bind(this))
-        eventBus.on(AuthEvents.userLogout, this.renderNotAuth.bind(this))
     }
 
     render () {
-        this.root.innerHTML = renderTopNavView({});
-        if (user.isAuth) {
-            this.renderAuth();
-        } else {
-            this.renderNotAuth();
-        }
     }
 
-    renderAuth () {
+    renderUserAuth (info) {
+        console.log('Navbar user');
+        if (info.role === 'user') {
+            this.root.innerHTML = renderTopNavUserView({});
+        } else {
+            info.name = info.title;
+            this.root.innerHTML = renderTopNavRestaurantView({});
+        }
         const authBlock = document.getElementById('auth_block');
         if (authBlock) {
             authBlock.innerHTML = renderAuthBlock({
-                user: user
+                user: info
             });
             this.goProfileListener();
         }
     }
 
     renderNotAuth () {
+        console.log('Navbar user');
+        this.root.innerHTML = renderTopNavUserView({});
         const authBlock = document.getElementById('auth_block');
         if (authBlock) {
             authBlock.innerHTML = renderNotAuthBlock({});

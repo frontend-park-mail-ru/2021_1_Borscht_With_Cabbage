@@ -56,4 +56,8 @@ export class ProfileController {
     getUserData () {
         this.profileModel.getUserData();
     }
+
+    getOrders() {
+        this.profileModel.getOrders()
+    }
 }

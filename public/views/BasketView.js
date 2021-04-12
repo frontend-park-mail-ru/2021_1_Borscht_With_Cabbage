@@ -2,7 +2,7 @@ import { noop } from '../modules/utils.js';
 import { BasketController } from '../controllers/BasketController.js';
 import eventBus from '../modules/eventBus.js';
 import { BasketEvents } from '../events/BasketEvents.js';
-import { renderBasketPage } from '../components/Basket/BasketTmpl.js';
+import renderBasketPage from '../components/Basket/BasketTmpl.hbs';
 import { DeliveryBasket } from '../components/DeliveryBasket/DeliveryBasket.js';
 import { DeliveryOptions } from '../components/DeliveryOptions/DeliveryOptions.js';
 import user from '../modules/user.js';
@@ -15,7 +15,7 @@ export class BasketView {
         this.root = root;
         this.goTo = goTo;
         this.basketController = new BasketController();
-        eventBus.on(BasketEvents.basketGetBasketSuccess, this.basketPageDraw(this));
+        eventBus.on(BasketEvents.basketGetBasketSuccess, this.basketPageDraw.bind(this));
         eventBus.on(BasketEvents.basketGetBasketFailed, this.loadError.bind(this));
     }
 

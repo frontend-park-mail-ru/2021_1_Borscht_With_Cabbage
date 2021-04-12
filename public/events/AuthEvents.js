@@ -1,6 +1,6 @@
 /**
  *  userSignIn
- *      data: { name, avatar }
+ *      data: { name, avatar, role }
  *
  *  userLogout
  *      data: {}
@@ -12,5 +12,8 @@
 export const AuthEvents = {
     userSignIn: 'userSignIn',
     userLogout: 'userLogout',
-    offline: 'offlineRequest'
+    offline: 'offlineRequest',
+    restaurantSignIn: 'restaurantSignIn',
+    restaurantLogout: 'restaurantLogout',
+    notAuth: 'notAuth'
 }

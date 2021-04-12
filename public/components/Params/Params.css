@@ -5,7 +5,7 @@
 .params-panel__slide {
     display: inline-block;
     overflow: hidden;
-    min-width: 176px;
+    min-width: 240px;
     text-align: center;
     padding-bottom: 8px;
 }

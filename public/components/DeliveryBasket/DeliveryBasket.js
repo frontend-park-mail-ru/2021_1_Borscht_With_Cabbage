@@ -1,10 +1,8 @@
 import { noop } from '../../modules/utils.js';
-import {
-    renderDeliveryBasketBody,
-    renderDeliveryBasketFooter,
-    renderDeliveryBasketHeader
-} from './DeliveryBasketTmpl.js';
-import { renderStoreBasketFood } from '../StoreBasket/StoreBasketFood/StoreBasketFoodTmpl.js';
+import renderDeliveryBasketHeader from './DeliveryBasketHeaderTmpl.hbs';
+import renderDeliveryBasketBody from './DeliveryBasketBodyTmpl.hbs';
+import renderDeliveryBasketFooter from './DeliveryBasketFooterTmpl.hbs';
+import renderStoreBasketFood from '../Store/StoreBasket/StoreBasketFood/StoreBasketFoodTmpl.hbs';
 
 export class DeliveryBasket {
     constructor ({

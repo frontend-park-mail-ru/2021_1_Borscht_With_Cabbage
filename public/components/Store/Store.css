@@ -1,0 +1,18 @@
+@import "StoreFoodElement/FoodElement.css";
+@import "StoreFoodList/FoodList.css";
+@import "StoreBasket/StoreBasketFood/StoreBasketFood.css";
+@import "../NumButtons/NumButtons.css";
+@import "StoreBasket/StoreBasket.css";
+@import "StoreTitle/StoreTitle.css";
+
+.store {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.store > div {
+    flex-grow: 1;
+    padding: 16px;
+    border-radius: 32px;
+}

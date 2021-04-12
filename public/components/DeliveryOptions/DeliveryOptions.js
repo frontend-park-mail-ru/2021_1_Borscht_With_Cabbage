@@ -1,6 +1,6 @@
 import { noop } from '../../modules/utils.js';
 import { BasketController } from '../../controllers/BasketController.js';
-import { renderDeliveryOptions } from './DeliveryOptionsTmpl.js';
+import renderDeliveryOptions from './DeliveryOptionsTmpl.hbs';
 
 export class DeliveryOptions {
     constructor ({

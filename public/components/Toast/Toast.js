@@ -1,6 +1,6 @@
 import eventBus from '../../modules/eventBus.js';
 import { AuthEvents } from '../../events/AuthEvents.js';
-import { renderToastMessage } from './ToastTmpl.js';
+import renderToastMessage from './ToastTmpl.hbs';
 
 export class Toast {
     constructor ({

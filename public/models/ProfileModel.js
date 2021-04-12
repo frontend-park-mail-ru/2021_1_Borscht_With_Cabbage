@@ -16,18 +16,20 @@ export class ProfileModel {
     }
 
     setUserData (data, avatar) {
-        const textData = userPut({
-            data: data
-        });
+        const textData = userPut({ data });
         const avatarData = userAvatarPut({ avatar });
 
         Promise.all([textData, avatarData])
             .then(res => {
                 console.log(res)
+                const data = {};
+                data.status = Math.max(res[0].status, res[1].status);
+                data.parsedJSON = Object.assign(res[0].parsedJSON, res[1].parsedJSON);
+                console.log('data -> ', data);
                 if (res.status === 200) {
                     eventBus.emit(ProfileEvents.profileSetUserDataSuccess, {
-                        info: res.parsedJSON,
-                        status: res.status
+                        info: data.parsedJSON,
+                        status: data.status
                     });
                 } else {
                     eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON);

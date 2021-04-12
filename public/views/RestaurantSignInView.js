@@ -16,6 +16,7 @@ export class RestaurantSignInView {
     render () {
         if (user.isAuth) {
             this.goTo('restaurantMain');
+            return;
         }
         this.root.innerHTML = '';
 

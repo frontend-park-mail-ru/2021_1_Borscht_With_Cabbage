@@ -15,7 +15,8 @@ export class SignInView {
 
     render () {
         if (user.isAuth) {
-            this.goTo('main')
+            this.goTo('main');
+            return;
         }
         this.root.innerHTML = '';
 

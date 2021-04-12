@@ -16,6 +16,7 @@ export class SignUpView {
     render () {
         if (user.isAuth) {
             this.goTo('main');
+            return;
         }
         this.root.innerHTML = '';
         const signup = new SignUp({

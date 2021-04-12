@@ -3,6 +3,7 @@ import { RestaurantMenuComponent } from '../components/Restaurant/RestaurantMenu
 import { RestaurantEdits } from '../components/Restaurant/RestaurantEdits/RestaurantEdits.js';
 import renderRestaurantView from '../components/Restaurant/RestaurantMainTmpl.hbs';
 import { RestaurantRightMenu } from '../components/Restaurant/RestaurantRightMenu/RightMenu.js';
+import user from '../modules/user.js';
 
 export class RestaurantMainView {
     constructor (root, goTo) {
@@ -14,6 +15,13 @@ export class RestaurantMainView {
     }
 
     render () {
+        if (user.role === 'user') {
+            this.goTo('profile');
+            return;
+        } else if (user.role === '') {
+            this.goTo('main');
+            return;
+        }
         this.root.innerHTML = renderRestaurantView({});
 
         const menu = new RestaurantMenuComponent({

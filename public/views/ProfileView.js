@@ -17,6 +17,13 @@ export class ProfileView {
     }
 
     render () {
+        if (user.role === 'admin') {
+            this.goTo('restaurantMain');
+            return;
+        } else if (user.role === '') {
+            this.goTo('main');
+            return;
+        }
         // TODO вынести эту лоику в компонент, который отвечает за это конкретно
         this.profileController.getUserData()
     }

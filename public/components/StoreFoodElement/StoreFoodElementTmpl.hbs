@@ -1,5 +1,4 @@
-export const renderFoodElement = window.Handlebars.compile(`
-        <li class="card" data-foodID="{{food.id}}">
+       <li class="card" data-foodID="{{food.id}}">
             <div class="card__header">
                 <span class="card__name">{{food.name}}</span>
                 <span class="card__sum">{{food.price}} рублей</span>
@@ -10,4 +9,3 @@ export const renderFoodElement = window.Handlebars.compile(`
                 {{food.description}}
             </span>
         </li>
-`)

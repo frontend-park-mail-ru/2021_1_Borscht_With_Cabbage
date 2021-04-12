@@ -1,4 +1,4 @@
-import { renderCategory } from './CategoryTmpl.js';
+import renderCategory from './CategoryTmpl.hbs';
 import { category } from './Category.constants.js'
 import { noop } from '../../modules/utils.js';
 

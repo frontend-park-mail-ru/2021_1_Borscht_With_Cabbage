@@ -1,4 +1,4 @@
-import { renderProfileView } from '../components/Profile/ProfileTmpl.js'
+import renderProfileView from '../components/Profile/ProfileTmpl.hbs'
 import { ProfileEdits } from '../components/ProfileEdits/ProfileEdits.js';
 import { ProfileController } from '../controllers/ProfileController.js';
 import eventBus from '../modules/eventBus.js';

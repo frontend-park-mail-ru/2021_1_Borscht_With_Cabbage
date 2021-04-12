@@ -1,4 +1,4 @@
-import { renderFilter } from './FilterTmpl.js';
+import renderFilter from './FilterTmpl.hbs';
 import { noop } from '../../modules/utils.js';
 
 export class FilterComponent {

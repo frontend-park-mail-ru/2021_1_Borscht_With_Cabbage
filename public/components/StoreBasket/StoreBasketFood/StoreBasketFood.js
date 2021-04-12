@@ -1,4 +1,4 @@
-import { renderStoreBasketFood } from './StoreBasketFoodTmpl.js';
+import renderStoreBasketFood from './StoreBasketFoodTmpl.hbs';
 
 export class StoreBasketFood {
     constructor ({

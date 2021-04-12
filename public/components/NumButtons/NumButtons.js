@@ -1,4 +1,4 @@
-import { renderNumButtons } from './NumButtonsTmpl.js';
+import renderNumButtons from './NumButtonsTmpl.hbs';
 import eventBus from '../../modules/eventBus.js';
 
 export class NumButtons {

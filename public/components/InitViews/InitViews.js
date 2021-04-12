@@ -1,4 +1,4 @@
-import { renderInitViews } from './InitViewsTmpl.js';
+import renderInitViews from './InitViewsTmpl.hbs';
 
 export class InitViews {
     constructor ({
@@ -6,6 +6,7 @@ export class InitViews {
     } = {}) {
         this.root = root;
     }
+
     render () {
         this.root.innerHTML = renderInitViews({});
     }

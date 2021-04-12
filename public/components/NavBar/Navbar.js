@@ -1,4 +1,6 @@
-import { renderAuthBlock, renderNotAuthBlock, renderTopNavView } from './NavbarTmpl.js';
+import renderTopNavView from './NavbarTmpl.hbs';
+import renderAuthBlock from './AuthBlockTmpl.hbs';
+import renderNotAuthBlock from './NotAuthBlockTmpl.hbs';
 import { noop } from '../../modules/utils.js';
 import user from '../../modules/user.js';
 import eventBus from '../../modules/eventBus.js';

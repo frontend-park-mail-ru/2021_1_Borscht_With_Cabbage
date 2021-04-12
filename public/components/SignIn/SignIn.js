@@ -1,6 +1,6 @@
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
-import { renderLogin } from './SignInTmpl.js';
+import renderLogin from './SignInTmpl.hbs';
 import eventBus from '../../modules/eventBus.js';
 import { noop } from '../../modules/utils.js';
 import { SignInController } from '../../controllers/SignInController.js';

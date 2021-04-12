@@ -9,6 +9,7 @@ export class StoreFoodList {
     }
 
     render (foods) {
+        console.log(this.root, foods)
         this.root.innerHTML = renderStoreFoodList({});
         const foodList = document.getElementById('food-list-ul');
         this.elements = [];

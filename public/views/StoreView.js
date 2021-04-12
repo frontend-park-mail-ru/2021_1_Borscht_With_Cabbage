@@ -31,19 +31,21 @@ export class StoreView {
         this.root.append(main)
 
         this.storeTitle = new StoreTitle({
-            root: document.getElementById('restaurant-info__title'),
+            root: document.getElementById('store-info__title'),
             store: info
         });
         this.storeTitle.render()
 
-        this.storeBasket = new StoreBasket({
-            root: document.getElementById('restaurant-basket'),
-            store: info
-        });
-        this.storeBasket.render(this.goTo)
 
+        this.storeBasket = new StoreBasket({
+            root: document.getElementById('store-basket'),
+            store: info,
+            goTo: this.goTo
+        });
+        this.storeBasket.render()
+        console.log('look at me', info);
         this.foodList = new StoreFoodList({
-            root: document.getElementById('restaurant-info__food')
+            root: document.getElementById('store-info__food')
         });
         this.foodList.render(info.foods)
     }

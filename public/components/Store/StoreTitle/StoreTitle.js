@@ -12,10 +12,10 @@ export class StoreTitle {
     render () {
         this.root.innerHTML = renderStoreTitle({
             name: this.store.title,
-            rating: this.store.rating,
-            deliveryCost: this.store.deliveryCost,
-            deliveryTime: this.store.time,
-            image: this.store.image
+            rating: this.store.rating.toString(),
+            deliveryCost: this.store.deliveryCost.toString(),
+            deliveryTime: '60', // TODO
+            image: this.store.avatar
         });
     }
 }

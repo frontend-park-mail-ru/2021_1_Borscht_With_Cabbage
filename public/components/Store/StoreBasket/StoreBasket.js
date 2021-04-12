@@ -2,11 +2,13 @@ import renderStoreBasket from './StoreBasketTmpl.hbs';
 import { StoreBasketFood } from './StoreBasketFood/StoreBasketFood.js';
 import eventBus from '../../../modules/eventBus.js';
 import { ChangeBasketEvents } from '../../../events/ChangeBasketEvents.js';
+import { noop } from '../../../modules/utils.js';
 
 export class StoreBasket {
     constructor ({
         root = document.body,
-        store = null
+        store = null,
+        goTo = noop
     } = {}) {
         this.root = root;
         this.store = store;
@@ -15,15 +17,19 @@ export class StoreBasket {
         this.totalSumSelector = '#store-basket__sum';
         this.itemsSelector = '#store-basket__items';
         this.deliverySelector = '#store__basket__delivery';
+        this.goTo = goTo;
         eventBus.on(ChangeBasketEvents.chooseFood, this.append.bind(this));
     }
 
-    render (goTo) {
+    render () {
+        console.log(this.root, this.store)
         this.root.insertAdjacentHTML('beforeend', renderStoreBasket({
-            deliveryCost: this.store.deliveryCost
+            deliveryCost: this.store.deliveryCost.toString()
         }));
+        console.log(1)
         this.root.querySelector(this.orderButtonSelector)
-            .addEventListener('click', () => goTo('basket'));
+            .addEventListener('click', () => this.goTo('basket'));
+        console.log(2)
     }
 
     append ({ food, isPlus }) {

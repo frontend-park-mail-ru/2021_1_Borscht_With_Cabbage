@@ -9,6 +9,8 @@
 
 .store-title__image {
     flex-grow: 2;
+    max-width: 48px;
+    margin-right: 20px;
 }
 
 .store-title__main {

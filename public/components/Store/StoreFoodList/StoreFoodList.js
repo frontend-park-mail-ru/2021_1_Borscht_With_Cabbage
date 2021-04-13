@@ -24,7 +24,9 @@ export class StoreFoodList {
                 element.render();
                 this.elements.push(element);
             }
+
             this.elements.forEach((element) => {
+                console.log('elem -> ',element)
                 element.addListener();
             });
         }

@@ -3,6 +3,7 @@ import { StoreBasketFood } from './StoreBasketFood/StoreBasketFood.js';
 import eventBus from '../../../modules/eventBus.js';
 import { ChangeBasketEvents } from '../../../events/ChangeBasketEvents.js';
 import { noop } from '../../../modules/utils.js';
+import basket from '../../../modules/basket.js';
 
 export class StoreBasket {
     constructor ({
@@ -23,17 +24,20 @@ export class StoreBasket {
     }
 
     render () {
+        console.log(this.root)
         this.root.insertAdjacentHTML('beforeend', renderStoreBasket({
             deliveryCost: this.store.deliveryCost.toString()
         }));
-
+        console.log(this.root.querySelector(this.orderButtonSelector))
         this.root.querySelector(this.orderButtonSelector)
             .addEventListener('click', () => this.goTo('basket'));
 
-        if (this.store.id === this.basket.restaurantID) {
-            for (const food of this.basket.foods) {
-                for (let i = 0; i < food.num; i++) {
-                    this.append({ food, isPlus: true });
+        if (basket.restaurantID && basket.foods) {
+            if (this.store.id === basket.restaurantID) {
+                for (const food of basket.foods) {
+                    for (let i = 0; i < food.num; i++) {
+                        this.append({ food, isPlus: true });
+                    }
                 }
             }
         }

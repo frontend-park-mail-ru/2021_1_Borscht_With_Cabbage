@@ -43,7 +43,9 @@ export class StoreFoodElement {
             this.numButtons = new NumButtons({
                 food: this.food,
                 root: this.root.querySelector(this.numButtonsSelector).querySelector('.card__header'),
-                event: ChangeBasketEvents.chooseFood
+                event: ChangeBasketEvents.chooseFood,
+                restaurantID: this.info.id,
+                controller: this.controller
             });
             this.numButtons.render();
         }
@@ -89,12 +91,12 @@ export class StoreFoodElement {
                 isNewBasket,
                 isPlus: true,
                 restaurantID: this.info.id
-            })
+            });
         };
 
         this.root.querySelector(this.buttonID)
             .addEventListener('click', this.addButtonListener);
 
-        this.numButtons.addEventListeners(this.controller.addDish.bind(this), this.info.id, isNewBasket);
+        this.numButtons.addEventListeners();
     }
 }

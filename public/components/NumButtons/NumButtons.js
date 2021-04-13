@@ -1,15 +1,20 @@
 import renderNumButtons from './NumButtonsTmpl.hbs';
 import eventBus from '../../modules/eventBus.js';
 import basket from '../../modules/basket.js';
+import { StoreController } from '../../controllers/StoreController.js';
 
 export class NumButtons {
     constructor ({
         food = null,
         root = document.body,
         event = '',
-        num = 0
+        num = 0,
+        restaurantID = null,
+        controller = new StoreController()
     } = {}) {
         this.food = food;
+        this.restaurantID = restaurantID;
+        this.controller = controller;
         this.plusButtonID = `[data-foodPlusButtonID="${this.food.id}"]`;
         this.minusButtonID = `[data-foodMinusButtonID="${this.food.id}"]`;
         this.numButtonID = `[data-foodNumButtonID="${this.food.id}"]`;
@@ -45,9 +50,10 @@ export class NumButtons {
         }
     }
 
-    addEventListeners (action, restaurantID) {
+    addEventListeners () {
         let isNewBasket = true;
-        if (restaurantID === basket.restaurantID) {
+        console.log('->', this.restaurantID, basket.restaurantID, this)
+        if (this.restaurantID === basket.restaurantID) {
             isNewBasket = false;
         }
 
@@ -57,11 +63,11 @@ export class NumButtons {
                 isPlus: true
             });
 
-            action({
+            this.controller.addDish({
                 dishID: this.food.id,
-                isNewBasket,
+                isNewBasket: isNewBasket,
                 isPlus: true,
-                restaurantID
+                restaurantID: this.restaurantID
             });
         };
         document.querySelector(this.plusButtonID)
@@ -73,11 +79,11 @@ export class NumButtons {
                 isPlus: false
             });
 
-            action({
+            this.controller.addDish({
                 dishID: this.food.id,
-                isNewBasket,
+                isNewBasket: isNewBasket,
                 isPlus: false,
-                restaurantID
+                restaurantID: this.restaurantID
             });
         };
         document.querySelector(this.minusButtonID)

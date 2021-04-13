@@ -22,6 +22,8 @@ export class StoreModel {
                     data_.parsedJSON = Object.assign(
                         res[0].parsedJSON, { basket: res[1].parsedJSON });
                 }
+                // const data_ = res[0]
+                console.log('data_ -> ', data_)
                 if (data_.status === 200) {
                     eventBus.emit(StoreEvents.storeGetDishesSuccess, data_.parsedJSON);
                 } else {

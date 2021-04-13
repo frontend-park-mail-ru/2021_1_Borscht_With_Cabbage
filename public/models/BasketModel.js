@@ -1,11 +1,11 @@
 import eventBus from '../modules/eventBus.js';
-import { basketGet, orderPost } from '../modules/api.js';
+import { getBasket, orderPost } from '../modules/api.js';
 import { BasketEvents } from '../events/BasketEvents.js';
 
 
 export class BasketModel {
     getBasket () {
-        basketGet()
+        getBasket()
             .then(res => {
                 if (res.status === 200) {
                     eventBus.emit(BasketEvents.basketGetBasketSuccess, res.parsedJSON);

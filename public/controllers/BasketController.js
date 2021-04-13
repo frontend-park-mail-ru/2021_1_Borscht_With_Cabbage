@@ -1,4 +1,5 @@
 import { BasketModel } from '../models/BasketModel.js';
+import { Validator } from '../modules/validation.js';
 
 export class BasketController {
     constructor () {
@@ -14,8 +15,20 @@ export class BasketController {
         number = '',
         comments = ''
     } = {}) {
-        if (address) {
+        const addressError = Validator.validateDescription(address);
+        const numberError = Validator.validateNumber(number);
+
+        if (addressError && numberError) {
             this.basketModel.order( { address, number, comments });
+            return {
+                error: false
+            };
+        } else {
+            return {
+                error: true,
+                addressError,
+                numberError
+            };
         }
     }
 }

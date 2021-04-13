@@ -17,6 +17,8 @@ export class BasketView {
         this.basketController = new BasketController();
         eventBus.on(BasketEvents.basketGetBasketSuccess, this.basketPageDraw.bind(this));
         eventBus.on(BasketEvents.basketGetBasketFailed, this.loadError.bind(this));
+        eventBus.on(BasketEvents.basketOrderSuccess, this.orderSuccess.bind(this));
+        eventBus.on(BasketEvents.basketOrderFailed, this.loadError.bind(this));
     }
 
     render () {
@@ -28,11 +30,11 @@ export class BasketView {
         const container = this.root.querySelector('.basket-container');
         if (container) {
             this.deliveryBasket = new DeliveryBasket({
-                root: container,
+                root: container.querySelector('#basket-delivery'),
                 goTo: this.goTo
             });
             this.deliveryOptions = new DeliveryOptions({
-                root: container,
+                root: container.querySelector('#basket-options'),
                 goTo: this.goTo,
                 controller: this.basketController
             });
@@ -43,5 +45,9 @@ export class BasketView {
 
     loadError (error) {
         console.log('BasketView -> ', error);
+    }
+
+    orderSuccess () {
+        this.goTo('profile')
     }
 }

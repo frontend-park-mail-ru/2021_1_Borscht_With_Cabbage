@@ -14,6 +14,7 @@ export class DeliveryBasket {
     }
 
     render (info) {
+        console.log(info)
         this.root.insertAdjacentHTML('beforeend', renderDeliveryBasketHeader({
             store: info
         }));

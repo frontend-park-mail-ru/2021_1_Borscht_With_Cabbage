@@ -321,15 +321,6 @@ export function restaurantAvatarPut ({ avatar = null }) {
 }
 
 /**
- * Send server get basket request
- *
- * @returns {Promise<{parsedJSON: any, status: number}>}
- */
-export function basketGet () {
-    return Http.ajaxGet({ url: '/basket' });
-}
-
-/**
  * Send server post to order food
  *
  * @returns {Promise<{parsedJSON: any, status: number}>}

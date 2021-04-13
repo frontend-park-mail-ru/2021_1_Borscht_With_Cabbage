@@ -1,8 +1,6 @@
-<div className="delivery-basket__footer">
-    <div className="delivery-basket__footer__delivery">
-        <span className="left-side">Доставка</span><span className="right-side">{{ store.deliveryCost }}Р</span>
-    </div>
-    <div className="delivery-basket__footer__total">
-        <span className="left-side">Итого</span><span className="right-side">{{ store.totalSum }}Р</span>
-    </div>
+<div class="delivery-basket__footer">
+    <h3 class="store-basket__info" id="store__basket__delivery">Доставка <span
+            class="store-basket__total">{{ store.deliveryPrice }} рублей</span></h3>
+    <h2 class="store-basket__info">Итого <span class="store-basket__total"><span
+            id="store-basket__sum">{{ store.totalPrice }}</span> рублей</span></h2>
 </div>

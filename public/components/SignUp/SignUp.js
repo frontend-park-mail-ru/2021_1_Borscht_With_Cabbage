@@ -51,8 +51,8 @@ export class SignUp {
             number.addEventListener('focusout',
                 () => renderInput(this.phoneID, Validator.validatePhone(number.value))
             );
+            maskPhone(number);
         }
-        maskPhone(number);
 
         const password = document.getElementById(this.passwordID);
         if (password) {

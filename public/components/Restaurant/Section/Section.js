@@ -8,16 +8,19 @@ import { DishEvents } from '../../../events/DishEvents.js';
 import { SectionEvents } from '../../../events/SectionEvents.js';
 import { ConfirmationEvents } from '../../../events/ConfirmationEvents.js';
 import { ConfirmationComponent } from '../../Confirmation/Confirmation.js';
+import { noop } from '../../../modules/utils.js';
 
 export class SectionComponent {
     constructor ({
         root = document.body,
         section = null,
-        controller = new RestaurantMainController()
+        controller = new RestaurantMainController(),
+        goTo = noop
     } = {}) {
         this.root = root;
         this.section = section;
         this.controller = controller;
+        this.goTo = goTo;
 
         if (!this.section.dishes) {
             this.section.dishes = [];

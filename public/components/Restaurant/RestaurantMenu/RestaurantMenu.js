@@ -84,7 +84,8 @@ export class RestaurantMenuComponent {
     updateSection (section) {
         console.log(section);
         this.addingSectionItem = document.createElement('div');
-        this.root.append(this.addingSectionItem);
+        this.root.querySelector(`[data-section-id="${section.id}"]`)
+            .insertAdjacentElement('afterbegin', this.addingSectionItem);
 
         const addingSection = new RestaurantAddingSection({
             root: this.addingSectionItem,

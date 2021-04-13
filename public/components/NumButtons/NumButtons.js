@@ -1,5 +1,6 @@
 import renderNumButtons from './NumButtonsTmpl.hbs';
 import eventBus from '../../modules/eventBus.js';
+import basket from '../../modules/basket.js';
 
 export class NumButtons {
     constructor ({
@@ -44,11 +45,23 @@ export class NumButtons {
         }
     }
 
-    addEventListeners () {
+    addEventListeners (action, restaurantID) {
+        let isNewBasket = true;
+        if (restaurantID === basket.restaurantID) {
+            isNewBasket = false;
+        }
+
         this.plusListener = () => {
             eventBus.emit(this.event, {
                 food: this.food,
                 isPlus: true
+            });
+
+            action({
+                dishID: this.food.id,
+                isNewBasket,
+                isPlus: true,
+                restaurantID
             });
         };
         document.querySelector(this.plusButtonID)
@@ -58,6 +71,13 @@ export class NumButtons {
             eventBus.emit(this.event, {
                 food: this.food,
                 isPlus: false
+            });
+
+            action({
+                dishID: this.food.id,
+                isNewBasket,
+                isPlus: false,
+                restaurantID
             });
         };
         document.querySelector(this.minusButtonID)

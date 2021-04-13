@@ -141,7 +141,7 @@ export function restaurantUpdateDishDataPut ({ id, name, description, price, wei
  * @param {string} name
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
- export function sectionAddPost ({ name }) {
+export function sectionAddPost ({ name }) {
     return Http.ajaxPost({
         url: '/restaurant/section',
         body: {
@@ -156,7 +156,7 @@ export function restaurantUpdateDishDataPut ({ id, name, description, price, wei
  * @param {int} id
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
- export function sectionDelete ({ id }) {
+export function sectionDelete ({ id }) {
     return Http.ajaxDelete({
         url: '/restaurant/section',
         body: { id }
@@ -170,7 +170,7 @@ export function restaurantUpdateDishDataPut ({ id, name, description, price, wei
  * @param {string} name
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
- export function sectionUpdatePut ({ id, name }) {
+export function sectionUpdatePut ({ id, name }) {
     return Http.ajaxPutJson({
         url: '/restaurant/section',
         body: {
@@ -347,5 +347,26 @@ export function orderPost ({
         address: address,
         number: number,
         comments: comments
+    });
+}
+
+export function addDishInBasket ({
+    dishID = '',
+    restaurantID = '',
+    isNewBasket = true,
+    isPlus = true
+} = {}) {
+    return Http.ajaxPutJson({
+        url: '/user/basket',
+        dishID,
+        restaurantID,
+        same: !isNewBasket,
+        isPlus
+    });
+}
+
+export function getBasket () {
+    return Http.ajaxGet({
+        url: '/basket'
     });
 }

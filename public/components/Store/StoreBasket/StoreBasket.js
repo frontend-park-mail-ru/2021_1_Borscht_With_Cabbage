@@ -12,6 +12,7 @@ export class StoreBasket {
     } = {}) {
         this.root = root;
         this.store = store;
+        this.basket = store.basket;
         this.elements = [];
         this.orderButtonSelector = '#store-basket__order';
         this.totalSumSelector = '#store-basket__sum';
@@ -22,14 +23,20 @@ export class StoreBasket {
     }
 
     render () {
-        console.log(this.root, this.store)
         this.root.insertAdjacentHTML('beforeend', renderStoreBasket({
             deliveryCost: this.store.deliveryCost.toString()
         }));
-        console.log(1)
+
         this.root.querySelector(this.orderButtonSelector)
             .addEventListener('click', () => this.goTo('basket'));
-        console.log(2)
+
+        if (this.store.id === this.basket.restaurantID) {
+            for (const food of this.basket.foods) {
+                for (let i = 0; i < food.num; i++) {
+                    this.append({ food, isPlus: true });
+                }
+            }
+        }
     }
 
     append ({ food, isPlus }) {

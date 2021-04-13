@@ -1,11 +1,19 @@
+import eventBus from './eventBus.js';
+import { ChangeBasketEvents } from '../events/ChangeBasketEvents.js';
+
 class Basket {
-    constructor () {}
+    constructor () {
+        eventBus.on(ChangeBasketEvents.chooseFoodSuccess, this.makeNew.bind(this))
+    }
 
-    clear () {}
-
-    makeNew(store) {}
-
-    addFood(food, isPlus) {}
+    makeNew(basket) {
+        this.id = basket.id;
+        this.restaurantName = basket.restaurantName;
+        this.restaurantID = basket.restaurantID;
+        this.foods = basket.foods;
+        this.deliveryPrice = basket.deliveryPrice;
+        this.totalPrice = basket.totalPrice;
+    }
 }
 
 export default new Basket();

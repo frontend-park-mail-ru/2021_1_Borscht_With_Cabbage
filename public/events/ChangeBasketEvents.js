@@ -4,5 +4,7 @@
  */
 
 export const ChangeBasketEvents = {
-    chooseFood: 'chooseFood'
+    chooseFood: 'chooseFood',
+    chooseFoodSuccess: 'chooseFoodSuccess',
+    chooseFoodFailed: 'chooseFoodFailed',
 }

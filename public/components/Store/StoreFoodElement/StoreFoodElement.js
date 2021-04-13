@@ -2,11 +2,15 @@ import renderFoodElement from './StoreFoodElementTmpl.hbs';
 import eventBus from '../../../modules/eventBus.js';
 import { ChangeBasketEvents } from '../../../events/ChangeBasketEvents.js';
 import { NumButtons } from '../../NumButtons/NumButtons.js';
+import { StoreController } from '../../../controllers/StoreController.js';
+import basket from '../../../modules/basket.js';
 
 export class StoreFoodElement {
     constructor ({
         root = document.body,
-        food = null
+        food = null,
+        controller = new StoreController(),
+        info = {}
     } = {}) {
         this.root = root;
         this.food = food;
@@ -27,7 +31,9 @@ export class StoreFoodElement {
                     }
                 }
             }
-        })
+        });
+        this.controller = controller;
+        this.info = info;
     }
 
     render () {
@@ -62,6 +68,13 @@ export class StoreFoodElement {
     }
 
     addListener () {
+        let isNewBasket = true;
+        if (basket.restaurantID) {
+            if (this.info.restaurantID === basket.restaurantID) {
+                isNewBasket = false;
+            }
+        }
+
         this.addButtonListener = () => {
             eventBus.emit(ChangeBasketEvents.chooseFood, {
                 food: this.food,
@@ -70,11 +83,18 @@ export class StoreFoodElement {
 
             this.num = 1;
             this.clickElement(this.num);
+
+            this.controller.addDish({
+                dishID: this.food.id,
+                isNewBasket,
+                isPlus: true,
+                restaurantID: this.info.id
+            })
         };
 
         this.root.querySelector(this.buttonID)
             .addEventListener('click', this.addButtonListener);
 
-        this.numButtons.addEventListeners();
+        this.numButtons.addEventListeners(this.controller.addDish.bind(this), this.info.id, isNewBasket);
     }
 }

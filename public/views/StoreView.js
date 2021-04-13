@@ -36,16 +36,16 @@ export class StoreView {
         });
         this.storeTitle.render()
 
-
         this.storeBasket = new StoreBasket({
             root: document.getElementById('store-basket'),
             store: info,
             goTo: this.goTo
         });
         this.storeBasket.render()
-        console.log('look at me', info);
+
         this.foodList = new StoreFoodList({
-            root: document.getElementById('store-info__food')
+            root: document.getElementById('store-info__food'),
+            info
         });
         this.foodList.render(info.foods)
     }

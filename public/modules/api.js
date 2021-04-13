@@ -332,36 +332,20 @@ export function basketGet () {
 /**
  * Send server post to order food
  *
- * @param address
- * @param number
- * @param comments
  * @returns {Promise<{parsedJSON: any, status: number}>}
+ * @param data
  */
-export function orderPost ({
-    address = '',
-    number = '',
-    comments = ''
-} = {}) {
+export function orderPost (data = {}) {
     return Http.ajaxPost({
         url: '/user/order',
-        address: address,
-        number: number,
-        comments: comments
+        body: data
     });
 }
 
-export function addDishInBasket ({
-    dishID = '',
-    restaurantID = '',
-    isNewBasket = true,
-    isPlus = true
-} = {}) {
+export function addDishInBasket ( data = {}) {
     return Http.ajaxPutJson({
         url: '/user/basket',
-        dishID,
-        restaurantID,
-        same: !isNewBasket,
-        isPlus
+        body: data
     });
 }
 

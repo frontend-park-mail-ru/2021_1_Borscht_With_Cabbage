@@ -70,10 +70,10 @@ export class StoreFoodElement {
     }
 
     addListener () {
-        let isNewBasket = true;
+        let isNewBasket = false;
         if (basket.restaurantID) {
-            if (this.info.restaurantID === basket.restaurantID) {
-                isNewBasket = false;
+            if (this.info.restaurantID !== basket.restaurantID) {
+                isNewBasket = true;
             }
         }
 

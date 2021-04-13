@@ -51,10 +51,11 @@ export class NumButtons {
     }
 
     addEventListeners () {
-        let isNewBasket = true;
-        console.log('->', this.restaurantID, basket.restaurantID, this)
-        if (this.restaurantID === basket.restaurantID) {
-            isNewBasket = false;
+        let isNewBasket = false;
+        if (basket.restaurantID) {
+            if (this.restaurantID !== basket.restaurantID) {
+                isNewBasket = true;
+            }
         }
 
         this.plusListener = () => {

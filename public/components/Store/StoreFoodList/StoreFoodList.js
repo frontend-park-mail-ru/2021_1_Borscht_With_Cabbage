@@ -10,12 +10,12 @@ export class StoreFoodList {
         this.info = info;
     }
 
-    render (foods) {
+    render () {
         this.root.innerHTML = renderStoreFoodList({});
         const foodList = document.getElementById('food-list-ul');
         this.elements = [];
-        if (foods) {
-            for (const food of foods) {
+        if (this.info.foods) {
+            for (const food of this.info.foods) {
                 const element = new StoreFoodElement({
                     root: foodList,
                     food: food,
@@ -26,7 +26,6 @@ export class StoreFoodList {
             }
 
             this.elements.forEach((element) => {
-                console.log('elem -> ',element)
                 element.addListener();
             });
         }

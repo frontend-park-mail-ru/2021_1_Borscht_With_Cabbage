@@ -24,23 +24,30 @@ export class StoreBasket {
     }
 
     render () {
-        console.log(this.root)
         this.root.insertAdjacentHTML('beforeend', renderStoreBasket({
             deliveryCost: this.store.deliveryCost.toString()
         }));
-        console.log(this.root.querySelector(this.orderButtonSelector))
         this.root.querySelector(this.orderButtonSelector)
             .addEventListener('click', () => this.goTo('basket'));
-
+        console.log(1)
         if (basket.restaurantID && basket.foods) {
+            console.log(2, this.store.id, basket.restaurantID)
             if (this.store.id === basket.restaurantID) {
+                console.log(3, basket.foods)
                 for (const food of basket.foods) {
+                    console.log(4, food)
                     for (let i = 0; i < food.num; i++) {
-                        this.append({ food, isPlus: true });
+                        console.log(5)
+                        // this.append({ food, isPlus: true });
+                        eventBus.emit(ChangeBasketEvents.chooseFood, { food, isPlus: true });
                     }
+                    console.log(6)
                 }
+                console.log(7)
             }
+            console.log(8)
         }
+        console.log(9)
     }
 
     append ({ food, isPlus }) {

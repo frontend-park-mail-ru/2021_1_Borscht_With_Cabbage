@@ -36,18 +36,18 @@ export class StoreView {
         });
         this.storeTitle.render()
 
+        this.foodList = new StoreFoodList({
+            root: document.getElementById('store-info__food'),
+            info
+        });
+        this.foodList.render()
+
         this.storeBasket = new StoreBasket({
             root: document.getElementById('store-basket'),
             store: info,
             goTo: this.goTo
         });
         this.storeBasket.render()
-
-        this.foodList = new StoreFoodList({
-            root: document.getElementById('store-info__food'),
-            info
-        });
-        this.foodList.render(info.foods)
     }
 
     loadError (error) {

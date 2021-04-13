@@ -351,6 +351,6 @@ export function addDishInBasket ( data = {}) {
 
 export function getBasket () {
     return Http.ajaxGet({
-        url: '/basket'
+        url: '/user/basket'
     });
 }

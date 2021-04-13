@@ -18,6 +18,7 @@ export class StoreFoodElement {
         this.buttonID = `[data-foodAddButtonID="${this.food.id}"]`;
         this.numButtonsSelector = `[data-foodID="${this.food.id}"]`;
         eventBus.on(ChangeBasketEvents.chooseFood, ({ food, isPlus }) => {
+            console.log('store food element ->', food, isPlus)
             if (food.id === this.food.id) {
                 if (isPlus) {
                     this.num += 1
@@ -70,12 +71,6 @@ export class StoreFoodElement {
     }
 
     addListener () {
-        let isNewBasket = false;
-        if (basket.restaurantID) {
-            if (this.info.restaurantID !== basket.restaurantID) {
-                isNewBasket = true;
-            }
-        }
 
         this.addButtonListener = () => {
             eventBus.emit(ChangeBasketEvents.chooseFood, {
@@ -85,6 +80,14 @@ export class StoreFoodElement {
 
             this.num = 1;
             this.clickElement(this.num);
+
+            let isNewBasket = false;
+            if (basket.restaurantID) {
+                console.log('addBasket ->', this.info, basket)
+                if (this.info.id !== basket.restaurantID) {
+                    isNewBasket = true;
+                }
+            }
 
             this.controller.addDish({
                 dishID: this.food.id,

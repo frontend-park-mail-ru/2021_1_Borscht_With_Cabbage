@@ -10,6 +10,10 @@ app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 app.use(body.json());
 app.use(cookie());
 
+app.get('serviceWorker.js', function(req, res) {
+    res.sendFile(path.resolve(__dirname, '..', 'dist', 'serviceWorker.js'));
+})
+
 app.all('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'dist/index.html'));
 });

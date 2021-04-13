@@ -52,6 +52,7 @@ export class StoreView {
 
     loadError (error) {
         // TODO изобразить сообщение о пропаввшем интернете
+        this.goTo('login');
         console.log('storeVIew -> loadError', error)
     }
 }

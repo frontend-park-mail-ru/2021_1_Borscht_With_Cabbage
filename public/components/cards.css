@@ -1,7 +1,8 @@
 .card {
-    max-width: 360px;
-    min-width: 304px;
-    height: 328px;
+    max-width: 300px;
+    min-width: 240px;
+    max-height: 360px;
+    min-height: 280px;
     display: flex;
     flex: auto;
     flex-direction: column;
@@ -12,21 +13,25 @@
 }
 
 .card__header {
-    margin-top: 8px;
+    position: relative;
+    margin-top: 16px;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    text-align: left;
+    padding-left: 16px;
 }
 
 .card__name {
-    font-size: 24px;
+    font-size: 20px;
     line-height: 24px;
     margin-bottom: 8px;
     letter-spacing: 0.15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bolder;
 }
 
 .card__image {
-    /*background-image: url(food.jpg);*/
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -34,8 +39,7 @@
 }
 
 .card__sum {
-    color: #97B498;
-    font-size: 16px;
+    font-size: 14px;
     margin-top: auto;
     margin-bottom: 12px;
     float: right;
@@ -43,6 +47,7 @@
 }
 
 .card__description {
-    margin-left: 12px;
-    margin-top: 8px;
+    margin: 16px 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

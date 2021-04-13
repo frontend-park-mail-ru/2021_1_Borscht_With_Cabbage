@@ -7,11 +7,11 @@ export class StoreBasketFood {
     } = {}) {
         this.root = root;
         this.food = food;
-        this.numID = 'chosen_food--num-id-' + this.food.id;
+        this.elementSelector = `[data-chosenFoodID="${this.food.id}"]`
+        this.numSelector = `[data-chosenFoodNumID="${this.food.id}"]`
     }
 
     render () {
-        console.log('StoreBasketFood -> render', this.food);
         this.root.innerHTML += renderStoreBasketFood({
             chosenDish: this.food,
             num: 1
@@ -19,8 +19,7 @@ export class StoreBasketFood {
     }
 
     add () {
-        console.log('storeBasketFood -> add');
-        const num = document.getElementById(this.numID);
+        const num = this.root.querySelector(this.numSelector)
 
         if (num) {
             if (Number(num.textContent) > 0) {
@@ -32,11 +31,10 @@ export class StoreBasketFood {
     }
 
     takeAway () {
-        console.log('storeBasketFood -> takeAway');
-        const num = document.getElementById(this.numID);
+        const num = this.root.querySelector(this.numSelector)
         if (num) {
             if (Number(num.textContent) === 1) {
-                document.getElementById('chosen_food-id-' + this.food.id).remove();
+                this.root.querySelector(this.elementSelector).remove();
                 return true;
             } else {
                 num.textContent = String(Number(num.textContent) - 1);

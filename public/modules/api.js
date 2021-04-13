@@ -1,5 +1,5 @@
 import { Http } from './http.js';
-import { saveUser } from './auth.js';
+import { auth } from './auth.js';
 
 /**
  * Send server post-request to user login and save email and avatar if status 200 ok
@@ -13,7 +13,7 @@ export function loginPost ({ login, password }) {
         url: '/signin',
         body: { login, password }
     })
-        .then(saveUser);
+        .then(auth)
 }
 
 /**
@@ -22,29 +22,30 @@ export function loginPost ({ login, password }) {
  * @param {string} email
  * @param {string} password
  * @param {string} name
- * @param {string} phone
+ * @param {string} number
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function signupPost ({ email, password, name, phone }) {
+export function signupPost ({ email, password, name, number }) {
     return Http.ajaxPost({
         url: '/signup',
         body: {
             email,
             password,
             name,
-            phone
+            number
         }
     })
-        .then(saveUser);
+        .then(auth)
 }
 
 /**
  * Send server get-request to check if user auth and get data about him (username and avatar)
  *
- * @returns {Promise<{parsedJSON: object, status: number}>}
+ * @returns {Promise<void>}
  */
 export function authGet () {
-    return Http.ajaxGet({ url: '/auth' });
+    return Http.ajaxGet({ url: '/user/auth' })
+        .then(auth)
 }
 
 /**

@@ -1,34 +1,41 @@
-import { Navbar } from '../components/NavBar/Navbar.js';
 import { renderProfileView } from '../components/Profile/ProfileTmpl.js'
 import { ProfileEdits } from '../components/ProfileEdits/ProfileEdits.js';
-import { userGet } from '../modules/api.js';
+import { ProfileController } from '../controllers/ProfileController.js';
+import eventBus from '../modules/eventBus.js';
+import { ProfileEvents } from '../events/ProfileEvents.js';
 
 export class ProfileView {
     constructor (root, goTo) {
         this.goTo = goTo;
         this.root = root;
+        this.profileController = new ProfileController()
+        eventBus.on(ProfileEvents.profileGetUserDataSuccess, this.userDraw.bind(this))
+        eventBus.on(ProfileEvents.profileGetUserDataFailed, this.loadError.bind(this))
     }
 
     render () {
-        userGet()
-            .then(r => this.userDraw(r.parsedJSON, r.status))
-            .catch(r => console.log(`THis crash when post /user from ${r}`));
-    };
+        // TODO вынести эту лоику в компонент, который отвечает за это конкретно
+        this.profileController.getUserData()
+    }
 
-    userDraw (data, status) {
-        console.log(data);
-        if (status === 200) {
-            this.root.innerHTML = '';
-            this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
-            this.navbar.render()
+    userDraw (data) {
+        this.root.innerHTML = ''
 
-            const profile = document.createElement('div');
-            profile.innerHTML = renderProfileView({}); // создаем правое меню
-            this.root.append(profile);
+        const profile = document.createElement('div')
+        profile.innerHTML = renderProfileView({}) // создаем правое меню
+        this.root.append(profile)
 
-            // добавляем поля профиля и его изменения
-            const edits = new ProfileEdits(this.goTo, data);
-            edits.render()
-        }
+        // добавляем поля профиля и его изменения
+        const edits = new ProfileEdits({
+            root: this.root,
+            goTo: this.goTo,
+            user: data,
+            controller: this.profileController
+        })
+        edits.render()
+    }
+
+    loadError (error) {
+        console.log('profileView -> loadError', error)
     }
 }

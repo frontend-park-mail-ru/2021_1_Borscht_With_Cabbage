@@ -6,7 +6,7 @@ const urls = {
     store: {
         constUrl: null,
         regularUrl: /\/restaurant\/./
-    },   // '/restaurant/:id'
+    }, // '/restaurant/:id'
     login: {
         constUrl: '/signin',
         regularUrl: null
@@ -22,13 +22,12 @@ const urls = {
     profile: {
         constUrl: '/profile',
         regularUrl: /\/profile\/./
-    },    // '/profile/edit', '/profile/orders', '/profile/chats'
+    }, // '/profile/edit', '/profile/orders', '/profile/chats'
     logout: {
         constUrl: '/logout',
         regularUrl: null
     }
 };
-
 
 export class Router {
     constructor (root) {
@@ -83,5 +82,4 @@ export class Router {
             event.preventDefault();
         }
     }
-
 }

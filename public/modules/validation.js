@@ -66,4 +66,25 @@ export class Validator {
         }
         return { result: true };
     }
+
+    static validateChangeNewPassword (newPassword) {
+        if (newPassword === '') {
+            return { result: true };
+        }
+        return this.validatePassword(newPassword);
+    }
+
+    static validateChangeOldPassword (oldPassword, newPassword) {
+        if (newPassword === '') {
+            return { result: true };
+        }
+        return this.validatePassword(oldPassword);
+    }
+
+    static validateChangePasswordRepeat (newPassword, newPasswordRepeat) {
+        if (newPassword === '') {
+            return { result: true };
+        }
+        return this.validateEqualPassword(newPassword, newPasswordRepeat);
+    }
 }

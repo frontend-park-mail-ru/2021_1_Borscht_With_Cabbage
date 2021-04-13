@@ -1,23 +1,28 @@
-import { Navbar } from '../components/NavBar/Navbar.js';
-import { Login } from '../components/SignIn/Login.js';
+import { SignIn } from '../components/SignIn/SignIn.js';
+import user from '../modules/user.js';
+import { SignInController } from '../controllers/SignInController.js';
+import { noop } from '../modules/utils.js';
 
 export class SignInView {
-    constructor (root, goTo) {
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
         this.goTo = goTo;
         this.root = root;
+        this.signInController = new SignInController()
     }
 
     render () {
-        if (window.isUserAuth) {
+        if (user.isAuth) {
             this.goTo('main')
         }
         this.root.innerHTML = '';
-        this.navbar = new Navbar({ root: this.root, goTo: this.goTo });
-        this.navbar.render()
 
-        const login = new Login({
+        const login = new SignIn({
             root: this.root,
-            goTo: this.goTo
+            goTo: this.goTo,
+            controller: this.signInController
         });
         login.render()
     }

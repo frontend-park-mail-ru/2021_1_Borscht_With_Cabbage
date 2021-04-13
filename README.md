@@ -15,5 +15,9 @@ https://github.com/go-park-mail-ru/2021_1_Borscht_With_Cabbage
 * **Сергей Шишикин** - *Фулстек* - [Sergei39](https://github.com/Sergei39)
 * **Артем Катнов** - *Фронтенд* - [warlikegh](https://github.com/warlikegh)
 
-## Ментор
+## Ментор по frontend
 * **Ксения Казанцева** - *Ментор* - [dreamofdark](https://github.com/dreamofdark)
+
+## Ментор по backend
+* **Екатерина Придиус** - *Ментор* - [pringleskate](https://github.com/pringleskate)
+

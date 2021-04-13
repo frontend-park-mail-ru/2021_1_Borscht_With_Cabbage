@@ -1,5 +1,5 @@
 export const renderTopNavView = window.Handlebars.compile(`
-<div class="navbar">
+
     <div class="navbar_title">
         <a class="navbar_title__project-name link" href="/">Delivery Borscht</a>
     </div>
@@ -14,7 +14,6 @@ export const renderTopNavView = window.Handlebars.compile(`
             </div>
         </a>
     </div>
-</div>
 `);
 
 export const renderAuthBlock = window.Handlebars.compile(`

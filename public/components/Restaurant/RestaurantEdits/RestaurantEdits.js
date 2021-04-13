@@ -93,11 +93,10 @@ export class RestaurantEdits {
             document.getElementById(this.phoneID).value = info.number;
             document.getElementById(this.phoneID).focus();
             if (info.avatar) {
-                this.preview.deletePreview()
+                this.preview.deletePreview();
             } else {
-                info.avatar = user.avatar
+                info.avatar = user.avatar;
             }
-            console.log('restaurantEdits ->', info)
             eventBus.emit(AuthEvents.userSignIn, info)
         }
     }

@@ -11,3 +11,7 @@
     flex-grow: 1;
     position: relative;
 }
+
+.basket-empty {
+    margin: 64px;
+}

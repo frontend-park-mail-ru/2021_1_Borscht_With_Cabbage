@@ -4,13 +4,11 @@ export function renderInput (id, status) {
 
     if (!status.result) {
         input.style.borderColor = '#ff0000';
-        error.textContent = status.text;
-        error.hidden = false;
+        error.textContent = input.dataset.name + ': ' + status.text;
         return status.result;
     }
 
     input.style.borderColor = '#808080';
-    error.innerHTML = '';
-    error.hidden = true;
+    error.innerHTML = input.dataset.name;
     return status.result;
 }

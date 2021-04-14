@@ -1,0 +1,74 @@
+body, html {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+input {
+    display: block;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+input:focus {
+    outline: none;
+}
+
+.error {
+    margin-top: -5px;
+    opacity: 1;
+    font-size: 12px;
+}
+
+.button {
+    background-color: var(--main-green_color);
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 24px 2px;
+    cursor: pointer;
+}
+
+.link {
+    display: block;
+}
+
+.link:hover {
+    color: var(--main-green_color_darker);
+}
+
+.block {
+    display: block;
+}
+
+.horizontal-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.number-in-circle {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    background: var(--grey_color);
+    margin: 1em;
+    border-radius: 50%;
+    text-align: center;
+}

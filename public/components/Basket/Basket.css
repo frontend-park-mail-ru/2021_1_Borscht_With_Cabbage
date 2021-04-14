@@ -1,0 +1,17 @@
+@import "../DeliveryBasket/DeliveryBasket.css";
+
+.basket-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 64px 128px;
+}
+
+.basket-container > div {
+    flex-grow: 1;
+    position: relative;
+}
+
+.basket-empty {
+    margin: 64px;
+}

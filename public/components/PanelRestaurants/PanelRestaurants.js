@@ -1,24 +1,38 @@
-import { renderPanelRestaurants } from './PanelRestaurantsTmpl.js';
+import renderPanelRestaurants from './PanelRestaurantsTmpl.hbs';
+import { noop } from '../../modules/utils.js';
+import renderInfoRestaurant from '../InfoRestaurant/InfoRestaurantTmpl.hbs';
+import { MainController } from '../../controllers/MainController.js'
 
 export class PanelRestaurantsComponent {
-    constructor (root, restaurants, callback) {
-        this.restaurants = restaurants;
+    constructor ({
+        root = document.body,
+        controller = new MainController(),
+        goTo = noop
+    } = {}) {
         this.root = root;
-        this.callback = callback;
+        this.controller = controller;
+        this.goTo = goTo;
     }
 
     render () {
         const restaurantsElem = document.createElement('div');
-        restaurantsElem.innerHTML = renderPanelRestaurants({
-            store: this.restaurants
-        });
+        restaurantsElem.innerHTML = renderPanelRestaurants({});
         this.root.append(restaurantsElem);
+        this.restaurantList = document.getElementById('restaurants_list')
 
-        this.addRestaurantListeners(this.callback);
+        this.addRestaurantListeners();
     }
 
-    addRestaurantListeners (callback) {
-        const restaurantPanel = this.root.querySelector('.content');
+    add ({ restaurants }) {
+        for (const restaurant of restaurants) {
+            this.restaurantList.innerHTML += renderInfoRestaurant({
+                node: restaurant
+            });
+        }
+    }
+
+    addRestaurantListeners () {
+        const restaurantPanel = this.root.querySelector('.restaurants');
         if (!restaurantPanel) {
             return;
         }
@@ -28,12 +42,12 @@ export class PanelRestaurantsComponent {
 
             e.preventDefault();
             // проверяе что нажали именно на кнопку
-            const idRestaurant = target.closest('.content__slide').dataset.restaurant;
+            const idRestaurant = target.closest('.card').dataset.restaurant;
             console.log('event', target);
             if (idRestaurant) {
                 // TODO меняем элемент визуально как нибудь
 
-                callback(idRestaurant);
+                this.goTo('/restaurant/' + idRestaurant);
             }
         })
     }

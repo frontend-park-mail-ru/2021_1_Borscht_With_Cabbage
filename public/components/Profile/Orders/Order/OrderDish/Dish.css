@@ -1,0 +1,53 @@
+.profile-left-block_order-dish-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    float: left;
+    text-align: left;
+    border-bottom: 2px solid var(--light-grey_color);
+    margin: 0 16px;
+}
+
+.profile-left-block_order-dish-list_left-block {
+    float: left;
+    text-align: left;
+
+}
+
+.profile-left-block_order-dishes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.profile-left-block-order-dishes__name {
+    text-align: left;
+    float: left;
+    margin-top: 16px;
+    /*  *margin-left: 4em;*/
+}
+
+.profile-left-block-order-dishes__price {
+    text-align: left;
+    float: left;
+    /*margin-left: 4em;*/
+}
+
+.profile-left-block_order-dish-list_right-block {
+    text-align: right;
+    margin-right: 2em;
+}
+
+.profile-left-block-order-dishes__num {
+
+}
+
+.profile-left-block_order-dish-list-photo {
+}
+
+.profile-left-block_order-dish-list-photo__image {
+}
+
+.profile-left-block_order-dish-list-photo__image{
+    margin: 8px 16px;
+    width: 100px;
+    height: 100px;
+}

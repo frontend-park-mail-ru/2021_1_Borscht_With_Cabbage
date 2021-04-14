@@ -1,11 +1,44 @@
 const urls = {
-    main: '/',
-    store: '/restaurant',
-    login: '/signin',
-    signup: '/signup',
-    basket: '/basket',
-    profile: '/user',
-    logout: '/logout'
+    main: {
+        constUrl: '/',
+        regularUrl: null
+    },
+    store: {
+        constUrl: null,
+        regularUrl: /\/restaurant\/./
+    }, // '/restaurant/:id'
+    login: {
+        constUrl: '/signin',
+        regularUrl: null
+    },
+    signup: {
+        constUrl: '/signup',
+        regularUrl: null
+    },
+    restaurantSignin: {
+        constUrl: '/restaurant/signin',
+        regularUrl: null
+    },
+    restaurantSignup: {
+        constUrl: '/restaurant/signup',
+        regularUrl: null
+    },
+    basket: {
+        constUrl: '/basket',
+        regularUrl: null
+    },
+    profile: {
+        constUrl: '/profile',
+        regularUrl: /\/profile\/./
+    }, // '/profile/edit', '/profile/orders', '/profile/chats'
+    logout: {
+        constUrl: '/logout',
+        regularUrl: null
+    },
+    restaurantMain: {
+        constUrl: '/restaurant',
+        regularUrl: null
+    }
 };
 
 export class Router {
@@ -14,32 +47,41 @@ export class Router {
         this.routes = new Map();
         this.catchFollowLinks = this.catchFollowLinks.bind(this);
         this.root.addEventListener('click', this.catchFollowLinks);
+        window.addEventListener('popstate', (event) => {
+            this.open(window.location.pathname, true);
+        })
     }
 
-    open (page) {
-        if (urls[page]) {
-            page = urls[page];
+    windowHistory (page, isBack) {
+        if (!isBack) {
+            window.history.pushState({}, '', page)
         }
-
-        // TODO correct
-        //  это костыль для отображения динамически формируемых страниц ресторана
-        let realPage;
-        if (/([0-9]{1,30})/.test(page)) {
-            realPage = page;
-            page = urls.store;
-        }
-
-        if ((/\/signin/.test(page) || /\/signup/.test(page)) && window.isUserAuth) {
-            this.open(urls.main);
-            return;
-        }
-
         window.history.replaceState({}, '', page);
-        this.routes.get(page).render(realPage);
+    }
+
+    open (page, isBack = false) {
+        console.log('open');
+        Object.entries(urls).forEach(([url, { constUrl, regularUrl }]) => {
+            if (page === url && isBack && url === 'logout') {
+                this.open('main', isBack);
+                return
+            }
+            if (page === url || page === constUrl || (regularUrl && regularUrl.test(page))) {
+                if (page === url) {
+                    page = constUrl
+                }
+                this.windowHistory(page, isBack)
+                if (this.routes.get(url)) {
+                    this.routes.get(url).render(page);
+                } else {
+                    this.open('main', isBack)
+                }
+            }
+        })
     }
 
     addRoute (page, handler) {
-        this.routes.set(urls[page], handler);
+        this.routes.set(page, handler);
     }
 
     catchFollowLinks (event) {
@@ -52,7 +94,5 @@ export class Router {
         if (event.target instanceof HTMLButtonElement) {
             event.preventDefault();
         }
-
-        return;
     }
 }

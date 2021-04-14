@@ -1,64 +1,84 @@
+import eventBus from './eventBus.js';
+import { AuthEvents } from '../events/AuthEvents.js';
+
 window.serverAddress = 'http://89.208.197.150:5000';
+// window.serverAddress = 'http://127.0.0.1:5000'
 
-export async function ajaxGet ({
-    url = '/'
-} = {}) {
-    const response = await fetch(window.serverAddress + url, {
+function getParams ({
+    method = 'GET',
+    body = null,
+    type = 'application/json'
+}) {
+    const headers = {
+        'Access-Control-Allow-Origin': '*'
+    };
+    // TODO: надо разобраться с этими всеми запросами
+    if (type === 'application/json') {
+        headers['Content-Type'] = 'application/json';
+        body = JSON.stringify(body);
+    }
+    const init = {
         mode: 'cors',
-        method: 'GET',
+        method: method,
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json'
-        }
-    });
+        headers: headers
+    };
+    if (method !== 'GET') {
+        init.body = body;
+    }
+    return init;
+}
+
+async function makeFetch ({
+    url = '/',
+    body = null,
+    method = 'GET',
+    type
+} = {}) {
+    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body, type: type }));
     const parsedJSON = await response.json();
+    if (parsedJSON.code === 418) {
+        eventBus.emit(AuthEvents.offline, { message: parsedJSON.message })
+    }
 
     return {
-        status: response.status,
-        parsedJSON: parsedJSON
+        status: parsedJSON.code,
+        parsedJSON: parsedJSON.data
     };
 }
 
-export async function ajaxPost ({
-    url = '/',
-    body = null
-} = {}) {
-    const response = await fetch(window.serverAddress + url, {
-        mode: 'cors',
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify(body),
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json'
-        }
-    });
-    const parsedJSON = await response.json();
+export class Http {
+    static async ajaxGet ({
+        url = '/'
+    } = {}) {
+        return await makeFetch({ url: url, method: 'GET' });
+    }
 
-    return {
-        status: response.status,
-        parsedJSON: parsedJSON
-    };
-}
+    static async ajaxPost ({
+        url = '/',
+        body = null
+    } = {}) {
+        return await makeFetch({ url: url, method: 'POST', body: body });
+    }
 
-export async function ajaxPut ({
-    url = '/',
-    body = null
-} = {}) {
-    const response = await fetch(window.serverAddress + url, {
-        mode: 'cors',
-        method: 'PUT',
-        credentials: 'include',
-        body: body,
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        }
-    });
-    const parsedJSON = await response.json();
+    static async ajaxPutJson ({
+        url = '/',
+        body = null
+    } = {}) {
+        return await makeFetch({ url: url, method: 'PUT', body: body });
+    }
 
-    return {
-        status: response.status,
-        parsedJSON: parsedJSON
+    static async ajaxPutFormData ({
+        url = '/',
+        body = null
+    } = {}) {
+        return await makeFetch({ url: url, method: 'PUT', body: body, type: '' });
+    }
+
+    static async ajaxDelete ({
+        url = '/',
+        body = null
+    } = {}) {
+        return await makeFetch({ url: url, method: 'DELETE', body: body });
     }
 }

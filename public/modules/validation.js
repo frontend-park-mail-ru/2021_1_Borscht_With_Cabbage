@@ -1,6 +1,5 @@
 const emailRegExpression = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
-const passwordRegExpression = /^([A-Za-z0-9_\-.]{6,30})$/;
-const phoneRegExpression = /^[0-9\-+]{9,15}$/;
+const phoneRegExpression = /^[0-9]{11}$/;
 
 const blankResult = {
     result: false,
@@ -8,20 +7,20 @@ const blankResult = {
 };
 
 export class Validator {
-    validateEmail (email) {
+    static validateEmail (email) {
         if (email === '') {
             return blankResult;
         }
         if (!emailRegExpression.test(email)) {
             return {
                 result: false,
-                text: 'Пожалуйста, введите настоящий адрес электронной почты'
+                text: 'Введите настоящий адрес электронной почты'
             };
         }
         return { result: true };
     }
 
-    validatePassword (password) {
+    static validatePassword (password) {
         if (password === '') {
             return blankResult;
         }
@@ -31,26 +30,40 @@ export class Validator {
                 text: 'Ваш пароль должен быть от 6 до 30 символов'
             };
         }
-        if (!passwordRegExpression.test(password)) {
-            return {
-                result: false,
-                text: 'Ваш пароль должен состоять из латинских символов, чисел или знаков "-", "_", "."'
-            };
-        }
         return { result: true };
     }
 
-    validateName (username) {
+    static validateName (username) {
         if (username === '') {
             return blankResult;
         }
         return { result: true };
     }
 
-    validatePhone (number) {
+    static validateDescription (text) {
+        if (text === '') {
+            return blankResult;
+        }
+        return { result: true };
+    }
+
+    static validateNumber (number) {
+        // TODO: валидация целого числа 
+        number = Number(number);
+        if (!number) {
+            return {
+                result: false,
+                text: 'Введите число'
+            };
+        }
+        return { result: true };
+    }
+
+    static validatePhone (number) {
         if (number === '') {
             return blankResult;
         }
+        number = number.replace(/\D/g, '');
         if (!phoneRegExpression.test(number)) {
             return {
                 result: false,
@@ -60,7 +73,7 @@ export class Validator {
         return { result: true };
     }
 
-    validateEqualPassword (password, repeatPassword) {
+    static validateEqualPassword (password, repeatPassword) {
         if (repeatPassword === '') {
             return blankResult;
         }
@@ -73,14 +86,35 @@ export class Validator {
         return { result: true };
     }
 
-    validateLogin (login) {
-        if (login === '') {
+    static validateChangeNewPassword (newPassword) {
+        if (newPassword === '') {
+            return { result: true };
+        }
+        return this.validatePassword(newPassword);
+    }
+
+    static validateChangeOldPassword (oldPassword, newPassword) {
+        if (newPassword === '') {
+            return { result: true };
+        }
+        return this.validatePassword(oldPassword);
+    }
+
+    static validateChangePasswordRepeat (newPassword, newPasswordRepeat) {
+        if (newPassword === '') {
+            return { result: true };
+        }
+        return this.validateEqualPassword(newPassword, newPasswordRepeat);
+    }
+
+    static validateRealNumber (num) {
+        if (num === '') {
             return blankResult;
         }
-        if (!emailRegExpression.test(login) && !phoneRegExpression.test(login)) {
+        if (isNaN(num)) {
             return {
                 result: false,
-                text: 'Введите почту или телефон'
+                text: 'Введите число'
             };
         }
         return { result: true };

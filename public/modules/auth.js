@@ -1,26 +1,12 @@
-import { authGet } from './api.js';
+import eventBus from './eventBus.js';
+import { AuthEvents } from '../events/AuthEvents.js';
 
-// user = {
-//     name: '',
-//     avatar: ''
-// }
-
-export const saveUser = function (promise) {
-    window.isUserAuth = false;
-
-    if (promise.status === 200) {
-        window.user = promise.parsedJSON;
-        window.isUserAuth = true;
+export function auth (promise) {
+    if (promise.status !== 200) {
+        eventBus.emit(AuthEvents.notAuth, {});
+    } else {
+        eventBus.emit(AuthEvents.userSignIn, promise.parsedJSON);
     }
-    return promise;
-}
 
-export const deleteUser = function () {
-    window.isUserAuth = false;
-    window.user = {};
-}
-
-export function auth () {
-    return authGet()
-        .then(saveUser);
+    return promise
 }

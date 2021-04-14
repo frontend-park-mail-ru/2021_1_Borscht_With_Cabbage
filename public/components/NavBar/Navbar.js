@@ -20,7 +20,6 @@ export class Navbar {
         // eventBus.on(AuthEvents.restaurantSignIn, this.renderRestaurantAuth.bind(this));
         // eventBus.on(AuthEvents.restaurantLogout, this.renderNotAuth.bind(this));
         eventBus.on(AuthEvents.notAuth, this.renderNotAuth.bind(this));
-        this.toast = new Toast({ root: this.root.querySelector('.navbar-title') })
     }
 
     render () {
@@ -41,6 +40,8 @@ export class Navbar {
             });
             this.goProfileListener();
         }
+        console.log(';l;l;l;l;l', this.root.querySelector('.navbar_title'))
+        this.toast = new Toast({ root: this.root.querySelector('.navbar_title') });
     }
 
     renderNotAuth () {
@@ -51,6 +52,7 @@ export class Navbar {
             authBlock.innerHTML = renderNotAuthBlock({});
             this.goLoginListener();
         }
+        this.toast = new Toast({ root: this.root.querySelector('.navbar_title') });
     }
 
     goLoginListener () {

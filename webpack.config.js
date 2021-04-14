@@ -7,15 +7,19 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const PATHS = {
     src: path.join(__dirname, './public/'),
-    dist: path.resolve(__dirname, 'dist'),
+    dist: path.resolve(__dirname, './dist/'),
 };
 
 module.exports = {
-    entry: path.join(PATHS.src, 'main.js'),
+    entry: {
+        main: path.join(PATHS.src, 'main.js'),
+        serviceWorker: path.join(PATHS.src, 'serviceWorker.js'),
+    },
+
     output: {
         publicPath: '/',
-        path: __dirname + '/dist/',
-        filename: 'main.js'
+        path: PATHS.dist,
+        filename: '[name].js'
     },
     devServer: {
         stats: {

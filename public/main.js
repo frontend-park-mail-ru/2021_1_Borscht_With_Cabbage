@@ -16,7 +16,7 @@ import { BasketView } from './views/BasketView.js';
 
 import './static/css/main.css';
 
-// registerSW();
+registerSW();
 
 const application = document.getElementById('app');
 

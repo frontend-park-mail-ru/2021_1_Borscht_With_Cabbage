@@ -11,18 +11,19 @@ export class Toast {
     }
 
     render ({ message }) {
+        console.log(message, this.root);
         if (!this.root.querySelector('.toast')) {
             this.root.insertAdjacentHTML('beforeend', renderToastMessage({
                 message: message
             }));
-
-            const toast = this.root.querySelector('.toast');
-            (async () => {
-                setTimeout(() => {
-                    toast.classList.add('removing');
-                    toast.addEventListener('transitionend', () => toast.remove());
-                }, 5000);
-            })();
         }
+        const toast = this.root.querySelector('.toast');
+        (async () => {
+            setTimeout(() => {
+                toast.classList.add('removing');
+                toast.addEventListener('transitionend', () => toast.remove());
+            }, 5000);
+        })();
+
     }
 }

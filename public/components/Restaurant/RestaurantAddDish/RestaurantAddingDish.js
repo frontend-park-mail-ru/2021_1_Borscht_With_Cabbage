@@ -69,6 +69,7 @@ export class RestaurantAddingDish {
     }
 
     closeItem () {
+        console.log('close');
         eventBus.emit(DishEvents.closeAddingDishComponent + this.section, {});
     }
 

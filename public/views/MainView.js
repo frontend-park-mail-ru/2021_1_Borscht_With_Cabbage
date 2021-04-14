@@ -47,12 +47,12 @@ export class MainView {
         this.content.innerHTML = '';
         this.root.append(this.content);
 
-        const more = new MoreRestaurantsComponent({
-            root: this.root,
-            controller: this.mainController
-        });
+        // const more = new MoreRestaurantsComponent({
+        //     root: this.root,
+        //     controller: this.mainController
+        // });
 
-        more.render();
+        // more.render();
 
         this.restaurants = new PanelRestaurantsComponent({
             root: this.content,

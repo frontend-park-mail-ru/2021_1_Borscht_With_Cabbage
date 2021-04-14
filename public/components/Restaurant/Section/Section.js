@@ -137,7 +137,7 @@ export class SectionComponent {
             goTo: this.goTo,
             controller: this.controller,
             dish: dish,
-            section: this.section.sectionId
+            section: this.section.id
         });
         addingDish.render();
     }

@@ -10,16 +10,16 @@ export class StoreController {
     }
 
     addDish ({
-        dishID = '',
-        restaurantID = '',
         isNewBasket = true,
-        isPlus = true
+        isPlus = true,
+        food = {},
+        restaurant = {}
     } = {}) {
         this.storeModel.addDish({
-            dishID,
-            restaurantID,
             isNewBasket,
-            isPlus
-        })
+            isPlus,
+            food,
+            restaurant
+        });
     }
 }

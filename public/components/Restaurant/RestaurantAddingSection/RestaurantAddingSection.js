@@ -4,6 +4,7 @@ import eventBus from "../../../modules/eventBus.js";
 import { SectionEvents } from "../../../events/SectionEvents.js";
 import { Validator } from "../../../modules/validation.js";
 import { renderInput } from "../../../modules/rendering.js";
+import { getError } from '../../../modules/utils.js';
 
 export class RestaurantAddingSection {
     constructor ({
@@ -92,6 +93,6 @@ export class RestaurantAddingSection {
     addingFailed (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
-        serverError.textContent = error;
+        serverError.textContent = getError(error);
     }
 }

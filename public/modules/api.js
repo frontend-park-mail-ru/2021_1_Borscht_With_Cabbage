@@ -345,3 +345,10 @@ export function getBasket () {
         url: '/user/basket'
     });
 }
+
+export function postBasket (basket) {
+    return Http.ajaxPost({
+        url: '/user/basket',
+        body: basket
+    })
+}

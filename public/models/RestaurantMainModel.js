@@ -32,10 +32,10 @@ export class RestaurantMainModel {
                     eventBus.emit(DishEvents.addingDishSuccess + section, res.parsedJSON);
                     eventBus.emit(DishEvents.addingDishSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(DishEvents.addingDishFailed, res.parsedJSON);
+                    eventBus.emit(DishEvents.addingDishFailed, res);
                 }
             })
-            .catch(res => eventBus.emit(DishEvents.addingDishFailed, res.parsedJSON));
+            .catch(res => eventBus.emit(DishEvents.addingDishFailed, res));
     }
 
     updateDataDish ({ id, name, description, price, weight }) {
@@ -45,10 +45,10 @@ export class RestaurantMainModel {
                     eventBus.emit(DishEvents.updateDishDataSuccess + id, res.parsedJSON);
                     eventBus.emit(DishEvents.updateDishDataSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(DishEvents.updateDishDataFailed, res.parsedJSON);
+                    eventBus.emit(DishEvents.updateDishDataFailed, res);
                 }
             })
-            .catch(res => eventBus.emit(DishEvents.updateDishDataFailed, res.parsedJSON));
+            .catch(res => eventBus.emit(DishEvents.updateDishDataFailed, res));
     }
 
     updateImageDish ({ id, data }) {
@@ -58,10 +58,10 @@ export class RestaurantMainModel {
                     eventBus.emit(DishEvents.updateDishImageSuccess + id, res.parsedJSON);
                     eventBus.emit(DishEvents.updateDishImageSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(DishEvents.updateDishImageFailed, res.parsedJSON);
+                    eventBus.emit(DishEvents.updateDishImageFailed, res);
                 }
             })
-            .catch(res => eventBus.emit(DishEvents.updateDishImageFailed, res.parsedJSON));
+            .catch(res => eventBus.emit(DishEvents.updateDishImageFailed, res));
     }
 
     deleteDish ({ id, sectionId }) {
@@ -85,17 +85,18 @@ export class RestaurantMainModel {
         const promise = [];
         promise.push(restaurantPut({ data }));
         if (avatar.get('avatar')) {
-            promise.push(restaurantAvatarPut({ avatar }))
+            promise.push(restaurantAvatarPut({ avatar }));
         }
 
         Promise.all(promise)
             .then(res => {
+                console.log(res)
                 const data_ = {};
                 data_.status = Math.max(...res.map(value => value.status));
                 if (data_.status !== 200) {
                     data_.parsedJSON = res.find(value => value.status !== 200).parsedJSON;
                 } else {
-                    data_.parsedJSON = Object.assign(res[0].parsedJSON, res[1].parsedJSON);
+                    data_.parsedJSON = Object.assign(...res.map(value => value.parsedJSON));
                 }
                 if (data_.status === 200) {
                     eventBus.emit(ProfileEvents.profileSetUserDataSuccess, {
@@ -103,10 +104,10 @@ export class RestaurantMainModel {
                         status: data_.status
                     });
                 } else {
-                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, data_.parsedJSON);
+                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, data_);
                 }
             })
-            .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON));
+            .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res));
     }
 
     addSection ({ name }) {

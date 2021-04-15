@@ -29,7 +29,7 @@ export class ProfileModel {
                 if (data_.status !== 200) {
                     data_.parsedJSON = res.find(value => value.status !== 200).parsedJSON;
                 } else {
-                    data_.parsedJSON = Object.assign(res[0].parsedJSON, res[1].parsedJSON);
+                    data_.parsedJSON = Object.assign(...res.map(value => value.parsedJSON));
                 }
                 if (data_.status === 200) {
                     eventBus.emit(ProfileEvents.profileSetUserDataSuccess, {
@@ -37,10 +37,10 @@ export class ProfileModel {
                         status: data_.status
                     });
                 } else {
-                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, data_.parsedJSON);
+                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, data_);
                 }
             })
-            .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON));
+            .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res));
     }
 
     getOrders () {

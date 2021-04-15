@@ -9,11 +9,11 @@ export class NumButtons {
         root = document.body,
         event = '',
         num = 0,
-        restaurantID = null,
+        restaurant = {},
         controller = new StoreController()
     } = {}) {
         this.food = food;
-        this.restaurantID = restaurantID;
+        this.restaurant = restaurant;
         this.controller = controller;
         this.plusButtonID = `[data-foodPlusButtonID="${this.food.id}"]`;
         this.minusButtonID = `[data-foodMinusButtonID="${this.food.id}"]`;
@@ -53,7 +53,7 @@ export class NumButtons {
     addEventListeners () {
         let isNewBasket = false;
         if (basket.restaurantID) {
-            if (this.restaurantID !== basket.restaurantID) {
+            if (this.restaurant.id !== basket.restaurantID) {
                 isNewBasket = true;
             }
         }
@@ -65,10 +65,10 @@ export class NumButtons {
             });
 
             this.controller.addDish({
-                dishID: this.food.id,
-                isNewBasket: isNewBasket,
+                isNewBasket,
                 isPlus: true,
-                restaurantID: this.restaurantID
+                food: this.food,
+                restaurant: this.restaurant
             });
         };
         document.querySelector(this.plusButtonID)
@@ -81,10 +81,10 @@ export class NumButtons {
             });
 
             this.controller.addDish({
-                dishID: this.food.id,
-                isNewBasket: isNewBasket,
+                isNewBasket,
                 isPlus: false,
-                restaurantID: this.restaurantID
+                food: this.food,
+                restaurant: this.restaurant
             });
         };
         document.querySelector(this.minusButtonID)

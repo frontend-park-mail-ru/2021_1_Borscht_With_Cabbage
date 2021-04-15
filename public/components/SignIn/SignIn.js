@@ -2,7 +2,7 @@ import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import renderLogin from './SignInTmpl.hbs';
 import eventBus from '../../modules/eventBus.js';
-import { noop } from '../../modules/utils.js';
+import { getError, noop } from '../../modules/utils.js';
 import { SignInController } from '../../controllers/SignInController.js';
 import { SignInEvents } from '../../events/SignInEvents.js';
 
@@ -64,7 +64,7 @@ export class SignIn {
     loginFailed (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
-        serverError.textContent = error;
+        serverError.textContent = getError(error);
     }
 
     loginSuccess () {

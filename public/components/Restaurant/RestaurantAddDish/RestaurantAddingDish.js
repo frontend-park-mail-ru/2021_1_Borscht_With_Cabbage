@@ -1,4 +1,4 @@
-import { noop } from "../../../modules/utils.js";
+import { getError, noop } from '../../../modules/utils.js';
 import { RestaurantMainController } from "../../../controllers/RestaurantMainController.js";
 import renderRestaurantAddingDish from "./RestaurantAddingDishTmpl.hbs";
 import eventBus from "../../../modules/eventBus.js";
@@ -143,6 +143,6 @@ export class RestaurantAddingDish {
     addingFailed (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
-        serverError.textContent = error;
+        serverError.textContent = getError(error);
     }
 }

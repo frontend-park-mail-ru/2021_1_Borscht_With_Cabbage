@@ -2,21 +2,27 @@ import eventBus from '../modules/eventBus.js';
 import { addDishInBasket, getBasket, storeGet } from '../modules/api.js';
 import { StoreEvents } from '../events/StoreEvents.js';
 import { ChangeBasketEvents } from '../events/ChangeBasketEvents.js';
+import user from '../modules/user.js';
+import basket from '../modules/basket.js';
 
 export class StoreModel {
     getDishes (url) {
         const food = storeGet({ url: url });
         const basket = getBasket();
-        console.log('store ->', url)
 
         Promise.all([food, basket])
             .then(res => {
                 const data_ = {};
-                data_.status = Math.max(...res.map(value => value.status));
-                if (data_.status !== 200) {
-                    data_.parsedJSON = res.find(value => value.status !== 200).parsedJSON;
+                if (res[0].status !== 200) {
+                    data_.status = res[0].status;
+                    data_.parsedJSON = res[0].parsedJSON;
                 } else {
-                    data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: res[1].parsedJSON });
+                    data_.status = res[0].status;
+                    if (res[1].status !== 200) {
+                        data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: {} });
+                    } else {
+                        data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: res[1].parsedJSON });
+                    }
                 }
                 if (data_.status === 200) {
                     eventBus.emit(StoreEvents.storeGetDishesSuccess, data_.parsedJSON);
@@ -30,15 +36,21 @@ export class StoreModel {
     }
 
     addDish ({
-        dishID = '',
-        restaurantID = '',
         isNewBasket = true,
-        isPlus = true
+        isPlus = true,
+        food,
+        restaurant
     } = {}) {
-        console.log(dishID, restaurantID, isNewBasket, isPlus)
+        if (!user.isAuth) {
+            basket.addNew({
+                food,
+                restaurant
+            });
+            return;
+        }
         addDishInBasket({
-            dishID,
-            restaurantID,
+            dishID: food.id,
+            restaurantID: restaurant.id,
             same: !isNewBasket,
             isPlus
         })

@@ -23,6 +23,11 @@ export class BasketView {
     }
 
     render () {
+        if (!user.isAuth) {
+            this.goTo('login');
+            return;
+        }
+
         this.basketController.getBasket();
     }
 

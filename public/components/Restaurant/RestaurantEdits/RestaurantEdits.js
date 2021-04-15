@@ -7,7 +7,7 @@ import { renderInput } from '../../../modules/rendering.js';
 import { AuthEvents } from '../../../events/AuthEvents.js';
 import { Validator } from '../../../modules/validation.js';
 import { maskPhone } from '../../../modules/phoneMask.js';
-import { noop } from '../../../modules/utils.js';
+import { getError, noop } from '../../../modules/utils.js';
 import user from '../../../modules/user.js';
 
 export class RestaurantEdits {
@@ -83,13 +83,13 @@ export class RestaurantEdits {
     changeFailed (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
-        serverError.textContent = error;
+        serverError.textContent = getError(error);
     }
 
     updateInputs ({ info, status }) {
         if (status === 200) {
             document.getElementById(this.emailID).value = info.email;
-            document.getElementById(this.titleID).value = info.name;
+            document.getElementById(this.titleID).value = info.title;
             document.getElementById(this.phoneID).value = info.number;
             document.getElementById(this.phoneID).focus();
             if (info.avatar) {

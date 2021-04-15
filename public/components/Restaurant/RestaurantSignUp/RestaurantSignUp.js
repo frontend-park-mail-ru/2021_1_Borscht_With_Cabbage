@@ -1,4 +1,4 @@
-import { noop } from "../../../modules/utils.js";
+import { getError, noop } from '../../../modules/utils.js';
 import { RestaurantSignUpController } from "../../../controllers/RestaurantSignUpController.js";
 import eventBus from "../../../modules/eventBus.js";
 import { SignUpEvents } from "../../../events/SignUpEvents.js";
@@ -109,6 +109,6 @@ export class RestaurantSignUp {
     signupFailed (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
-        serverError.textContent = error;
+        serverError.textContent = getError(error);
     }
 }

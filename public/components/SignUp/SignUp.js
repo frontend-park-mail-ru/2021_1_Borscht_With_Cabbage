@@ -3,7 +3,7 @@ import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import { maskPhone } from '../../modules/phoneMask.js';
 import eventBus from '../../modules/eventBus.js';
-import { noop } from '../../modules/utils.js';
+import { getError, noop } from '../../modules/utils.js';
 import { SignUpController } from '../../controllers/SignUpController.js';
 import { SignUpEvents } from '../../events/SignUpEvents.js';
 
@@ -116,6 +116,6 @@ export class SignUp {
     signupFailed (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
-        serverError.textContent = error;
+        serverError.textContent = getError(error);
     }
 }

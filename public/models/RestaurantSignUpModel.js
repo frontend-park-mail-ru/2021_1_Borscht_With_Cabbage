@@ -9,9 +9,9 @@ export class RestaurantSignUpModel {
                 if (res.status === 200) {
                     eventBus.emit(SignUpEvents.restaurantSignUpSuccess, {})
                 } else {
-                    eventBus.emit(SignUpEvents.restaurantSignUpFailed, res.parsedJSON)
+                    eventBus.emit(SignUpEvents.restaurantSignUpFailed, res)
                 }
             })
-            .catch(res => eventBus.emit(SignUpEvents.restaurantSignUpFailed, res.parsedJSON));
+            .catch(res => eventBus.emit(SignUpEvents.restaurantSignUpFailed, res));
     }
 }

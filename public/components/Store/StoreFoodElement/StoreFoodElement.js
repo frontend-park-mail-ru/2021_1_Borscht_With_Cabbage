@@ -10,7 +10,7 @@ export class StoreFoodElement {
         root = document.body,
         food = null,
         controller = new StoreController(),
-        info = {}
+        restaurant = {}
     } = {}) {
         this.root = root;
         this.food = food;
@@ -34,7 +34,7 @@ export class StoreFoodElement {
             }
         });
         this.controller = controller;
-        this.info = info;
+        this.restaurant = restaurant;
     }
 
     render () {
@@ -45,7 +45,7 @@ export class StoreFoodElement {
                 food: this.food,
                 root: this.root.querySelector(this.numButtonsSelector).querySelector('.card__header'),
                 event: ChangeBasketEvents.chooseFood,
-                restaurantID: this.info.id,
+                restaurant: this.restaurant,
                 controller: this.controller
             });
             this.numButtons.render();
@@ -83,17 +83,16 @@ export class StoreFoodElement {
 
             let isNewBasket = false;
             if (basket.restaurantID) {
-                console.log('addBasket ->', this.info, basket)
-                if (this.info.id !== basket.restaurantID) {
+                if (this.restaurant.id !== basket.restaurantID) {
                     isNewBasket = true;
                 }
             }
 
             this.controller.addDish({
-                dishID: this.food.id,
                 isNewBasket,
                 isPlus: true,
-                restaurantID: this.info.id
+                food: this.food,
+                restaurant: this.restaurant
             });
         };
 

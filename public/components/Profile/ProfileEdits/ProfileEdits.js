@@ -4,7 +4,7 @@ import { Validator } from '../../../modules/validation.js';
 import { maskPhone } from '../../../modules/phoneMask.js';
 import eventBus from '../../../modules/eventBus.js';
 import { Preview } from '../../Preview/Preview.js';
-import { noop } from '../../../modules/utils.js';
+import { getError, noop } from '../../../modules/utils.js';
 import user from '../../../modules/user.js';
 import { ProfileEvents } from '../../../events/ProfileEvents.js';
 import { ProfileController } from '../../../controllers/ProfileController.js';
@@ -83,9 +83,9 @@ export class ProfileEdits {
     }
 
     changeFailed (error) {
-        const serverError = document.getElementById('serverError')
-        serverError.hidden = false
-        serverError.textContent = error
+        const serverError = document.getElementById('serverError');
+        serverError.hidden = false;
+        serverError.textContent = getError(error);
     }
 
     updateInputs ({ info, status }) {

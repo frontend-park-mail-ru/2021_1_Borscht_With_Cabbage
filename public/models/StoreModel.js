@@ -7,6 +7,7 @@ export class StoreModel {
     getDishes (url) {
         const food = storeGet({ url: url });
         const basket = getBasket();
+        console.log('store ->', url)
 
         Promise.all([food, basket])
             .then(res => {

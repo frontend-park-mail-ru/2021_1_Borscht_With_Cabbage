@@ -6,7 +6,7 @@ export class StoreController {
     }
 
     getDishes (url) {
-        this.storeModel.getDishes(url.substring('/restaurant'.length));
+        this.storeModel.getDishes(url.substring('/store'.length));
     }
 
     addDish ({

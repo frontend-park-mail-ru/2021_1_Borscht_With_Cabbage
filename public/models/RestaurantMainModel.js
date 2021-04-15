@@ -83,9 +83,9 @@ export class RestaurantMainModel {
 
     setRestaurantData (data, avatar) {
         const promise = [];
-        promise.push(userPut({ data }));
+        promise.push(restaurantPut({ data }));
         if (avatar.get('avatar')) {
-            promise.push(userAvatarPut({ avatar }))
+            promise.push(restaurantAvatarPut({ avatar }))
         }
 
         Promise.all(promise)

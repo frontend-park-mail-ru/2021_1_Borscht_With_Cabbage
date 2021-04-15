@@ -17,7 +17,7 @@ function getParams ({
         headers['Content-Type'] = 'application/json';
         body = JSON.stringify(body);
     }
-    if (method === 'POST') {
+    if (method !== 'GET') {
         headers['X-XSRF-Token'] = document.cookie.match(/_csrf=([\w-]+)/)[1];
     }
     const init = {

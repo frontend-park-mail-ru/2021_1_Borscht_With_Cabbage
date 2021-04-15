@@ -5,7 +5,7 @@ import {
     restaurantPut,
     sectionAddPost,
     sectionUpdatePut,
-    sectionDelete, restaurantAvatarPut
+    sectionDelete, restaurantAvatarPut, userPut, userAvatarPut
 } from '../modules/api.js';
 import { restaurantUpdateDishDataPut, restaurantDeleteDish } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
@@ -82,19 +82,18 @@ export class RestaurantMainModel {
     }
 
     setRestaurantData (data, avatar) {
-        const textData = restaurantPut({ data });
-        const avatarData = restaurantAvatarPut({ avatar })
+        const promise = [];
+        promise.push(userPut({ data }));
+        if (avatar.get('avatar')) {
+            promise.push(userAvatarPut({ avatar }))
+        }
 
-        Promise.all([textData, avatarData])
+        Promise.all(promise)
             .then(res => {
                 const data_ = {};
-                data_.status = Math.max(res[0].status, res[1].status);
-                if (res[0].status !== 200 || res[1].status !== 200) {
-                    if (res[0].status !== 200) {
-                        data_.parsedJSON = res[0].parsedJSON;
-                    } else {
-                        data_.parsedJSON = res[1].parsedJSON;
-                    }
+                data_.status = Math.max(...res.map(value => value.status));
+                if (data_.status !== 200) {
+                    data_.parsedJSON = res.find(value => value.status !== 200).parsedJSON;
                 } else {
                     data_.parsedJSON = Object.assign(res[0].parsedJSON, res[1].parsedJSON);
                 }

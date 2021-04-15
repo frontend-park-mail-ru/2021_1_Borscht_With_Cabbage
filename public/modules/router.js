@@ -5,8 +5,8 @@ const urls = {
     },
     store: {
         constUrl: null,
-        regularUrl: /\/restaurant\/./
-    }, // '/restaurant/:id'
+        regularUrl: /\/store\/./
+    }, // '/store/:id'
     login: {
         constUrl: '/signin',
         regularUrl: null
@@ -16,11 +16,11 @@ const urls = {
         regularUrl: null
     },
     restaurantSignin: {
-        constUrl: '/store/signin',
+        constUrl: '/restaurant/signin',
         regularUrl: null
     },
     restaurantSignup: {
-        constUrl: '/store/signup',
+        constUrl: '/restaurant/signup',
         regularUrl: null
     },
     basket: {

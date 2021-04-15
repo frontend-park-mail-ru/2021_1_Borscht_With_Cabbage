@@ -47,7 +47,7 @@ export class PanelRestaurantsComponent {
             if (idRestaurant) {
                 // TODO меняем элемент визуально как нибудь
 
-                this.goTo('/restaurant/' + idRestaurant);
+                this.goTo('/store/' + idRestaurant);
             }
         })
     }

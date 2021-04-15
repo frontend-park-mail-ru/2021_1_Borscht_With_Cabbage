@@ -17,6 +17,9 @@ function getParams ({
         headers['Content-Type'] = 'application/json';
         body = JSON.stringify(body);
     }
+    if (method === 'POST') {
+        headers['X-XSRF-Token'] = document.cookie.match(/_csrf=([\w-]+)/)[1];
+    }
     const init = {
         mode: 'cors',
         method: method,
@@ -38,7 +41,7 @@ async function makeFetch ({
     const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body, type: type }));
     const parsedJSON = await response.json();
     if (parsedJSON.code === 418) {
-        eventBus.emit(AuthEvents.offline, { message: parsedJSON.message })
+        eventBus.emit(AuthEvents.offline, { message: parsedJSON.message });
     }
 
     return {

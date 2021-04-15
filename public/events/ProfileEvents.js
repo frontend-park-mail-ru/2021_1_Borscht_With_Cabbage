@@ -16,5 +16,7 @@ export const ProfileEvents = {
     profileGetUserDataSuccess: 'profileGetUserDataSuccess',
     profileGetUserDataFailed: 'profileGetUserDataFailed',
     profileSetUserDataSuccess: 'profileSetUserDataSuccess',
-    profileSetUserDataFailed: 'profileSetUserDataFailed'
+    profileSetUserDataFailed: 'profileSetUserDataFailed',
+    profileGetOrdersSuccess: 'profileGetOrdersSuccess',
+    profileGetOrdersFailed: 'profileGetOrdersFailed'
 }

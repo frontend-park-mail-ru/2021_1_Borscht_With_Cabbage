@@ -1,8 +1,11 @@
-import { renderProfileView } from '../components/Profile/ProfileTmpl.js'
-import { ProfileEdits } from '../components/ProfileEdits/ProfileEdits.js';
+import renderProfileView from '../components/Profile/ProfileTmpl.hbs'
+import { ProfileEdits } from '../components/Profile/ProfileEdits/ProfileEdits.js';
 import { ProfileController } from '../controllers/ProfileController.js';
 import eventBus from '../modules/eventBus.js';
 import { ProfileEvents } from '../events/ProfileEvents.js';
+import { RightMenu } from '../components/Profile/RightMenu/RightMenu.js';
+import { Orders } from '../components/Profile/Orders/Orders.js';
+import user from '../modules/user.js';
 
 export class ProfileView {
     constructor (root, goTo) {
@@ -14,6 +17,13 @@ export class ProfileView {
     }
 
     render () {
+        if (user.role === 'admin') {
+            this.goTo('restaurantMain');
+            return;
+        } else if (user.role === '') {
+            this.goTo('main');
+            return;
+        }
         // TODO вынести эту лоику в компонент, который отвечает за это конкретно
         this.profileController.getUserData()
     }
@@ -33,6 +43,21 @@ export class ProfileView {
             controller: this.profileController
         })
         edits.render()
+
+        const orders = new Orders({
+            root: this.root,
+            controller: this.profileController,
+            goTo: this.goTo,
+            user: user
+        });
+
+        const rightMenu = new RightMenu({
+            root: this.root.querySelector('#profile-right-block'),
+            profileController: this.profileController,
+            editsView: edits,
+            ordersView: orders
+        });
+        rightMenu.render()
     }
 
     loadError (error) {

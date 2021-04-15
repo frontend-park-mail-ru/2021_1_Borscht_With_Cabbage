@@ -1,6 +1,6 @@
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
-import { renderLogin } from './SignInTmpl.js';
+import renderLogin from './SignInTmpl.hbs';
 import eventBus from '../../modules/eventBus.js';
 import { noop } from '../../modules/utils.js';
 import { SignInController } from '../../controllers/SignInController.js';
@@ -46,14 +46,6 @@ export class SignIn {
         const form = document.getElementById(formID);
         if (form) {
             form.addEventListener('submit', this.formSubmit.bind(this));
-        }
-
-        const regID = 'js_toRegistration';
-        const reg = document.getElementById(regID);
-        if (reg) {
-            reg.onclick = () => {
-                this.goTo('signup')
-            }
         }
     }
 

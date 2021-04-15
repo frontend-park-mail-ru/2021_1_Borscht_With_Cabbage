@@ -1,15 +1,14 @@
-import { renderCategory } from './CategoryTmpl.js';
+import renderCategory from './CategoryTmpl.hbs';
 import { category } from './Category.constants.js'
-import { noop } from '../../modules/utils.js';
+import { MainController } from '../../controllers/MainController.js'
 
 export class CategoryComponent {
     constructor ({
         root = document.body,
-        callback = noop
+        controller = new MainController()
     } = {}) {
         this.root = root;
-
-        this.callback = callback;
+        this.controller = controller;
     }
 
     render () {
@@ -20,10 +19,10 @@ export class CategoryComponent {
         });
         this.root.append(categoryElem);
 
-        this.addCategoryListeners(this.callback);
+        this.addCategoryListeners();
     }
 
-    addCategoryListeners (callback) {
+    addCategoryListeners () {
         const cuisinesPanel = this.root.querySelector('.cuisines-panel');
         if (!cuisinesPanel) {
             return;
@@ -38,7 +37,7 @@ export class CategoryComponent {
             if (currCategory) {
                 // TODO меняем элемент визуально как нибудь
 
-                callback(currCategory);
+                this.controller.clickCategory({ name: currCategory });
             }
         })
     }

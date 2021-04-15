@@ -42,10 +42,33 @@ input:focus {
     color: white;
     padding: 16px 32px;
     text-decoration: none;
-    margin: 4px 2px;
+    margin: 24px 2px;
     cursor: pointer;
+}
+
+.link {
+    display: block;
 }
 
 .link:hover {
     color: var(--main-green_color_darker);
+}
+
+.block {
+    display: block;
+}
+
+.horizontal-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.number-in-circle {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    background: var(--grey_color);
+    margin: 1em;
+    border-radius: 50%;
+    text-align: center;
 }

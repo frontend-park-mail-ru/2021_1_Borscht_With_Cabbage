@@ -1,14 +1,20 @@
-import { renderNumButtons } from './NumButtonsTmpl.js';
+import renderNumButtons from './NumButtonsTmpl.hbs';
 import eventBus from '../../modules/eventBus.js';
+import basket from '../../modules/basket.js';
+import { StoreController } from '../../controllers/StoreController.js';
 
 export class NumButtons {
     constructor ({
         food = null,
         root = document.body,
         event = '',
-        num = 0
+        num = 0,
+        restaurantID = null,
+        controller = new StoreController()
     } = {}) {
         this.food = food;
+        this.restaurantID = restaurantID;
+        this.controller = controller;
         this.plusButtonID = `[data-foodPlusButtonID="${this.food.id}"]`;
         this.minusButtonID = `[data-foodMinusButtonID="${this.food.id}"]`;
         this.numButtonID = `[data-foodNumButtonID="${this.food.id}"]`;
@@ -45,10 +51,24 @@ export class NumButtons {
     }
 
     addEventListeners () {
+        let isNewBasket = false;
+        if (basket.restaurantID) {
+            if (this.restaurantID !== basket.restaurantID) {
+                isNewBasket = true;
+            }
+        }
+
         this.plusListener = () => {
             eventBus.emit(this.event, {
                 food: this.food,
                 isPlus: true
+            });
+
+            this.controller.addDish({
+                dishID: this.food.id,
+                isNewBasket: isNewBasket,
+                isPlus: true,
+                restaurantID: this.restaurantID
             });
         };
         document.querySelector(this.plusButtonID)
@@ -58,6 +78,13 @@ export class NumButtons {
             eventBus.emit(this.event, {
                 food: this.food,
                 isPlus: false
+            });
+
+            this.controller.addDish({
+                dishID: this.food.id,
+                isNewBasket: isNewBasket,
+                isPlus: false,
+                restaurantID: this.restaurantID
             });
         };
         document.querySelector(this.minusButtonID)

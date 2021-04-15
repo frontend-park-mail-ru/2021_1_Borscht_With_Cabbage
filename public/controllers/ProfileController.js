@@ -26,17 +26,18 @@ export class ProfileController {
             currentPasswordError.result && newPasswordError.result && repeatPasswordError.result
         ) {
             const formData = new FormData();
-            formData.append('email', email);
-            formData.append('name', name);
-            formData.append('number', phone);
-            formData.append('password_current', currentPassword);
-            formData.append('password', newPassword);
-            formData.append('password_repeat', repeatPassword);
             if (avatar) {
                 formData.append('avatar', avatar);
             }
 
-            this.profileModel.setUserData(formData);
+            this.profileModel.setUserData({
+                email,
+                name,
+                number: phone,
+                password_current: currentPassword,
+                password: newPassword,
+                password_repeat: repeatPassword
+            }, formData);
             return {
                 error: false
             };
@@ -55,5 +56,9 @@ export class ProfileController {
 
     getUserData () {
         this.profileModel.getUserData();
+    }
+
+    getOrders () {
+        this.profileModel.getOrders()
     }
 }

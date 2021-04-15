@@ -3,6 +3,7 @@
     background-color: var(--navbar-white_color);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
     height: 6em;
+    position: relative;
 }
 
 .navbar_title__project-name {
@@ -30,7 +31,7 @@
 
 .navbar_right-items__address {
     float: right;
-    background-image: url('../../static/map.png');
+    background-image: url('../../static/img/map.png');
     background-position: left;
     background-repeat: no-repeat;
     background-color: var(--main-green_color_darker);

@@ -1,33 +1,37 @@
-import { renderPanelRestaurants } from './PanelRestaurantsTmpl.js';
+import renderPanelRestaurants from './PanelRestaurantsTmpl.hbs';
 import { noop } from '../../modules/utils.js';
-import { renderInfoRestaurant } from '../InfoRestaurant/InfoRestaurant.js';
+import renderInfoRestaurant from '../InfoRestaurant/InfoRestaurantTmpl.hbs';
+import { MainController } from '../../controllers/MainController.js'
 
 export class PanelRestaurantsComponent {
     constructor ({
         root = document.body,
-        restaurants,
-        callback = noop
+        controller = new MainController(),
+        goTo = noop
     } = {}) {
-        this.restaurants = restaurants;
         this.root = root;
-        this.callback = callback;
+        this.controller = controller;
+        this.goTo = goTo;
     }
 
     render () {
         const restaurantsElem = document.createElement('div');
         restaurantsElem.innerHTML = renderPanelRestaurants({});
         this.root.append(restaurantsElem);
-        const restaurantList = document.getElementById('restaurants_list')
-        for (const restaurant of this.restaurants) {
-            restaurantList.innerHTML += renderInfoRestaurant({
+        this.restaurantList = document.getElementById('restaurants_list')
+
+        this.addRestaurantListeners();
+    }
+
+    add ({ restaurants }) {
+        for (const restaurant of restaurants) {
+            this.restaurantList.innerHTML += renderInfoRestaurant({
                 node: restaurant
             });
         }
-
-        this.addRestaurantListeners(this.callback);
     }
 
-    addRestaurantListeners (callback) {
+    addRestaurantListeners () {
         const restaurantPanel = this.root.querySelector('.restaurants');
         if (!restaurantPanel) {
             return;
@@ -43,7 +47,7 @@ export class PanelRestaurantsComponent {
             if (idRestaurant) {
                 // TODO меняем элемент визуально как нибудь
 
-                callback(idRestaurant);
+                this.goTo('/restaurant/' + idRestaurant);
             }
         })
     }

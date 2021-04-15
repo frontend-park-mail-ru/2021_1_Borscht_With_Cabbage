@@ -1,6 +1,6 @@
 /**
  *  userSignUpSuccess
- *      data: { name, avatar }
+ *      data: { name, avatar, role }
  *
  *  userSignUpFailed
  *      data: { error }
@@ -8,5 +8,7 @@
 
 export const SignUpEvents = {
     userSignUpSuccess: 'userSignUpSuccess',
-    userSignUpFailed: 'userSignUpFailed'
+    userSignUpFailed: 'userSignUpFailed',
+    restaurantSignUpSuccess: 'restaurantSignUpSuccess',
+    restaurantSignUpFailed: 'restaurantSignUpFailed'
 }

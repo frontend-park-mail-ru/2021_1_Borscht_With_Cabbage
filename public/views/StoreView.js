@@ -1,7 +1,7 @@
-import { renderStoreView } from '../components/RestaurantPage/StoreTemplate.js';
-import { StoreTitle } from '../components/StoreTitle/StoreTitle.js';
-import { StoreFoodList } from '../components/StoreFoodList/StoreFoodList.js';
-import { StoreBasket } from '../components/StoreBasket/StoreBasket.js';
+import renderStoreView from '../components/Store/StoreTmpl.hbs';
+import { StoreTitle } from '../components/Store/StoreTitle/StoreTitle.js';
+import { StoreFoodList } from '../components/Store/StoreFoodList/StoreFoodList.js';
+import { StoreBasket } from '../components/Store/StoreBasket/StoreBasket.js';
 import { StoreController } from '../controllers/StoreController.js';
 import eventBus from '../modules/eventBus.js';
 import { StoreEvents } from '../events/StoreEvents.js';
@@ -20,6 +20,7 @@ export class StoreView {
     }
 
     render (url) {
+        // TODO: понять почему рендорится при отображении главной страницы с ресторанами
         this.storeController.getDishes(url)
     }
 
@@ -30,25 +31,28 @@ export class StoreView {
         this.root.append(main)
 
         this.storeTitle = new StoreTitle({
-            root: document.getElementById('restaurant-info__title'),
+            root: document.getElementById('store-info__title'),
             store: info
         });
         this.storeTitle.render()
 
-        this.storeBasket = new StoreBasket({
-            root: document.getElementById('restaurant-basket'),
-            store: info
-        });
-        this.storeBasket.render(this.goTo)
-
         this.foodList = new StoreFoodList({
-            root: document.getElementById('restaurant-info__food')
+            root: document.getElementById('store-info__food'),
+            info
         });
-        this.foodList.render(info.foods)
+        this.foodList.render()
+
+        this.storeBasket = new StoreBasket({
+            root: document.getElementById('store-basket'),
+            store: info,
+            goTo: this.goTo
+        });
+        this.storeBasket.render()
     }
 
     loadError (error) {
         // TODO изобразить сообщение о пропаввшем интернете
+        this.goTo('login');
         console.log('storeVIew -> loadError', error)
     }
 }

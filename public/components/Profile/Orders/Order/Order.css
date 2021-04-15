@@ -1,0 +1,60 @@
+@import "OrderDish/Dish.css";
+
+.profile-left-block-orders {
+    padding: 0;
+    max-width: 42em;
+    min-width: 32em;
+    margin-bottom: 4em;
+    margin-left: 8em;
+}
+
+.profile-left-block-restaurant {
+    width: 100%;
+    border-bottom: 2px solid var(--main-green_color_darker);
+}
+
+.profile-left-block-order-date-and-address {
+    padding: 4px 0;
+    width: 100%;
+    height: 6em;
+    border-bottom: 1px solid var(--main-green_color_darker);
+}
+
+.profile-left-block-restaurant__name, .profile-left-block-order__date, .profile-left-block-order__address {
+    margin-left: 2em;
+}
+
+.profile-left-block-order-contents, .profile-left-block-order-state {
+    width: 100%;
+    border-bottom: 2px solid var(--main-green_color_darker);
+}
+
+.profile-left-block-order-contents-sum{
+    width: 100%;
+    height: 8em;
+}
+
+.profile-left-block-order-state {
+    padding: 1em 0;
+}
+
+.profile-left-block-order-state-status, .profile-left-block-order-delivery, .profile-left-block-order-contents-sum-order, .profile-left-block-order-contents-sum-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+}
+
+.profile-left-block-order-static-text {
+    text-align: left;
+    margin-left: 2em;
+}
+
+.profile-left-block-order-align-right {
+    text-align: right;
+    margin-right: 2em;
+}
+
+.profile__text-with-small-weight {
+    font-weight: 300;
+}
+

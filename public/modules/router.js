@@ -16,11 +16,11 @@ const urls = {
         regularUrl: null
     },
     restaurantSignin: {
-        constUrl: '/restaurant/signin',
+        constUrl: '/store/signin',
         regularUrl: null
     },
     restaurantSignup: {
-        constUrl: '/restaurant/signup',
+        constUrl: '/store/signup',
         regularUrl: null
     },
     basket: {

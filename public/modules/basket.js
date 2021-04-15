@@ -5,7 +5,8 @@ import { StoreEvents } from '../events/StoreEvents.js';
 class Basket {
     constructor () {
         eventBus.on(ChangeBasketEvents.chooseFoodSuccess, this.makeNew.bind(this));
-        eventBus.on(StoreEvents.storeGetDishesSuccess, this.makeNew_.bind(this))
+        eventBus.on(StoreEvents.storeGetDishesSuccess, this.makeNew_.bind(this));
+        this.clear();
     }
 
     makeNew ({
@@ -16,6 +17,10 @@ class Basket {
         deliveryPrice = 0,
         totalPrice = 0
     } = {}) {
+        if (!id) {
+            return;
+        }
+        console.log('basket ->', id, restaurantName, restaurantID, foods, deliveryPrice, totalPrice)
         this.id = id;
         this.restaurantName = restaurantName;
         this.restaurantID = restaurantID;
@@ -25,12 +30,21 @@ class Basket {
     }
 
     clear () {
-        this.makeNew({});
+        this.id = '';
+        this.restaurantName = '';
+        this.restaurantID = '';
+        this.foods = [];
+        this.deliveryPrice = 0;
+        this.totalPrice = 0;
     }
 
     makeNew_ (store) {
         const basket = store.basket;
-        this.makeNew(basket);
+        if (basket) {
+            this.makeNew(basket);
+        } else {
+
+        }
     }
 
     addNew ({
@@ -41,18 +55,24 @@ class Basket {
             this.clear();
             this.restaurantID = restaurant.id;
             this.restaurantName = restaurant.title;
-            this.deliveryPrice = restaurant.deliveryPrice;
+            this.deliveryPrice = restaurant.deliveryCost;
         }
         const thatFood = this.foods.find(value => value.id === food.id);
         if (thatFood) {
             for (const food_ of this.foods) {
-                if (food_ === thatFood.id) {
+                if (food_.id === thatFood.id) {
                     food_.num += 1;
                     break;
                 }
             }
         } else {
-            this.foods.push({ id: food.id, num: 1 })
+            this.foods.push({
+                id: food.id,
+                num: 1,
+                image: food.image,
+                name: food.name,
+                price: food.price
+            });
         }
         this.totalPrice += food.price;
     }

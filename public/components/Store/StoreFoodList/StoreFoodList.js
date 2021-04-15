@@ -19,7 +19,7 @@ export class StoreFoodList {
                 const element = new StoreFoodElement({
                     root: foodList,
                     food: food,
-                    info: this.info
+                    restaurant: this.info
                 });
                 element.render();
                 this.elements.push(element);

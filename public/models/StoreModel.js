@@ -7,23 +7,35 @@ import basket from '../modules/basket.js';
 
 export class StoreModel {
     getDishes (url) {
-        const food = storeGet({ url: url });
-        const basket = getBasket();
+        const promises = [];
+        promises.push(storeGet({ url: url }));
+        if (!user.isAuth) {
 
-        Promise.all([food, basket])
+        } else {
+            promises.push(getBasket());
+        }
+
+
+        Promise.all(promises)
             .then(res => {
+                console.log(res)
                 const data_ = {};
                 if (res[0].status !== 200) {
                     data_.status = res[0].status;
                     data_.parsedJSON = res[0].parsedJSON;
                 } else {
                     data_.status = res[0].status;
-                    if (res[1].status !== 200) {
-                        data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: {} });
+                    if (res.length > 1) {
+                        if (res[1].status !== 200) {
+                            data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: {} });
+                        } else {
+                            data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: res[1].parsedJSON });
+                        }
                     } else {
-                        data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: res[1].parsedJSON });
+                        data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: {} });
                     }
                 }
+                console.log(data_)
                 if (data_.status === 200) {
                     eventBus.emit(StoreEvents.storeGetDishesSuccess, data_.parsedJSON);
                 } else {

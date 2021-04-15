@@ -11,19 +11,12 @@ export class StoreModel {
         Promise.all([food, basket])
             .then(res => {
                 const data_ = {};
-                data_.status = Math.max(res[0].status, res[1].status);
-                if (res[0].status !== 200 || res[1].status !== 200) {
-                    if (res[0].status !== 200) {
-                        data_.parsedJSON = res[0].parsedJSON;
-                    } else {
-                        data_.parsedJSON = res[1].parsedJSON;
-                    }
+                data_.status = Math.max(...res.map(value => value.status));
+                if (data_.status !== 200) {
+                    data_.parsedJSON = res.find(value => value.status !== 200).parsedJSON;
                 } else {
-                    data_.parsedJSON = Object.assign(
-                        res[0].parsedJSON, { basket: res[1].parsedJSON });
+                    data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: res[1].parsedJSON });
                 }
-                // const data_ = res[0]
-                console.log('data_ -> ', data_)
                 if (data_.status === 200) {
                     eventBus.emit(StoreEvents.storeGetDishesSuccess, data_.parsedJSON);
                 } else {

@@ -27,10 +27,9 @@ export class BasketView {
     }
 
     basketPageDraw (info) {
-        console.log(info)
         if (info.id === 0) {
             this.root.innerHTML = renderEmptyBasket({});
-            return
+            return;
         }
             this.root.innerHTML = renderBasketPage({});
             const container = this.root.querySelector('.basket-container');
@@ -54,6 +53,6 @@ export class BasketView {
     }
 
     orderSuccess () {
-        this.goTo('profile')
+        this.goTo('/profile/orders');
     }
 }

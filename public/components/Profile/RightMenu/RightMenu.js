@@ -2,6 +2,7 @@ import renderRightMenu from "./RightMenuTmpl.hbs";
 import { ProfileController } from "../../../controllers/ProfileController.js";
 import { ProfileEdits } from "../ProfileEdits/ProfileEdits.js";
 import { Orders } from "../Orders/Orders.js";
+import { noop } from '../../../modules/utils.js';
 
 export class RightMenu {
     constructor ({
@@ -9,11 +10,13 @@ export class RightMenu {
         profileController = new ProfileController(),
         editsView = new ProfileEdits(),
         ordersView = new Orders(),
+        goTo = noop
     } = {}) {
-        this.root = root
-        this.profileController = profileController
-        this.editsView = editsView
-        this.ordersView = ordersView
+        this.root = root;
+        this.profileController = profileController;
+        this.editsView = editsView;
+        this.ordersView = ordersView;
+        this.goTo = goTo;
     }
 
     render () {
@@ -28,7 +31,7 @@ export class RightMenu {
         const edits = document.getElementById(editsID)
         if (edits) {
             edits.onclick = () => {
-                this.editsView.render()
+                this.goTo('/profile/edit');
             }
         }
 
@@ -36,7 +39,7 @@ export class RightMenu {
         const orders = document.getElementById(ordersID)
         if (orders) {
             orders.onclick = () => {
-                this.ordersView.render()
+                this.goTo('/profile/orders');
             }
         }
 

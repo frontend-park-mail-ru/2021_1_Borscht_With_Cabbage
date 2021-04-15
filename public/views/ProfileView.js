@@ -16,7 +16,8 @@ export class ProfileView {
         eventBus.on(ProfileEvents.profileGetUserDataFailed, this.loadError.bind(this))
     }
 
-    render () {
+    render (url) {
+        this.url = url;
         if (user.role === 'admin') {
             this.goTo('restaurantMain');
             return;
@@ -41,8 +42,7 @@ export class ProfileView {
             goTo: this.goTo,
             user: data,
             controller: this.profileController
-        })
-        edits.render()
+        });
 
         const orders = new Orders({
             root: this.root,
@@ -55,9 +55,19 @@ export class ProfileView {
             root: this.root.querySelector('#profile-right-block'),
             profileController: this.profileController,
             editsView: edits,
-            ordersView: orders
+            ordersView: orders,
+            goTo: this.goTo
         });
-        rightMenu.render()
+        rightMenu.render();
+
+        console.log()
+        if (/orders/.test(this.url)) {
+            orders.render();
+        } else if (/chats/.test(this.url)) {
+            // TODO
+        } else {
+            edits.render();
+        }
     }
 
     loadError (error) {

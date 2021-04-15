@@ -28,9 +28,9 @@ const urls = {
         regularUrl: null
     },
     profile: {
-        constUrl: '/profile',
+        constUrl: null,
         regularUrl: /\/profile\/./
-    }, // '/profile/edit', '/profile/orders', '/profile/chats'
+    }, // '/profile/edits', '/profile/orders', '/profile/chats'
     logout: {
         constUrl: '/logout',
         regularUrl: null
@@ -60,7 +60,7 @@ export class Router {
     }
 
     open (page, isBack = false) {
-        console.log('open');
+        console.log('router ->', page, ' isBack = ', isBack);
         Object.entries(urls).forEach(([url, { constUrl, regularUrl }]) => {
             if (page === url && isBack && url === 'logout') {
                 this.open('main', isBack);

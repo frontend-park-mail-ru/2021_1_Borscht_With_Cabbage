@@ -68,7 +68,7 @@ export class Navbar {
         const profileLink = document.getElementById('js-go-profile')
         if (profileLink) {
             profileLink.addEventListener('click', () => {
-                this.goTo('profile');
+                this.goTo('/profile/edits');
             })
         }
     }

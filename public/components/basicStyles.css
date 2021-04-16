@@ -36,6 +36,10 @@ input:focus {
     font-size: 12px;
 }
 
+.red_error {
+    color: var(--error_color);
+}
+
 .button {
     background-color: var(--main-green_color);
     border: none;

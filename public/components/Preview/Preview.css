@@ -6,6 +6,7 @@
 .input-avatar__preview {
     position: relative;
     width: 180px; /*it depends from width .preview img*/
+    max-height: 200px;
     overflow: hidden;
 }
 
@@ -16,6 +17,7 @@
 
 .input-avatar__preview img {
     width: 180px; /*it depends from width .preview*/
+    max-height: 200px;
     height: auto;
 }
 

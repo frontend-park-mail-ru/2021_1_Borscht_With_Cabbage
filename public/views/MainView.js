@@ -18,6 +18,7 @@ export class MainView {
     }
 
     render () {
+        this.root.innerHTML = '';
         console.log('render MainView');
         this.headerDraw();
         this.mainController.init();
@@ -25,8 +26,6 @@ export class MainView {
     }
 
     headerDraw () {
-        this.root.innerHTML = '';
-
         const category = new CategoryComponent({
             root: this.root,
             controller: this.mainController

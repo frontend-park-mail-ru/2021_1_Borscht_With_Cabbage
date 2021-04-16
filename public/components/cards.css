@@ -13,6 +13,11 @@
     /*flex-basis: 0;*/
 }
 
+.card:hover {
+    transform: scale(1.03);
+    transition: transform 0.2s;
+}
+
 .card__header {
     position: relative;
     margin-top: 16px;

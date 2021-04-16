@@ -37,7 +37,7 @@ export class SectionComponent {
 
     render () {
         if (this.section) {
-            this.sectionItem = document.createElement('li');
+            this.sectionItem = document.createElement('div');
             this.sectionItem.innerHTML += renderSection({ section: this.section });
             this.root.append(this.sectionItem);
         }

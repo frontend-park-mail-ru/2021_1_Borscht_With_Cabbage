@@ -25,29 +25,31 @@ export class StoreView {
     }
 
     storePageDraw (info) {
-        this.root.innerHTML = ''
-        const main = document.createElement('div')
-        main.innerHTML = renderStoreView({})
-        this.root.append(main)
+        this.root.innerHTML = '';
+
+        const main = document.createElement('div');
+        main.innerHTML = renderStoreView({});
+        this.root.append(main);
 
         this.storeTitle = new StoreTitle({
             root: document.getElementById('store-info__title'),
             store: info
         });
-        this.storeTitle.render()
+        this.storeTitle.render();
 
         this.foodList = new StoreFoodList({
             root: document.getElementById('store-info__food'),
             info
         });
-        this.foodList.render()
+        this.foodList.render();
+
 
         this.storeBasket = new StoreBasket({
             root: document.getElementById('store-basket'),
             store: info,
             goTo: this.goTo
         });
-        this.storeBasket.render()
+        this.storeBasket.render();
     }
 
     loadError (error) {

@@ -19,12 +19,13 @@ export class SignInView {
             return;
         }
         this.root.innerHTML = '';
-
-        const login = new SignIn({
-            root: this.root,
-            goTo: this.goTo,
-            controller: this.signInController
-        });
-        login.render()
+        if (!this.login) {
+            this.login = new SignIn({
+                root: this.root,
+                goTo: this.goTo,
+                controller: this.signInController
+            });
+        }
+        this.login.render()
     }
 }

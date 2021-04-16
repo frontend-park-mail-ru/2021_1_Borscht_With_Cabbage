@@ -19,11 +19,13 @@ export class SignUpView {
             return;
         }
         this.root.innerHTML = '';
-        const signup = new SignUp({
-            root: this.root,
-            goTo: this.goTo,
-            controller: this.signUpController
-        });
-        signup.render();
+        if (!this.signup) {
+            this.signup = new SignUp({
+                root: this.root,
+                goTo: this.goTo,
+                controller: this.signUpController
+            });
+        }
+        this.signup.render();
     }
 }

@@ -2,6 +2,7 @@ import eventBus from './eventBus.js';
 import { AuthEvents } from '../events/AuthEvents.js';
 import { postBasket } from './api.js';
 import basket from './basket.js';
+import redirect from './redirect.js';
 
 export function auth (promise) {
     if (promise.status !== 200) {
@@ -15,7 +16,13 @@ export function auth (promise) {
             return postBasket({
                 restaurantID: basket.restaurantID,
                 foods: basket.foods
-            }).then(_ => promise);
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        basket.makeNew(res.parsedJSON);
+                    }
+                })
+                .then(_ => promise);
         } else {
             return promise;
         }

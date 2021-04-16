@@ -7,6 +7,7 @@ import renderEmptyBasket from '../components/Basket/EmptyBasketTmpl.hbs';
 import { DeliveryBasket } from '../components/DeliveryBasket/DeliveryBasket.js';
 import { DeliveryOptions } from '../components/DeliveryOptions/DeliveryOptions.js';
 import user from '../modules/user.js';
+import redirect from '../modules/redirect.js';
 
 export class BasketView {
     constructor ({
@@ -25,6 +26,7 @@ export class BasketView {
     render () {
         if (!user.isAuth) {
             this.goTo('login');
+            redirect.set('basket');
             return;
         }
 

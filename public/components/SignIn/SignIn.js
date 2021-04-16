@@ -5,6 +5,7 @@ import eventBus from '../../modules/eventBus.js';
 import { getError, noop } from '../../modules/utils.js';
 import { SignInController } from '../../controllers/SignInController.js';
 import { SignInEvents } from '../../events/SignInEvents.js';
+import redirect from '../../modules/redirect.js';
 
 export class SignIn {
     constructor ({
@@ -68,6 +69,11 @@ export class SignIn {
     }
 
     loginSuccess () {
+        const url = redirect.pop();
+        if (url) {
+            this.goTo(url);
+            return;
+        }
         this.goTo('main');
     }
 }

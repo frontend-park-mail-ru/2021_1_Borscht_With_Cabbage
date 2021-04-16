@@ -1,11 +1,15 @@
 import eventBus from './eventBus.js';
 import { ChangeBasketEvents } from '../events/ChangeBasketEvents.js';
 import { StoreEvents } from '../events/StoreEvents.js';
+import { AuthEvents } from '../events/AuthEvents.js';
+import { BasketEvents } from '../events/BasketEvents.js';
 
 class Basket {
     constructor () {
         eventBus.on(ChangeBasketEvents.chooseFoodSuccess, this.makeNew.bind(this));
         eventBus.on(StoreEvents.storeGetDishesSuccess, this.makeNew_.bind(this));
+        eventBus.on(AuthEvents.userLogout, this.clear.bind(this));
+        eventBus.on(BasketEvents.basketOrderSuccess, this.clear.bind(this));
         this.clear();
     }
 
@@ -20,7 +24,6 @@ class Basket {
         if (!id) {
             return;
         }
-        console.log('basket ->', id, restaurantName, restaurantID, foods, deliveryPrice, totalPrice)
         this.id = id;
         this.restaurantName = restaurantName;
         this.restaurantID = restaurantID;

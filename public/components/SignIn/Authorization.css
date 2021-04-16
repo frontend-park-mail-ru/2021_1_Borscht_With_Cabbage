@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background: #97B498;
+    background: url("../../static/img/auth_back.png");
     min-height: 100vh;
     height: auto;
 }

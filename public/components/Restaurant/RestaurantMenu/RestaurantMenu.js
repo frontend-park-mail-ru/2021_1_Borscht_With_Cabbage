@@ -57,6 +57,8 @@ export class RestaurantMenuComponent {
             return;
         }
 
+        content.innerHTML = ''
+
         const sectionItem = new SectionComponent ({root: content, section: section, controller: this.controller});
         sectionItem.render();
     }

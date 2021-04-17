@@ -13,3 +13,7 @@
     margin-top: 16px;
     right: 0;
 }
+
+.section-container__content {
+    flex-direction: row;
+}

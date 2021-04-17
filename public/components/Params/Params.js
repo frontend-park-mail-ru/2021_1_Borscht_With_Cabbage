@@ -55,7 +55,7 @@ export class ParamsComponent {
                 content: params[item.dataset.params].val,
                 callback: (value) => {
                     // элемент в котором нужно поменять значение параметра
-                    item.childNodes[1].innerHTML = params[item.dataset.params]
+                    item.innerHTML = params[item.dataset.params]
                                                 .val[value].name;
 
                     this.controller.clickParams({ 

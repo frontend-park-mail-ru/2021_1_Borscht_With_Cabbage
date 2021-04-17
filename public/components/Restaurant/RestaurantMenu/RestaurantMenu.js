@@ -46,7 +46,16 @@ export class RestaurantMenuComponent {
     }
 
     appendSections (sections) {
+        const content = this.root.querySelector('.menu-container__content');
+        if (!content) {
+            return;
+        }
+
+        content.innerHTML = ''
+
+        console.log(sections.length);
         sections.forEach(section => {
+            console.log('section', section);
             this.appendSection(section);
         });
     }
@@ -56,9 +65,7 @@ export class RestaurantMenuComponent {
         if (!content) {
             return;
         }
-
-        content.innerHTML = ''
-
+        
         const sectionItem = new SectionComponent ({root: content, section: section, controller: this.controller});
         sectionItem.render();
     }

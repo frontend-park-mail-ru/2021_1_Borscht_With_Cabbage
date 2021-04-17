@@ -20,11 +20,13 @@ export class RestaurantSignInView {
         }
         this.root.innerHTML = '';
 
-        const signIn = new RestaurantSignIn({
-            root: this.root,
-            goTo: this.goTo,
-            controller: this.signInController
-        });
-        signIn.render()
+        if (!this.signIn) {
+            this.signIn = new RestaurantSignIn({
+                root: this.root,
+                goTo: this.goTo,
+                controller: this.signInController
+            });
+        }
+        this.signIn.render()
     }
 }

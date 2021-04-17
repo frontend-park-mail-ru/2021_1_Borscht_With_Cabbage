@@ -6,6 +6,7 @@ import eventBus from '../../modules/eventBus.js';
 import { getError, noop } from '../../modules/utils.js';
 import { SignUpController } from '../../controllers/SignUpController.js';
 import { SignUpEvents } from '../../events/SignUpEvents.js';
+import redirect from '../../modules/redirect.js';
 
 export class SignUp {
     constructor ({
@@ -110,6 +111,11 @@ export class SignUp {
     }
 
     signupSuccess () {
+        const url = redirect.pop();
+        if (url) {
+            this.goTo(url);
+            return;
+        }
         this.goTo('main');
     }
 

@@ -9,6 +9,10 @@ export const params = {
         },
 
         val: {
+            not: {
+                name: 'не важно',
+                data: 'not'
+            },
             min: {
                 name: 'до 45 минут',
                 data: 'min'
@@ -33,6 +37,10 @@ export const params = {
         },
 
         val: {
+            not: {
+                name: 'не важен',
+                data: 'not'
+            },
             min: {
                 name: 'до 500',
                 data: 'min'
@@ -57,6 +65,10 @@ export const params = {
         },
 
         val: {
+            not: {
+                name: 'не важен',
+                data: 'not'
+            },
             min: {
                 name: 'от 500',
                 data: 'min'

@@ -19,11 +19,13 @@ export class RestaurantSignUpView {
             return;
         }
         this.root.innerHTML = '';
-        const signup = new RestaurantSignUp({
-            root: this.root,
-            goTo: this.goTo,
-            controller: this.signUpController
-        });
-        signup.render()
+        if (!this.signup) {
+            this.signup = new RestaurantSignUp({
+                root: this.root,
+                goTo: this.goTo,
+                controller: this.signUpController
+            });
+        }
+        this.signup.render()
     }
 }

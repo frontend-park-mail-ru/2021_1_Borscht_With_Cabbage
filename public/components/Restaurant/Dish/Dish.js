@@ -47,7 +47,7 @@ export class DishComponent {
         }
         
         deleteDish.addEventListener('click', e => {
-            const confirmation = new ConfirmationComponent({ root: this.root, id: this.dish.id });
+            const confirmation = new ConfirmationComponent({ root: document.getElementById('app'), id: this.dish.id });
             confirmation.render();
         });
     }

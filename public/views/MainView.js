@@ -68,6 +68,14 @@ export class MainView {
 
     clearContent () {
         this.content.innerHTML = '';
+
+        this.restaurants = new PanelRestaurantsComponent({
+            root: this.content,
+            controller: this.mainController,
+            goTo: this.goTo
+        });
+
+        this.restaurants.render();
     }
 
     loadError (error) {

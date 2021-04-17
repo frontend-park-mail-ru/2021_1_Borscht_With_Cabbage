@@ -24,6 +24,7 @@ export class PanelRestaurantsComponent {
     }
 
     add ({ restaurants }) {
+        this.restaurantList = document.getElementById('restaurants_list')
         for (const restaurant of restaurants) {
             this.restaurantList.innerHTML += renderInfoRestaurant({
                 node: restaurant

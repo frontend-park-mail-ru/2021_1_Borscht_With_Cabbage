@@ -1,9 +1,7 @@
 <ul class="drop-list__slider">
     {{#each content}}
         <li class="drop-list__slide">
-            <a href="{{this.data}}" data-list="{{this.data}}" class="list__btn">
-                <div class="list-panel__slide-btn">{{this.name}}</div>
-            </a>
+            <div class="list-panel__slide-btn list__btn" data-list="{{this.data}}">{{this.name}}</div>
         </li>
     {{/each}}
 </ul>

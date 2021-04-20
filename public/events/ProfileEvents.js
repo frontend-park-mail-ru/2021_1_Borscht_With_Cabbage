@@ -17,6 +17,10 @@ export const ProfileEvents = {
     profileGetUserDataFailed: 'profileGetUserDataFailed',
     profileSetUserDataSuccess: 'profileSetUserDataSuccess',
     profileSetUserDataFailed: 'profileSetUserDataFailed',
+    restaurantGetUserDataSuccess: 'restaurantGetUserDataSuccess',
+    restaurantGetUserDataFailed: 'restaurantGetUserDataFailed',
+    restaurantSetUserDataSuccess: 'restaurantSetUserDataSuccess',
+    restaurantSetUserDataFailed: 'restaurantSetUserDataFailed',
     profileGetOrdersSuccess: 'profileGetOrdersSuccess',
     profileGetOrdersFailed: 'profileGetOrdersFailed'
 }

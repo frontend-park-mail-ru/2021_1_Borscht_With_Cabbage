@@ -17,8 +17,6 @@ export class Navbar {
         this.root = root;
         eventBus.on(AuthEvents.userSignIn, this.renderUserAuth.bind(this));
         eventBus.on(AuthEvents.userLogout, this.renderNotAuth.bind(this));
-        // eventBus.on(AuthEvents.restaurantSignIn, this.renderRestaurantAuth.bind(this));
-        // eventBus.on(AuthEvents.restaurantLogout, this.renderNotAuth.bind(this));
         eventBus.on(AuthEvents.notAuth, this.renderNotAuth.bind(this));
     }
 
@@ -26,7 +24,6 @@ export class Navbar {
     }
 
     renderUserAuth (info) {
-        console.log('Navbar user');
         if (info.role === 'user') {
             this.root.innerHTML = renderTopNavUserView({});
         } else {
@@ -40,12 +37,10 @@ export class Navbar {
             });
             this.goProfileListener();
         }
-        console.log(';l;l;l;l;l', this.root.querySelector('.navbar_title'))
         this.toast = new Toast({ root: this.root.querySelector('.navbar_title') });
     }
 
     renderNotAuth () {
-        console.log('Navbar user');
         this.root.innerHTML = renderTopNavUserView({});
         const authBlock = document.getElementById('auth_block');
         if (authBlock) {
@@ -69,7 +64,7 @@ export class Navbar {
         if (profileLink) {
             profileLink.addEventListener('click', () => {
                 this.goTo('/profile/edits');
-            })
+            });
         }
     }
 }

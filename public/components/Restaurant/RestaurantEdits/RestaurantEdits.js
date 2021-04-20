@@ -28,8 +28,8 @@ export class RestaurantEdits {
         this.repeatPasswordID = 'password_repeat';
 
         this.controller = controller;
-        eventBus.on(ProfileEvents.profileSetUserDataSuccess, this.updateInputs.bind(this));
-        eventBus.on(ProfileEvents.profileSetUserDataFailed, this.changeFailed.bind(this));
+        eventBus.on(ProfileEvents.restaurantSetUserDataSuccess, this.updateInputs.bind(this));
+        eventBus.on(ProfileEvents.restaurantSetUserDataFailed, this.changeFailed.bind(this));
     }
 
     render () {

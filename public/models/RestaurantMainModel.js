@@ -90,7 +90,6 @@ export class RestaurantMainModel {
 
         Promise.all(promise)
             .then(res => {
-                console.log(res)
                 const data_ = {};
                 data_.status = Math.max(...res.map(value => value.status));
                 if (data_.status !== 200) {
@@ -99,15 +98,15 @@ export class RestaurantMainModel {
                     data_.parsedJSON = Object.assign(...res.map(value => value.parsedJSON));
                 }
                 if (data_.status === 200) {
-                    eventBus.emit(ProfileEvents.profileSetUserDataSuccess, {
+                    eventBus.emit(ProfileEvents.restaurantSetUserDataSuccess, {
                         info: data_.parsedJSON,
                         status: data_.status
                     });
                 } else {
-                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, data_);
+                    eventBus.emit(ProfileEvents.restaurantSetUserDataFailed, data_);
                 }
             })
-            .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res));
+            .catch(res => eventBus.emit(ProfileEvents.restaurantSetUserDataFailed, res));
     }
 
     addSection ({ name }) {

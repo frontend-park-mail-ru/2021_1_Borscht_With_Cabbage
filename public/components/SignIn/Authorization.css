@@ -2,11 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background: url("../../static/img/auth_back.png");
     min-height: 100vh;
     height: auto;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url("../../static/img/auth_back.png") no-repeat center;
     background-size: cover;
 }
 
@@ -14,7 +12,7 @@
     left: 0;
     top: 0;
     border-radius: 60px;
-    box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.5);
     padding: 60px;
     background: #F1F1F1;
 }

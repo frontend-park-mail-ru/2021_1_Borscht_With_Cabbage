@@ -11,7 +11,7 @@
     flex-direction: row;
 }
 
-.store > div {
+.store__child {
     flex-grow: 1;
     padding: 16px;
     border-radius: 32px;

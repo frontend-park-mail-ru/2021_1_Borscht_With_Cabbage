@@ -7,7 +7,7 @@
     margin: 64px 128px;
 }
 
-.basket-container > div {
+.basket-container__child {
     flex-grow: 1;
     position: relative;
 }

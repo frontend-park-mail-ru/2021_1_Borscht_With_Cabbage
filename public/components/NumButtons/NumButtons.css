@@ -8,12 +8,11 @@
     margin-top: 20px;
 }
 
-.restaurant-content__num-buttons > button {
+.restaurant-content__num-buttons__button {
     display: inline-block;
     margin: 8px 8px 8px 0;
     width: 25px;
     height: 25px;
-    cursor: pointer;
     border-radius: 50%;
     background: var(--white_color);
     box-sizing: border-box;
@@ -21,10 +20,12 @@
 
 .plus {
     border: 1px solid var(--main-green_color);
+    cursor: pointer;
 }
 
 .minus {
     border: 1px solid var(--red_color);
+    cursor: pointer;
 }
 
 .num {

@@ -15,7 +15,7 @@
     transition: transform .3s;
 }
 
-.input-avatar__preview img {
+.input-avatar__preview__img {
     width: 180px; /*it depends from width .preview*/
     max-height: 200px;
     height: auto;

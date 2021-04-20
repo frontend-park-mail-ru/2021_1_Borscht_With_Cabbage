@@ -9,7 +9,7 @@
     padding: 0 12em;
 }
 
-.profile > div {
+.profile__child {
     flex-grow: 1;
 }
 

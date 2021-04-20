@@ -9,7 +9,7 @@
     padding: 20px;
 }
 
-.restaurant > div {
+.restaurant__child {
     padding: 36px;
     margin: 30px;
 }

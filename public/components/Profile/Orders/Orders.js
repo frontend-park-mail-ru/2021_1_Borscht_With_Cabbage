@@ -4,6 +4,7 @@ import { ProfileEvents } from '../../../events/ProfileEvents.js';
 import { ProfileController } from '../../../controllers/ProfileController.js';
 import { OrderElement } from "./Order/Order.js";
 import renderOrderList from "./OrdersListTmpl.hbs";
+import { I18n } from "../../../modules/intlApi.js";
 
 export class Orders {
     constructor ({
@@ -27,13 +28,15 @@ export class Orders {
     ordersDraw(orders) {
         document.getElementById('profile-left-block').innerHTML =  renderOrderList({})
         const orderList = document.getElementById('orders-list')
+        const i18n = new I18n()
 
         if (orders) {
             for (const order of orders) {
                 console.log(order)
                 const element = new OrderElement({
                     root: orderList,
-                    order: order
+                    order: order,
+                    i18n: i18n
                 });
                 element.render();
             }

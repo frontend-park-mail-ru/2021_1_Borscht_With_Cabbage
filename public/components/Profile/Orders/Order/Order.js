@@ -6,19 +6,25 @@ import { I18n } from "../../../../modules/intlApi.js";
 export class OrderElement {
     constructor ({
         root = document.body,
-        order = null
+        order = null,
+        i18n = null
     } = {}) {
         this.root = root;
         this.order = order;
+        this.i18n = i18n;
     }
 
     render () {
         if (this.order) {
-            const i18n = new I18n()
-            this.order.orderTime = i18n.formatDateTime(this.order.orderTime)
-            this.order.deliveryTime = i18n.formatDateTime(this.order.deliveryTime)
+            let  orderWithDateTime = {}; // новый пустой объект, чтобы с изменением дат не менялась изначальная структура
+            for (let key in this.order) {
+                orderWithDateTime[key] = this.order[key];
+            }
 
-            this.root.innerHTML += renderOrder({ order: this.order });
+            orderWithDateTime.orderTime = this.i18n.formatDateTime(orderWithDateTime.orderTime)
+            orderWithDateTime.deliveryTime = this.i18n.formatDateTime(orderWithDateTime.deliveryTime)
+
+            this.root.innerHTML += renderOrder({ order:  orderWithDateTime });
 
             document.getElementById('profile-left-block-order-food-'+ this.order.orderID).innerHTML = renderDishesList({id: this.order.orderID});
             const dishPlace = document.getElementById('food-list-'+ this.order.orderID)

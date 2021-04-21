@@ -12,10 +12,10 @@ export class InitViews {
     }
 
     getViewPlace () {
-        return this.root.querySelector('#view-place');
+        return this.root.querySelector('main');
     }
 
     getNavbarPlace () {
-        return this.root.querySelector('#navbar');
+        return this.root.querySelector('header');
     }
 }

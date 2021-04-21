@@ -2,6 +2,7 @@ import renderParams from './ParamsTmpl.hbs';
 import { params } from './Params.constants.js';
 import { MainController } from '../../controllers/MainController.js'
 import { DropListComponent } from '../DropList/DropList.js'
+import './Params.less'
 
 export class ParamsComponent {
     constructor ({

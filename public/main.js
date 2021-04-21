@@ -13,12 +13,13 @@ import { MainView } from "./views/MainView.js";
 import { InitViews } from './components/InitViews/InitViews.js';
 import registerSW from './registerSW.js';
 import { BasketView } from './views/BasketView.js';
+import './components/basicStyles.less'
 
 import './static/css/main.css';
 
 registerSW();
 
-const application = document.getElementById('app');
+const application = document.querySelector('body');
 
 const router = new Router(application);
 

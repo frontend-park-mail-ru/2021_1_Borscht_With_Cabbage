@@ -21,9 +21,9 @@ export class RestaurantAddingSection {
     }
 
     render () {
-        let buttonName = 'Добавить раздел';
+        let buttonName = 'Добавить';
         if (this.section && this.section.id) {
-            buttonName = 'Обновить раздел';
+            buttonName = 'Обновить';
         }
         this.root.innerHTML += renderRestaurantAddingSection({
             buttonName: buttonName,
@@ -35,16 +35,28 @@ export class RestaurantAddingSection {
     }
 
     addCloseAddingEventListeners() {
-        const close = this.root.querySelector('.adding-section');
-        if (!close) {
-            return;
+        const closeBackground = this.root.querySelector('.adding-section');
+        if (closeBackground) {
+            closeBackground.addEventListener('click', e => {
+                if (e.target === closeBackground) {
+                    this.closeItem();
+                }
+            })
         }
 
-        close.addEventListener('click', e => {
-            if (e.target === close) {
+        const closeButton1 = this.root.querySelector('.btn-close');
+        if (closeButton1) {
+            closeButton1.addEventListener('click', e => {
                 this.closeItem();
-            }
-        })
+            })
+        }
+
+        const closeButton2 = this.root.querySelector('.adding-section__icone-close');
+        if (closeButton2) {
+            closeButton2.addEventListener('click', e => {
+                this.closeItem();
+            })
+        }
     }
 
     closeItem () {

@@ -16,12 +16,25 @@
 .adding-section-container {
     left: 0;
     top: 0;
-    border-radius: 60px;
-    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.5);
-    padding: 60px 96px;
+    border-radius: 48px;
+    box-shadow: 0 15px 15px rgb(0 0 0 / 50%);
+    padding: 32px 48px;
     background: #F1F1F1;
 }
 
-.adding-section-container__title {
-    text-align: center
+.adding-section-form__buttons {
+    display: flex;
+}
+
+.adding-section-form__btn {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 140px;
+}
+
+.adding-section__icone-close {
+    float: right;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 }

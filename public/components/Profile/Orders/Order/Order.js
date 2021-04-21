@@ -1,6 +1,7 @@
 import renderOrder from "./OrderTmpl.hbs";
 import renderDishesList from "./OrderDish/DishList.hbs";
 import renderDish from "./OrderDish/DishTmpl.hbs";
+import { I18n } from "../../../../modules/intlApi.js";
 
 export class OrderElement {
     constructor ({
@@ -13,6 +14,10 @@ export class OrderElement {
 
     render () {
         if (this.order) {
+            const i18n = new I18n()
+            this.order.orderTime = i18n.formatDateTime(this.order.orderTime)
+            this.order.deliveryTime = i18n.formatDateTime(this.order.deliveryTime)
+
             this.root.innerHTML += renderOrder({ order: this.order });
 
             document.getElementById('profile-left-block-order-food-'+ this.order.orderID).innerHTML = renderDishesList({id: this.order.orderID});
@@ -20,7 +25,6 @@ export class OrderElement {
 
             for (const dish of this.order.foods) {
                 dishPlace.innerHTML += renderDish({ dish: dish })
-                console.log("hey3")
             }
         }
     }

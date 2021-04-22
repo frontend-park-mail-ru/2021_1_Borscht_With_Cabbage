@@ -1,3 +1,6 @@
+import './components/basicStyles.less'
+import './static/css/main.less';
+
 import { Router } from './modules/router.js';
 import { SignUpView } from './views/SignUpView.js';
 import { SignInView } from './views/SignInView.js';
@@ -13,9 +16,6 @@ import { MainView } from "./views/MainView.js";
 import { InitViews } from './components/InitViews/InitViews.js';
 import registerSW from './registerSW.js';
 import { BasketView } from './views/BasketView.js';
-
-import './static/css/main.less';
-import './components/basicStyles.less'
 
 registerSW();
 

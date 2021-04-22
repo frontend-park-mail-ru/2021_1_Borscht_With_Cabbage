@@ -36,6 +36,7 @@ export class ParamsComponent {
 
     chooseElement (name) {
         // элемент в котором нужно поменять значение параметра
+        console.log(name);
         this.correctItem.innerHTML = params[this.correctItem.dataset.params]
                                     .val[name].name;
 
@@ -65,7 +66,7 @@ export class ParamsComponent {
                 this.closeDropList();
                 return;
             }
-            
+
             if (this.list) {
                 this.closeDropList();
             }

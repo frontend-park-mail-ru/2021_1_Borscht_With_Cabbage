@@ -6,23 +6,25 @@
         margin: 0;
         background-color: var(--cuisines-panel__slide_color);
         box-shadow: @shadow-mobile;
-        padding: 8px;
         text-align: center;
         margin-top: 8px;
-        font-size: 24px;
+        font-size: @font-size-mobile;
         cursor: pointer;
         flex: auto;
-        min-width: 160px;
-        max-width: 160px;
+        padding: @padding-category-mobile;
 
         @media @tablet {
-            margin: 0 20px;
             box-shadow: @shadow;
+            padding: 8px;
+            font-size: 24px;
+            min-width: 160px;
+            max-width: 160px;
+            margin: 0 20px;
         }
 
         &-more{
             min-width: 0;
-            max-width: 40px;
+            max-width: 32px;
             border-radius: 16px;
 
             @media @tablet {

@@ -27,7 +27,9 @@ export class ParamsComponent {
     }
 
     closeDropList () {
-        this.list.remove();
+        if (this.list) {
+            this.list.remove();
+        }
         this.item = null;
         this.list = null;
     }
@@ -58,14 +60,14 @@ export class ParamsComponent {
                 return;
             }
 
-            if (this.list) {
-                this.closeDropList();
-            }
-
             // убираем список при повторном нажатии
             if (this.item === this.correctItem) {
                 this.closeDropList();
                 return;
+            }
+            
+            if (this.list) {
+                this.closeDropList();
             }
 
             this.item = this.correctItem;

@@ -4,25 +4,25 @@ export const params = {
         data: 'time',
 
         default: {
-            name: 'до 120 минут',
+            name: '< 120 мин',
             data: 'max'
         },
 
         val: {
             not: {
-                name: 'не важно',
+                name: '-',
                 data: 'not'
             },
             min: {
-                name: 'до 45 минут',
+                name: '< 45 мин',
                 data: 'min'
             },
             middle: {
-                name: 'до 60 минут',
+                name: '< 60 мин',
                 data: 'middle'
             },
             max: {
-                name: 'до 120 минут',
+                name: '< 120 мин',
                 data: 'max'
             }
         }
@@ -32,25 +32,25 @@ export const params = {
         data: 'receipt',
         
         default: {
-            name: 'до 2000',
+            name: '< 2000 ₽',
             data: 'max'
         },
 
         val: {
             not: {
-                name: 'не важен',
+                name: '-',
                 data: 'not'
             },
             min: {
-                name: 'до 500',
+                name: '< 500 ₽',
                 data: 'min'
             },
             middle: {
-                name: 'до 1000',
+                name: '< 1000 ₽',
                 data: 'middle'
             },
             max: {
-                name: 'до 2000',
+                name: '< 2000 ₽',
                 data: 'max'
             }
         }
@@ -60,25 +60,25 @@ export const params = {
         data: 'rating',
         
         default: {
-            name: 'не важен',
+            name: '-',
             data: 'not'
         },
 
         val: {
             not: {
-                name: 'не важен',
+                name: '-',
                 data: 'not'
             },
             min: {
-                name: 'от 500',
+                name: '❤3',
                 data: 'min'
             },
             middle: {
-                name: 'от 1000',
+                name: '❤4',
                 data: 'middle'
             },
             max: {
-                name: 'от 2000',
+                name: '❤4.5',
                 data: 'max'
             }
         }

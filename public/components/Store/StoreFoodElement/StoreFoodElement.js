@@ -9,7 +9,7 @@ export class StoreFoodElement {
     constructor ({
         root = document.body,
         food = null,
-        controller = new StoreController(),
+        controller = new StoreController({ root }),
         restaurant = {}
     } = {}) {
         this.root = root;
@@ -18,10 +18,9 @@ export class StoreFoodElement {
         this.buttonID = `[data-foodAddButtonID="${this.food.id}"]`;
         this.numButtonsSelector = `[data-foodID="${this.food.id}"]`;
         eventBus.on(ChangeBasketEvents.chooseFood, ({ food, isPlus }) => {
-            console.log('store food element ->', food, isPlus)
             if (food.id === this.food.id) {
                 if (isPlus) {
-                    this.num += 1
+                    this.num += 1;
                     if (this.num === 1) {
                         this.choose();
                     }

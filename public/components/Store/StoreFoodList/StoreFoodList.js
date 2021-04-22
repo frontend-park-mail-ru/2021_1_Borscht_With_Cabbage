@@ -1,13 +1,16 @@
 import renderStoreFoodList from './StoreFoodListTmpl.hbs';
 import { StoreFoodElement } from '../StoreFoodElement/StoreFoodElement.js';
+import { StoreController } from '../../../controllers/StoreController.js';
 
 export class StoreFoodList {
     constructor ({
         root = document.body,
-        info = {}
+        info = {},
+        controller = new StoreController({ root })
     } = {}) {
         this.root = root;
         this.info = info;
+        this.controller = controller;
     }
 
     render () {
@@ -18,8 +21,9 @@ export class StoreFoodList {
             for (const food of this.info.foods) {
                 const element = new StoreFoodElement({
                     root: foodList,
-                    food: food,
-                    restaurant: this.info
+                    food,
+                    restaurant: this.info,
+                    controller: this.controller
                 });
                 element.render();
                 this.elements.push(element);

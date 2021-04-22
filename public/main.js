@@ -7,7 +7,7 @@ import { RestaurantSignInController } from './controllers/RestaurantSignInContro
 import { RestaurantSignUpController } from './controllers/RestaurantSignUpController.js';
 import { BasketController } from './controllers/BasketController.js';
 import { ProfileController } from './controllers/ProfileController.js';
-import { StoreView } from './views/StoreView.js';
+import { StoreController } from './controllers/StoreController.js';
 import { MainView } from "./views/MainView.js";
 import { RestaurantMainView } from './views/RestaurantMainView.js';
 import { Logout } from './views/Logout.js';
@@ -16,6 +16,7 @@ import { authGet } from './modules/api.js';
 import registerSW from './registerSW.js';
 
 import './static/css/main.css';
+
 
 registerSW();
 
@@ -38,7 +39,7 @@ const signInController = new SignInController({ root: view, goTo: goTo });
 const restaurantSignInController = new RestaurantSignInController({ root: view, goTo: goTo });
 const restaurantSignUpController = new RestaurantSignUpController({ root: view, goTo: goTo });
 const mainView = new MainView(view, goTo);
-const storeView = new StoreView({ root: view, goTo: goTo });
+const storeController = new StoreController({ root: view, goTo: goTo });
 const profileController = new ProfileController({ root: view, goTo: goTo });
 const basketController = new BasketController({ root: view, goTo: goTo })
 const logout = new Logout({ root: view, goTo: goTo });
@@ -50,7 +51,7 @@ router.addRoute('restaurantSignin', restaurantSignInController)
 router.addRoute('restaurantSignup', restaurantSignUpController)
 router.addRoute('profile', profileController)
 router.addRoute('main', mainView);
-router.addRoute('store', storeView);
+router.addRoute('store', storeController);
 router.addRoute('basket', basketController)
 router.addRoute('logout', logout);
 router.addRoute('restaurantMain', restaurantMainView);

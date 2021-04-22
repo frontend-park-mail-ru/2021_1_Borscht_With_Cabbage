@@ -1,4 +1,4 @@
-import { BasketModel } from '../models/BasketModel.js';
+import basketModel from '../models/BasketModel.js';
 import { Validator } from '../modules/validation.js';
 import { noop } from '../modules/utils.js';
 import { BasketView } from '../views/BasketView.js';
@@ -15,7 +15,6 @@ export class BasketController {
         this.root = root;
         this.goTo = goTo;
         this.basketView = new BasketView({ root, goTo, controller: this });
-        this.basketModel = new BasketModel();
         eventBus.on(BasketEvents.basketGetBasketSuccess, this.basketPageDraw.bind(this));
         eventBus.on(BasketEvents.basketGetBasketFailed, this.loadError.bind(this));
         eventBus.on(BasketEvents.basketOrderSuccess, this.orderSuccess.bind(this));
@@ -23,7 +22,7 @@ export class BasketController {
     }
 
     getBasket () {
-        this.basketModel.getBasket();
+        basketModel.getBasket();
     }
 
     order ({
@@ -35,7 +34,7 @@ export class BasketController {
         const numberError = Validator.validateNumber(number);
 
         if (addressError && numberError) {
-            this.basketModel.order({ address, number, comments });
+            basketModel.order({ address, number, comments });
             return {
                 error: false
             };

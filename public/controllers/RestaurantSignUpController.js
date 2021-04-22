@@ -1,5 +1,5 @@
 import { Validator } from '../modules/validation.js';
-import { RestaurantSignUpModel } from '../models/RestaurantSignUpModel.js';
+import restaurantSignUpModel from '../models/RestaurantSignUpModel.js';
 import { noop } from '../modules/utils.js';
 import user from '../modules/user.js';
 import { RestaurantSignUpView } from '../views/RestaurantSignUpView.js';
@@ -14,7 +14,6 @@ export class RestaurantSignUpController {
         this.goTo = goTo;
         this.root = root;
         this.signUpView = new RestaurantSignUpView({ root, goTo, controller: this })
-        this.restaurantSignUpModel = new RestaurantSignUpModel();
         eventBus.on(SignUpEvents.restaurantSignUpSuccess, this.signupSuccess.bind(this));
         eventBus.on(SignUpEvents.restaurantSignUpFailed, this.signupFailed.bind(this));
     }
@@ -27,7 +26,7 @@ export class RestaurantSignUpController {
         const repeatPasswordError = Validator.validateEqualPassword(password, repeatPassword);
 
         if (emailError.result && passwordError.result && titleError.result && phoneError.result && repeatPasswordError.result) {
-            this.restaurantSignUpModel.signUp({ email, password, title, number });
+            restaurantSignUpModel.signUp({ email, password, title, number });
             return {
                 error: false
             }

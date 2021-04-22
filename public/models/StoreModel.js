@@ -5,7 +5,7 @@ import { ChangeBasketEvents } from '../events/ChangeBasketEvents.js';
 import user from '../modules/user.js';
 import basket from '../modules/basket.js';
 
-export class StoreModel {
+class StoreModel {
     getDishes (url) {
         const promises = [];
         promises.push(storeGet({ url }));
@@ -14,7 +14,6 @@ export class StoreModel {
         } else {
             promises.push(getBasket());
         }
-
 
         Promise.all(promises)
             .then(res => {
@@ -77,3 +76,5 @@ export class StoreModel {
             });
     }
 }
+
+export default new StoreModel();

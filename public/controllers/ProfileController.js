@@ -1,4 +1,4 @@
-import { ProfileModel } from '../models/ProfileModel.js';
+import profileModel from '../models/ProfileModel.js';
 import { Validator } from '../modules/validation.js';
 import user from '../modules/user.js';
 import { noop } from '../modules/utils.js';
@@ -15,7 +15,6 @@ export class ProfileController {
         this.goTo = goTo;
         this.root = root;
         this.profileView = new ProfileView({ root, goTo, controller: this })
-        this.profileModel = new ProfileModel();
         eventBus.on(ProfileEvents.profileGetUserDataSuccess, this.draw.bind(this));
         eventBus.on(ProfileEvents.profileGetUserDataFailed, this.loadError.bind(this));
         eventBus.on(ProfileEvents.profileSetUserDataSuccess, this.updateInputs.bind(this));
@@ -48,7 +47,7 @@ export class ProfileController {
                 formData.append('avatar', avatar);
             }
 
-            this.profileModel.setUserData({
+            profileModel.setUserData({
                 email,
                 name,
                 number: phone,
@@ -72,11 +71,11 @@ export class ProfileController {
     }
 
     getUserData () {
-        this.profileModel.getUserData();
+        profileModel.getUserData();
     }
 
     getOrders () {
-        this.profileModel.getOrders()
+        profileModel.getOrders()
     }
 
     render (url) {

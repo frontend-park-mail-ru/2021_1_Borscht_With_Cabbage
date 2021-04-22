@@ -2,7 +2,7 @@ import { restaurantLoginPost } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import { SignInEvents } from '../events/SignInEvents.js';
 
-export class RestaurantSignInModel {
+class RestaurantSignInModel {
     signIn (login, password) {
         restaurantLoginPost({ login, password })
             .then(res => {
@@ -15,3 +15,5 @@ export class RestaurantSignInModel {
             .catch(res => eventBus.emit(SignInEvents.restaurantSignInFailed, res));
     }
 }
+
+export default new RestaurantSignInModel();

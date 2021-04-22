@@ -2,8 +2,7 @@ import eventBus from '../modules/eventBus.js';
 import { getBasket, orderPost } from '../modules/api.js';
 import { BasketEvents } from '../events/BasketEvents.js';
 
-
-export class BasketModel {
+class BasketModel {
     getBasket () {
         getBasket()
             .then(res => {
@@ -38,3 +37,5 @@ export class BasketModel {
             });
     }
 }
+
+export default new BasketModel();

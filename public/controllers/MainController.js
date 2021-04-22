@@ -1,10 +1,9 @@
-import { MainModel } from '../models/MainModel.js';
+import mainModel from '../models/MainModel.js';
 import eventBus from '../modules/eventBus.js';
 import { MainEvents } from '../events/MainEvents.js';
 
 export class MainController {
     constructor () {
-        this.mainModel = new MainModel()
         this.init();
     }
 
@@ -25,7 +24,7 @@ export class MainController {
     getRestaurants () {
         const url = this.#getUrl();
         this.request.offset += this.request.limit;
-        this.mainModel.getRestaurants(url);
+        mainModel.getRestaurants(url);
     }
 
     clickCategory ({ name }) {
@@ -73,8 +72,6 @@ export class MainController {
         for (const key in this.request.params) {
             url += `&${key}=${this.request.params[key]}`;
         }
-
-        console.log(url);
 
         return url;
     }

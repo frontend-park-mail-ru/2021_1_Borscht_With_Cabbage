@@ -1,4 +1,4 @@
-import { StoreModel } from '../models/StoreModel.js';
+import storeModel from '../models/StoreModel.js';
 import { noop } from '../modules/utils.js';
 import eventBus from '../modules/eventBus.js';
 import { StoreEvents } from '../events/StoreEvents.js';
@@ -12,13 +12,12 @@ export class StoreController {
         this.goTo = goTo;
         this.root = root;
         this.storeView = new StoreView({ root, goTo, controller: this })
-        this.storeModel = new StoreModel();
         eventBus.on(StoreEvents.storeGetDishesSuccess, this.storePageDraw.bind(this));
         eventBus.on(StoreEvents.storeGetDishesFailed, this.loadError.bind(this));
     }
 
     getDishes (url) {
-        this.storeModel.getDishes(url.substring('/store'.length));
+        storeModel.getDishes(url.substring('/store'.length));
     }
 
     addDish ({
@@ -27,7 +26,7 @@ export class StoreController {
         food = {},
         restaurant = {}
     } = {}) {
-        this.storeModel.addDish({
+        storeModel.addDish({
             isNewBasket,
             isPlus,
             food,

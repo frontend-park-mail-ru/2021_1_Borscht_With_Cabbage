@@ -2,7 +2,7 @@ import { loginPost } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import { SignInEvents } from '../events/SignInEvents.js';
 
-export class SignInModel {
+class SignInModel {
     signIn (login, password) {
         loginPost({ login, password })
             .then(res => {
@@ -15,3 +15,5 @@ export class SignInModel {
             .catch(res => eventBus.emit(SignInEvents.userSignInFailed, res));
     }
 }
+
+export default new SignInModel();

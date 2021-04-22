@@ -1,5 +1,5 @@
 import { Validator } from '../modules/validation.js';
-import { RestaurantSignInModel } from '../models/RestaurantSignInModel.js';
+import signInModel from '../models/RestaurantSignInModel.js';
 import eventBus from '../modules/eventBus.js';
 import { SignInEvents } from '../events/SignInEvents.js';
 import { noop } from '../modules/utils.js';
@@ -13,7 +13,6 @@ export class RestaurantSignInController {
     } = {}) {
         this.goTo = goTo;
         this.root = root;
-        this.signInModel = new RestaurantSignInModel();
         this.signInView = new RestaurantSignInView({root, goTo, controller: this});
         eventBus.on(SignInEvents.restaurantSignInSuccess, this.loginSuccess.bind(this));
         eventBus.on(SignInEvents.restaurantSignInFailed, this.loginFailed.bind(this));
@@ -24,7 +23,7 @@ export class RestaurantSignInController {
         const passwordError = Validator.validatePassword(password);
 
         if (loginError.result && passwordError.result) {
-            this.signInModel.signIn(login, password);
+            signInModel.signIn(login, password);
             return {
                 error: false
             };

@@ -1,11 +1,10 @@
 import { Validator } from '../modules/validation.js';
-import { RestaurantMainModel } from '../models/RestaurantMainModel.js';
+import mainModel from '../models/RestaurantMainModel.js';
 import { DishEvents } from '../events/DishEvents.js';
 import eventBus from '../modules/eventBus.js';
 
 export class RestaurantMainController {
     constructor () {
-        this.mainModel = new RestaurantMainModel();
         eventBus.on(DishEvents.addingDishSuccess, this.addingDishDataSuccess.bind(this));
         eventBus.on(DishEvents.addingDishFailed, this.addingDishDataFailed.bind(this));
     }
@@ -13,7 +12,7 @@ export class RestaurantMainController {
     addSection (section) {
         const nameError = Validator.validateName(section.name);
         if (nameError.result) {
-            this.mainModel.addSection(section);
+            mainModel.addSection(section);
             return {
                 error: false
             }
@@ -38,7 +37,7 @@ export class RestaurantMainController {
         section.id = Number(section.id);
         const nameError = Validator.validateName(section.name);
         if (nameError.result) {
-            this.mainModel.updateSection(section);
+            mainModel.updateSection(section);
             return {
                 error: false
             }
@@ -59,21 +58,20 @@ export class RestaurantMainController {
                 error: true
             }
         }
-        return this.mainModel.deleteSection({ id: Number(id) });
+        return mainModel.deleteSection({ id: Number(id) });
     }
 
     getDishes () {
-        this.mainModel.getDish();
+        mainModel.getDish();
     }
 
     updateDish (dish) {
-        console.log(dish);
         if (!dish.id) {
             return {
                 error: true
             }
         }
-        const actonFunc = this.mainModel.updateDataDish;
+        const actonFunc = mainModel.updateDataDish;
         const result = this.correctAndSendDish(dish, actonFunc);
 
         // загрузка изображения
@@ -83,7 +81,7 @@ export class RestaurantMainController {
         const formData = new FormData();
         formData.append('image', dish.image);
         formData.append('id', dish.id);
-        this.mainModel.updateImageDish({ id: dish.id, data: formData });
+        mainModel.updateImageDish({ id: dish.id, data: formData });
 
         return result;
     }
@@ -112,7 +110,7 @@ export class RestaurantMainController {
     }
 
     addDish (dish) {
-        const actonFunc = this.mainModel.addDish;
+        const actonFunc = mainModel.addDish;
         this.imageDish = dish.image;
         return this.correctAndSendDish(dish, actonFunc)
     }
@@ -122,7 +120,7 @@ export class RestaurantMainController {
             const formData = new FormData();
             formData.append('image', this.imageDish);
             formData.append('id', id);
-            this.mainModel.updateImageDish({ id: id, data: formData });
+            mainModel.updateImageDish({ id: id, data: formData });
 
             this.imageDish = null;
         }
@@ -138,7 +136,7 @@ export class RestaurantMainController {
                 error: true
             }
         }
-        return this.mainModel.deleteDish({ id: Number(id), sectionId: sectionId });
+        return mainModel.deleteDish({ id: Number(id), sectionId: sectionId });
     }
 
     setRestaurantData ({
@@ -167,7 +165,7 @@ export class RestaurantMainController {
                 formData.append('avatar', avatar);
             }
 
-            this.mainModel.setRestaurantData({
+            mainModel.setRestaurantData({
                 email,
                 title,
                 deliveryCost: Number.parseInt(deliveryCost),

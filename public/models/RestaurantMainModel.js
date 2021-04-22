@@ -13,7 +13,7 @@ import { DishEvents } from '../events/DishEvents.js';
 import { ProfileEvents } from '../events/ProfileEvents.js';
 import { SectionEvents } from '../events/SectionEvents.js';
 
-export class RestaurantMainModel {
+class RestaurantMainModel {
     getDish () {
         allDishesGet().then(res => {
             if (res.status === 200) {
@@ -153,3 +153,5 @@ export class RestaurantMainModel {
             });
     }
 }
+
+export default new RestaurantMainModel();

@@ -26,7 +26,7 @@ export function auth (res) {
                         basket.makeNew(res.parsedJSON);
                     }
                 })
-                .then(_ => {console.log(_, res); return res;});
+                .then(_ => res);
         } else {
             return res;
         }

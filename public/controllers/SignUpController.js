@@ -1,5 +1,5 @@
 import { Validator } from '../modules/validation.js';
-import { SignUpModel } from '../models/SignUpModel.js';
+import signUpModel from '../models/SignUpModel.js';
 import eventBus from '../modules/eventBus.js';
 import { SignUpEvents } from '../events/SignUpEvents.js';
 import redirect from '../modules/redirect.js';
@@ -14,7 +14,6 @@ export class SignUpController {
     } = {}) {
         this.goTo = goTo;
         this.root = root;
-        this.signUpModel = new SignUpModel();
         this.signUpView = new SignUpView({ root, controller: this })
         eventBus.on(SignUpEvents.userSignUpSuccess, this.signupSuccess.bind(this));
         eventBus.on(SignUpEvents.userSignUpFailed, this.signupFailed.bind(this));
@@ -28,7 +27,7 @@ export class SignUpController {
         const repeatPasswordError = Validator.validateEqualPassword(password, repeatPassword);
 
         if (emailError.result && passwordError.result && nameError.result && phoneError.result && repeatPasswordError.result) {
-            this.signUpModel.signUp({
+            signUpModel.signUp({
                 email,
                 password,
                 name,

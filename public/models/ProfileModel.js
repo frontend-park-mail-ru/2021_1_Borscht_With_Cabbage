@@ -2,7 +2,7 @@ import { userOrdersGet, userGet, userPut, userAvatarPut } from '../modules/api.j
 import eventBus from '../modules/eventBus.js';
 import { ProfileEvents } from '../events/ProfileEvents.js';
 
-export class ProfileModel {
+class ProfileModel {
     getUserData () {
         userGet()
             .then(res => {
@@ -55,3 +55,5 @@ export class ProfileModel {
             .catch(res => eventBus.emit(ProfileEvents.profileGetOrdersFailed, res.parsedJSON));
     }
 }
+
+export default new ProfileModel();

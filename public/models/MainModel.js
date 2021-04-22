@@ -2,7 +2,7 @@ import { restaurantsGet } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import { MainEvents } from '../events/MainEvents.js';
 
-export class MainModel {
+class MainModel {
     getRestaurants (url) {
         restaurantsGet({ url: url })
             .then(res => {
@@ -15,3 +15,5 @@ export class MainModel {
             .catch(res => eventBus.emit(MainEvents.mainGetRestaurantsFailed, res.parsedJSON));
     }
 }
+
+export default new MainModel();

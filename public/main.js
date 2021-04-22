@@ -15,6 +15,10 @@ import registerSW from './registerSW.js';
 import { BasketView } from './views/BasketView.js';
 
 import './static/css/main.css';
+import { SignInController } from './controllers/SignInController.js';
+import { SignUpController } from './controllers/SignUpController.js';
+import { RestaurantSignInController } from './controllers/RestaurantSignInController.js';
+import { RestaurantSignUpController } from './controllers/RestaurantSignUpController.js';
 
 registerSW();
 
@@ -32,10 +36,10 @@ const view = initViews.getViewPlace();
 const navbar = new Navbar({ root: navbarView, goTo: goTo });
 navbar.render();
 
-const signUpView = new SignUpView({ root: view, goTo: goTo });
-const signInView = new SignInView({ root: view, goTo: goTo });
-const restSignInView = new RestaurantSignInView({ root: view, goTo: goTo });
-const restSignUpView = new RestaurantSignUpView({ root: view, goTo: goTo });
+const signUpController = new SignUpController({ root: view, goTo: goTo });
+const signInController = new SignInController({ root: view, goTo: goTo });
+const restaurantSignInController = new RestaurantSignInController({ root: view, goTo: goTo });
+const restaurantSignUpController = new RestaurantSignUpController({ root: view, goTo: goTo });
 const mainView = new MainView(view, goTo);
 const storeView = new StoreView({ root: view, goTo: goTo });
 const profileView = new ProfileView(view, goTo);
@@ -43,10 +47,10 @@ const basketView = new BasketView({ root: view, goTo: goTo })
 const logout = new Logout({ root: view, goTo: goTo });
 const restaurantMainView = new RestaurantMainView(view, goTo);
 
-router.addRoute('login', signInView);
-router.addRoute('signup', signUpView);
-router.addRoute('restaurantSignin', restSignInView)
-router.addRoute('restaurantSignup', restSignUpView)
+router.addRoute('login', signInController);
+router.addRoute('signup', signUpController);
+router.addRoute('restaurantSignin', restaurantSignInController)
+router.addRoute('restaurantSignup', restaurantSignUpController)
 router.addRoute('profile', profileView)
 router.addRoute('main', mainView);
 router.addRoute('store', storeView);

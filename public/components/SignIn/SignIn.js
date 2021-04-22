@@ -1,25 +1,20 @@
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import renderLogin from './SignInTmpl.hbs';
-import eventBus from '../../modules/eventBus.js';
 import { getError, noop } from '../../modules/utils.js';
 import { SignInController } from '../../controllers/SignInController.js';
-import { SignInEvents } from '../../events/SignInEvents.js';
-import redirect from '../../modules/redirect.js';
 
 export class SignIn {
     constructor ({
         root = document.body,
         goTo = noop,
-        controller = new SignInController()
+        controller = new SignInController({ root, goTo })
     } = {}) {
         this.root = root;
         this.goTo = goTo;
         this.controller = controller;
         this.loginID = 'login';
         this.passwordID = 'password';
-        eventBus.on(SignInEvents.userSignInSuccess, this.loginSuccess.bind(this));
-        eventBus.on(SignInEvents.userSignInFailed, this.loginFailed.bind(this));
     }
 
     render () {
@@ -52,7 +47,8 @@ export class SignIn {
 
     formSubmit (event) {
         event.preventDefault();
-        const errors = this.controller.signIn(document.getElementById(this.loginID).value,
+        const errors = this.controller.signIn(
+            document.getElementById(this.loginID).value,
             document.getElementById(this.passwordID).value);
         if (errors.error) {
             renderInput(this.loginID, errors.loginError);
@@ -62,18 +58,9 @@ export class SignIn {
         }
     }
 
-    loginFailed (error) {
+    renderServerError (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
         serverError.textContent = getError(error);
-    }
-
-    loginSuccess () {
-        const url = redirect.pop();
-        if (url) {
-            this.goTo(url);
-            return;
-        }
-        this.goTo('main');
     }
 }

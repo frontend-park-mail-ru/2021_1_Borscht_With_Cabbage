@@ -1,9 +1,23 @@
 import { SignInModel } from '../models/SignInModel.js';
 import { Validator } from '../modules/validation.js';
+import { noop } from '../modules/utils.js';
+import { SignInView } from '../views/SignInView.js';
+import user from '../modules/user.js';
+import eventBus from '../modules/eventBus.js';
+import { SignInEvents } from '../events/SignInEvents.js';
+import redirect from '../modules/redirect.js';
 
 export class SignInController {
-    constructor () {
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
+        this.goTo = goTo;
+        this.root = root;
         this.signInModel = new SignInModel();
+        this.signInView = new SignInView({ root, controller: this });
+        eventBus.on(SignInEvents.userSignInSuccess, this.loginSuccess.bind(this));
+        eventBus.on(SignInEvents.userSignInFailed, this.loginFailed.bind(this));
     }
 
     signIn (login, password) {
@@ -21,5 +35,25 @@ export class SignInController {
             loginError,
             passwordError
         };
+    }
+
+    render () {
+        if (user.isAuth) {
+            return;
+        }
+        this.signInView.render();
+    }
+
+    loginFailed (error) {
+        this.signInView.renderServerError(error);
+    }
+
+    loginSuccess () {
+        const url = redirect.pop();
+        if (url) {
+            this.goTo(url);
+            return;
+        }
+        this.goTo('main');
     }
 }

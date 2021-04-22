@@ -2,17 +2,14 @@ import SignUpTemplate from './SignUpTmpl.hbs';
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import { maskPhone } from '../../modules/phoneMask.js';
-import eventBus from '../../modules/eventBus.js';
 import { getError, noop } from '../../modules/utils.js';
 import { SignUpController } from '../../controllers/SignUpController.js';
-import { SignUpEvents } from '../../events/SignUpEvents.js';
-import redirect from '../../modules/redirect.js';
 
 export class SignUp {
     constructor ({
         root = document.body,
         goTo = noop,
-        controller = new SignUpController()
+        controller = new SignUpController({ root, goTo })
     } = {}) {
         this.root = root;
         this.goTo = goTo;
@@ -22,8 +19,6 @@ export class SignUp {
         this.phoneID = 'number';
         this.passwordID = 'password';
         this.repeatPasswordID = 'repeatPassword';
-        eventBus.on(SignUpEvents.userSignUpSuccess, this.signupSuccess.bind(this));
-        eventBus.on(SignUpEvents.userSignUpFailed, this.signupFailed.bind(this));
     }
 
     render () {
@@ -84,9 +79,9 @@ export class SignUp {
         const loginID = 'js_toLogin';
         const login = document.getElementById(loginID);
         if (login) {
-            login.onclick = () => {
+            login.addEventListener('click', () => {
                 this.goTo('login');
-            }
+            });
         }
     }
 
@@ -110,16 +105,7 @@ export class SignUp {
         }
     }
 
-    signupSuccess () {
-        const url = redirect.pop();
-        if (url) {
-            this.goTo(url);
-            return;
-        }
-        this.goTo('main');
-    }
-
-    signupFailed (error) {
+    renderServerError (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
         serverError.textContent = getError(error);

@@ -23,7 +23,6 @@ export class MainController {
     }
 
     getRestaurants () {
-        console.log('getRestaurants');
         const url = this.#getUrl();
         this.request.offset += this.request.limit;
         this.mainModel.getRestaurants(url);

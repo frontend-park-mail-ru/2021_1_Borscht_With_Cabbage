@@ -3,7 +3,7 @@ class Redirect {
         this.redirect = '';
     }
 
-    set (url) {
+    push (url) {
         this.redirect = url;
     }
 

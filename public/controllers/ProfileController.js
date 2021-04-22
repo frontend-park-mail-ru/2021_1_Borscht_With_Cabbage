@@ -61,4 +61,8 @@ export class ProfileController {
     getOrders () {
         this.profileModel.getOrders()
     }
+
+    // getReview (id) {
+    //     this.profileModel.getReview(id)
+    // }
 }

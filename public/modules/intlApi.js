@@ -6,13 +6,19 @@ export class I18n {
             month: "long",
             day: "numeric",
             hour: "numeric",
-            minute: "numeric",
-            second: "numeric"
+            minute: "numeric"
         })
     }
 
     formatDateTime(dateTime) {
         const date = Date.parse(dateTime)
         return this.dateTime.format(date)
+    }
+
+    formatInDateTimeInput(dateTime) {
+        const date = new Date(Date.parse(dateTime))
+        let formatted = date.toISOString()
+        formatted = formatted.substring(0, formatted.indexOf("T")+6)
+        return formatted
     }
 }

@@ -36,7 +36,8 @@ export class Orders {
                 const element = new OrderElement({
                     root: orderList,
                     order: order,
-                    i18n: i18n
+                    i18n: i18n,
+                    controller: this.controller
                 });
                 element.render();
             }

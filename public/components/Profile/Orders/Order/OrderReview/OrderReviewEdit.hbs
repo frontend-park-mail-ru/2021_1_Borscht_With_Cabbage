@@ -1,0 +1,40 @@
+<h2 class="add-review-text">Оставьте отзыв о ресторане</h2>
+
+<!--<div class="rating_block">-->
+<!--    <input name="rating" value="5" id="rating_5-{{order.orderID}}" type="radio" class="rating_block__input"/>-->
+<!--    <label for="rating_5" class="label_rating"></label>-->
+
+<!--    <input name="rating" value="4" id="rating_4-{{order.id}}" type="radio" class="rating_block__input"/>-->
+<!--    <label for="rating_4" class="label_rating"></label>-->
+
+<!--    <input name="rating" value="3" id="rating_3-{{order.id}}" type="radio" class="rating_block__input"/>-->
+<!--    <label for="rating_3" class="label_rating"></label>-->
+
+<!--    <input name="rating" value="2" id="rating_2-{{order.id}}" type="radio" class="rating_block__input"/>-->
+<!--    <label for="rating_2" class="label_rating"></label>-->
+
+<!--    <input name="rating" value="1" id="rating_1-{{order.id}}" type="radio" class="rating_block__input"/>-->
+<!--    <label for="rating_1" class="label_rating"></label>-->
+<!--</div>-->
+<form id="send_review-{{order.orderID}}">
+
+<div class="rating_block">
+    <input name="rating" value="5" id="rating_5" type="radio" class="rating_block__input order-{{order.orderID}}"/>
+    <label for="rating_5" class="label_rating"></label>
+
+    <input name="rating" value="4" id="rating_4" type="radio" class="rating_block__input order-{{order.orderID}}"/>
+    <label for="rating_4" class="label_rating"></label>
+
+    <input name="rating" value="3" id="rating_3" type="radio" class="rating_block__input order-{{order.orderID}}"/>
+    <label for="rating_3" class="label_rating"></label>
+
+    <input name="rating" value="2" id="rating_2" type="radio" class="rating_block__input order-{{order.orderID}}"/>
+    <label for="rating_2" class="label_rating"></label>
+
+    <input name="rating" value="1" id="rating_1" type="radio" class="rating_block__input order-{{order.orderID}}"/>
+    <label for="rating_1" class="label_rating"></label>
+</div>
+
+<textarea id="review-{{order.orderID}}" name="review" cols="40" rows="3" class="add-review-text-area"></textarea>
+<input type="submit" class="button" value="Отправить отзыв">
+</form>

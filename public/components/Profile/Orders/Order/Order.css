@@ -1,4 +1,5 @@
 @import "OrderDish/Dish.css";
+@import "OrderReview/OrderReview.css";
 
 .profile-left-block-orders {
     padding: 0;
@@ -56,5 +57,5 @@
 
 .profile__text-with-small-weight {
     font-weight: 300;
+    cursor: default;
 }
-

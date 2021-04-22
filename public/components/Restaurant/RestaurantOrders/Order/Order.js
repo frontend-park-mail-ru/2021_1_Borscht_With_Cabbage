@@ -1,20 +1,20 @@
-import renderOrder from "./OrderTmpl.hbs";
-import renderDishesList from "./OrderDish/DishList.hbs";
-import renderDish from "./OrderDish/DishTmpl.hbs";
-import { OrderReview } from "./OrderReview/OrderReview.js";
-import { ProfileController } from "../../../../controllers/ProfileController.js";
+import renderOrder from "./RestaurantOrderTmpl.hbs";
+import renderDishesList from "../../../Profile/Orders/Order/OrderDish/DishList.hbs";
+import renderDish from "../../../Profile/Orders/Order/OrderDish/DishTmpl.hbs";
+import { RestaurantMainController } from "../../../../controllers/RestaurantMainController.js";
+import { StatusesComponent } from "./StatusOptions/StatusOptions.js";
 
-export class OrderElement {
+export class RestaurantOrderElement {
     constructor ({
         root = document.body,
         order = null,
         i18n = null,
-        controller = new ProfileController()
+        restaurantController = new RestaurantMainController(),
     } = {}) {
         this.root = root;
         this.order = order;
         this.i18n = i18n;
-        this.controller = controller
+        this.restaurantController = restaurantController;
     }
 
     render () {
@@ -23,27 +23,18 @@ export class OrderElement {
             for (let key in this.order) {
                 orderWithDateTime[key] = this.order[key];
             }
-
             orderWithDateTime.orderTime = this.i18n.formatDateTime(orderWithDateTime.orderTime)
-            orderWithDateTime.deliveryTime = this.i18n.formatDateTime(orderWithDateTime.deliveryTime)
-            if (this.order.status === 'оформлено') {
-                orderWithDateTime.deliveryTime = 'ожидайте подтверждения рестораном'
-            }
 
             this.root.innerHTML += renderOrder({ order:  orderWithDateTime });
-
-            if (this.order.status === 'доставлен') {
-                const review = new OrderReview({
-                    root: this.root,
-                    order: this.order,
-                    controller: this.controller
-                })
-                review.render()
-            }
+            const statuses = new StatusesComponent({
+                root: this.root,
+                i18n: this.i18n,
+                controller: this.restaurantController
+            })
+            statuses.render(this.order)
 
             document.getElementById('profile-left-block-order-food-'+ this.order.orderID).innerHTML = renderDishesList({id: this.order.orderID});
             const dishPlace = document.getElementById('food-list-'+ this.order.orderID)
-
             for (const dish of this.order.foods) {
                 dishPlace.innerHTML += renderDish({ dish: dish })
             }

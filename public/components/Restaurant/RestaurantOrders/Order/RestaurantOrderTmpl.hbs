@@ -1,7 +1,19 @@
 <div class="profile-left-block-orders profile-card">
-    <div class="profile-left-block-restaurant">
-        <h1 class="profile-left-block-restaurant__name ">{{order.store}}</h1>
+    <div class="profile-left-block-user">
+        <div class="profile-left-block__user-name">
+            <div class="profile-left-block-order-static-text">
+                <h3>Заказчик: </h3>
+            </div>
+            <h2 class="profile-left-block-user-name__name profile-left-block-order-align-right">{{order.userName}}</h2>
+        </div>
+        <div class="profile-left-block__user-phone">
+            <div class="profile-left-block-order-static-text">
+                <h3>Номер телефона: </h3>
+            </div>
+            <h2 class="profile-left-block__user-phone__name profile-left-block-order-align-right">{{order.userPhone}}</h2>
+        </div>
     </div>
+
     <div class="profile-left-block-order-date-and-address">
         <h3 class="profile-left-block-order__date profile__text-with-small-weight">{{order.orderTime}}</h3>
         <h3 class="profile-left-block-order__address profile__text-with-small-weight">{{order.address}}</h3>
@@ -9,9 +21,9 @@
 
     <div class="profile-left-block-order-contents">
         <div id="profile-left-block-order-food-{{order.orderID}}" class="profile-left-block-order-contents-dishes">
-        
+
         </div>
-        
+
         <div class="profile-left-block-order-contents-sum">
             <div class="profile-left-block-order-contents-sum-order">
                 <div class="profile-left-block-order-static-text">
@@ -33,16 +45,23 @@
             <div class="profile-left-block-order-static-text">
                 <h3 class="profile__text-with-small-weight">Статус заказа</h3>
             </div>
-            <h3 class="profile-left-block-order-state__status profile__text-with-small-weight profile-left-block-order-align-right">{{order.status}}</h3>
+            <select name="select" class="order_delivery-set_status" id="status-{{order.orderID}}">
+                <option value="created" id="status-created">Оформлен</option>
+                <option value="cooking" id="status-cooking">Готовится</option>
+                <option value="delivering" id="status-delivering">Едет к вам</option>
+                <option value="done" id="status-done">Доставлен</option>
+            </select>
         </div>
-        
+
         <div class="profile-left-block-order-delivery">
             <div class="profile-left-block-order-static-text">
                 <h3 class="profile__text-with-small-weight">Ожидаемое время доставки</h3>
             </div>
-            <h3 class="profile-left-block-order-status__tile profile__text-with-small-weight profile-left-block-order-align-right">{{order.deliveryTime}}</h3>
+            <input id="delivery_time-{{order.orderID}}" class="order_delivery-set_time" type="datetime-local">
         </div>
+
+        <input type="submit" class="button order-state__save" id="save_status-{{order.orderID}}" value="Сохранить">
     </div>
-    <div id="reviewPlace-{{order.orderID}}" class="profile_order_review"></div>
+
 </div>
 

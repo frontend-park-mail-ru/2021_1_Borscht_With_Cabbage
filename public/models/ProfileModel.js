@@ -1,4 +1,4 @@
-import { userOrdersGet, userGet, userPut, userAvatarPut } from '../modules/api.js';
+import { userOrdersGet, userGet, userPut, userAvatarPut, userOrderGetReview } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import { ProfileEvents } from '../events/ProfileEvents.js';
 
@@ -55,4 +55,18 @@ export class ProfileModel {
             })
             .catch(res => eventBus.emit(ProfileEvents.profileGetOrdersFailed, res.parsedJSON));
     }
+
+    // getReview(id) {
+    //     userOrderGetReview(id)
+    //         .then(res => {
+    //             if (res.status === 200) {
+    //                 eventBus.emit(ProfileEvents.profileOrderGetReviewSuccess, res.parsedJSON)
+    //             } else if (res.status === 404)
+    //                 eventBus.emit(ProfileEvents.profileOrderGetReviewNoReview, res.parsedJSON)
+    //             else {
+    //                 eventBus.emit(ProfileEvents.profileOrderGetReviewFailed, res.parsedJSON)
+    //             }
+    //         })
+    //         .catch(res => eventBus.emit(ProfileEvents.profileOrderGetReviewFailed, res.parsedJSON))
+    // }
 }

@@ -4,6 +4,7 @@ import { StoreFoodList } from '../components/Store/StoreFoodList/StoreFoodList.j
 import { StoreBasket } from '../components/Store/StoreBasket/StoreBasket.js';
 import { StoreController } from '../controllers/StoreController.js';
 import { noop } from '../modules/utils.js';
+import { StoreSectionList } from '../components/Store/StoreSectionList/StoreSectionList.js';
 
 export class StoreView {
     constructor ({
@@ -28,13 +29,12 @@ export class StoreView {
         });
         this.storeTitle.render();
 
-        this.foodList = new StoreFoodList({
+        this.foodList = new StoreSectionList({
             root: document.getElementById('store-info__food'),
             info,
             controller: this.storeController
         });
         this.foodList.render();
-
 
         this.storeBasket = new StoreBasket({
             root: document.getElementById('store-basket'),

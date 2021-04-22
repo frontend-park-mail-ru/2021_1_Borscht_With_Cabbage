@@ -6,19 +6,21 @@ export class StoreFoodList {
     constructor ({
         root = document.body,
         info = {},
+        foods = [],
         controller = new StoreController({ root })
     } = {}) {
         this.root = root;
         this.info = info;
+        this.foods = foods;
         this.controller = controller;
     }
 
     render () {
         this.root.innerHTML = renderStoreFoodList({});
-        const foodList = document.getElementById('food-list-ul');
+        const foodList = this.root.querySelector('[data-id="food-list-ul"]');
         this.elements = [];
-        if (this.info.foods) {
-            for (const food of this.info.foods) {
+        if (this.foods) {
+            for (const food of this.foods) {
                 const element = new StoreFoodElement({
                     root: foodList,
                     food,

@@ -43,3 +43,21 @@
 .store-title__rating {
 
 }
+
+.sections-hrefs {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.section-href {
+    padding: 8px;
+    margin: 8px;
+    border-radius: 40%;
+}
+
+.section-href:hover {
+    cursor: pointer;
+    background: var(--main-green_color_darker);
+    color: var(--navbar-href-white_color);
+}

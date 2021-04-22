@@ -1,14 +1,17 @@
 import renderDropList from './DropListTmpl.hbs';
+import eventBus from '../../modules/eventBus.js';
+import { DropListEvents } from '../../events/DropListEvents.js';
+import './DropList.less'
 
 export class DropListComponent {
     constructor ({
+        idList = '',
         root = document.body,
-        content = null,
-        callback = null
+        content = null
     } = {}) {
+        this.idList = idList;
         this.root = root;
         this.content = content;
-        this.callback = callback;
     }
 
     add () {
@@ -40,8 +43,8 @@ export class DropListComponent {
                 return;
             }
 
-            this.remove();
-            this.callback(item.dataset.list);
+            eventBus.emit(DropListEvents.closeDropListComponent + this.idList);
+            eventBus.emit(DropListEvents.chooseElement + this.idList, item.dataset.list);
         })
     }
 }

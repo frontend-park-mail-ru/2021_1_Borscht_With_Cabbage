@@ -13,9 +13,9 @@ import { MainView } from "./views/MainView.js";
 import { InitViews } from './components/InitViews/InitViews.js';
 import registerSW from './registerSW.js';
 import { BasketView } from './views/BasketView.js';
-import './components/basicStyles.less'
 
-import './static/css/main.css';
+import './static/css/main.less';
+import './components/basicStyles.less'
 
 registerSW();
 

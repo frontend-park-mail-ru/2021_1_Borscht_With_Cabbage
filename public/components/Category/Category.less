@@ -1,0 +1,49 @@
+@import "../../static/css/variables.less";
+
+.cuisines-panel {
+    &__slide {
+        overflow: hidden;
+        margin: 0;
+        background-color: var(--cuisines-panel__slide_color);
+        box-shadow: @shadow-mobile;
+        padding: 8px;
+        text-align: center;
+        margin-top: 8px;
+        font-size: 24px;
+        cursor: pointer;
+        flex: auto;
+        min-width: 160px;
+        max-width: 160px;
+
+        @media @tablet {
+            margin: 0 20px;
+            box-shadow: @shadow;
+        }
+
+        &-more{
+            min-width: 0;
+            max-width: 40px;
+            border-radius: 16px;
+
+            @media @tablet {
+                min-width: 40px;
+                max-width: 160px;
+                border-radius: 0;
+            }
+
+            @media @desktop-big {
+                visibility: hidden;
+            }
+        }
+
+        &--is-hidden {
+            display: none;
+        }
+    }
+    
+    &__slider {
+        display: flex;
+        flex-basis: 0;
+        flex-grow: 1;
+    }
+}

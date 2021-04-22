@@ -1,14 +1,19 @@
+@import "../../static/css/variables.less";
+
 .navbar {
     overflow: hidden;
     background-color: var(--navbar-white_color);
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    box-shadow: @shadow-mobile;
     height: 6em;
     position: relative;
     display: grid;
     grid-template-columns: 7fr 1fr 1fr;
-
     align-items: center;
     height: 6em;
+
+    @media @tablet {
+        box-shadow: @shadow;
+    }
 
     &_title {
         display: flex;
@@ -25,7 +30,6 @@
 
     &_right-items {
         &__address {
-            // float: right;
             background-image: url('../../static/img/map.png');
             background-position: left;
             background-repeat: no-repeat;

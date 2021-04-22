@@ -19,16 +19,15 @@ export class BasketController {
         const numberError = Validator.validateNumber(number);
 
         if (addressError && numberError) {
-            this.basketModel.order( { address, number, comments });
+            this.basketModel.order({ address, number, comments });
             return {
                 error: false
             };
-        } else {
-            return {
-                error: true,
-                addressError,
-                numberError
-            };
         }
+        return {
+            error: true,
+            addressError,
+            numberError
+        };
     }
 }

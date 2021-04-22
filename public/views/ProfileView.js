@@ -21,7 +21,7 @@ export class ProfileView {
         if (user.role === 'admin') {
             this.goTo('restaurantMain');
             return;
-        } else if (user.role === '') {
+        } else if (user.role !== 'user'){
             this.goTo('main');
             return;
         }
@@ -53,14 +53,10 @@ export class ProfileView {
 
         const rightMenu = new RightMenu({
             root: this.root.querySelector('#profile-right-block'),
-            profileController: this.profileController,
-            editsView: edits,
-            ordersView: orders,
             goTo: this.goTo
         });
         rightMenu.render();
 
-        console.log()
         if (/orders/.test(this.url)) {
             orders.render();
         } else if (/chats/.test(this.url)) {

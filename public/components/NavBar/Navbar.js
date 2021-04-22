@@ -15,9 +15,17 @@ export class Navbar {
     } = {}) {
         this.goTo = goTo;
         this.root = root;
+        this.toast = null;
         eventBus.on(AuthEvents.userSignIn, this.renderUserAuth.bind(this));
         eventBus.on(AuthEvents.userLogout, this.renderNotAuth.bind(this));
         eventBus.on(AuthEvents.notAuth, this.renderNotAuth.bind(this));
+    }
+
+    onOffline () {
+        if (!this.toast) {
+            this.toast = new Toast({ root: this.root.querySelector('.navbar_title') });
+            eventBus.on(AuthEvents.offline, this.toast.render.bind(this.toast));
+        }
     }
 
     render () {
@@ -37,7 +45,7 @@ export class Navbar {
             });
             this.goProfileListener();
         }
-        this.toast = new Toast({ root: this.root.querySelector('.navbar_title') });
+        this.onOffline();
     }
 
     renderNotAuth () {
@@ -47,7 +55,7 @@ export class Navbar {
             authBlock.innerHTML = renderNotAuthBlock({});
             this.goLoginListener();
         }
-        this.toast = new Toast({ root: this.root.querySelector('.navbar_title') });
+        this.onOffline();
     }
 
     goLoginListener () {

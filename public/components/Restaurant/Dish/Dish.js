@@ -8,7 +8,7 @@ import { RestaurantMainController } from '../../../controllers/RestaurantMainCon
 export class DishComponent {
     constructor ({
         root = document.body,
-        dish = null, 
+        dish = null,
         controller = new RestaurantMainController()
     } = {}) {
         this.root = root;
@@ -34,7 +34,7 @@ export class DishComponent {
         if (!editDish) {
             return;
         }
-        
+
         editDish.addEventListener('click', e => {
             eventBus.emit(DishEvents.editDish + this.dish.section, this.dish);
         });
@@ -45,7 +45,7 @@ export class DishComponent {
         if (!deleteDish) {
             return;
         }
-        
+
         deleteDish.addEventListener('click', e => {
             const confirmation = new ConfirmationComponent({ root: document.getElementById('app'), id: this.dish.id });
             confirmation.render();
@@ -56,14 +56,25 @@ export class DishComponent {
         if (!dish) {
             return;
         }
-        this.root.querySelector('.card__name').textContent = dish.name;
-        this.root.querySelector('.card__sum').textContent = dish.price;
-        this.root.querySelector('.card__description').textContent = dish.description;
+        const dishName = this.root.querySelector('.card__name');
+        if (dishName) {
+            dishName.textContent = dish.name;
+        }
+        const dishSum = this.root.querySelector('.card__sum')
+        if (dishSum) {
+            dishSum.textContent = dish.price;
+        }
+        const dishDesc = this.root.querySelector('.card__description');
+        if (dishDesc) {
+            dishDesc.textContent = dish.description;
+        }
     }
 
-    updateDishImageSuccess ({filename}) {
-        console.log(filename);
-        this.root.querySelector('.card__image').style.backgroundImage = `url(${filename})`;
+    updateDishImageSuccess ({ filename }) {
+        const dishImage = this.root.querySelector('.card__image');
+        if (dishImage) {
+            dishImage.style.backgroundImage = `url(${filename})`;
+        }
     }
 
     confirmationSuccess () {

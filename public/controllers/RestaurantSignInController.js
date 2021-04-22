@@ -1,5 +1,5 @@
 import { Validator } from '../modules/validation.js';
-import { RestaurantSignInModel } from "../models/RestaurantSignInModel.js";
+import { RestaurantSignInModel } from '../models/RestaurantSignInModel.js';
 
 export class RestaurantSignInController {
     constructor () {
@@ -15,12 +15,11 @@ export class RestaurantSignInController {
             return {
                 error: false
             }
-        } else {
-            return {
-                error: true,
-                loginError,
-                passwordError
-            }
         }
+        return {
+            error: true,
+            loginError,
+            passwordError
+        };
     }
 }

@@ -8,7 +8,7 @@ import basket from '../modules/basket.js';
 export class StoreModel {
     getDishes (url) {
         const promises = [];
-        promises.push(storeGet({ url: url }));
+        promises.push(storeGet({ url }));
         if (!user.isAuth) {
 
         } else {
@@ -18,7 +18,6 @@ export class StoreModel {
 
         Promise.all(promises)
             .then(res => {
-                console.log(res)
                 const data_ = {};
                 if (res[0].status !== 200) {
                     data_.status = res[0].status;

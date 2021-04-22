@@ -40,7 +40,7 @@ export class StoreFoodElement {
     render () {
         if (this.food) {
             this.root.innerHTML += renderFoodElement({ food: this.food });
-
+            // const headerRoot = ;
             this.numButtons = new NumButtons({
                 food: this.food,
                 root: this.root.querySelector(this.numButtonsSelector).querySelector('.card__header'),
@@ -71,7 +71,6 @@ export class StoreFoodElement {
     }
 
     addListener () {
-
         this.addButtonListener = () => {
             eventBus.emit(ChangeBasketEvents.chooseFood, {
                 food: this.food,

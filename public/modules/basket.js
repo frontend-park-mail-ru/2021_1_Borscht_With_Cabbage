@@ -45,8 +45,6 @@ class Basket {
         const basket = store.basket;
         if (basket) {
             this.makeNew(basket);
-        } else {
-
         }
     }
 

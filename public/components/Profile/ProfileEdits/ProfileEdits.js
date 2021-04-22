@@ -36,8 +36,7 @@ export class ProfileEdits {
     render () {
         const profilePlace = document.getElementById('profile-left-block');
         profilePlace.innerHTML = renderProfileEdits({
-            user: this.user,
-            serverUrl: window.serverAddress
+            user: this.user
         });
         this.avatarInput = this.root.querySelector('#input-avatar');
         this.avatarButton = this.root.querySelector('#input-avatar-button');
@@ -71,12 +70,12 @@ export class ProfileEdits {
             avatar: this.preview.getFile()
         });
         if (errors.error) {
-            renderInput(this.emailID, errors.emailError)
-            renderInput(this.nameID, errors.nameError)
-            renderInput(this.phoneID, errors.phoneError)
-            renderInput(this.currentPasswordID, errors.currentPasswordError)
-            renderInput(this.newPasswordID, errors.newPasswordError)
-            renderInput(this.repeatPasswordID, errors.repeatPasswordError)
+            renderInput(this.emailID, errors.emailError);
+            renderInput(this.nameID, errors.nameError);
+            renderInput(this.phoneID, errors.phoneError);
+            renderInput(this.currentPasswordID, errors.currentPasswordError);
+            renderInput(this.newPasswordID, errors.newPasswordError);
+            renderInput(this.repeatPasswordID, errors.repeatPasswordError);
         } else {
             // TODO обратная связь что грузится и все хорошо
         }
@@ -90,16 +89,25 @@ export class ProfileEdits {
 
     updateInputs ({ info, status }) {
         if (status === 200) {
-            document.getElementById(this.emailID).value = info.email;
-            document.getElementById(this.nameID).value = info.name;
-            document.getElementById(this.phoneID).value = info.number;
-            document.getElementById(this.phoneID).focus();
-            if (info.avatar) {
-                this.preview.deletePreview()
-            } else {
-                info.avatar = user.avatar
+            const emailInput = document.getElementById(this.emailID);
+            if (emailInput) {
+                emailInput.value = info.email;
             }
-            eventBus.emit(AuthEvents.userSignIn, info)
+            const nameInput = document.getElementById(this.nameID)
+            if (nameInput) {
+                nameInput.value = info.name;
+            }
+            const phoneInput = document.getElementById(this.phoneID)
+            if (phoneInput) {
+                phoneInput.value = info.number;
+                phoneInput.focus();
+            }
+            if (info.avatar) {
+                this.preview.deletePreview();
+            } else {
+                info.avatar = user.avatar;
+            }
+            eventBus.emit(AuthEvents.userSignIn, info);
         }
     }
 

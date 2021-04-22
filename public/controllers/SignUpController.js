@@ -23,15 +23,14 @@ export class SignUpController {
             return {
                 error: false
             };
-        } else {
-            return {
-                error: true,
-                emailError,
-                passwordError,
-                nameError,
-                phoneError,
-                repeatPasswordError
-            };
         }
+        return {
+            error: true,
+            emailError,
+            passwordError,
+            nameError,
+            phoneError,
+            repeatPasswordError
+        };
     }
 }

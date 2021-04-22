@@ -18,7 +18,6 @@ export class StoreBasket {
         this.orderButtonSelector = '#store-basket__order';
         this.totalSumSelector = '#store-basket__sum';
         this.itemsSelector = '#store-basket__items';
-        this.deliverySelector = '#store__basket__delivery';
         this.goTo = goTo;
         eventBus.on(ChangeBasketEvents.chooseFood, this.append.bind(this));
     }

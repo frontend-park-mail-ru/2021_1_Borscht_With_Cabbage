@@ -100,20 +100,18 @@ export class RestaurantMainController {
             action(dish);
             return {
                 error: false
-            }
-        } else {
-            return {
-                error: true,
-                nameError,
-                descriptionError,
-                priceError,
-                weightError
-            }
+            };
         }
+        return {
+            error: true,
+            nameError,
+            descriptionError,
+            priceError,
+            weightError
+        };
     }
 
     addDish (dish) {
-        console.log(dish);
         const actonFunc = this.mainModel.addDish;
         this.imageDish = dish.image;
         return this.correctAndSendDish(dish, actonFunc)
@@ -124,7 +122,7 @@ export class RestaurantMainController {
             const formData = new FormData();
             formData.append('image', this.imageDish);
             formData.append('id', id);
-            this.mainModel.updateImageDish({id: id, data: formData});
+            this.mainModel.updateImageDish({ id: id, data: formData });
 
             this.imageDish = null;
         }
@@ -181,17 +179,16 @@ export class RestaurantMainController {
             return {
                 error: false
             };
-        } else {
-            return {
-                error: true,
-                emailError,
-                titleError,
-                phoneError,
-                deliveryCostError,
-                currentPasswordError,
-                newPasswordError,
-                repeatPasswordError
-            };
         }
+        return {
+            error: true,
+            emailError,
+            titleError,
+            phoneError,
+            deliveryCostError,
+            currentPasswordError,
+            newPasswordError,
+            repeatPasswordError
+        };
     }
 }

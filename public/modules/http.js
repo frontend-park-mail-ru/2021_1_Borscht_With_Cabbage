@@ -22,9 +22,9 @@ function getParams ({
     }
     const init = {
         mode: 'cors',
-        method: method,
         credentials: 'include',
-        headers: headers
+        method,
+        headers
     };
     if (method !== 'GET') {
         init.body = body;
@@ -38,7 +38,7 @@ async function makeFetch ({
     method = 'GET',
     type
 } = {}) {
-    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body, type: type }));
+    const response = await fetch(window.serverAddress + url, getParams({ method, body, type }));
     const parsedJSON = await response.json();
     if (parsedJSON.code === 418) {
         eventBus.emit(AuthEvents.offline, { message: parsedJSON.message });

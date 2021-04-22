@@ -2,13 +2,17 @@ import eventBus from './eventBus.js';
 import { AuthEvents } from '../events/AuthEvents.js';
 import { postBasket } from './api.js';
 import basket from './basket.js';
-import redirect from './redirect.js';
 
-export function auth (promise) {
-    if (promise.status !== 200) {
+/**
+ *
+ * @param res
+ * @returns {*|Promise<{parsedJSON: Object, status: Number}>}
+ */
+export function auth (res) {
+    if (res.status !== 200) {
         eventBus.emit(AuthEvents.notAuth, {});
     } else {
-        eventBus.emit(AuthEvents.userSignIn, promise.parsedJSON);
+        eventBus.emit(AuthEvents.userSignIn, res.parsedJSON);
     }
 
     if (basket.foods) {
@@ -22,11 +26,11 @@ export function auth (promise) {
                         basket.makeNew(res.parsedJSON);
                     }
                 })
-                .then(_ => promise);
+                .then(_ => {console.log(_, res); return res;});
         } else {
-            return promise;
+            return res;
         }
     } else {
-        return promise;
+        return res;
     }
 }

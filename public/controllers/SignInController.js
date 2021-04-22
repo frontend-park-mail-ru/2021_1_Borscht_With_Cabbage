@@ -15,12 +15,11 @@ export class SignInController {
             return {
                 error: false
             };
-        } else {
-            return {
-                error: true,
-                loginError,
-                passwordError
-            };
         }
+        return {
+            error: true,
+            loginError,
+            passwordError
+        };
     }
 }

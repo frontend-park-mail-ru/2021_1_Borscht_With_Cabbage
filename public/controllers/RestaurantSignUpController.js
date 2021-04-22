@@ -18,15 +18,14 @@ export class RestaurantSignUpController {
             return {
                 error: false
             }
-        } else {
-            return {
-                error: true,
-                emailError,
-                passwordError,
-                titleError,
-                phoneError,
-                repeatPasswordError
-            }
         }
+        return {
+            error: true,
+            emailError,
+            passwordError,
+            titleError,
+            phoneError,
+            repeatPasswordError
+        };
     }
 }

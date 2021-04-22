@@ -41,17 +41,16 @@ export class ProfileController {
             return {
                 error: false
             };
-        } else {
-            return {
-                error: true,
-                emailError,
-                nameError,
-                phoneError,
-                currentPasswordError,
-                newPasswordError,
-                repeatPasswordError
-            };
         }
+        return {
+            error: true,
+            emailError,
+            nameError,
+            phoneError,
+            currentPasswordError,
+            newPasswordError,
+            repeatPasswordError
+        };
     }
 
     getUserData () {

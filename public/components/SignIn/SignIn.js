@@ -54,7 +54,7 @@ export class SignIn {
         event.preventDefault();
         const errors = this.controller.signIn(document.getElementById(this.loginID).value,
             document.getElementById(this.passwordID).value);
-        if (errors.error === true) {
+        if (errors.error) {
             renderInput(this.loginID, errors.loginError);
             renderInput(this.passwordID, errors.passwordError);
         } else {

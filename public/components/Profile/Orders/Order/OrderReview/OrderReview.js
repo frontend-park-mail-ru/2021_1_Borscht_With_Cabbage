@@ -38,33 +38,23 @@ export class OrderReview {
         review.innerHTML = renderOrderReviewInput({ order: this.order })
 
         const sendReview = document.getElementById('send_review-' + this.order.orderID)
-        if (sendReview) {
-            console.log("ddd")
-            sendReview.addEventListener('submit', this.addReviewListener.bind(this))
-        }
-        //this.addReviewListener()
+        this.addReviewListener()
     }
 
-    addReviewListener(event) {
-        console.log("ddd")
-        event.preventDefault()
-        //const sendReview = document.getElementById('send_review-' + this.order.orderID)
-        //console.log("sendReview " + sendReview)
-       // sendReview.onclick = () => {
-            // TODO send request
-            console.log("ddd")
+    addReviewListener() {
+        const sendReview = document.getElementById('send_review-' + this.order.orderID)
+            sendReview.onclick = () => {
             let starsCount = 0
             let stars = document.querySelectorAll('.order-'+this.order.orderID)
-            console.log(stars)
-            for (let star of stars) {
-                if (star.checked) stars++
+                stars.forEach(function (star){
+                    console.log(star)
+                    if (star.checked) {
+                        starsCount = star.value
+                    }
+                })
+            console.log("stars "+starsCount)
+            const review = document.getElementById('review-' + this.order.orderID).value
+            this.controller.postReview(this.order.orderID, review, starsCount)
             }
-            // for (let i = 0; i <=5; i++) {
-            //    // let star = document.getElementById('rating_' + i + '-' + this.order.orderID)
-            //     if (star.checked) stars++
-            // }
-            console.log("stars "+stars)
-        return false;
-      //  }
     }
 }

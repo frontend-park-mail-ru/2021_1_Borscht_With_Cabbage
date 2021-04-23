@@ -17,14 +17,11 @@
  *  profileGetOrdersFailed
  *      data: { error }
  *
- // *  profileOrderGetReviewSuccess
- // *      data: { order }
- // *
- // *  profileOrderGetReviewNoReview
- // *      data: { }
- // *
- // *  profileOrderGetReviewFailed
- // *      data: { error }
+ *  profileOrderPostReviewSuccess
+ *      data: { order }
+ *
+ *  profileOrderPostReviewFailed
+ *      data: { error }
  */
 
 export const ProfileEvents = {
@@ -34,7 +31,6 @@ export const ProfileEvents = {
     profileSetUserDataFailed: 'profileSetUserDataFailed',
     profileGetOrdersSuccess: 'profileGetOrdersSuccess',
     profileGetOrdersFailed: 'profileGetOrdersFailed',
-    // profileOrderGetReviewSuccess: 'profileOrderGetReviewSuccess',
-    // profileOrderGetReviewNoReview: 'profileOrderGetReviewNoReview',
-    // profileOrderGetReviewFailed: 'profileOrderGetReviewFailed'
+    profileOrderPostReviewSuccess: 'profileOrderPostReviewSuccess',
+    profileOrderPostReviewFailed: 'profileOrderPostReviewFailed'
 }

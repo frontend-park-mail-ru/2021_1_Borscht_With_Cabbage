@@ -294,15 +294,18 @@ export function logoutGet () {
 export function userOrdersGet () {
     return Http.ajaxGet({ url: '/user/orders' });
 }
-//
-// /**
-//  * Send server get-request to get user's review for order
-//  *
-//  * @returns {Promise<{parsedJSON: object, status: number}>}
-//  */
-// export function userOrderGetReview (id) {
-//     return Http.ajaxGet({ url: '/user/order/review/' + id });
-// }
+
+/**
+ * Send server post-request to post user's review for order
+ *
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+export function userOrderPostReview (oid, review, stars) {
+    return Http.ajaxPost({
+        url: '/user/order/review',
+        body: { oid, review, stars }
+    });
+}
 
 /**
  * Send server put-request with formData to put new order's status

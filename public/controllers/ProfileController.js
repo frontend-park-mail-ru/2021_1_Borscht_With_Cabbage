@@ -62,7 +62,7 @@ export class ProfileController {
         this.profileModel.getOrders()
     }
 
-    // getReview (id) {
-    //     this.profileModel.getReview(id)
-    // }
+    postReview (oid, review, stars) {
+        this.profileModel.postReview(oid, review, stars)
+    }
 }

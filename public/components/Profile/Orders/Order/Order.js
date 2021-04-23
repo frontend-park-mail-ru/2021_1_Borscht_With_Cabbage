@@ -30,7 +30,13 @@ export class OrderElement {
                 orderWithDateTime.deliveryTime = 'ожидайте подтверждения рестораном'
             }
 
-            this.root.innerHTML += renderOrder({ order:  orderWithDateTime });
+            this.root.insertAdjacentHTML('beforeend',  renderOrder({ order:  orderWithDateTime }))
+            document.getElementById('profile-left-block-order-food-'+ this.order.orderID).innerHTML = renderDishesList({id: this.order.orderID});
+            const dishPlace = document.getElementById('food-list-'+ this.order.orderID)
+
+            for (const dish of this.order.foods) {
+                dishPlace.innerHTML += renderDish({ dish: dish })
+            }
 
             if (this.order.status === 'доставлен') {
                 const review = new OrderReview({
@@ -39,13 +45,6 @@ export class OrderElement {
                     controller: this.controller
                 })
                 review.render()
-            }
-
-            document.getElementById('profile-left-block-order-food-'+ this.order.orderID).innerHTML = renderDishesList({id: this.order.orderID});
-            const dishPlace = document.getElementById('food-list-'+ this.order.orderID)
-
-            for (const dish of this.order.foods) {
-                dishPlace.innerHTML += renderDish({ dish: dish })
             }
         }
     }

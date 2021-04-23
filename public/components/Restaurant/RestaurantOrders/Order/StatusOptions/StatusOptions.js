@@ -55,6 +55,7 @@ export class StatusesComponent {
 
         const status = document.getElementById('status-' + id)
         status.onchange = () => {
+            console.log("sdssdfsfsfsf")
             save.style.backgroundColor = "#97B498"
             save.disabled = false
             save.style.cursor = 'pointer'

@@ -2,6 +2,7 @@ import renderConfirmation from './ConfirmationAddressTmpl.hbs';
 import eventBus from '../../modules/eventBus.js';
 import { AuthEvents } from '../../events/AuthEvents.js';
 import { noop } from '../../modules/utils.js';
+import { YandexMap } from '../../modules/yandexMap.js';
 
 class ConfirmationAddress {
     constructor () {
@@ -20,7 +21,11 @@ class ConfirmationAddress {
         const confirmationItem = document.createElement('div');
         confirmationItem.innerHTML += renderConfirmation();
         this.root.append(confirmationItem);
-
+        this.yaMap = new YandexMap();
+        this.yaMap.render('js__map', (address) => {
+            document.getElementById('js__map-add-address').value = address;
+        });
+        this.yaMap.addSearch('js__map-add-address');
         this.addCloseConfirmationEventListeners(confirmationItem);
     }
 
@@ -43,7 +48,7 @@ class ConfirmationAddress {
                 } else {
                     // TODO показать ошибку, валидировать адрес
                 }
-            })
+            });
 
         close.addEventListener('click', e => {
             if (e.target === close) {
@@ -53,4 +58,4 @@ class ConfirmationAddress {
     }
 }
 
-export default new ConfirmationAddress()
+export default new ConfirmationAddress();

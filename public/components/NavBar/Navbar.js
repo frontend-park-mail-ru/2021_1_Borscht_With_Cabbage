@@ -46,6 +46,7 @@ export class Navbar {
             });
             this.goProfileListener();
         }
+        this.goBasketListener();
         this.onOffline();
     }
 
@@ -56,6 +57,7 @@ export class Navbar {
             authBlock.innerHTML = renderNotAuthBlock({});
             this.goLoginListener();
         }
+        this.goBasketListener();
         this.onOffline();
     }
 

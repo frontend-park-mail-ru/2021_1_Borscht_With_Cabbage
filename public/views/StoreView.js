@@ -1,3 +1,5 @@
+import '../components/Store/Store.less';
+
 import renderStoreView from '../components/Store/StoreTmpl.hbs';
 import { StoreTitle } from '../components/Store/StoreTitle/StoreTitle.js';
 import { StoreFoodList } from '../components/Store/StoreFoodList/StoreFoodList.js';
@@ -42,9 +44,23 @@ export class StoreView {
             goTo: this.goTo
         });
         this.storeBasket.render();
+
+        // TODO: закрепление корзины
+        // this.basketPanel = document.getElementById('store-basket');
+        // this.startPosition = this.basketPanel.offsetTop;
+        // const func = this.stickyBasket.bind(this);
+        // window.onscroll = function() {func()};
     }
 
     renderServerError (error) {
         console.log('storeVIew -> loadError', error);
+    }
+
+    stickyBasket () {
+        if (window.pageYOffset >= this.startPosition) {
+            this.basketPanel.classList.add("sticky-basket");
+        } else {
+            this.basketPanel.classList.remove("sticky-basket");
+        }
     }
 }

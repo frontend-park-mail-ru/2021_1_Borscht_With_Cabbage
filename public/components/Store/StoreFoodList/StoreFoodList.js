@@ -1,3 +1,4 @@
+import './FoodList.less';
 import renderStoreFoodList from './StoreFoodListTmpl.hbs';
 import { StoreFoodElement } from '../StoreFoodElement/StoreFoodElement.js';
 import { StoreController } from '../../../controllers/StoreController.js';

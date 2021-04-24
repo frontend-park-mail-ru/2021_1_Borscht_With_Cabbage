@@ -1,0 +1,39 @@
+@import '../../static/css/variables.less';
+
+.store {
+    margin-top: 16px;
+    display: grid;
+    grid-template-areas: "info"
+                         "store";
+
+    @media @tablet {
+        grid-template-columns: 3fr 1fr;
+        grid-template-areas: "info basket"
+                             "store basket";
+    }
+
+    &-info__title {
+        grid-area: info;
+    }
+
+    &-info__food {
+        grid-area: store;
+    }
+
+    &-info__basket {
+        grid-area: basket;
+        display: none;
+        padding: 16px;
+
+        @media @tablet {
+            display: block;
+        }
+    }
+}
+
+.sticky-basket {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+}

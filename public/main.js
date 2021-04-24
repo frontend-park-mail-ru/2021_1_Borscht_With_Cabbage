@@ -11,20 +11,19 @@ import { StoreController } from './controllers/StoreController.js';
 import { MainView } from './views/MainView.js';
 import { RestaurantMainView } from './views/RestaurantMainView.js';
 import { Logout } from './views/Logout.js';
+import { ConfirmationAddress } from './components/ConfirmationAddress/ConfirmationAddress.js';
+import user from './modules/user.js';
+import address from './modules/address.js';
 import { authGet } from './modules/api.js';
 
 import registerSW from './registerSW.js';
 
-import './static/css/main.css';
-import { ConfirmationAddress } from './components/ConfirmationAddress/ConfirmationAddress.js';
-import user from './modules/user.js';
-import { auth } from './modules/auth.js';
-import address from './modules/address.js';
-
+import './static/css/main.less';
+import './components/basicStyles.less'
 
 registerSW();
 
-const application = document.getElementById('app');
+const application = document.querySelector('body');
 
 const router = new Router(application);
 

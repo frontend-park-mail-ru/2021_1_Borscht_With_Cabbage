@@ -7,6 +7,7 @@ import user from '../../modules/user.js';
 import eventBus from '../../modules/eventBus.js';
 import { AuthEvents } from '../../events/AuthEvents.js';
 import { Toast } from '../Toast/Toast.js';
+import './Navbar.less'
 
 export class Navbar {
     constructor ({
@@ -46,6 +47,7 @@ export class Navbar {
             this.goProfileListener();
         }
         this.onOffline();
+        this.goBasketListener();
     }
 
     renderNotAuth () {
@@ -56,6 +58,7 @@ export class Navbar {
             this.goLoginListener();
         }
         this.onOffline();
+        this.goBasketListener();
     }
 
     goLoginListener () {
@@ -72,6 +75,15 @@ export class Navbar {
         if (profileLink) {
             profileLink.addEventListener('click', () => {
                 this.goTo('/profile/edits');
+            });
+        }
+    }
+
+    goBasketListener () {
+        const bascetLink = document.getElementById('js-go-basket')
+        if (bascetLink) {
+            bascetLink.addEventListener('click', () => {
+                this.goTo('/basket');
             });
         }
     }

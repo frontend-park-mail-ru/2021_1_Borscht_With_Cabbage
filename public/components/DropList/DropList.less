@@ -1,0 +1,28 @@
+@import "../../static/css/variables.less";
+
+.drop-list {
+    &__slider {
+        position: absolute;
+        z-index: 1000;
+        min-width: 200px;
+    
+        margin-left: -20px;
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    &__slide {
+        overflow: hidden;
+        text-align: center;
+        box-shadow: @shadow;
+        background-color: var(--params-panel__slide-btn_color);
+        border-radius: 16px;
+        padding: 8px;
+        width: 80%;
+        margin: auto;
+        font-size: 16px;
+        margin-bottom: 4px;
+        cursor: pointer;
+    }
+}

@@ -6,6 +6,8 @@ import { MainController } from '../controllers/MainController.js';
 import { MoreRestaurantsComponent } from '../components/MoreRestaurants/MoreRestaurants.js';
 import eventBus from '../modules/eventBus.js';
 import { MainEvents } from '../events/MainEvents.js';
+import renderMainPage from '../components/MainPage/MainPageTmpl.hbs'
+import '../components/MainPage/MainPage.less'
 
 export class MainView {
     constructor (root, goTo) {
@@ -18,7 +20,8 @@ export class MainView {
     }
 
     render () {
-        this.root.innerHTML = '';
+        this.root.innerHTML = renderMainPage();
+        this.container = this.root.querySelector('.main-page__container');
         console.log('render MainView');
         this.headerDraw();
         this.mainController.init();
@@ -27,13 +30,13 @@ export class MainView {
 
     headerDraw () {
         const category = new CategoryComponent({
-            root: this.root,
+            root: this.container.querySelector('.main-page__category'),
             controller: this.mainController
         });
         category.render();
 
         const params = new ParamsComponent({
-            root: this.root,
+            root: this.container.querySelector('.main-page__params'),
             controller: this.mainController
         });
         params.render();
@@ -42,9 +45,9 @@ export class MainView {
         // filter.render();
 
         // поле для отображения рестаранов
-        this.content = document.createElement('div');
+        this.content = document.querySelector('.main-page__content');
         this.content.innerHTML = '';
-        this.root.append(this.content);
+        this.container.append(this.content);
 
         // const more = new MoreRestaurantsComponent({
         //     root: this.root,

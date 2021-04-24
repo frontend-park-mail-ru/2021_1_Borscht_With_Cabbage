@@ -8,7 +8,7 @@ import { RestaurantSignUpController } from './controllers/RestaurantSignUpContro
 import { BasketController } from './controllers/BasketController.js';
 import { ProfileController } from './controllers/ProfileController.js';
 import { StoreController } from './controllers/StoreController.js';
-import { MainView } from "./views/MainView.js";
+import { MainView } from './views/MainView.js';
 import { RestaurantMainView } from './views/RestaurantMainView.js';
 import { Logout } from './views/Logout.js';
 import { authGet } from './modules/api.js';
@@ -16,6 +16,10 @@ import { authGet } from './modules/api.js';
 import registerSW from './registerSW.js';
 
 import './static/css/main.css';
+import { ConfirmationAddress } from './components/ConfirmationAddress/ConfirmationAddress.js';
+import user from './modules/user.js';
+import { auth } from './modules/auth.js';
+import address from './modules/address.js';
 
 
 registerSW();
@@ -57,5 +61,10 @@ router.addRoute('logout', logout);
 router.addRoute('restaurantMain', restaurantMainView);
 
 authGet()
-    .then(_ => router.open(window.location.pathname))
+    .then(_ => {
+        router.open(window.location.pathname);
+        if (!user.isAuth && !address.name) {
+            new ConfirmationAddress().render(false);
+        }
+    })
     .catch(_ => router.open(window.location.pathname));

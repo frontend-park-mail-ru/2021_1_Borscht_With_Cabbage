@@ -32,7 +32,8 @@ export class StoreView {
 
         this.storeTitle = new StoreTitle({
             root: document.getElementById('store-info__title'),
-            store: info
+            store: info,
+            controller: this.storeController
         });
         this.storeTitle.render()
 

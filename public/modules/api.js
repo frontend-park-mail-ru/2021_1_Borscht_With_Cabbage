@@ -381,3 +381,10 @@ export function getBasket () {
         url: '/user/basket'
     });
 }
+
+export function getReviews (rid) {
+    return Http.ajaxGet({
+        url: '/restaurant/'+rid+'/reviews'
+    });
+}
+

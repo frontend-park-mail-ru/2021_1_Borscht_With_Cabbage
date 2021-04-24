@@ -4,6 +4,7 @@
 @import "../NumButtons/NumButtons.css";
 @import "StoreBasket/StoreBasket.css";
 @import "StoreTitle/StoreTitle.css";
+@import "StoreReviews/StoreReviews.css";
 
 .store {
     display: flex;

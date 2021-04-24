@@ -18,7 +18,7 @@ export class StoreFoodElement {
         this.buttonID = `[data-foodAddButtonID="${this.food.id}"]`;
         this.numButtonsSelector = `[data-foodID="${this.food.id}"]`;
         eventBus.on(ChangeBasketEvents.chooseFood, ({ food, isPlus }) => {
-            console.log('store food element ->', food, isPlus)
+            // console.log('store food element ->', food, isPlus)
             if (food.id === this.food.id) {
                 if (isPlus) {
                     this.num += 1

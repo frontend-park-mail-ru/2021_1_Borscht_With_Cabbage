@@ -20,6 +20,7 @@ export class Navbar {
         eventBus.on(AuthEvents.userSignIn, this.renderUserAuth.bind(this));
         eventBus.on(AuthEvents.userLogout, this.renderNotAuth.bind(this));
         eventBus.on(AuthEvents.notAuth, this.renderNotAuth.bind(this));
+        eventBus.on(AuthEvents.changeActiveAddress, this.changeAddress.bind(this))
     }
 
     onOffline () {
@@ -48,6 +49,11 @@ export class Navbar {
         }
         this.onOffline();
         this.goBasketListener();
+
+        const address = this.root.querySelector('#address');
+        if (address) {
+            address.addEventListener('click', () => eventBus.emit(AuthEvents.wantToChangeActiveAddress, {}));
+        }
     }
 
     renderNotAuth () {
@@ -85,6 +91,13 @@ export class Navbar {
             bascetLink.addEventListener('click', () => {
                 this.goTo('/basket');
             });
+        }
+    }
+
+    changeAddress ({ name }) {
+        const address = this.root.querySelector('#address');
+        if (address) {
+            address.textContent = name;
         }
     }
 }

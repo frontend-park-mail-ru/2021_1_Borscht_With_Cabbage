@@ -1,8 +1,12 @@
+import eventBus from './eventBus.js';
+import { AuthEvents } from '../events/AuthEvents.js';
+
 class Address {
     constructor () {
         this.longitude = '';
         this.latitude = '';
         this.name = '';
+        eventBus.on(AuthEvents.changeActiveAddress, this.setAddress.bind(this));
     }
 
     setAddress ({ longitude, latitude, name }) {

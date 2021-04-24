@@ -1,36 +1,25 @@
 import renderConfirmation from './ConfirmationAddressTmpl.hbs';
-import renderConfirmationAuth from './CofimationAddressAuth.hbs';
-import renderConfirmationNotAuth from './CofimationAddressNotAuth.hbs';
+import eventBus from '../../modules/eventBus.js';
+import { AuthEvents } from '../../events/AuthEvents.js';
+import { noop } from '../../modules/utils.js';
 
-export class ConfirmationAddress {
-    constructor ({
-        root = document.body
-    } = {}) {
-        this.root = root;
+class ConfirmationAddress {
+    constructor () {
     }
 
-    render (auth = false, addresses = []) {
+    setParams ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
+        this.root = root;
+        this.goTo = goTo;
+        eventBus.on(AuthEvents.wantToChangeActiveAddress, this.render.bind(this));
+    }
+
+    render () {
         const confirmationItem = document.createElement('div');
         confirmationItem.innerHTML += renderConfirmation();
         this.root.append(confirmationItem);
-        if (auth) {
-            confirmationItem.querySelector('.confirmation-address-container')
-                .insertAdjacentHTML('beforeend', renderConfirmationAuth({
-                    addresses
-                }));
-
-            confirmationItem.querySelector('#js__add-new-address')
-                .addEventListener('click', () => {
-                    if (!document.getElementById('js__map-add-address')) {
-                        confirmationItem.querySelector('#js__add-new-address')
-                            .insertAdjacentHTML('afterend', renderConfirmationNotAuth());
-                    }
-                });
-        } else {
-            confirmationItem.querySelector('.confirmation-address-container')
-                .insertAdjacentHTML('beforeend', renderConfirmationNotAuth());
-        }
-
 
         this.addCloseConfirmationEventListeners(confirmationItem);
     }
@@ -41,6 +30,21 @@ export class ConfirmationAddress {
             return;
         }
 
+        close.querySelector('#js__add-new-address__btn')
+            .addEventListener('click', () => {
+                const address = document.getElementById('js__map-add-address');
+                if (address.value) {
+                    eventBus.emit(AuthEvents.changeActiveAddress, {
+                        longitude: '37.546',
+                        latidude: '58.908',
+                        name: address.value
+                    });
+                    this.goTo('main');
+                } else {
+                    // TODO показать ошибку, валидировать адрес
+                }
+            })
+
         close.addEventListener('click', e => {
             if (e.target === close) {
                 confirmationItem.remove();
@@ -48,3 +52,5 @@ export class ConfirmationAddress {
         });
     }
 }
+
+export default new ConfirmationAddress()

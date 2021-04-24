@@ -63,6 +63,7 @@ export class ProfileController {
     }
 
     postReview (oid, review, stars) {
+        stars = parseInt(stars)
         this.profileModel.postReview(oid, review, stars)
     }
 }

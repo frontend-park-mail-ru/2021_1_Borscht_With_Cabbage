@@ -25,7 +25,7 @@ export class RestaurantOrderElement {
             }
             orderWithDateTime.orderTime = this.i18n.formatDateTime(orderWithDateTime.orderTime)
 
-            this.root.innerHTML += renderOrder({ order:  orderWithDateTime });
+            this.root.insertAdjacentHTML('beforeend',  renderOrder({ order:  orderWithDateTime }))
             const statuses = new StatusesComponent({
                 root: this.root,
                 i18n: this.i18n,

@@ -52,10 +52,8 @@ export class StatusesComponent {
 
     addStatusChangesListeners(id) {
         const save = document.getElementById('save_status-' + id)
-
         const status = document.getElementById('status-' + id)
         status.onchange = () => {
-            console.log("sdssdfsfsfsf")
             save.style.backgroundColor = "#97B498"
             save.disabled = false
             save.style.cursor = 'pointer'

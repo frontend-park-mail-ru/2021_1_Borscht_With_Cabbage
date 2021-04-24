@@ -38,23 +38,23 @@ export class OrderReview {
         review.innerHTML = renderOrderReviewInput({ order: this.order })
 
         const sendReview = document.getElementById('send_review-' + this.order.orderID)
-        this.addReviewListener()
+        sendReview.addEventListener('click', this.addReviewListener.bind(this))
     }
 
-    addReviewListener() {
+    addReviewListener(event) {
+        event.preventDefault()
         const sendReview = document.getElementById('send_review-' + this.order.orderID)
-            sendReview.onclick = () => {
-            let starsCount = 0
-            let stars = document.querySelectorAll('.order-'+this.order.orderID)
-                stars.forEach(function (star){
-                    console.log(star)
-                    if (star.checked) {
-                        starsCount = star.value
-                    }
-                })
-            console.log("stars "+starsCount)
-            const review = document.getElementById('review-' + this.order.orderID).value
-            this.controller.postReview(this.order.orderID, review, starsCount)
+        let starsCount = 0
+        let stars = document.querySelectorAll('.order-'+this.order.orderID)
+        stars.forEach(function (star){
+            if (star.checked) {
+                starsCount = star.value
             }
+        })
+        sendReview.style.backgroundColor = "#C4C4C4"
+        sendReview.disabled = true
+
+        const review = document.getElementById('review-' + this.order.orderID).value
+        this.controller.postReview(this.order.orderID, review, starsCount)
     }
 }

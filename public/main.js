@@ -1,3 +1,4 @@
+import './static/css/variables.less'
 import './components/basicStyles.less'
 import './static/css/main.less';
 

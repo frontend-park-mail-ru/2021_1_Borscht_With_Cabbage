@@ -1,3 +1,4 @@
+import './Authorization.less';
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import renderLogin from './SignInTmpl.hbs';

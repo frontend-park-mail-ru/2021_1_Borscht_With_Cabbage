@@ -38,9 +38,16 @@ input {
     margin: 8px 0;
     box-sizing: border-box;
     font-size: 16px;
-    width: 300px;
+    width: 100%;
     border: none;
-    border-bottom: 1px solid #ccc;
+    border-bottom: @line-bottom;
+
+    @media @tablet {
+        width: 300px;
+    }
+
+    // &::-webkit-input-placeholder { color: red; } // chrome
+    // &::-moz-placeholder { color: red; } // firefox
 }
 
 input:focus {

@@ -1,13 +1,28 @@
-import { BasketModel } from '../models/BasketModel.js';
+import basketModel from '../models/BasketModel.js';
 import { Validator } from '../modules/validation.js';
+import { noop } from '../modules/utils.js';
+import { BasketView } from '../views/BasketView.js';
+import eventBus from '../modules/eventBus.js';
+import { BasketEvents } from '../events/BasketEvents.js';
+import user from '../modules/user.js';
+import redirect from '../modules/redirect.js';
 
 export class BasketController {
-    constructor () {
-        this.basketModel = new BasketModel();
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
+        this.root = root;
+        this.goTo = goTo;
+        this.basketView = new BasketView({ root, goTo, controller: this });
+        eventBus.on(BasketEvents.basketGetBasketSuccess, this.basketPageDraw.bind(this));
+        eventBus.on(BasketEvents.basketGetBasketFailed, this.loadError.bind(this));
+        eventBus.on(BasketEvents.basketOrderSuccess, this.orderSuccess.bind(this));
+        eventBus.on(BasketEvents.basketOrderFailed, this.loadError.bind(this));
     }
 
     getBasket () {
-        this.basketModel.getBasket();
+        basketModel.getBasket();
     }
 
     order ({
@@ -19,16 +34,37 @@ export class BasketController {
         const numberError = Validator.validateNumber(number);
 
         if (addressError && numberError) {
-            this.basketModel.order( { address, number, comments });
+            basketModel.order({ address, number, comments });
             return {
                 error: false
             };
-        } else {
-            return {
-                error: true,
-                addressError,
-                numberError
-            };
         }
+        return {
+            error: true,
+            addressError,
+            numberError
+        };
+    }
+
+    render () {
+        if (!user.isAuth) {
+            this.goTo('login');
+            redirect.push('basket');
+            return;
+        }
+
+        this.getBasket();
+    }
+
+    basketPageDraw (info) {
+        this.basketView.render(info);
+    }
+
+    loadError (error) {
+        console.log('BasketView -> ', error);
+    }
+
+    orderSuccess () {
+        this.goTo('/profile/orders');
     }
 }

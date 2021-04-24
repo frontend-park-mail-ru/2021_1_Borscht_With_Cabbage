@@ -1,9 +1,21 @@
 import { Validator } from '../modules/validation.js';
-import { RestaurantSignUpModel } from '../models/RestaurantSignUpModel.js';
+import restaurantSignUpModel from '../models/RestaurantSignUpModel.js';
+import { noop } from '../modules/utils.js';
+import user from '../modules/user.js';
+import { RestaurantSignUpView } from '../views/RestaurantSignUpView.js';
+import eventBus from '../modules/eventBus.js';
+import { SignUpEvents } from '../events/SignUpEvents.js';
 
 export class RestaurantSignUpController {
-    constructor () {
-        this.restaurantSignUpModel = new RestaurantSignUpModel()
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
+        this.goTo = goTo;
+        this.root = root;
+        this.signUpView = new RestaurantSignUpView({ root, goTo, controller: this })
+        eventBus.on(SignUpEvents.restaurantSignUpSuccess, this.signupSuccess.bind(this));
+        eventBus.on(SignUpEvents.restaurantSignUpFailed, this.signupFailed.bind(this));
     }
 
     signUp ({ email, password, title, number, repeatPassword }) {
@@ -14,19 +26,34 @@ export class RestaurantSignUpController {
         const repeatPasswordError = Validator.validateEqualPassword(password, repeatPassword);
 
         if (emailError.result && passwordError.result && titleError.result && phoneError.result && repeatPasswordError.result) {
-            this.restaurantSignUpModel.signUp({ email, password, title, number });
+            restaurantSignUpModel.signUp({ email, password, title, number });
             return {
                 error: false
             }
-        } else {
-            return {
-                error: true,
-                emailError,
-                passwordError,
-                titleError,
-                phoneError,
-                repeatPasswordError
-            }
         }
+        return {
+            error: true,
+            emailError,
+            passwordError,
+            titleError,
+            phoneError,
+            repeatPasswordError
+        };
+    }
+
+    render () {
+        if (user.isAuth) {
+            this.goTo('restaurantMain');
+            return;
+        }
+        this.signUpView.render();
+    }
+
+    signupSuccess () {
+        this.goTo('restaurantMain');
+    }
+
+    signupFailed (error) {
+        this.signUpView.renderServerError(error);
     }
 }

@@ -10,7 +10,7 @@ export class NumButtons {
         event = '',
         num = 0,
         restaurant = {},
-        controller = new StoreController()
+        controller = new StoreController({ root })
     } = {}) {
         this.food = food;
         this.restaurant = restaurant;

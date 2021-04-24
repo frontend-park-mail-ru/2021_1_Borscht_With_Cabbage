@@ -85,6 +85,10 @@ export class Router {
 
     catchFollowLinks (event) {
         if (event.target.closest('a') instanceof HTMLAnchorElement) {
+            if (event.target.closest('a').href.includes('#')) {
+                event.preventDefault();
+                return;
+            }
             event.preventDefault();
             const link = event.target.closest('a').pathname;
             this.open(link);

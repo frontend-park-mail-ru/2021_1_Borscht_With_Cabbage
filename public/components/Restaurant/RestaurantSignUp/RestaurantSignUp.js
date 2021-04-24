@@ -1,7 +1,5 @@
 import { getError, noop } from '../../../modules/utils.js';
 import { RestaurantSignUpController } from "../../../controllers/RestaurantSignUpController.js";
-import eventBus from "../../../modules/eventBus.js";
-import { SignUpEvents } from "../../../events/SignUpEvents.js";
 import renderRestaurantSignUp from "./RestaurantSignUpTmpl.hbs"; // todo
 import { renderInput } from "../../../modules/rendering.js"; // todo
 import { Validator } from "../../../modules/validation.js";
@@ -21,8 +19,6 @@ export class RestaurantSignUp {
         this.phoneID = 'number'
         this.passwordID = 'password'
         this.repeatPasswordID = 'repeatPassword';
-        eventBus.on(SignUpEvents.restaurantSignUpSuccess, this.signupSuccess.bind(this))
-        eventBus.on(SignUpEvents.restaurantSignUpFailed, this.signupFailed.bind(this))
     }
 
     render () {
@@ -102,11 +98,7 @@ export class RestaurantSignUp {
         }
     }
 
-    signupSuccess () {
-        this.goTo('restaurantMain')
-    }
-
-    signupFailed (error) {
+    renderServerError (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
         serverError.textContent = getError(error);

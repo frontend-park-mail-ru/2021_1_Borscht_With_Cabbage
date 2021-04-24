@@ -5,20 +5,18 @@ import { ChangeBasketEvents } from '../events/ChangeBasketEvents.js';
 import user from '../modules/user.js';
 import basket from '../modules/basket.js';
 
-export class StoreModel {
+class StoreModel {
     getDishes (url) {
         const promises = [];
-        promises.push(storeGet({ url: url }));
+        promises.push(storeGet({ url }));
         if (!user.isAuth) {
 
         } else {
             promises.push(getBasket());
         }
 
-
         Promise.all(promises)
             .then(res => {
-                console.log(res)
                 const data_ = {};
                 if (res[0].status !== 200) {
                     data_.status = res[0].status;
@@ -78,3 +76,5 @@ export class StoreModel {
             });
     }
 }
+
+export default new StoreModel();

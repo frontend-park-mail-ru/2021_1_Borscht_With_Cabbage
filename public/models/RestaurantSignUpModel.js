@@ -2,7 +2,7 @@ import { restaurantSignupPost } from "../modules/api.js";
 import eventBus from "../modules/eventBus.js";
 import { SignUpEvents } from "../events/SignUpEvents.js";
 
-export class RestaurantSignUpModel {
+class RestaurantSignUpModel {
     signUp ({ email, password, title, number }) {
         restaurantSignupPost({ email, password, title, number })
             .then(res => {
@@ -15,3 +15,5 @@ export class RestaurantSignUpModel {
             .catch(res => eventBus.emit(SignUpEvents.restaurantSignUpFailed, res));
     }
 }
+
+export default new RestaurantSignUpModel();

@@ -33,11 +33,11 @@ export class RestaurantAddingDish {
 
     render () {
         let buttonName = 'Добавить блюдо';
-        if (this.dish && this.dish.id) {
+        if (this.dish?.id) {
             buttonName = 'Обновить блюдо';
         }
         this.root.innerHTML += renderRestaurantAddingDish({
-            buttonName: buttonName,
+            buttonName,
             dish: this.dish
         });
 
@@ -65,11 +65,10 @@ export class RestaurantAddingDish {
             if (e.target === close) {
                 this.closeItem();
             }
-        })
+        });
     }
 
     closeItem () {
-        console.log('close');
         eventBus.emit(DishEvents.closeAddingDishComponent + this.section, {});
     }
 

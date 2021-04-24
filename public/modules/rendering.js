@@ -4,7 +4,7 @@ export function renderInput (id, status) {
 
     if (!status.result) {
         input.style.borderColor = '#ff0000';
-        error.textContent = input.dataset.name + ': ' + status.text;
+        error.textContent = `${input.dataset.name}: ${status.text}`;
         return status.result;
     }
 

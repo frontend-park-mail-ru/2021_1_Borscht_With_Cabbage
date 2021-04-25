@@ -15,21 +15,14 @@ export class StoreReviews {
     }
 
     render() {
-        console.log("445")
         this.controller.getReviews(this.store.id)
     }
 
     renderReviews(reviews) {
         const i18n = new I18n()
-        console.log("rendering")
-        console.log('root '+this.root)
         this.root.insertAdjacentHTML('beforeend', RenderStoreReviewsContainer({}))
-        //this.root.innerHTML  = RenderStoreReviewsContainer({})
-        console.log('root ',this.root)
-
         let reviewsContainer = document.getElementById('reviews_container')
-        console.log('reviews_container ', reviewsContainer)
-        console.log('root ',this.root)
+
         reviews.forEach( function (review) {
                 reviewsContainer.insertAdjacentHTML('beforeend', RenderStoreReview({
                 user: review.user,
@@ -38,7 +31,21 @@ export class StoreReviews {
                 stars: review.stars}),
             )
         })
+
+        document.addEventListener('click', this.closeReviews.bind(this))
     }
+
+    closeReviews(event) {
+        let reviewsContainer = document.getElementById('reviews_container');
+        if (reviewsContainer) {
+            if (!reviewsContainer.contains(event.target)) {
+                const reviews = document.getElementById('store-reviews');
+                reviews.remove()
+            }
+        }
+        document.removeEventListener('click', this.closeReviews.bind(this))
+    }
+
 
     loadError(err) {
         console.log('error while getting restaurant reviews:' + err)

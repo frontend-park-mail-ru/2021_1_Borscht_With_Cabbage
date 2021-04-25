@@ -9,7 +9,7 @@ export class RestaurantOrderElement {
         root = document.body,
         order = null,
         i18n = null,
-        restaurantController = new RestaurantMainController(),
+        restaurantController
     } = {}) {
         this.root = root;
         this.order = order;

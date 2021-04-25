@@ -10,7 +10,7 @@ export class RestaurantOrdersComponent {
     constructor ({
         root = document.body,
         goTo = noop,
-        controller = new RestaurantMainController()
+        controller
     } = {}) {
         this.root = root;
         this.goTo = goTo;

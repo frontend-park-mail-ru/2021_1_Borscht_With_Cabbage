@@ -4,7 +4,7 @@ export class StatusesComponent {
     constructor ({
         root = document.body,
         i18n = null,
-        controller = new RestaurantMainController()
+        controller
     } = {}) {
         this.root = root;
         this.i18n = i18n;

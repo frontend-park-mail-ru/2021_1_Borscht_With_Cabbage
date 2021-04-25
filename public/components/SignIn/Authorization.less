@@ -1,0 +1,38 @@
+@import '../../static/css/variables.less';
+
+main {
+    padding: 0;
+}
+
+.authorization {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 100%;
+
+    @media @tablet {
+        height: auto;
+        background: url("../../static/img/auth_back.png") no-repeat center;
+        background-size: cover;
+    }
+
+    &-container {
+        width: 100%;
+
+        @media @tablet {
+            width: auto;
+            border-radius: @border-radius-desktop;
+            box-shadow: 0 15px 15px rgba(0, 0, 0, 0.5);
+            padding: 48px;
+            background: #F1F1F1;
+        }
+
+        &__title {
+            text-align: center
+        }
+
+        &__anotherAuth {
+            margin-bottom: 2em;
+        }
+    }
+}

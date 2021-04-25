@@ -27,13 +27,16 @@ export class ParamsComponent {
     }
 
     closeDropList () {
-        this.list.remove();
+        if (this.list) {
+            this.list.remove();
+        }
         this.item = null;
         this.list = null;
     }
 
     chooseElement (name) {
         // элемент в котором нужно поменять значение параметра
+        console.log(name);
         this.correctItem.innerHTML = params[this.correctItem.dataset.params]
                                     .val[name].name;
 
@@ -58,14 +61,14 @@ export class ParamsComponent {
                 return;
             }
 
-            if (this.list) {
-                this.closeDropList();
-            }
-
             // убираем список при повторном нажатии
             if (this.item === this.correctItem) {
                 this.closeDropList();
                 return;
+            }
+
+            if (this.list) {
+                this.closeDropList();
             }
 
             this.item = this.correctItem;

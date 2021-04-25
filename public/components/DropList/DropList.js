@@ -21,10 +21,18 @@ export class DropListComponent {
         this.root.append(this.listItem);
 
         this.addDropListeners();
+        this.addCloseListener();
     }
 
     remove () {
         this.listItem.remove();
+    }
+
+    addCloseListener () {
+        const backgroundClose = this.root.querySelector('.drop-list__background');
+        backgroundClose.addEventListener('click', () => {
+            eventBus.emit(DropListEvents.closeDropListComponent + this.idList);
+        })
     }
 
     addDropListeners () {

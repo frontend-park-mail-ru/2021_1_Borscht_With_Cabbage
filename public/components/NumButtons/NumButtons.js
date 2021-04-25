@@ -1,3 +1,4 @@
+import './NumButtons.less';
 import renderNumButtons from './NumButtonsTmpl.hbs';
 import eventBus from '../../modules/eventBus.js';
 import basket from '../../modules/basket.js';

@@ -1,3 +1,4 @@
+import './StoreTitle.less';
 import renderStoreTitle from './StoreTitleTmpl.hbs';
 
 export class StoreTitle {
@@ -20,6 +21,11 @@ export class StoreTitle {
             sections: this.store.sections
         });
         this.addEventListeners();
+
+        this.sectionsPanel = this.root.querySelector('.sections-hrefs');
+        this.startPosition = this.sectionsPanel.offsetTop;
+        const func = this.sticky.bind(this);
+        window.onscroll = function() {func()};
     }
 
     addEventListeners () {
@@ -38,5 +44,13 @@ export class StoreTitle {
                 });
             });
         });
+    }
+
+    sticky () {
+        if (window.pageYOffset >= this.startPosition) {
+            this.sectionsPanel.classList.add("sticky");
+        } else {
+            this.sectionsPanel.classList.remove("sticky");
+        }
     }
 }

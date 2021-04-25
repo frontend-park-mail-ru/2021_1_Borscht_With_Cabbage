@@ -1,3 +1,7 @@
+import './static/css/variables.less'
+import './components/basicStyles.less'
+import './static/css/main.less';
+
 import { Router } from './modules/router.js';
 import { Navbar } from './components/NavBar/Navbar.js';
 import { InitViews } from './components/InitViews/InitViews.js';
@@ -14,9 +18,6 @@ import { Logout } from './views/Logout.js';
 import { authGet } from './modules/api.js';
 
 import registerSW from './registerSW.js';
-
-import './static/css/main.less';
-import './components/basicStyles.less'
 
 registerSW();
 

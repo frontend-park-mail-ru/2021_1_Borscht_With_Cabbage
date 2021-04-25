@@ -1,27 +1,52 @@
+@import '../../static/css/variables.less';
+
 .params-panel {
-    margin-top: 32px;
+    margin-top: 24px;
+
+    @media @mobile {
+        margin-top: 24px;
+    }
 
     &__slide {
         display: inline-block;
         overflow: hidden;
-        min-width: 200px;
+        width: 32%;
         text-align: center;
         padding-bottom: 8px;
+
+        @media @tablet {
+            min-width: 180px;
+            width: auto;
+        }
     }
 
     &__slide-name {
         color: var(--main-green_color);
         margin-bottom: 8px;
         font-size: 20px;
+        display: none;
+
+        @media @tablet {
+            display: block;
+        }
     }
 
     &__slide-btn {
         background-color: var(--params-panel__slide-btn_color);
         border-radius: 16px;
-        padding: 8px;
-        width: 160px;
-        margin: 0 20px;
-        font-size: 16px;
+        padding: @padding-category-mobile;
+        margin: 0 4px;
+        font-size: @font-size-mobile;
         cursor: pointer;
+        box-shadow: @shadow-mobile;
+
+        @media @tablet {
+            width: 160px;
+            padding: 8px;
+            margin: 0 20px;
+            font-size: 16px;
+
+            box-shadow: @shadow;
+        }
     }
 }

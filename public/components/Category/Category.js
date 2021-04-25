@@ -31,8 +31,10 @@ export class CategoryComponent {
     }
 
     closeDropList() {
-        this.list.remove();
-        this.list = null;
+        if (this.list) {
+            this.list.remove();
+            this.list = null;
+        }
     }
 
     chooseElement(name) {

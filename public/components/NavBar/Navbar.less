@@ -4,22 +4,37 @@
     overflow: hidden;
     background-color: var(--navbar-white_color);
     box-shadow: @shadow-mobile;
-    height: 6em;
     position: relative;
     display: grid;
-    grid-template-columns: 7fr 1fr 1fr;
+    grid-template-areas: "adress adress user basket";
     align-items: center;
-    height: 6em;
 
     @media @tablet {
+        height: 6em;
+        grid-template-columns: 4fr 3fr 1fr 1fr;
+        grid-template-areas: "title adress user basket";
         box-shadow: @shadow;
     }
 
+    &-restaurant {
+        grid-template-areas: "user";
+
+        @media @tablet {
+            grid-template-columns: 4fr 1fr;
+            grid-template-areas: "title user";
+        }
+    }
+
     &_title {
-        display: flex;
+        display: none;
         align-items: center;
         height: 6em;
         margin-left: 2em;
+        grid-area: title;
+
+        @media @tablet {
+            display: flex;
+        }
 
         &__project-name {
             color: black;
@@ -40,16 +55,23 @@
             vertical-align: center;
             border: none;
             padding: 14px 40px;
-            margin-right: 24px;
+            grid-area: adress;
+            margin-left: 16px;
+            margin-right: 16px;
             white-space: nowrap;
+            width: 85%;
         }
 
         &-auth {
             padding: 0 16px;
-            border-left: 1px solid var(--main-green_color);
-            border-right: 1px solid var(--main-green_color);
             display: flex;
             justify-content: center;
+            grid-area: user;
+
+            @media @tablet {
+                border-left: 1px solid var(--main-green_color);
+                border-right: 1px solid var(--main-green_color);
+            }
 
             &_user {
                 display: flex;
@@ -58,14 +80,22 @@
                 &__username {
                     text-align: center;
                     color: black;
+                    display: none;
+
+                    @media @tablet {
+                        display: block; // TODO: потом посмотреть
+                    }
                 }
 
                 &__avatar {
                     width: 50px;
                     height: 50px;
                     border-radius: 50%;
-                    margin-right: 8px;
-                    margin-top: 8px;
+
+                    @media @tablet {
+                        margin-right: 8px;
+                        margin-top: 8px;
+                    }
                 }
 
                 &__text {
@@ -83,10 +113,19 @@
             padding: 0 16px;
             text-align: center;
             justify-content: center;
+            grid-area: basket;
+            cursor: pointer;
+
+            margin-right: 8px;
 
             &__text {
                 color: black;
                 font-weight: 500;
+                display: none;
+
+                @media @tablet {
+                    display: block;
+                }
             }
 
             &__image {

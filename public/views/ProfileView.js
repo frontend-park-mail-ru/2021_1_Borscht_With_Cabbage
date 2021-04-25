@@ -1,3 +1,5 @@
+import '../components/Profile/Profile.less';
+
 import renderProfileView from '../components/Profile/ProfileTmpl.hbs'
 import { ProfileEdits } from '../components/Profile/ProfileEdits/ProfileEdits.js';
 import { ProfileController } from '../controllers/ProfileController.js';

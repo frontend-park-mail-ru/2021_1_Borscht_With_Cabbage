@@ -8,6 +8,8 @@ import eventBus from '../modules/eventBus.js';
 import { MainEvents } from '../events/MainEvents.js';
 import renderMainPage from '../components/MainPage/MainPageTmpl.hbs'
 import '../components/MainPage/MainPage.less'
+import address from '../modules/address.js';
+import { ConfirmationAddress } from '../components/ConfirmationAddress/ConfirmationAddress.js';
 
 export class MainView {
     constructor (root, goTo) {
@@ -26,6 +28,10 @@ export class MainView {
         this.headerDraw();
         this.mainController.init();
         this.mainController.getRestaurants();
+        const address_ = address.getAddress();
+        if (address_.name === '') {
+            new ConfirmationAddress({ goTo: this.goTo }).render();
+        }
     }
 
     headerDraw () {

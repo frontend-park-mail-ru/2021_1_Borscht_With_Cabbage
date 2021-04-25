@@ -4,17 +4,21 @@ import { AuthEvents } from '../../events/AuthEvents.js';
 import { noop } from '../../modules/utils.js';
 import { YandexMap } from '../../modules/yandexMap.js';
 
-class ConfirmationAddress {
-    constructor () {
-    }
-
-    setParams ({
+export class ConfirmationAddress {
+    constructor ({
         root = document.body,
         goTo = noop
     } = {}) {
         this.root = root;
         this.goTo = goTo;
-        eventBus.on(AuthEvents.wantToChangeActiveAddress, this.render.bind(this));
+        this.longitude = 0.0;
+        this.latitude = 0.0;
+        this.setCoords = this.setCoords.bind(this);
+    }
+
+    setCoords (latitude, longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     render () {
@@ -22,8 +26,11 @@ class ConfirmationAddress {
         confirmationItem.innerHTML += renderConfirmation();
         this.root.append(confirmationItem);
         this.yaMap = new YandexMap();
-        this.yaMap.render('js__map', (address) => {
-            document.getElementById('js__map-add-address').value = address;
+        this.yaMap.render({ id: 'js__map', isStatic: false }, (address, isRenew) => {
+            if (isRenew) {
+                document.getElementById('js__map-add-address').value = address.name;
+            }
+            this.setCoords(address.latitude, address.longitude);
         });
         this.yaMap.addSearch('js__map-add-address');
         this.addCloseConfirmationEventListeners(confirmationItem);
@@ -40,10 +47,11 @@ class ConfirmationAddress {
                 const address = document.getElementById('js__map-add-address');
                 if (address.value) {
                     eventBus.emit(AuthEvents.changeActiveAddress, {
-                        longitude: '37.546',
-                        latidude: '58.908',
+                        longitude: this.longitude,
+                        latitude: this.latitude,
                         name: address.value
                     });
+                    confirmationItem.remove();
                     this.goTo('main');
                 } else {
                     // TODO показать ошибку, валидировать адрес
@@ -57,5 +65,3 @@ class ConfirmationAddress {
         });
     }
 }
-
-export default new ConfirmationAddress();

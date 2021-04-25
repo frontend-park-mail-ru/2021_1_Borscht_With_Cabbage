@@ -3,6 +3,8 @@ import { BasketController } from '../../controllers/BasketController.js';
 import renderDeliveryOptions from './DeliveryOptionsTmpl.hbs';
 import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
+import address from '../../modules/address.js';
+import { YandexMap } from '../../modules/yandexMap.js';
 
 export class DeliveryOptions {
     constructor ({
@@ -17,8 +19,20 @@ export class DeliveryOptions {
 
     render (info) {
         this.root.insertAdjacentHTML('afterbegin', renderDeliveryOptions({
-            user: info
+            user: info,
+            address: address.name
         }));
+        this.yaMap = new YandexMap();
+        this.yaMap.render({
+            id: 'js__basket-map',
+            pos: address.getAddress(),
+            isStatic: true
+        });
+        this.yaMap.setRestaurant({
+            latitude: 55.751574,
+            longitude: 37.57385
+        }, 1000)
+        this.yaMap.setUser(address.getAddress());
 
         this.addEventListeners()
     }
@@ -42,7 +56,7 @@ export class DeliveryOptions {
         orderButton.addEventListener('click', () => {
             this.controller.order({
                 address: this.root.querySelector('#input-address').value,
-                number:  this.root.querySelector('#input-number').value,
+                number: this.root.querySelector('#input-number').value,
                 comments: this.root.querySelector('#input-comments').value
             });
         });

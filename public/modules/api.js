@@ -350,5 +350,12 @@ export function postBasket (basket) {
     return Http.ajaxPost({
         url: '/user/basket',
         body: basket
-    })
+    });
+}
+
+export function postAddress (address) {
+    return Http.ajaxPost({
+        url: '/address',
+        body: address
+    });
 }

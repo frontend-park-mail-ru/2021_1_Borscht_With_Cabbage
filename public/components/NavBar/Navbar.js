@@ -8,6 +8,7 @@ import eventBus from '../../modules/eventBus.js';
 import { AuthEvents } from '../../events/AuthEvents.js';
 import { Toast } from '../Toast/Toast.js';
 import './Navbar.less'
+import { ConfirmationAddress } from '../ConfirmationAddress/ConfirmationAddress.js';
 
 export class Navbar {
     constructor ({
@@ -48,12 +49,7 @@ export class Navbar {
             this.goProfileListener();
         }
         this.onOffline();
-        this.goBasketListener();
-
-        const address = this.root.querySelector('#address');
-        if (address) {
-            address.addEventListener('click', () => eventBus.emit(AuthEvents.wantToChangeActiveAddress, {}));
-        }
+        this.addEventListener();
     }
 
     renderNotAuth () {
@@ -64,7 +60,7 @@ export class Navbar {
             this.goLoginListener();
         }
         this.onOffline();
-        this.goBasketListener();
+        this.addEventListener();
     }
 
     goLoginListener () {
@@ -85,11 +81,18 @@ export class Navbar {
         }
     }
 
-    goBasketListener () {
+    addEventListener () {
         const bascetLink = document.getElementById('js-go-basket')
         if (bascetLink) {
             bascetLink.addEventListener('click', () => {
                 this.goTo('/basket');
+            });
+        }
+
+        const address_ = this.root.querySelector('#address');
+        if (address_) {
+            address_.addEventListener('click', () => {
+                new ConfirmationAddress({ goTo: this.goTo }).render();
             });
         }
     }

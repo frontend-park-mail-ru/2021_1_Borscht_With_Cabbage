@@ -1,5 +1,7 @@
 import eventBus from './eventBus.js';
 import { AuthEvents } from '../events/AuthEvents.js';
+import { postAddress } from './api.js';
+import user from './user.js';
 
 class Address {
     constructor () {
@@ -13,6 +15,12 @@ class Address {
         this.longitude = longitude;
         this.latitude = latitude;
         this.name = name;
+        // postAddress({ longitude, latitude, name })
+        //     .then((res) => {
+        //         if (res.status === 200) {
+        //             user.address = { longitude, latitude, name };
+        //         }
+        //     });
     }
 
     getAddress () {

@@ -1,3 +1,5 @@
+import { noop } from './utils.js';
+
 export class YandexMap {
     constructor () {
         this.initPos = {
@@ -7,31 +9,60 @@ export class YandexMap {
     }
 
     setRestaurant (pos, radius) {
-
+        ymaps.ready(() => {
+            this.setCenter(pos, 12);
+            this.addCircle(pos, radius, 0.004);
+        });
     }
 
-    setUser (pos) {
-
+    setUser (address) {
+        ymaps.ready(() => {
+            this.map.geoObjects
+                .add(new ymaps.GeoObject({
+                    geometry: {
+                        type: 'Point',
+                        coordinates: this.convectPosObjectToArray(address)
+                    },
+                    properties: {
+                        iconContent: 'Вы здесь',
+                        hintContent: address.name
+                    }
+                }, {
+                    preset: 'islands#blackStretchyIcon',
+                    draggable: false
+                }));
+        });
     }
 
-    render (id, callback) {
-        ymaps.ready(this.init.bind(this, id, callback));
+    render ({
+        id,
+        pos = this.initPos,
+        isStatic = false
+    } = {}, callback = noop) {
+        ymaps.ready(this.init.bind(this, { id, pos, isStatic }, callback));
     }
 
-    init (id, callback) {
+    init ({
+        id,
+        pos,
+        isStatic
+    } = {}, callback) {
         this.callback = callback;
+        this.pos = pos;
         document.getElementById(id).innerHTML = '';
         this.map = new ymaps.Map(id, {
-            center: this.convectPosObjectToArray(this.initPos),
-            zoom: 10,
+            center: this.convectPosObjectToArray(this.pos),
+            zoom: 11,
             openBalloonOnClick: false,
             controls: []
         });
 
-        this.addListeners();
+        if (!isStatic) {
+            this.addListeners();
+        }
     }
 
-    addListeners() {
+    addListeners () {
         this.map.events.add('click', (e) => {
             const coords = e.get('coords');
             this.movePoint(this.convertPosArrayToObject(coords));
@@ -45,12 +76,21 @@ export class YandexMap {
         });
     }
 
-    getAddress() {
-        ymaps.geocode([this.pos.latitude, this.pos.longitude])
+    getAddress () {
+        ymaps.geocode(this.convectPosObjectToArray(this.pos))
             .then((res) => {
-                this.text = this.getUserPositionAddress(res.geoObjects.get(0).properties);
-                this.callback(this.text);
+                this.catchCallback(res);
             });
+    }
+
+    catchCallback (res, isRenew = true) {
+        this.text = this.getUserPositionAddress(res.geoObjects.get(0).properties);
+        const address = {
+            name: this.text,
+            latitude: this.pos.latitude,
+            longitude: this.pos.longitude
+        };
+        this.callback(address, isRenew);
     }
 
     setCenter (pos, zoom) {
@@ -68,6 +108,7 @@ export class YandexMap {
                     (res) => {
                         this.movePoint(this.convertPosArrayToObject(res.geoObjects.get(0).geometry.getCoordinates()));
                         this.setCenter(this.convertPosArrayToObject(res.geoObjects.get(0).geometry.getCoordinates(), 1));
+                        this.catchCallback(res, false);
                     }
                 ).catch(
                     (err) => {
@@ -83,11 +124,11 @@ export class YandexMap {
     }
 
     addPoint (pos) {
-        this.pos = pos;
-        if (this.pos !== undefined) {
+        if (this.pos) {
             this.deletePoint(this.point);
             this.point = this.createPoint(pos);
         }
+        this.pos = pos;
     }
 
     deletePoint (point) {
@@ -102,13 +143,12 @@ export class YandexMap {
     }
 
     addCircle (pos, radius, measurementError = 0) {
-        this.radius = radius;
-        if (pos) {
-            this.deleteCircle(this.circle);
+        if (this.pos) {
             pos.latitude += this.randomInRange(0.00001, measurementError);
             pos.longitude += this.randomInRange(0.00001, measurementError);
             this.circle = this.createCircle(pos, radius);
         }
+        this.radius = radius;
     }
 
     deleteCircle (circle) {
@@ -141,4 +181,11 @@ export class YandexMap {
         const prop = properties.get('metaDataProperty').GeocoderMetaData.AddressDetails.Country;
         return prop.AddressLine;
     }
+
+    // movePointByPos(pos, radius = 0) {
+    //     ymaps.ready(() => {
+    //         this.setCenter(pos, 12);
+    //         this.addCircle(pos, radius, 0.004);
+    //     });
+    // }
 }

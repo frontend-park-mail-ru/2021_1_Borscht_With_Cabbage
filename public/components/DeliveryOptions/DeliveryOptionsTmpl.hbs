@@ -1,7 +1,8 @@
 <div class="delivery-options__container">
     <h3 class="delivery-options__title">Доставка</h3>
-    <input id="input-address" placeholder="Адрес" data-name="Адрес" value="{{ user.address }}">
+    <input readonly id="input-address" placeholder="Адрес" data-name="Адрес" value="{{ address }}">
     <p id="input-addressError" class="error">Адрес</p>
+    <div id="js__basket-map" style="width: 300px;height: 150px"></div>
     <input id="input-number" placeholder="Телефон" data-name="Телефон" value="{{ user.number }}" >
     <p id="input-addressError" class="error">Телефон</p>
     <input id="input-comments" placeholder="" data-name="Коментарии к заказу">

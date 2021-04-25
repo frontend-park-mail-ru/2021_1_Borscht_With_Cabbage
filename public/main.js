@@ -11,9 +11,6 @@ import { StoreController } from './controllers/StoreController.js';
 import { MainView } from './views/MainView.js';
 import { RestaurantMainView } from './views/RestaurantMainView.js';
 import { Logout } from './views/Logout.js';
-import confirmationAddress from './components/ConfirmationAddress/ConfirmationAddress.js';
-import user from './modules/user.js';
-import address from './modules/address.js';
 import { authGet } from './modules/api.js';
 
 import registerSW from './registerSW.js';
@@ -47,7 +44,6 @@ const profileController = new ProfileController({ root: view, goTo: goTo });
 const basketController = new BasketController({ root: view, goTo: goTo })
 const logout = new Logout({ root: view, goTo: goTo });
 const restaurantMainView = new RestaurantMainView(view, goTo);
-confirmationAddress.setParams({ root: view, goTo });
 
 router.addRoute('login', signInController);
 router.addRoute('signup', signUpController);
@@ -64,8 +60,5 @@ const link = window.location.pathname;
 authGet()
     .then(_ => {
         router.open(link);
-        if ((!user.isAuth || !address.name) && (!link.includes('signin') && !link.includes('signup') && !link.includes('/restaurant'))) {
-            confirmationAddress.render();
-        }
     })
     .catch(_ => router.open(link));

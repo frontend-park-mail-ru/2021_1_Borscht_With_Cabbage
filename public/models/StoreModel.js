@@ -69,8 +69,8 @@ export class StoreModel {
                     eventBus.emit(StoreEvents.storeGetReviewsFailed, res.parsedJSON);
                 }
             })
-            // .catch(res => {
-            //     eventBus.emit(StoreEvents.storeGetReviewsFailed, res.parsedJSON);
-            // })
+            .catch(res => {
+                eventBus.emit(StoreEvents.storeGetReviewsFailed, res.parsedJSON);
+            })
     }
 }

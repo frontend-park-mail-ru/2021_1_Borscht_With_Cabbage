@@ -3,6 +3,8 @@ import { noop } from '../modules/utils.js';
 import eventBus from '../modules/eventBus.js';
 import { StoreEvents } from '../events/StoreEvents.js';
 import { StoreView } from '../views/StoreView.js';
+import address from '../modules/address.js';
+import { ConfirmationAddress } from '../components/ConfirmationAddress/ConfirmationAddress.js';
 
 export class StoreController {
     constructor ({
@@ -40,9 +42,20 @@ export class StoreController {
 
     storePageDraw (info) {
         this.storeView.render(info);
+        if (address.getAddress().name === '') {
+            new ConfirmationAddress({ goTo: this.goTo }).render();
+        }
     }
 
     loadError (error) {
         this.storeView.renderServerError(error);
+    }
+
+    order () {
+        if (address.getAddress().name === '') {
+            new ConfirmationAddress({ goTo: this.goTo }).render('basket');
+        } else {
+            this.goTo('main');
+        }
     }
 }

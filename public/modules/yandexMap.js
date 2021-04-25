@@ -11,7 +11,7 @@ export class YandexMap {
     setRestaurant (pos, radius) {
         ymaps.ready(() => {
             this.setCenter(pos, 12);
-            this.addCircle(pos, radius, 0.004);
+            this.createCircle(pos, radius);
         });
     }
 
@@ -31,6 +31,7 @@ export class YandexMap {
                     preset: 'islands#blackStretchyIcon',
                     draggable: false
                 }));
+            this.setCenter(address, 12);
         });
     }
 
@@ -120,7 +121,7 @@ export class YandexMap {
 
     movePoint (pos) {
         this.addPoint(pos);
-        this.addCircle(pos, this.radius);
+        this.createCircle(pos, 0);
     }
 
     addPoint (pos) {
@@ -142,28 +143,11 @@ export class YandexMap {
         return point;
     }
 
-    addCircle (pos, radius, measurementError = 0) {
-        if (this.pos) {
-            pos.latitude += this.randomInRange(0.00001, measurementError);
-            pos.longitude += this.randomInRange(0.00001, measurementError);
-            this.circle = this.createCircle(pos, radius);
-        }
-        this.radius = radius;
-    }
-
-    deleteCircle (circle) {
-        this.map.geoObjects.remove(circle);
-    }
-
     createCircle (pos, radius) {
         const circle = new ymaps.Circle([this.convectPosObjectToArray(pos), radius]);
         this.map.geoObjects.add(circle);
 
         return circle;
-    }
-
-    randomInRange (min, max) {
-        return Math.random() < 0.5 ? ((1 - Math.random()) * (max - min) + min) : (Math.random() * (max - min) + min);
     }
 
     convertPosArrayToObject (coords) {
@@ -181,11 +165,4 @@ export class YandexMap {
         const prop = properties.get('metaDataProperty').GeocoderMetaData.AddressDetails.Country;
         return prop.AddressLine;
     }
-
-    // movePointByPos(pos, radius = 0) {
-    //     ymaps.ready(() => {
-    //         this.setCenter(pos, 12);
-    //         this.addCircle(pos, radius, 0.004);
-    //     });
-    // }
 }

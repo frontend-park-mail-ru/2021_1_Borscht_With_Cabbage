@@ -21,7 +21,7 @@ export class ConfirmationAddress {
         this.longitude = longitude;
     }
 
-    render () {
+    render (redirect = 'main') {
         const confirmationItem = document.createElement('div');
         confirmationItem.innerHTML += renderConfirmation();
         this.root.append(confirmationItem);
@@ -33,10 +33,10 @@ export class ConfirmationAddress {
             this.setCoords(address.latitude, address.longitude);
         });
         this.yaMap.addSearch('js__map-add-address');
-        this.addCloseConfirmationEventListeners(confirmationItem);
+        this.addCloseConfirmationEventListeners(confirmationItem, redirect);
     }
 
-    addCloseConfirmationEventListeners (confirmationItem) {
+    addCloseConfirmationEventListeners (confirmationItem, redirect) {
         const close = this.root.querySelector('.confirmation-address');
         if (!close) {
             return;
@@ -52,7 +52,7 @@ export class ConfirmationAddress {
                         name: address.value
                     });
                     confirmationItem.remove();
-                    this.goTo('main');
+                    this.goTo(redirect);
                 } else {
                     // TODO показать ошибку, валидировать адрес
                 }

@@ -41,7 +41,8 @@ export class StoreView {
         this.storeBasket = new StoreBasket({
             root: document.getElementById('store-basket'),
             store: info,
-            goTo: this.goTo
+            goTo: this.goTo,
+            controller: this.storeController
         });
         this.storeBasket.render();
 

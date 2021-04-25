@@ -6,6 +6,8 @@ import eventBus from '../modules/eventBus.js';
 import { BasketEvents } from '../events/BasketEvents.js';
 import user from '../modules/user.js';
 import redirect from '../modules/redirect.js';
+import address from '../modules/address.js';
+import { ConfirmationAddress } from '../components/ConfirmationAddress/ConfirmationAddress.js';
 
 export class BasketController {
     constructor ({
@@ -57,7 +59,11 @@ export class BasketController {
     }
 
     basketPageDraw (info) {
-        this.basketView.render(info);
+        if (address.getAddress().name === '') {
+            new ConfirmationAddress({ goTo: this.goTo }).render('basket');
+        } else {
+            this.basketView.render(info);
+        }
     }
 
     loadError (error) {

@@ -55,7 +55,7 @@ export class StoreController {
         if (address.getAddress().name === '') {
             new ConfirmationAddress({ goTo: this.goTo }).render('basket');
         } else {
-            this.goTo('main');
+            this.goTo('basket');
         }
     }
 }

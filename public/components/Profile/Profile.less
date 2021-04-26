@@ -4,13 +4,15 @@
 @import '../../static/css/variables.less';
 
 .profile {
-    margin-top: 25px;
+    margin-top: @margin-top-content;
     display: grid;
+    grid-row-gap: @grid-row-gap;
     grid-template-areas: "navigation"
                          "edits";
 
-    @media @tablet {
-        grid-template-columns: 2fr 1fr;
+    @media @desktop {
+        grid-template-columns: @grid-two-column-tablet;
+        grid-column-gap: @grid-column-gap-tablet;
         grid-template-areas: "edits navigation";
     }
 
@@ -29,12 +31,6 @@
 
     &-left-block {
         grid-area: edits;
-        // max-width: 36em;
-        // min-width: 24em;
-        // max-height: 56em;
-        // min-height: 32em;
-        // padding: 2em;
-        // margin-left: 16em;
         
         &__avatar-button {
             width: 20em;
@@ -43,8 +39,7 @@
 
     &-right-block {
         grid-area: navigation;
-        max-height: 14em;
-        min-height: 6em;
+        height: min-content;
         padding-left: 2em;
     
         @media @tablet {

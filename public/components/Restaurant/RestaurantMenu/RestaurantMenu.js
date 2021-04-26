@@ -1,3 +1,4 @@
+import './RestaurantMenu.less';
 import eventBus from '../../../modules/eventBus.js';
 import { noop } from '../../../modules/utils.js';
 import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';

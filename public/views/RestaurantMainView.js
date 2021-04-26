@@ -1,3 +1,4 @@
+import '../components/Restaurant/Restaurant.less'
 import { RestaurantMainController } from '../controllers/RestaurantMainController.js';
 import { RestaurantMenuComponent } from '../components/Restaurant/RestaurantMenu/RestaurantMenu.js'
 import { RestaurantEdits } from '../components/Restaurant/RestaurantEdits/RestaurantEdits.js';

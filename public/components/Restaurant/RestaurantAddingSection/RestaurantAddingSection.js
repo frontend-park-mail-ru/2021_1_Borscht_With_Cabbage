@@ -1,3 +1,4 @@
+import './RestaurantAddingSection.less';
 import { RestaurantMainController } from "../../../controllers/RestaurantMainController.js";
 import renderRestaurantAddingSection from "./RestaurantAddingSectionTmpl.hbs";
 import eventBus from "../../../modules/eventBus.js";

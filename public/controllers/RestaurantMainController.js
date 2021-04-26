@@ -147,7 +147,8 @@ export class RestaurantMainController {
         newPassword,
         repeatPassword,
         avatar,
-        deliveryCost
+        deliveryCost,
+        address
     } = {}) {
         const emailError = Validator.validateEmail(email);
         const titleError = Validator.validateName(title);
@@ -172,7 +173,8 @@ export class RestaurantMainController {
                 number: phone,
                 password_current: currentPassword,
                 password: newPassword,
-                password_repeat: repeatPassword
+                password_repeat: repeatPassword,
+                address
             }, formData);
             return {
                 error: false

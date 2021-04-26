@@ -9,6 +9,7 @@ import { Validator } from '../../../modules/validation.js';
 import { maskPhone } from '../../../modules/phoneMask.js';
 import { getError, noop } from '../../../modules/utils.js';
 import user from '../../../modules/user.js';
+import { YandexMap } from '../../../modules/yandexMap.js';
 
 export class RestaurantEdits {
     constructor ({
@@ -26,10 +27,16 @@ export class RestaurantEdits {
         this.currentPasswordID = 'password_current';
         this.newPasswordID = 'password';
         this.repeatPasswordID = 'password_repeat';
-
+        this.radiusID = 'radius';
         this.controller = controller;
         eventBus.on(ProfileEvents.restaurantSetUserDataSuccess, this.updateInputs.bind(this));
         eventBus.on(ProfileEvents.restaurantSetUserDataFailed, this.changeFailed.bind(this));
+        this.setCoords = this.setCoords.bind(this);
+    }
+
+    setCoords (latitude, longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     render () {
@@ -44,6 +51,15 @@ export class RestaurantEdits {
             input: this.avatarInput,
             button: this.avatarButton
         });
+
+        this.yaMap = new YandexMap();
+        this.yaMap.render({ id: 'js__map-edit', isStatic: false }, (address, isRenew) => {
+            if (isRenew) {
+                document.getElementById('js__map-edit-address').value = address.name;
+            }
+            this.setCoords(address.latitude, address.longitude);
+        });
+        this.yaMap.addSearch('js__map-edit-address');
 
         this.addErrorListeners();
         this.addSubmitListener();
@@ -66,7 +82,13 @@ export class RestaurantEdits {
             currentPassword: document.getElementById(this.currentPasswordID).value,
             newPassword: document.getElementById(this.newPasswordID).value,
             repeatPassword: document.getElementById(this.repeatPasswordID).value,
-            avatar: this.preview.getFile()
+            avatar: this.preview.getFile(),
+            address: {
+                name: document.getElementById('js__map-edit-address').value,
+                latitude: String(this.latitude),
+                longitude: String(this.longitude),
+                radius: Math.round(Number(document.getElementById(this.radiusID).value))
+            }
         });
         if (errors.error) {
             renderInput(this.emailID, errors.emailError);
@@ -138,6 +160,16 @@ export class RestaurantEdits {
                     Validator.validateChangeNewPassword(newPassword.value)
                 )
             );
+        }
+
+        const radius = document.getElementById(this.radiusID);
+        if (radius) {
+            radius.addEventListener('focusout',
+                () => renderInput(this.phoneID, Validator.validateNumber(radius.value))
+            );
+            radius.addEventListener('input', () => {
+                this.yaMap.changeRadius(radius.value);
+            });
         }
 
         const currentPassword = document.getElementById(this.currentPasswordID);

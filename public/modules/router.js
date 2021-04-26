@@ -60,7 +60,6 @@ export class Router {
     }
 
     open (page, isBack = false) {
-        console.log(page);
         Object.entries(urls).forEach(([url, { constUrl, regularUrl }]) => {
             if (page === url && isBack && url === 'logout') {
                 this.open('main', isBack);

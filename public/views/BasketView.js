@@ -32,7 +32,8 @@ export class BasketView {
                 this.deliveryOptions = new DeliveryOptions({
                     root: container.querySelector('#basket-options'),
                     goTo: this.goTo,
-                    controller: this.basketController
+                    controller: this.basketController,
+                    info
                 });
                 this.deliveryOptions.render(user);
                 this.deliveryBasket.render(info);

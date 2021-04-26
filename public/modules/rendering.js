@@ -4,11 +4,15 @@ export function renderInput (id, status) {
 
     if (!status.result) {
         input.style.borderColor = '#ff0000';
-        error.textContent = `${input.dataset.name}: ${status.text}`;
+        if (error) {
+            error.textContent = `${input.dataset.name}: ${status.text}`;
+        }
         return status.result;
     }
 
     input.style.borderColor = '#808080';
-    error.innerHTML = input.dataset.name;
+    if (error) {
+        error.innerHTML = input.dataset.name;
+    }
     return status.result;
 }

@@ -5,13 +5,16 @@ import { renderInput } from '../../modules/rendering.js';
 import { Validator } from '../../modules/validation.js';
 import address from '../../modules/address.js';
 import { YandexMap } from '../../modules/yandexMap.js';
+import { maskPhone } from '../../modules/phoneMask.js';
 
 export class DeliveryOptions {
     constructor ({
         root = document.body,
         goTo = noop,
-        controller = new BasketController()
+        controller = new BasketController(),
+        info = {}
     } = {}) {
+        this.info = info;
         this.root = root;
         this.goTo = goTo;
         this.controller = controller;
@@ -49,15 +52,17 @@ export class DeliveryOptions {
         const number = this.root.querySelector('#input-number');
         if (number) {
             number.addEventListener('focusout',
-                () => renderInput('input-number', Validator.validateNumber(number.value))
+                () => renderInput('input-number', Validator.validatePhone(number.value.replace(/\D/g, '')))
             );
+            maskPhone(number);
+            number.focus();
         }
 
         const orderButton = this.root.querySelector('#button-order');
         orderButton.addEventListener('click', () => {
             this.controller.order({
                 address: this.root.querySelector('#input-address').value,
-                number: this.root.querySelector('#input-number').value,
+                number: this.root.querySelector('#input-number').value.replace(/\D/g, ''),
                 comments: this.root.querySelector('#input-comments').value
             });
         });

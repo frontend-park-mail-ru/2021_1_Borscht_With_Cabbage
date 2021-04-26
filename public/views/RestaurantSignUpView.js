@@ -22,6 +22,10 @@ export class RestaurantSignUpView {
         this.signup.render()
     }
 
+    renderErrors (errors) {
+        this.signup.renderErrors(errors);
+    }
+
     renderServerError (error) {
         this.signup.renderServerError(error);
     }

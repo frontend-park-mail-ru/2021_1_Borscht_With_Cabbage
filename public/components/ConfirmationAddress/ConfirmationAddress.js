@@ -44,18 +44,24 @@ export class ConfirmationAddress {
 
         close.querySelector('#js__add-new-address__btn')
             .addEventListener('click', () => {
-                const address = document.getElementById('js__map-add-address');
-                if (address.value) {
-                    eventBus.emit(AuthEvents.changeActiveAddress, {
-                        longitude: this.longitude,
-                        latitude: this.latitude,
-                        name: address.value
-                    });
-                    confirmationItem.remove();
-                    this.goTo(redirect);
-                } else {
-                    // TODO показать ошибку, валидировать адрес
-                }
+                YandexMap.isAddressCorrect(document.getElementById('js__map-add-address').value)
+                    .then(isCorrect => {
+                        if (isCorrect) {
+                            const address = document.getElementById('js__map-add-address');
+                            if (address.value) {
+                                eventBus.emit(AuthEvents.changeActiveAddress, {
+                                    longitude: this.longitude,
+                                    latitude: this.latitude,
+                                    name: address.value
+                                });
+                                confirmationItem.remove();
+                                this.goTo(redirect);
+                            } else {
+                                // TODO показать ошибку, валидировать адрес
+                            }
+                        }
+                    })
+                    .catch(noop);
             });
 
         close.addEventListener('click', e => {

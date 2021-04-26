@@ -156,11 +156,11 @@ export class RestaurantMainController {
         const currentPasswordError = Validator.validateChangeOldPassword(currentPassword, newPassword);
         const newPasswordError = Validator.validateChangeNewPassword(newPassword);
         const repeatPasswordError = Validator.validateChangePasswordRepeat(newPassword, repeatPassword);
-        const deliveryCostError = Validator.validateRealNumber(deliveryCost)
+        const deliveryCostError = Validator.validateRealNumber(deliveryCost);
+        const radiusError = Validator.validateNumber(address?.radius);
 
         if (emailError.result && titleError.result && phoneError.result && deliveryCostError.result &&
-            currentPasswordError.result && newPasswordError.result && repeatPasswordError.result
-        ) {
+            currentPasswordError.result && newPasswordError.result && repeatPasswordError.result && radiusError.result) {
             const formData = new FormData();
             if (avatar) {
                 formData.append('avatar', avatar);
@@ -188,7 +188,8 @@ export class RestaurantMainController {
             deliveryCostError,
             currentPasswordError,
             newPasswordError,
-            repeatPasswordError
+            repeatPasswordError,
+            radiusError
         };
     }
 }

@@ -185,4 +185,9 @@ export class YandexMap {
         const prop = properties.get('metaDataProperty').GeocoderMetaData.AddressDetails.Country;
         return prop.AddressLine;
     }
+
+    static async isAddressCorrect(address) {
+        const myGeocoder = ymaps.geocode(address);
+        return await myGeocoder.then((res) => res.geoObjects.get(0));
+    }
 }

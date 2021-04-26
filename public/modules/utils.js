@@ -11,8 +11,7 @@ function bytesToSize (bytes) {
 }
 
 function getError (data) {
-    console.log('error -> ', data)
-    const notDefaultAnswer = `Наш сервер говорит ${data.parsedJSON}`;
+    const notDefaultAnswer = `Наш сервер говорит "${data.parsedJSON}"`;
     switch (data.status) {
     case 500:
         if (data.parsedJSON === 'server error') {

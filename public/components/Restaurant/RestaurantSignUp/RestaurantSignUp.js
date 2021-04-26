@@ -1,9 +1,9 @@
 import { getError, noop } from '../../../modules/utils.js';
-import { RestaurantSignUpController } from "../../../controllers/RestaurantSignUpController.js";
-import renderRestaurantSignUp from "./RestaurantSignUpTmpl.hbs"; // todo
-import { renderInput } from "../../../modules/rendering.js"; // todo
-import { Validator } from "../../../modules/validation.js";
-import { maskPhone } from "../../../modules/phoneMask.js";
+import { RestaurantSignUpController } from '../../../controllers/RestaurantSignUpController.js';
+import renderRestaurantSignUp from './RestaurantSignUpTmpl.hbs'; // todo
+import { renderInput } from '../../../modules/rendering.js'; // todo
+import { Validator } from '../../../modules/validation.js';
+import { maskPhone } from '../../../modules/phoneMask.js';
 import { YandexMap } from '../../../modules/yandexMap.js';
 
 export class RestaurantSignUp {
@@ -106,7 +106,7 @@ export class RestaurantSignUp {
 
     formSubmit (event) {
         event.preventDefault()
-        const errors = this.controller.signUp({
+        this.controller.signUp({
             email: document.getElementById(this.emailID).value,
             password: document.getElementById(this.passwordID).value,
             title: document.getElementById(this.titleID).value,
@@ -118,13 +118,17 @@ export class RestaurantSignUp {
                 longitude: String(this.longitude),
                 radius: Math.round(Number(document.getElementById(this.radiusID).value))
             }
-        })
+        });
+    }
+
+    renderErrors (errors) {
         if (errors.error === true) {
-            renderInput(this.emailID, errors.emailError)
-            renderInput(this.passwordID, errors.passwordError)
-            renderInput(this.titleID, errors.titleError)
-            renderInput(this.phoneID, errors.phoneError)
-            renderInput(this.repeatPasswordID, errors.repeatPasswordError)
+            renderInput(this.emailID, errors.emailError);
+            renderInput(this.passwordID, errors.passwordError);
+            renderInput(this.titleID, errors.titleError);
+            renderInput(this.phoneID, errors.phoneError);
+            renderInput(this.repeatPasswordID, errors.repeatPasswordError);
+            renderInput(this.radiusID, errors.radiusError);
         } else {
             // TODO обратная связь что грузится и все хорошо
         }

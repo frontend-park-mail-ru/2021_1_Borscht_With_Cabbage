@@ -4,6 +4,7 @@ import renderRestaurantSignUp from "./RestaurantSignUpTmpl.hbs"; // todo
 import { renderInput } from "../../../modules/rendering.js"; // todo
 import { Validator } from "../../../modules/validation.js";
 import { maskPhone } from "../../../modules/phoneMask.js";
+import { YandexMap } from '../../../modules/yandexMap.js';
 
 export class RestaurantSignUp {
     constructor ({
@@ -11,18 +12,34 @@ export class RestaurantSignUp {
         goTo = noop,
         controller = new RestaurantSignUpController()
     } = {}) {
-        this.root = root
-        this.goTo = goTo
-        this.controller = controller
-        this.emailID = 'email'
-        this.titleID = 'title'
-        this.phoneID = 'number'
-        this.passwordID = 'password'
+        this.root = root;
+        this.goTo = goTo;
+        this.controller = controller;
+        this.emailID = 'email';
+        this.titleID = 'title';
+        this.phoneID = 'number';
+        this.passwordID = 'password';
+        this.radiusID = 'radius';
         this.repeatPasswordID = 'repeatPassword';
+        this.setCoords = this.setCoords.bind(this);
+    }
+
+    setCoords (latitude, longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     render () {
         this.root.innerHTML += renderRestaurantSignUp({});
+
+        this.yaMap = new YandexMap();
+        this.yaMap.render({ id: 'js__map-signup', isStatic: false }, (address, isRenew) => {
+            if (isRenew) {
+                document.getElementById('js__map-signup-address').value = address.name;
+            }
+            this.setCoords(address.latitude, address.longitude);
+        });
+        this.yaMap.addSearch('js__map-signup-address');
 
         this.addSignUpEventListeners();
     }
@@ -50,6 +67,15 @@ export class RestaurantSignUp {
             maskPhone(number);
         }
 
+        const radius = document.getElementById(this.radiusID);
+        if (radius) {
+            radius.addEventListener('focusout',
+                () => renderInput(this.phoneID, Validator.validateNumber(radius.value))
+            );
+            radius.addEventListener('input', () => {
+                this.yaMap.changeRadius(radius.value);
+            });
+        }
 
         const password = document.getElementById(this.passwordID);
         if (password) {
@@ -85,7 +111,13 @@ export class RestaurantSignUp {
             password: document.getElementById(this.passwordID).value,
             title: document.getElementById(this.titleID).value,
             number: document.getElementById(this.phoneID).value.replace(/\D/g, ''),
-            repeatPassword: document.getElementById(this.repeatPasswordID).value
+            repeatPassword: document.getElementById(this.repeatPasswordID).value,
+            address: {
+                name: document.getElementById('js__map-signup-address').value,
+                latitude: String(this.latitude),
+                longitude: String(this.longitude),
+                radius: Math.round(Number(document.getElementById(this.radiusID).value))
+            }
         })
         if (errors.error === true) {
             renderInput(this.emailID, errors.emailError)

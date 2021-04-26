@@ -18,7 +18,7 @@ export class RestaurantSignUpController {
         eventBus.on(SignUpEvents.restaurantSignUpFailed, this.signupFailed.bind(this));
     }
 
-    signUp ({ email, password, title, number, repeatPassword }) {
+    signUp ({ email, password, title, number, repeatPassword, address }) {
         const emailError = Validator.validateEmail(email);
         const passwordError = Validator.validatePassword(password);
         const titleError = Validator.validateName(title);
@@ -26,7 +26,7 @@ export class RestaurantSignUpController {
         const repeatPasswordError = Validator.validateEqualPassword(password, repeatPassword);
 
         if (emailError.result && passwordError.result && titleError.result && phoneError.result && repeatPasswordError.result) {
-            restaurantSignUpModel.signUp({ email, password, title, number });
+            restaurantSignUpModel.signUp({ email, password, title, number, address });
             return {
                 error: false
             }

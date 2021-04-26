@@ -1,6 +1,6 @@
 import eventBus from './eventBus.js';
 import { AuthEvents } from '../events/AuthEvents.js';
-import { postAddress, postBasket } from './api.js';
+import { postBasket } from './api.js';
 import basket from './basket.js';
 import address from './address.js';
 
@@ -29,10 +29,9 @@ export function auth (res) {
                 })
                 .then(_ => address.setAddress(address.getAddress()))
                 .then(_ => res);
-        } else {
-            return res.then(_ => address.setAddress(address.getAddress()));
         }
-    } else {
-        return res.then(_ => address.setAddress(address.getAddress()));
     }
+
+    address.setAddress(address.getAddress());
+    return res;
 }

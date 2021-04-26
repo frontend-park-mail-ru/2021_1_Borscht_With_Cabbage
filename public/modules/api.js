@@ -63,14 +63,15 @@ export function restaurantLoginPost ({ login, password }) {
  * @param {string} number
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function restaurantSignupPost ({ email, password, title, number }) {
+export function restaurantSignupPost ({ email, password, title, number, address }) {
     return Http.ajaxPost({
         url: '/restaurant/signup',
         body: {
             email,
             password,
             title,
-            number
+            number,
+            address
         }
     })
         .then(auth)
@@ -207,11 +208,11 @@ export function allDishesGet () {
 /**
  * Send server get-request to check if user auth and get data about him (username and avatar)
  *
- * @returns {Promise<void>}
+ * @returns {Promise<{parsedJSON: *, status: *}>}
  */
 export function authGet () {
     return Http.ajaxGet({ url: '/auth' }) // TODO: разобраться с /user/auth что из этого надо
-        .then(auth)
+        .then(auth);
 }
 
 /**

@@ -14,7 +14,7 @@ export class SignUpController {
     } = {}) {
         this.goTo = goTo;
         this.root = root;
-        this.signUpView = new SignUpView({ root, controller: this })
+        this.signUpView = new SignUpView({ root, goTo, controller: this })
         eventBus.on(SignUpEvents.userSignUpSuccess, this.signupSuccess.bind(this));
         eventBus.on(SignUpEvents.userSignUpFailed, this.signupFailed.bind(this));
     }

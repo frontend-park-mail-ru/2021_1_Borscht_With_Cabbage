@@ -57,9 +57,6 @@ router.addRoute('basket', basketController)
 router.addRoute('logout', logout);
 router.addRoute('restaurantMain', restaurantMainView);
 
-const link = window.location.pathname;
 authGet()
-    .then(_ => {
-        router.open(link);
-    })
-    .catch(_ => router.open(link));
+    .then(_ => goTo(window.location.pathname))
+    .catch(_ => goTo(window.location.pathname));

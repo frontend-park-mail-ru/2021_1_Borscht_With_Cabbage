@@ -11,7 +11,7 @@ export class YandexMap {
     setRestaurant (pos, radius) {
         ymaps.ready(() => {
             this.setCenter(pos, 12);
-            this.createCircle(pos, radius);
+            this.circle = this.createCircle(pos, radius);
         });
     }
 
@@ -119,9 +119,9 @@ export class YandexMap {
         });
     }
 
-    movePoint (pos) {
+    movePoint (pos, radius = 0) {
         this.addPoint(pos);
-        this.createCircle(pos, 0);
+        this.circle = this.changeRadius(radius);
     }
 
     addPoint (pos) {
@@ -144,10 +144,30 @@ export class YandexMap {
     }
 
     createCircle (pos, radius) {
+        if (!radius) {
+            if (this.radius) {
+                radius = this.radius;
+            }
+        }
         const circle = new ymaps.Circle([this.convectPosObjectToArray(pos), radius]);
         this.map.geoObjects.add(circle);
 
         return circle;
+    }
+
+    changeRadius (radius) {
+        if (this.circle) {
+            this.deleteCircle(this.circle);
+        }
+        this.circle = this.createCircle(this.pos, radius);
+        if (radius) {
+            this.radius = radius;
+        }
+        return this.circle;
+    }
+
+    deleteCircle (circle) {
+        this.map.geoObjects.remove(circle);
     }
 
     convertPosArrayToObject (coords) {

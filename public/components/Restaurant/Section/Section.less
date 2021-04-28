@@ -1,25 +1,34 @@
-.section-container {
-    margin-bottom: 40px;
-}
+@import '../../../static/css/variables.less';
 
-.section-top {
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    padding: 0 16px 0 16px;
-    margin-bottom: 24px;
-    justify-content: center;
-    text-align: center;
-}
+.section {
 
-.section-icons {
-    margin-top: 16px;
-    right: 0;
-}
+    &-container {
+        margin-bottom: 40px;
 
-.section-container__content {
-    flex-direction: row;
-    display: flex;
-    flex-wrap: wrap;
+        &__content {
+            flex-direction: row;
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+
+    &-top {
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        padding: 0 0 0 16px;
+        margin-bottom: 24px;
+        justify-content: center;
+        text-align: center;
+
+        @media @tablet {
+            padding: 0 16px 0 16px;
+        }
+    }
+
+    &-icons {
+        margin-top: 16px;
+        right: 0;
+    }
 }

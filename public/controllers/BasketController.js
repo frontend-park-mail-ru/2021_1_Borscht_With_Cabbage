@@ -8,6 +8,7 @@ import user from '../modules/user.js';
 import redirect from '../modules/redirect.js';
 import address from '../modules/address.js';
 import { ConfirmationAddress } from '../components/ConfirmationAddress/ConfirmationAddress.js';
+import { YandexMap } from '../modules/yandexMap.js';
 
 export class BasketController {
     constructor ({
@@ -30,22 +31,32 @@ export class BasketController {
     order ({
         address = '',
         number = '',
-        comments = ''
+        comments = '',
+        yaMap
     } = {}) {
-        const addressError = Validator.validateDescription(address);
-        const numberError = Validator.validateNumber(number);
+        const numberError = Validator.validatePhone(number);
+        if (numberError) {
+            YandexMap.isAddressCorrect(address)
+                .then(isCorrect => {
+                    if (isCorrect) {
+                        if (yaMap.checkUserInCircle()) {
+                            basketModel.order({ address, number, comments });
+                        } else {
+                            this.basketView.renderServerError({ status: 420, parsedJSON: 'Вы должны находиться в зоне доставки ресторана' });
+                        }
+                    }
+                    else {
+                        this.basketView.renderServerError({ status: 420, parsedJSON: 'Введите настоящий адрес' });
+                    }
+                })
+                .catch(() => this.basketView.renderServerError({ status: 420, parsedJSON: 'Введите настоящий адрес' }));
 
-        if (addressError && numberError) {
-            basketModel.order({ address, number, comments });
-            return {
-                error: false
-            };
+        } else {
+            this.basketView.renderErrors({
+                error: true,
+                numberError
+            });
         }
-        return {
-            error: true,
-            addressError,
-            numberError
-        };
     }
 
     render () {

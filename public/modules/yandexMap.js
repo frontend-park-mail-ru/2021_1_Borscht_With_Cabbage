@@ -17,6 +17,12 @@ export class YandexMap {
 
     setUser (address) {
         ymaps.ready(() => {
+            this.user = ymaps.geoQuery([
+                {
+                    type: 'Point',
+                    coordinates: this.convectPosObjectToArray(address)
+                }
+            ]).addToMap(this.map);
             this.map.geoObjects
                 .add(new ymaps.GeoObject({
                     geometry: {
@@ -186,8 +192,12 @@ export class YandexMap {
         return prop.AddressLine;
     }
 
-    static async isAddressCorrect(address) {
+    static async isAddressCorrect (address) {
         const myGeocoder = ymaps.geocode(address);
         return await myGeocoder.then((res) => res.geoObjects.get(0));
+    }
+
+    checkUserInCircle () {
+        return this.user.searchInside(this.circle)._objects.length;
     }
 }

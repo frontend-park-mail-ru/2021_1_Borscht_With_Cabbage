@@ -1,4 +1,4 @@
-import { noop } from '../../modules/utils.js';
+import { getError, noop } from '../../modules/utils.js';
 import { BasketController } from '../../controllers/BasketController.js';
 import renderDeliveryOptions from './DeliveryOptionsTmpl.hbs';
 import { renderInput } from '../../modules/rendering.js';
@@ -18,6 +18,7 @@ export class DeliveryOptions {
         this.info = info;
         this.root = root;
         this.goTo = goTo;
+        this.numberID = 'input-number';
         this.controller = controller;
     }
 
@@ -33,9 +34,9 @@ export class DeliveryOptions {
             isStatic: true
         });
         this.yaMap.setRestaurant({
-            latitude: 55.751574,
-            longitude: 37.57385
-        }, 1000)
+            latitude: Number(this.info.address.latitude),
+            longitude: Number(this.info.address.longitude)
+        }, this.info.address.radius)
         this.yaMap.setUser(address.getAddress());
 
         this.addEventListeners()
@@ -64,8 +65,23 @@ export class DeliveryOptions {
             this.controller.order({
                 address: this.root.querySelector('#input-address').value,
                 number: this.root.querySelector('#input-number').value.replace(/\D/g, ''),
-                comments: this.root.querySelector('#input-comments').value
+                comments: this.root.querySelector('#input-comments').value,
+                yaMap: this.yaMap
             });
         });
+    }
+
+    renderErrors (errors) {
+        if (errors.error === true) {
+            renderInput(this.numberID, errors.numberError);
+        } else {
+            // TODO обратная связь что грузится и все хорошо
+        }
+    }
+
+    renderServerError (error) {
+        const serverError = document.getElementById('serverError');
+        serverError.hidden = false;
+        serverError.textContent = getError(error);
     }
 }

@@ -16,22 +16,32 @@ export function auth (res) {
         eventBus.emit(AuthEvents.userSignIn, res.parsedJSON);
     }
 
+    setAddress(res.parsedJSON);
+
     if (basket.foods) {
         if (basket.foods.length > 0) {
-            return postBasket({
-                restaurantID: basket.restaurantID,
-                foods: basket.foods
-            })
-                .then(res => {
-                    if (res.status === 200) {
-                        basket.makeNew(res.parsedJSON);
-                    }
-                })
-                .then(_ => address.setAddress(address.getAddress()))
-                .then(_ => res);
+            return setBasket(res);
         }
     }
 
-    address.setAddress(address.getAddress());
     return res;
+}
+
+function setAddress (user) {
+    const localAddr = address.getAddress();
+    const realAddr = localAddr.name ? localAddr : user.address;
+    eventBus.emit(AuthEvents.changeActiveAddress, realAddr);
+}
+
+function setBasket (res) {
+    return postBasket({
+        restaurantID: basket.restaurantID,
+        foods: basket.foods
+    })
+        .then(res => {
+            if (res.status === 200) {
+                basket.makeNew(res.parsedJSON);
+            }
+        })
+        .then(_ => res);
 }

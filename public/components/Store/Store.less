@@ -7,9 +7,13 @@
                          "store";
 
     @media @tablet {
-        grid-template-columns: 3fr 1fr;
+        grid-template-columns: @grid-two-column-tablet;
         grid-template-areas: "info basket"
                              "store basket";
+    }
+
+    @media @desktop {
+        grid-template-columns: @grid-two-column-desktop;
     }
 
     &-info__title {

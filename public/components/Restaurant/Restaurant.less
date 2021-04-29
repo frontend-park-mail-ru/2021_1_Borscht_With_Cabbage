@@ -1,0 +1,56 @@
+@import "RestaurantEdits/RestasurantEdits.less";
+@import "Section/Section.less";
+
+@import "../../static/css/variables.less";
+
+.restaurant {
+    margin-top: @margin-top-content;
+    display: grid;
+    grid-row-gap: @grid-row-gap;
+    grid-template-areas: "navigation"
+                         "store";
+
+    @media @desktop {
+        grid-column-gap: @grid-column-gap-tablet;
+        grid-template-columns: @grid-two-column-tablet; 
+        grid-template-areas: "store navigation";
+    }
+
+    &__header {
+        margin-left: 16em;
+    }
+
+    &-left-block {
+        grid-area: store;
+        margin-bottom: 40px;
+        // position: relative;
+
+        @media @desktop {
+            box-shadow: @shadow;
+            padding: 36px;
+        }
+
+        &__avatar-button {
+            width: 20em;
+        }
+    }
+
+    &-card {
+        display: flex;
+        flex: auto;
+        flex-direction: column;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-bottom: 6px solid rgba(0, 0, 0, 0.12);;
+        border-radius: 8px;
+    }
+
+    &-right-block {
+        grid-area: navigation;
+            height: min-content;
+            padding-left: 2em;
+        
+            @media @desktop {
+                padding: 2em;
+            }
+    }
+}

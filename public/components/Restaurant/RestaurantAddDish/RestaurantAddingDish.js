@@ -1,3 +1,4 @@
+import './RestaurantAddingDish.less';
 import { getError, noop } from '../../../modules/utils.js';
 import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
 import renderRestaurantAddingDish from './RestaurantAddingDishTmpl.hbs';

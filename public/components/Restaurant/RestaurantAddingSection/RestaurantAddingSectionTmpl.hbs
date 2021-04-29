@@ -1,9 +1,9 @@
 <div class="adding-section" >
-    <div class="adding-section-container" style="margin: 50px 0">
+    <div class="adding-section-container">
         <img src="static/img/delete.png" class="adding-section__icone-close">
         <h2 class="adding-section-container__title">{{buttonName}}</h2>
         <form id="adding-section-form">
-            <input type="text" id="name" placeholder="Название раздела" name="name" data-name="Название раздела" value="{{section.name}}">
+            <input type="text" id="name" class="adding-section-input" placeholder="Название раздела" name="name" data-name="Название раздела" value="{{section.name}}">
             <p id="nameError" class="error">Название раздела</p>
             
             <div class="adding-section-form__buttons">

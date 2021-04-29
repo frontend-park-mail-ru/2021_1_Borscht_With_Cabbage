@@ -1,3 +1,4 @@
+import './RestaurantAddingSection.less';
 import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
 import renderRestaurantAddingSection from './RestaurantAddingSectionTmpl.hbs';
 import eventBus from '../../../modules/eventBus.js';
@@ -16,7 +17,7 @@ export class RestaurantAddingSection {
         this.controller = controller;
         this.section = section;
         this.nameID = 'name';
-
+        
         eventBus.on(SectionEvents.updateSectionSuccess, this.closeItem.bind(this));
     }
 

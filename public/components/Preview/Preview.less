@@ -1,0 +1,67 @@
+.profile-avatar {
+    width: 250px;
+    height: 250px;
+}
+
+.input-avatar__preview {
+
+    position: relative;
+    width: 100%; /*it depends from width .preview img*/
+    max-width: 320px;
+    max-height: 200px;
+    overflow: hidden;
+    margin-top: 12px;
+
+    &.removing {
+        transform: scale(0);
+        transition: transform .3s;
+    }
+
+    &__img {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 164px;
+        width: 100%; /*it depends from width .preview*/
+    }
+
+    &:hover &-remove {
+        opacity: 1;
+    }
+
+    &:hover &-info {
+        bottom: 4px;
+    }
+
+    &-remove {
+        opacity: 0;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-weight: bold;
+        background: rgba(255, 255, 255, .5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: opacity .22s;
+    }
+
+    &-info {
+        position: absolute;
+        right: 0;
+        bottom: -30px;
+        left: 0;
+        height: 24px;
+        font-size: .8rem;
+        background: rgba(255, 255, 255, .5);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        padding: 0 5px;
+        transition: bottom .22s;
+    }
+}

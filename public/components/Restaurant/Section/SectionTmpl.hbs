@@ -1,12 +1,10 @@
-<div class="section" data-section-id="{{section.id}}">
-    <div class="section-container" >
-        <div class="section-top">
-            <h3 class="section-container__name">{{section.name}}</h3>
-            <div class="card__header-icons section-icons">
-                <img src="../../../static/img/edit.png" class="card__header-icon icon-edit">
-                <img src="../../../static/img/delete.png" class="card__header-icon icon-delete">
-            </div>
+<div class="section section-container" data-section-id="{{section.id}}">
+    <div class="section-top">
+        <h3 class="section-container__name">{{section.name}}</h3>
+        <div class="card__header-icons section-icons">
+            <img src="../../../static/img/edit.png" class="card__header-icon icon-edit">
+            <img src="../../../static/img/delete.png" class="card__header-icon icon-delete">
         </div>
-        <div class="section-container__content horizontal-list" data-section-list-id="{{section.id}}"></div>
     </div>
+    <ul class="section-container__content" data-section-list-id="{{section.id}}"></ul>
 </div>

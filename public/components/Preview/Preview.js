@@ -1,3 +1,4 @@
+import './Preview.less';
 import renderPreview from './PreviewTmpl.hbs';
 import { bytesToSize } from '../../modules/utils.js';
 

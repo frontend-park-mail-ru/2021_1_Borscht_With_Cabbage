@@ -1,0 +1,34 @@
+@import '../../../static/css/variables.less';
+
+.section {
+
+    &-container {
+        margin-bottom: 40px;
+
+        &__content {
+            flex-direction: row;
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+
+    &-top {
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        padding: 0 0 0 16px;
+        margin-bottom: 24px;
+        justify-content: center;
+        text-align: center;
+
+        @media @tablet {
+            padding: 0 16px 0 16px;
+        }
+    }
+
+    &-icons {
+        margin-top: 16px;
+        right: 0;
+    }
+}

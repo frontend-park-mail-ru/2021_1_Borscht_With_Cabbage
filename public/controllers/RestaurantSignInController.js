@@ -13,7 +13,7 @@ export class RestaurantSignInController {
     } = {}) {
         this.goTo = goTo;
         this.root = root;
-        this.signInView = new RestaurantSignInView({root, goTo, controller: this});
+        this.signInView = new RestaurantSignInView({ root, goTo, controller: this });
         eventBus.on(SignInEvents.restaurantSignInSuccess, this.loginSuccess.bind(this));
         eventBus.on(SignInEvents.restaurantSignInFailed, this.loginFailed.bind(this));
     }

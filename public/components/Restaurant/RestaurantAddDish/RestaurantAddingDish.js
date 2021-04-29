@@ -1,10 +1,10 @@
 import { getError, noop } from '../../../modules/utils.js';
-import { RestaurantMainController } from "../../../controllers/RestaurantMainController.js";
-import renderRestaurantAddingDish from "./RestaurantAddingDishTmpl.hbs";
-import eventBus from "../../../modules/eventBus.js";
-import { DishEvents } from "../../../events/DishEvents.js";
-import { Validator } from "../../../modules/validation.js";
-import { renderInput } from "../../../modules/rendering.js";
+import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
+import renderRestaurantAddingDish from './RestaurantAddingDishTmpl.hbs';
+import eventBus from '../../../modules/eventBus.js';
+import { DishEvents } from '../../../events/DishEvents.js';
+import { Validator } from '../../../modules/validation.js';
+import { renderInput } from '../../../modules/rendering.js';
 import { Preview } from '../../Preview/Preview.js'
 
 export class RestaurantAddingDish {
@@ -55,7 +55,7 @@ export class RestaurantAddingDish {
         this.addCloseAddingEventListeners();
     }
 
-    addCloseAddingEventListeners() {
+    addCloseAddingEventListeners () {
         const close = this.root.querySelector('.adding-dish');
         if (!close) {
             return;

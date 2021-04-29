@@ -59,9 +59,9 @@ export class StoreView {
 
     stickyBasket () {
         if (window.pageYOffset >= this.startPosition) {
-            this.basketPanel.classList.add("sticky-basket");
+            this.basketPanel.classList.add('sticky-basket');
         } else {
-            this.basketPanel.classList.remove("sticky-basket");
+            this.basketPanel.classList.remove('sticky-basket');
         }
     }
 }

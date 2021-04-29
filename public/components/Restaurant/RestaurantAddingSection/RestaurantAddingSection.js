@@ -1,9 +1,9 @@
-import { RestaurantMainController } from "../../../controllers/RestaurantMainController.js";
-import renderRestaurantAddingSection from "./RestaurantAddingSectionTmpl.hbs";
-import eventBus from "../../../modules/eventBus.js";
-import { SectionEvents } from "../../../events/SectionEvents.js";
-import { Validator } from "../../../modules/validation.js";
-import { renderInput } from "../../../modules/rendering.js";
+import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
+import renderRestaurantAddingSection from './RestaurantAddingSectionTmpl.hbs';
+import eventBus from '../../../modules/eventBus.js';
+import { SectionEvents } from '../../../events/SectionEvents.js';
+import { Validator } from '../../../modules/validation.js';
+import { renderInput } from '../../../modules/rendering.js';
 import { getError } from '../../../modules/utils.js';
 
 export class RestaurantAddingSection {
@@ -16,7 +16,7 @@ export class RestaurantAddingSection {
         this.controller = controller;
         this.section = section;
         this.nameID = 'name';
-        
+
         eventBus.on(SectionEvents.updateSectionSuccess, this.closeItem.bind(this));
     }
 
@@ -34,7 +34,7 @@ export class RestaurantAddingSection {
         this.addCloseAddingEventListeners();
     }
 
-    addCloseAddingEventListeners() {
+    addCloseAddingEventListeners () {
         const closeBackground = this.root.querySelector('.adding-section');
         if (closeBackground) {
             closeBackground.addEventListener('click', e => {

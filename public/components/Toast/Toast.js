@@ -21,6 +21,5 @@ export class Toast {
                 toast.addEventListener('transitionend', () => toast.remove());
             }, 3000);
         })();
-
     }
 }

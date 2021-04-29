@@ -1,6 +1,5 @@
 class Socket {
-    constructor (url) {
-        this.url = url;
+    constructor () {
         this.messageHandlers = new Set();
         this.socketTimer = null;
     }
@@ -13,12 +12,13 @@ class Socket {
         this.socket.send(JSON.stringify(data));
     }
 
-    connect () {
+    connect (id) {
+        this.id = id;
         const connectionState = this.socket?.readyState;
         if (connectionState === WebSocket.OPEN || connectionState === WebSocket.CONNECTING) {
             return;
         }
-        this.socket = new WebSocket(this.url);
+        this.socket = new WebSocket(`ws://127.0.0.1:5000/ws/${this.id}`);
         this.socket.onopen = () => {
             this.socketTimer = setInterval(() => this.socket.send(''), 10000);
         };
@@ -39,16 +39,6 @@ class Socket {
             this.socket.close();
         }
     }
-
-    getSocket () {
-        return {
-            connect: this.connect.bind(this),
-            disconnect: this.disconnect.bind(this),
-            subscribe: this.subscribe.bind(this),
-            send: this.send.bind(this)
-        };
-    }
 }
 
-const socket = new Socket('ws://127.0.0.1:5000/ws');
-export default socket.getSocket();
+export default new Socket();

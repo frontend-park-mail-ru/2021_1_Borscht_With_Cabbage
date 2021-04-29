@@ -46,7 +46,7 @@ export class DeliveryOptions {
         const address = this.root.querySelector('#input-address');
         if (address) {
             address.addEventListener('focusout',
-                //TODO validate address
+                // TODO validate address
                 () => renderInput('input-address', Validator.validateDescription(address.value))
             );
         }

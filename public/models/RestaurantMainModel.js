@@ -6,8 +6,9 @@ import {
     sectionAddPost,
     sectionUpdatePut,
     sectionDelete, restaurantAvatarPut, userPut, userAvatarPut
+    , restaurantUpdateDishDataPut, restaurantDeleteDish
 } from '../modules/api.js';
-import { restaurantUpdateDishDataPut, restaurantDeleteDish } from '../modules/api.js';
+
 import eventBus from '../modules/eventBus.js';
 import { DishEvents } from '../events/DishEvents.js';
 import { ProfileEvents } from '../events/ProfileEvents.js';

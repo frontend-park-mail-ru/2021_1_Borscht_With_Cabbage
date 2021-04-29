@@ -30,7 +30,7 @@ const urls = {
     profile: {
         constUrl: null,
         regularUrl: /\/profile\/./
-    }, // '/profile/edits', '/profile/orders', '/profile/chats'
+    }, // '/profile/edits', '/profile/orders', '/profile/chats', '/profile/chats/${id}'
     logout: {
         constUrl: '/logout',
         regularUrl: null

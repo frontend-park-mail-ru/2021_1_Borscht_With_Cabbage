@@ -1,8 +1,10 @@
 import eventBus from './eventBus.js';
 import { AuthEvents } from '../events/AuthEvents.js';
-import { postBasket } from './api.js';
+import { getWSKey, postBasket } from './api.js';
 import basket from './basket.js';
 import address from './address.js';
+import socket from './socket.js';
+import user from './user.js';
 
 /**
  *
@@ -17,14 +19,13 @@ export function auth (res) {
     }
 
     setAddress(res.parsedJSON);
-
-    if (basket.foods) {
-        if (basket.foods.length > 0) {
+    return getWSKey()
+        .then(responseKey => {
+            socket.connect(responseKey.parsedJSON);
             return setBasket(res);
-        }
-    }
+        })
+        .catch(_ => setBasket(res));
 
-    return res;
 }
 
 function setAddress (user) {
@@ -34,6 +35,16 @@ function setAddress (user) {
 }
 
 function setBasket (res) {
+    if (basket.foods && user.role === 'user') {
+        if (basket.foods.length > 0) {
+            return sendBasketToServer(res);
+        }
+    }
+
+    return res;
+}
+
+function sendBasketToServer (res) {
     return postBasket({
         restaurantID: basket.restaurantID,
         foods: basket.foods

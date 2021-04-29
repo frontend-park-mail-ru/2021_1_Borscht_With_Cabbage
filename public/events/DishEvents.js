@@ -6,7 +6,7 @@
  *      data: { error }
  */
 
- export const DishEvents = {
+export const DishEvents = {
     addingDishSuccess: 'addingDishSuccess',
     addingDishFailed: 'addingDishFailed',
     updateDishDataSuccess: 'updateDishDataSuccess',

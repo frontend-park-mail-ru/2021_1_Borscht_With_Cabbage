@@ -22,5 +22,10 @@ export const ProfileEvents = {
     restaurantSetUserDataSuccess: 'restaurantSetUserDataSuccess',
     restaurantSetUserDataFailed: 'restaurantSetUserDataFailed',
     profileGetOrdersSuccess: 'profileGetOrdersSuccess',
-    profileGetOrdersFailed: 'profileGetOrdersFailed'
+    profileGetOrdersFailed: 'profileGetOrdersFailed',
+    profileGetChatsSuccess: 'profileGetChatsSuccess',
+    profileGetChatsFailed: 'profileGetChatsFailed',
+    profileGetChatMessagesSuccess: 'profileGetChatMessagesSuccess',
+    profileGetChatMessagesFailed: 'profileGetChatMessagesFailed',
+    profileGetNewMessageSocket: 'profileGetNewMessageSocket'
 }

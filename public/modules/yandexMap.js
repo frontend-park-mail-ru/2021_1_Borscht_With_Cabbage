@@ -37,7 +37,7 @@ export class YandexMap {
                     preset: 'islands#blackStretchyIcon',
                     draggable: false
                 }));
-            this.setCenter(address, 12);
+            this.setCenter(address, 10);
         });
     }
 

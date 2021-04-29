@@ -6,7 +6,7 @@
  *      data: { error }
  */
 
- export const SectionEvents = {
+export const SectionEvents = {
     addingSectionSuccess: 'addingSectionSuccess',
     addingSectionFailed: 'addingSectionFailed',
     updateSectionSuccess: 'updateSectionSuccess',

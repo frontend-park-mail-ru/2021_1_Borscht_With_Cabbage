@@ -51,7 +51,7 @@ export class SectionComponent {
 
     appendDish (dish) {
         console.log('dish:', dish);
-        if(!dish) {
+        if (!dish) {
             return;
         }
 
@@ -142,7 +142,7 @@ export class SectionComponent {
         addingDish.render();
     }
 
-    deleteDishSuccess ({id}) {
+    deleteDishSuccess ({ id }) {
         console.log('deleteDishSuccess', id);
         const deleteItem = this.root.querySelector(`[data-dish-id="${id}"]`);
         console.log('deleteItem', deleteItem);
@@ -159,7 +159,7 @@ export class SectionComponent {
         if (!editDish) {
             return;
         }
-        
+
         editDish.addEventListener('click', () => {
             const section = {
                 id: this.section.id,
@@ -174,7 +174,7 @@ export class SectionComponent {
         if (!deleteDish) {
             return;
         }
-        
+
         deleteDish.addEventListener('click', () => {
             const confirmation = new ConfirmationComponent({ root: this.root, id: 's' + this.section.id });
             confirmation.render();

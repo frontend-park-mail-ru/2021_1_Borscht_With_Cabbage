@@ -53,7 +53,6 @@ export function restaurantLoginPost ({ login, password }) {
         .then(auth)
 }
 
-
 /**
  * Send server post-request to user register and save username and avatar if status 200 ok
  *
@@ -334,7 +333,7 @@ export function orderPost (data = {}) {
     });
 }
 
-export function addDishInBasket ( data = {}) {
+export function addDishInBasket (data = {}) {
     return Http.ajaxPutJson({
         url: '/user/basket',
         body: data
@@ -358,5 +357,23 @@ export function postAddress (address) {
     return Http.ajaxPost({
         url: '/user/address',
         body: address
+    });
+}
+
+export function getChats () {
+    return Http.ajaxGet({
+        url: '/chats'
+    });
+}
+
+export function getChatMessage (id) {
+    return Http.ajaxGet({
+        url: `/chat/${id}`
+    });
+}
+
+export function getWSKey () {
+    return Http.ajaxGet({
+       url: '/connect/ws'
     });
 }

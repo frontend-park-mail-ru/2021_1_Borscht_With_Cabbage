@@ -48,7 +48,7 @@ export class Validator {
     }
 
     static validateNumber (number) {
-        // TODO: валидация целого числа 
+        // TODO: валидация целого числа
         number = Number(number);
         if (!number) {
             return {

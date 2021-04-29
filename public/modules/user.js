@@ -16,7 +16,7 @@ class User {
         email = '',
         number = '',
         role = '',
-        address = '',
+        address = {}
     } = {}) {
         if (name || title) {
             this.name = name || title;

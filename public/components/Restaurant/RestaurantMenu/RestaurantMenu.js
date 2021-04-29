@@ -65,8 +65,8 @@ export class RestaurantMenuComponent {
         if (!content) {
             return;
         }
-        
-        const sectionItem = new SectionComponent ({root: content, section: section, controller: this.controller});
+
+        const sectionItem = new SectionComponent({ root: content, section: section, controller: this.controller });
         sectionItem.render();
     }
 
@@ -104,7 +104,7 @@ export class RestaurantMenuComponent {
         addingSection.render();
     }
 
-    deleteSection ({id}) {
+    deleteSection ({ id }) {
         console.log('deleteSectionSuccess', id);
         const deleteItem = this.root.querySelector(`[data-section-id="${id}"]`);
         console.log('deleteItem', deleteItem);

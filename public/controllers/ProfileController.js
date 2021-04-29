@@ -6,6 +6,7 @@ import { ProfileView } from '../views/ProfileView.js';
 import eventBus from '../modules/eventBus.js';
 import { ProfileEvents } from '../events/ProfileEvents.js';
 import { AuthEvents } from '../events/AuthEvents.js';
+import chatModel from '../models/ChatModel.js';
 
 export class ProfileController {
     constructor ({
@@ -19,8 +20,12 @@ export class ProfileController {
         eventBus.on(ProfileEvents.profileGetUserDataFailed, this.loadError.bind(this));
         eventBus.on(ProfileEvents.profileSetUserDataSuccess, this.updateInputs.bind(this));
         eventBus.on(ProfileEvents.profileSetUserDataFailed, this.changeFailed.bind(this));
-        eventBus.on(ProfileEvents.profileGetOrdersSuccess, this.draw.bind(this))
-        eventBus.on(ProfileEvents.profileGetOrdersFailed, this.loadError.bind(this))
+        eventBus.on(ProfileEvents.profileGetOrdersSuccess, this.draw.bind(this));
+        eventBus.on(ProfileEvents.profileGetOrdersFailed, this.loadError.bind(this));
+        eventBus.on(ProfileEvents.profileGetChatsSuccess, this.draw.bind(this));
+        eventBus.on(ProfileEvents.profileGetChatsFailed, console.log); // TODO
+        eventBus.on(ProfileEvents.profileGetChatMessagesSuccess, this.draw.bind(this));
+        eventBus.on(ProfileEvents.profileGetChatMessagesFailed, console.log); // TODO
     }
 
     setUserData ({
@@ -90,13 +95,13 @@ export class ProfileController {
 
         if (/orders/.test(url)) {
             this.getOrders();
+        } else if (/chats\/./.test(url)) {
+            this.getChatMessages(url);
         } else if (/chats/.test(url)) {
-            // TODO
+            this.getChats();
         } else {
             this.getUserData();
         }
-
-
     }
 
     draw (data) {
@@ -119,5 +124,32 @@ export class ProfileController {
 
     changeFailed (error) {
         this.profileView.renderServerError(error);
+    }
+
+    sendMessage (message) {
+        chatModel.sendMessage(message);
+    }
+
+    getChats () {
+        chatModel.getChats(ProfileEvents.profileGetChatsSuccess, ProfileEvents.profileGetChatsFailed);
+    }
+
+    getChatMessages (url) {
+        console.log('getChatMessages -> ', url.substring(url.lastIndexOf('/')))
+        const handler = this.addNewMessage.bind(this);
+        chatModel.getChatsMessage({
+            id: url.substring(url.lastIndexOf('/')),
+            handler,
+            successEvent: ProfileEvents.profileGetChatMessagesSuccess,
+            failEvent: ProfileEvents.profileGetChatMessagesFailed
+        });
+    }
+
+    addNewMessage (message) {
+        const msg = JSON.parse(message);
+        if (msg.from === this.url // TODO overthink
+            && window.location.pathname.match(/profile\/chats\/./)) {
+            this.profileView.renderNewMessage(message);
+        }
     }
 }

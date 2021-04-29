@@ -21,7 +21,7 @@ export class MoreRestaurantsComponent {
 
     addListeners () {
         const btnMore = this.root.querySelector('.more-button');
-        if(!btnMore) {
+        if (!btnMore) {
             return;
         }
 

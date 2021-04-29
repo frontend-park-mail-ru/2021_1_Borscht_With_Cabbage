@@ -38,9 +38,9 @@ export class ParamsComponent {
         // элемент в котором нужно поменять значение параметра
         console.log(name);
         this.correctItem.innerHTML = params[this.correctItem.dataset.params]
-                                    .val[name].name;
+            .val[name].name;
 
-        this.controller.clickParams({ 
+        this.controller.clickParams({
             name: this.correctItem.dataset.params,
             value: name
         });
@@ -72,8 +72,8 @@ export class ParamsComponent {
             }
 
             this.item = this.correctItem;
-            
-            this.list = new DropListComponent({ 
+
+            this.list = new DropListComponent({
                 root: this.correctItem,
                 content: params[this.correctItem.dataset.params].val,
                 idList: this.idDropList

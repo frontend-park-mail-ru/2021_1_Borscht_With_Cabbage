@@ -44,13 +44,11 @@ export class BasketController {
                         } else {
                             this.basketView.renderServerError({ status: 420, parsedJSON: 'Вы должны находиться в зоне доставки ресторана' });
                         }
-                    }
-                    else {
+                    } else {
                         this.basketView.renderServerError({ status: 420, parsedJSON: 'Введите настоящий адрес' });
                     }
                 })
                 .catch(() => this.basketView.renderServerError({ status: 420, parsedJSON: 'Введите настоящий адрес' }));
-
         } else {
             this.basketView.renderErrors({
                 error: true,

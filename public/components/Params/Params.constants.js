@@ -30,7 +30,7 @@ export const params = {
     receipt: {
         name: 'Средний чек',
         data: 'receipt',
-        
+
         default: {
             name: '< 2000 ₽',
             data: 'max'
@@ -58,7 +58,7 @@ export const params = {
     rating: {
         name: 'Рейтинг',
         data: 'rating',
-        
+
         default: {
             name: '-',
             data: 'not'

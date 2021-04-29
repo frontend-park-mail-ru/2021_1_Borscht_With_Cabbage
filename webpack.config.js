@@ -7,13 +7,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const PATHS = {
     src: path.join(__dirname, './public/'),
-    dist: path.resolve(__dirname, './dist/'),
+    dist: path.resolve(__dirname, './dist/')
 };
 
 module.exports = {
     entry: {
         main: path.join(PATHS.src, 'main.js'),
-        serviceWorker: path.join(PATHS.src, 'serviceWorker.js'),
+        serviceWorker: path.join(PATHS.src, 'serviceWorker.js')
     },
 
     output: {
@@ -29,7 +29,7 @@ module.exports = {
         port: 3000, // Specify a port number to listen for requests
         contentBase: PATHS.dist,
         historyApiFallback: true,
-        compress: false,
+        compress: false
     },
     module: {
         rules: [

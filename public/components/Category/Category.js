@@ -30,14 +30,14 @@ export class CategoryComponent {
         this.addSizeListener();
     }
 
-    closeDropList() {
+    closeDropList () {
         if (this.list) {
             this.list.remove();
             this.list = null;
         }
     }
 
-    chooseElement(name) {
+    chooseElement (name) {
         this.controller.clickCategory({ name: name });
     }
 
@@ -59,8 +59,7 @@ export class CategoryComponent {
                 } else {
                     this.closeDropList();
                 }
-            }
-            else if (currCategory) {
+            } else if (currCategory) {
                 // TODO меняем элемент визуально как нибудь
 
                 this.controller.clickCategory(currCategory);
@@ -68,7 +67,7 @@ export class CategoryComponent {
         })
     }
 
-    dropList(item) {
+    dropList (item) {
         const itemList = [];
         for (let i = this.numberVisability; i < this.numberCategory; i++) {
             const itemBody = {
@@ -77,7 +76,7 @@ export class CategoryComponent {
             }
             itemList.push(itemBody);
         }
-        this.list = new DropListComponent({ 
+        this.list = new DropListComponent({
             root: item,
             content: itemList,
             idList: this.idDropList
@@ -90,21 +89,19 @@ export class CategoryComponent {
         const moreItem = this.root.querySelector('.cuisines-panel__slide-more');
         if (moreItem && getComputedStyle(moreItem).display !== 'none') {
             const offsetRight = moreItem.offsetParent.offsetWidth - moreItem.offsetLeft - moreItem.offsetWidth;
-            if(120 >= moreItem.offsetWidth) {
+            if (moreItem.offsetWidth <= 120) {
                 const item = this.elemCategory[this.numberVisability - 1];
                 if (item) {
                     this.numberVisability--;
                     item.classList.add('cuisines-panel__slide--is-hidden');
                 }
-            }
-
-            else if(240 <= offsetRight && this.numberCategory !== this.numberVisability) {
+            } else if (offsetRight >= 240 && this.numberCategory !== this.numberVisability) {
                 this.numberVisability++;
                 const item = this.elemCategory[this.numberVisability - 1];
                 if (item) {
                     item.classList.remove('cuisines-panel__slide--is-hidden');
                 }
-            }   
+            }
         }
 
         const replase = this.addSizeListener.bind(this);

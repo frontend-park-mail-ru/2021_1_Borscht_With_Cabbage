@@ -25,7 +25,7 @@ export class StoreTitle {
         this.sectionsPanel = this.root.querySelector('.sections-hrefs');
         this.startPosition = this.sectionsPanel.offsetTop;
         const func = this.sticky.bind(this);
-        window.onscroll = function() {func()};
+        window.onscroll = function () { func() };
     }
 
     addEventListeners () {
@@ -48,9 +48,9 @@ export class StoreTitle {
 
     sticky () {
         if (window.pageYOffset >= this.startPosition) {
-            this.sectionsPanel.classList.add("sticky");
+            this.sectionsPanel.classList.add('sticky');
         } else {
-            this.sectionsPanel.classList.remove("sticky");
+            this.sectionsPanel.classList.remove('sticky');
         }
     }
 }

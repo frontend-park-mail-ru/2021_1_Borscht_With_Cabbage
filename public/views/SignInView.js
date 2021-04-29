@@ -12,7 +12,6 @@ export class SignInView {
         this.root = root;
         this.controller = controller;
         this.login = new SignIn({ root, goTo, controller });
-
     }
 
     render () {

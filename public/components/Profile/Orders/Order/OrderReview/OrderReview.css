@@ -1,45 +1,18 @@
 .order-review {
-    display: grid;
-    grid-template-columns: 1fr 6fr;
+  display: grid;
+  grid-template-columns: 1fr 6fr;
 }
 
 .order-review-stars {
-    display: flex;
-    align-items: center
+  display: flex;
+  align-items: center;
 }
 .order-review-stars__star {
-    display: inline-block;
+  display: inline-block;
 }
 
 .order-review-stars__mark {
-    float: left;
-    display: inline-block;
-    margin-left: 8px;
-}
-
-.rating_block {
-    width: 125px;
-    height: 25px;
-    margin-bottom: 8px  ;
-}
-
-.rating_block__input {
-    display: none;
-}
-
-.label_rating {
-    float: right;
-    display: block;
-    width: 25px;
-    height: 25px;
-    background: url(../../../../../static/img/rating.png) no-repeat 50% 0;
-    cursor: pointer;
-}
-
-/*Пишем правила смены положения background-а*/
-.rating_block .label_rating:hover, /*Правило для ховера на текущий лейбл*/
-.rating_block .label_rating:hover ~ .label_rating, /*Правило для всех следующих лейблов по DOM дереву*/
-.rating_block input[type="radio"]:checked ~ .label_rating /*Правило для всех следующих лейблов после выбранного инпута, чтобы звездочки как бы зафиксировались*/
-{
-    background-position: 50% -25px;
+  float: left;
+  display: inline-block;
+  margin-left: 8px;
 }

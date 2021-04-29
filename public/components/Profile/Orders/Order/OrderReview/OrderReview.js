@@ -1,7 +1,7 @@
-import { ProfileController } from "../../../../../controllers/ProfileController.js";
-import eventBus from "../../../../../modules/eventBus";
-import renderOrderReview from "./OrderReview.hbs"
-import renderOrderReviewInput from "./OrderReviewEdit.hbs"
+import { ProfileController } from '../../../../../controllers/ProfileController.js';
+import eventBus from '../../../../../modules/eventBus';
+import renderOrderReview from './OrderReview.hbs';
+import renderOrderReviewInput from './OrderReviewEdit.hbs';
 
 export class OrderReview {
     constructor ({
@@ -10,47 +10,56 @@ export class OrderReview {
         controller = new ProfileController()
     } = {}) {
         this.root = root;
-        this.order = order
+        this.order = order;
         this.controller = controller;
     }
 
-    render() {
-        console.log(this.order.review)
-        if (this.order.review === "") {
-            this.reviewEditDraw()
+    render () {
+        console.log(this.order.review);
+        if (this.order.review === '') {
+            this.reviewEditDraw();
         } else {
-            this.reviewDraw()
+            this.reviewDraw();
         }
     }
 
-    reviewDraw() {
-        const review = document.getElementById('reviewPlace-' + this.order.orderID)
-        console.log(review)
-        review.innerHTML = renderOrderReview({ order: this.order })
+    reviewDraw () {
+        const review = document.getElementById('reviewPlace-' + this.order.orderID);
+        if (review) {
+            review.innerHTML = renderOrderReview({ order: this.order });
+        }
     }
 
-    reviewEditDraw() {
-        const review = document.getElementById('reviewPlace-' + this.order.orderID)
-        review.innerHTML = renderOrderReviewInput({ order: this.order })
-
-        const sendReview = document.getElementById('send_review-' + this.order.orderID)
-        sendReview.addEventListener('click', this.addReviewListener.bind(this))
+    reviewEditDraw () {
+        const review = document.getElementById('reviewPlace-' + this.order.orderID);
+        if (review) {
+            review.innerHTML = renderOrderReviewInput({ order: this.order });
+            const sendReview = document.getElementById(
+                'send_review-' + this.order.orderID
+            );
+            sendReview.addEventListener('click', this.addReviewListener.bind(this));
+        }
     }
 
-    addReviewListener(event) {
-        event.preventDefault()
-        const sendReview = document.getElementById('send_review-' + this.order.orderID)
-        let starsCount = 0
-        let stars = document.querySelectorAll('.order-'+this.order.orderID)
-        stars.forEach(function (star){
-            if (star.checked) {
-                starsCount = star.value
-            }
-        })
-        sendReview.style.backgroundColor = "#C4C4C4"
-        sendReview.disabled = true
+    addReviewListener (event) {
+        event.preventDefault();
+        const sendReview = document.getElementById(
+            'send_review-' + this.order.orderID
+        );
+        let starsCount = 0;
+        const stars = document.querySelectorAll('.order-' + this.order.orderID);
+        if (stars) {
+            stars.forEach((star) => {
+                if (star.checked) {
+                    starsCount = star.value;
+                }
+            });
+        }
 
-        const review = document.getElementById('review-' + this.order.orderID).value
-        this.controller.postReview(this.order.orderID, review, starsCount)
+        sendReview.classList.toggle('review_button-disabled');
+
+        const review = document.getElementById('review-' + this.order.orderID)
+            .value;
+        this.controller.postReview(this.order.orderID, review, starsCount);
     }
 }

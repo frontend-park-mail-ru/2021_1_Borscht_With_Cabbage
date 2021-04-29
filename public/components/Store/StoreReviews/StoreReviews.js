@@ -1,12 +1,12 @@
 import RenderStoreReviewsContainer from './StoreReviews.hbs'
 import RenderStoreReview from './StoreReview.hbs'
-import { StoreController } from '../../../controllers/StoreController.js';
+import {StoreController} from '../../../controllers/StoreController.js';
 import eventBus from '../../../modules/eventBus.js';
-import { StoreEvents } from '../../../events/StoreEvents.js';
-import { I18n } from "../../../modules/intlApi";
+import {StoreEvents} from '../../../events/StoreEvents.js';
+import {I18n} from "../../../modules/intlApi";
 
 export class StoreReviews {
-    constructor (root, store, controller) {
+    constructor(root, store, controller) {
         this.root = root;
         this.store = store;
         this.controller = controller;
@@ -23,12 +23,13 @@ export class StoreReviews {
         this.root.insertAdjacentHTML('beforeend', RenderStoreReviewsContainer({}))
         let reviewsContainer = document.getElementById('reviews_container')
 
-        reviews.forEach( function (review) {
-                reviewsContainer.insertAdjacentHTML('beforeend', RenderStoreReview({
-                user: review.user,
-                review: review.review,
-                time: i18n.formatDateTime(review.deliveryTime),
-                stars: review.stars}),
+        reviews.forEach((review) => {
+            reviewsContainer.insertAdjacentHTML('beforeend', RenderStoreReview({
+                    user: review.user,
+                    review: review.review,
+                    time: i18n.formatDateTime(review.deliveryTime),
+                    stars: review.stars
+                }),
             )
         })
 

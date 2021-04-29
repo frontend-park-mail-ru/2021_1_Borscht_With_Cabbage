@@ -1,69 +1,70 @@
-import { RestaurantMainController } from "../../../../../controllers/RestaurantMainController";
+import { RestaurantMainController } from '../../../../../controllers/RestaurantMainController';
 
 export class StatusesComponent {
-    constructor ({
-        root = document.body,
-        i18n = null,
-        controller
-    } = {}) {
+    constructor ({ root = document.body, i18n = null, controller } = {}) {
         this.root = root;
         this.i18n = i18n;
         this.controller = controller;
     }
 
     render (order) {
-        let deliveryTime = document.getElementById('delivery_time-'+order.orderID)
-        deliveryTime.value = this.i18n.formatInDateTimeInput(order.deliveryTime)
+        const deliveryTime = document.getElementById(
+            'delivery_time-' + order.orderID
+        );
+        if (deliveryTime) {
+            deliveryTime.value = this.i18n.formatInDateTimeInput(order.deliveryTime);
+        }
 
-        let status = document.getElementById('status-'+order.orderID)
-        switch (order.status) {
+        const status = document.getElementById('status-' + order.orderID);
+        switch (order.status && status) {
         case 'готовится':
-            status.value = 'cooking'
-            break
+            status.value = 'cooking';
+            break;
         case 'едет к вам':
-            status.value = 'delivering'
-            break
+            status.value = 'delivering';
+            break;
         case 'доставлен':
-            status.value = 'done'
-            break
+            status.value = 'done';
+            break;
         default:
-            status.value = 'created'
+            status.value = 'created';
         }
 
-        this.addStatusChangesListeners(order.orderID)
-        this.addSaveListener(order.orderID)
+        this.addStatusChangesListeners(order.orderID);
+        this.addSaveListener(order.orderID);
     }
 
-    addSaveListener(id) {
-        const save = document.getElementById('save_status-' + id)
-        console.log("save " + save)
-        save.disabled = true
+    addSaveListener (id) {
+        const save = document.getElementById('save_status-' + id);
+        console.log('save ' + save);
+        save.disabled = true;
         save.onclick = () => {
-            let status = document.getElementById('status-' + id)
-            let orderTime = document.getElementById('delivery_time-' + id)
-            let statusValue = status.value
-            let orderTimeValue = orderTime.value
-            this.controller.saveStatus(statusValue, orderTimeValue, id)
+            const status = document.getElementById('status-' + id);
+            const orderTime = document.getElementById('delivery_time-' + id);
+            const statusValue = status.value;
+            const orderTimeValue = orderTime.value;
+            this.controller.saveStatus(statusValue, orderTimeValue, id);
 
-            save.style.backgroundColor = "#C4C4C4"
-            save.disabled = true
-        }
+            save.classList.toggle('order-state__save-enabled');
+            save.classList.add('order-state__save-disabled');
+            save.disabled = true;
+        };
     }
 
-    addStatusChangesListeners(id) {
-        const save = document.getElementById('save_status-' + id)
-        const status = document.getElementById('status-' + id)
+    addStatusChangesListeners (id) {
+        const save = document.getElementById('save_status-' + id);
+        const status = document.getElementById('status-' + id);
         status.onchange = () => {
-            save.style.backgroundColor = "#97B498"
-            save.disabled = false
-            save.style.cursor = 'pointer'
-        }
+            save.classList.toggle('order-state__save-disabled');
+            save.classList.add('order-state__save-enabled');
+            save.disabled = false;
+        };
 
-        const deliveryTime = document.getElementById('delivery_time-' + id)
+        const deliveryTime = document.getElementById('delivery_time-' + id);
         deliveryTime.onchange = () => {
-            save.style.backgroundColor = "#97B498"
-            save.disabled = false
-            save.style.cursor = 'pointer'
-        }
+            save.classList.toggle('order-state__save-disabled');
+            save.classList.add('order-state__save-enabled');
+            save.disabled = false;
+        };
     }
 }

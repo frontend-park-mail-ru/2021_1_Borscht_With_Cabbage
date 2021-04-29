@@ -356,7 +356,7 @@ export function postBasket (basket) {
 
 export function postAddress (address) {
     return Http.ajaxPost({
-        url: '/address',
+        url: '/user/address',
         body: address
     });
 }

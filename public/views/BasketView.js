@@ -22,21 +22,29 @@ export class BasketView {
             this.root.innerHTML = renderEmptyBasket({});
             return;
         }
-            this.root.innerHTML = renderBasketPage({});
-            const container = this.root.querySelector('.basket-container');
-            if (container) {
-                this.deliveryBasket = new DeliveryBasket({
-                    root: container.querySelector('#basket-delivery'),
-                    goTo: this.goTo
-                });
-                this.deliveryOptions = new DeliveryOptions({
-                    root: container.querySelector('#basket-options'),
-                    goTo: this.goTo,
-                    controller: this.basketController,
-                    info
-                });
-                this.deliveryOptions.render(user);
-                this.deliveryBasket.render(info);
-            }
+        this.root.innerHTML = renderBasketPage({});
+        const container = this.root.querySelector('.basket-container');
+        if (container) {
+            this.deliveryBasket = new DeliveryBasket({
+                root: container.querySelector('#basket-delivery'),
+                goTo: this.goTo
+            });
+            this.deliveryOptions = new DeliveryOptions({
+                root: container.querySelector('#basket-options'),
+                goTo: this.goTo,
+                controller: this.basketController,
+                info
+            });
+            this.deliveryOptions.render(user);
+            this.deliveryBasket.render(info);
+        }
+    }
+
+    renderErrors (errors) {
+        this.deliveryOptions.renderErrors(errors);
+    }
+
+    renderServerError (error) {
+        this.deliveryOptions.renderServerError(error);
     }
 }

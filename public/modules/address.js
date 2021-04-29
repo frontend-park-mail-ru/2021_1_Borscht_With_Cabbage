@@ -20,18 +20,21 @@ class Address {
     }
 
     setAddress ({ longitude, latitude, name }) {
+        localStorage['address'] = JSON.stringify({ longitude, latitude, name });
+        if (user.isAuth && user.role === 'user') {
+            if ((String(longitude) !== String(this.longitude) || String(latitude) !== String(this.latitude) || name !== this.name)
+            && longitude && latitude && name) {
+                postAddress({ longitude: String(longitude), latitude: String(latitude), name })
+                    .then((res) => {
+                        if (res.status === 200) {
+                            user.address = { longitude, latitude, name };
+                        }
+                    });
+            }
+        }
         this.longitude = longitude;
         this.latitude = latitude;
         this.name = name;
-        localStorage['address'] = JSON.stringify({ longitude, latitude, name });
-        if (user.isAuth && user.role === 'user') {
-            postAddress({ longitude, latitude, name })
-                .then((res) => {
-                    if (res.status === 200) {
-                        user.address = { longitude, latitude, name };
-                    }
-                });
-        }
     }
 
     getAddress () {

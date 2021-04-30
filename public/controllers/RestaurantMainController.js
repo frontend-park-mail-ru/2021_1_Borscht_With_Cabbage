@@ -107,7 +107,7 @@ export class RestaurantMainController {
         if (message.action === 'message') {
             if (String(message.payload.from.id) === this.url.substring(this.url.lastIndexOf('/') + 1) // TODO overthink
                 && window.location.pathname.match(/restaurant\/chats\/./)) {
-                this.view.renderNewMessage(message.payload);
+                this.view.renderNewMessage(message.payload.message);
             }
         }
     }

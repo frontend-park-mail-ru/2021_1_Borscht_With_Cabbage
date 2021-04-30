@@ -3,16 +3,45 @@
 }
 
 .message-container {
-
+  //overflow-y: scroll;
+  overflow: scroll;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  border: 1px var(--main-green_color) solid;
 }
 
 .chat-send {
 
   &__input {
 
+    &::-webkit-input-placeholder {
+      color: var(--background_color);
+    }
+
+    &:focus {
+      border: 1px solid var(--main-green_color);
+      //color: var(--main-green_color);
+    }
   }
 
   &__btn {
 
   }
+}
+
+.message {
+  max-width: 200px;
+  white-space: normal;
+  word-break: break-all;
+}
+
+.left {
+  text-align: left;
+  margin-left: 20px;
+}
+
+.right {
+  text-align: right;
+  margin-right: 20px;
 }

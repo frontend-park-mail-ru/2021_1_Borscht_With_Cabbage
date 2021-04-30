@@ -161,7 +161,7 @@ export class ProfileController {
         if (message.action === 'message') {
             if (String(message.payload.from.id) === this.url.substring(this.url.lastIndexOf('/') + 1) // TODO overthink
                 && window.location.pathname.match(/profile\/chats\/./)) {
-                this.profileView.renderNewMessage(message.payload);
+                this.profileView.renderNewMessage(message.payload.message);
             }
         }
     }

@@ -36,7 +36,6 @@ export class Orders {
             {}
         );
         const orderList = document.getElementById('orders-list');
-        const i18n = new I18n();
 
         if (orders && orderList) {
             for (const order of orders) {
@@ -44,7 +43,6 @@ export class Orders {
                 const element = new OrderElement({
                     root: orderList,
                     order: order,
-                    i18n: i18n,
                     controller: this.controller
                 });
                 element.render();

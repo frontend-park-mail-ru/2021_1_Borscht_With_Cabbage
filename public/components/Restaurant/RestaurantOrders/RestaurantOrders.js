@@ -3,7 +3,6 @@ import { RestaurantMainController } from '../../../controllers/RestaurantMainCon
 import renderOrders from '../../Profile/Orders/OrdersListTmpl.hbs';
 import eventBus from '../../../modules/eventBus.js';
 import { RestaurantOrdersEvents } from '../../../events/RestaurantOrdersEvents.js';
-import { I18n } from '../../../modules/intlApi.js';
 import { RestaurantOrderElement } from './Order/Order';
 
 export class RestaurantOrdersComponent {
@@ -29,7 +28,6 @@ export class RestaurantOrdersComponent {
         this.root.innerHTML = renderOrders({});
 
         const orderList = document.getElementById('orders-list');
-        const i18n = new I18n();
 
         if (orders && orderList) {
             for (const order of orders) {
@@ -37,7 +35,6 @@ export class RestaurantOrdersComponent {
                 const element = new RestaurantOrderElement({
                     root: orderList,
                     order: order,
-                    i18n: i18n,
                     restaurantController: this.controller
                 });
                 element.render();

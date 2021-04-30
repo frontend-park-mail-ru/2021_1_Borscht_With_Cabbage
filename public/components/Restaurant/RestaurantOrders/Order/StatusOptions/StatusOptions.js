@@ -1,18 +1,18 @@
-import { RestaurantMainController } from '../../../../../controllers/RestaurantMainController';
+import {I18n} from "../../../../../modules/intlApi.js";
 
 export class StatusesComponent {
-    constructor ({ root = document.body, i18n = null, controller } = {}) {
+    constructor ({ root = document.body, controller } = {}) {
         this.root = root;
-        this.i18n = i18n;
         this.controller = controller;
     }
 
     render (order) {
+        const i18n = new I18n()
         const deliveryTime = document.getElementById(
             'delivery_time-' + order.orderID
         );
         if (deliveryTime) {
-            deliveryTime.value = this.i18n.formatInDateTimeInput(order.deliveryTime);
+            deliveryTime.value = i18n.formatInDateTimeInput(order.deliveryTime);
         }
 
         const status = document.getElementById('status-' + order.orderID);

@@ -3,6 +3,7 @@ import renderDishesList from '../../../Profile/Orders/Order/OrderDish/DishList.h
 import renderDish from '../../../Profile/Orders/Order/OrderDish/DishTmpl.hbs';
 import { RestaurantMainController } from '../../../../controllers/RestaurantMainController.js';
 import { StatusesComponent } from './StatusOptions/StatusOptions.js';
+import {I18n} from "../../../../modules/intlApi.js";
 
 export class RestaurantOrderElement {
     constructor ({
@@ -13,7 +14,6 @@ export class RestaurantOrderElement {
     } = {}) {
         this.root = root;
         this.order = order;
-        this.i18n = i18n;
         this.restaurantController = restaurantController;
     }
 
@@ -24,7 +24,8 @@ export class RestaurantOrderElement {
                 orderWithDateTime[key] = this.order[key];
             });
 
-            orderWithDateTime.orderTime = this.i18n.formatDateTime(
+            const i18n = new I18n()
+            orderWithDateTime.orderTime = i18n.formatDateTime(
                 orderWithDateTime.orderTime
             );
 
@@ -34,7 +35,6 @@ export class RestaurantOrderElement {
             );
             const statuses = new StatusesComponent({
                 root: this.root,
-                i18n: this.i18n,
                 controller: this.restaurantController
             });
             statuses.render(this.order);

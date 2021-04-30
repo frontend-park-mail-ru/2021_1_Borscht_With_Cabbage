@@ -1,5 +1,8 @@
 export class I18n {
     constructor () {
+        if (I18n.instance) {
+            return I18n.instance
+        }
         this.locale = new Intl.DateTimeFormat().resolvedOptions().locale
         this.dateTime = new Intl.DateTimeFormat(this.locale,  {
             year: "numeric",
@@ -8,6 +11,7 @@ export class I18n {
             hour: "numeric",
             minute: "numeric"
         })
+        I18n.instance = this
     }
 
     formatDateTime(dateTime) {

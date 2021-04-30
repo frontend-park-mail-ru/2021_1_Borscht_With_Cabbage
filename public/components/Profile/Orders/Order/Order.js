@@ -3,17 +3,16 @@ import renderDishesList from './OrderDish/DishList.hbs';
 import renderDish from './OrderDish/DishTmpl.hbs';
 import { OrderReview } from './OrderReview/OrderReview.js';
 import { ProfileController } from '../../../../controllers/ProfileController.js';
+import {I18n} from "../../../../modules/intlApi.js";
 
 export class OrderElement {
     constructor ({
         root = document.body,
         order = null,
-        i18n = null,
         controller = new ProfileController()
     } = {}) {
         this.root = root;
         this.order = order;
-        this.i18n = i18n;
         this.controller = controller;
     }
 
@@ -24,10 +23,11 @@ export class OrderElement {
                 orderWithDateTime[key] = this.order[key];
             });
 
-            orderWithDateTime.orderTime = this.i18n.formatDateTime(
+            const i18n = new I18n()
+            orderWithDateTime.orderTime = i18n.formatDateTime(
                 orderWithDateTime.orderTime
             );
-            orderWithDateTime.deliveryTime = this.i18n.formatDateTime(
+            orderWithDateTime.deliveryTime = i18n.formatDateTime(
                 orderWithDateTime.deliveryTime
             );
             switch (this.order.status) {

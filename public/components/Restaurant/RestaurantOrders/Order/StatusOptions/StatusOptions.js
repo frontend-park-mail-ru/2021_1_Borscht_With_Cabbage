@@ -1,4 +1,4 @@
-import {I18n} from "../../../../../modules/intlApi.js";
+import { I18n } from "../../../../../modules/intlApi.js";
 
 export class StatusesComponent {
     constructor ({ root = document.body, controller } = {}) {
@@ -7,7 +7,7 @@ export class StatusesComponent {
     }
 
     render (order) {
-        const i18n = new I18n()
+        const i18n = new I18n();
         const deliveryTime = document.getElementById(
             'delivery_time-' + order.orderID
         );

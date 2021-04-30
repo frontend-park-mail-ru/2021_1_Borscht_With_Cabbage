@@ -23,9 +23,9 @@ export class ProfileController {
         eventBus.on(ProfileEvents.profileGetOrdersSuccess, this.draw.bind(this));
         eventBus.on(ProfileEvents.profileGetOrdersFailed, this.loadError.bind(this));
         eventBus.on(ProfileEvents.profileGetChatsSuccess, this.draw.bind(this));
-        eventBus.on(ProfileEvents.profileGetChatsFailed, console.log); // TODO
+        eventBus.on(ProfileEvents.profileGetChatsFailed, this.loadError.bind(this)); // TODO
         eventBus.on(ProfileEvents.profileGetChatMessagesSuccess, this.draw.bind(this));
-        eventBus.on(ProfileEvents.profileGetChatMessagesFailed, console.log); // TODO
+        eventBus.on(ProfileEvents.profileGetChatMessagesFailed, this.loadError.bind(this)); // TODO
     }
 
     setUserData ({
@@ -109,7 +109,7 @@ export class ProfileController {
     }
 
     loadError (error) {
-        console.log('profileView -> loadError', error)
+        console.log('profile controller -> loadError', error)
     }
 
     updateInputs ({ info, status }) {

@@ -1,6 +1,7 @@
 import { noop } from '../../modules/utils.js';
 import renderChat from './ChatTmpl.hbs';
 import renderMessage from './MessageTmpl.hbs';
+import user from '../../modules/user.js';
 
 export class Chat {
     constructor ({
@@ -14,7 +15,14 @@ export class Chat {
     }
 
     render (info) {
-        this.root.innerHTML = renderChat();
+        console.log(info, this.root)
+        let docID = '';
+        if (user.role === 'user') {
+            docID = '#profile-left-block';
+        } else {
+            docID = '#restaurant-left-block';
+        }
+        this.root.querySelector(docID).innerHTML = renderChat();
         this.root
             .querySelector('#js__send-button')
             .addEventListener('click', () => {

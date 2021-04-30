@@ -29,7 +29,7 @@ export class ProfileView {
         this.chat = new Chat(initialData);
 
         this.rightMenu = new RightMenu({
-            root: this.root.querySelector('#profile-right-block'),
+            root: this.root,
             goTo: this.goTo
         });
     }

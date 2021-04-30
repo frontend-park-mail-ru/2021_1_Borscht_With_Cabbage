@@ -14,7 +14,7 @@ export class RightMenu {
         const profilePlace = document.getElementById('profile-right-block')
         profilePlace.innerHTML = renderRightMenu({});
 
-        this.addLinksListeners()
+        this.addLinksListeners();
     }
 
     addLinksListeners () {

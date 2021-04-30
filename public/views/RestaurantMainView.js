@@ -47,6 +47,7 @@ export class RestaurantMainView {
         } else if (/menu/.test(url)) {
             this.activeComponent = this.menu;
         } else {
+            console.log('strange', url);
             this.activeComponent = this.edits;
         }
         this.activeComponent.render(data);
@@ -75,14 +76,6 @@ export class RestaurantMainView {
 
     renderAddingSuccess (data) {
         this.menu.addingSuccess(data);
-    }
-
-    renderCloseAddingSectionComponent (data) {
-        this.menu.closeAddingSectionComponent(data);
-    }
-
-    renderUpdateSection (data) {
-        this.menu.updateSection(data);
     }
 
     renderDeleteSection (data) {

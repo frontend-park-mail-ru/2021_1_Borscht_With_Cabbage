@@ -40,7 +40,8 @@ export class RestaurantEdits {
     }
 
     render () {
-        this.root = this.root.querySelector('#restaurant-left-block');
+        this.root = document.getElementById('restaurant-left-block');
+        console.log(this.root)
         this.root.innerHTML = renderRestaurantEdits({
             user: user
         });

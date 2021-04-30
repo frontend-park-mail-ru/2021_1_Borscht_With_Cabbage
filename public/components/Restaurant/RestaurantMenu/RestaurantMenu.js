@@ -12,15 +12,20 @@ export class RestaurantMenuComponent {
     constructor ({
         root = document.body,
         goTo = noop,
-        controller = new RestaurantMainController()
+        controller = new RestaurantMainController({ root, goTo })
     } = {}) {
         this.root = root;
         this.goTo = goTo;
         this.controller = controller;
+        eventBus.on(SectionEvents.closeAddingSectionComponent, this.closeAddingSectionComponent.bind(this));
+        eventBus.on(SectionEvents.updateSection, this.updateSection.bind(this));
     }
 
     render (data) {
-        this.root.querySelector('#restaurant-left-block').innerHTML = renderRestaurantMenu({});
+        console.log('menu render -> ', data)
+        this.root = document.getElementById('restaurant-left-block');
+        this.root.innerHTML = renderRestaurantMenu({});
+        this.appendSections(data);
         this.addAddSectionEventListeners();
     }
 
@@ -30,7 +35,6 @@ export class RestaurantMenuComponent {
     }
 
     closeAddingSectionComponent () {
-        console.log(this.addingSectionItem);
         this.addingSectionItem.remove();
     }
 
@@ -46,9 +50,7 @@ export class RestaurantMenuComponent {
 
         content.innerHTML = '';
 
-        console.log(sections.length);
         sections.forEach(section => {
-            console.log('section', section);
             this.appendSection(section);
         });
     }
@@ -59,7 +61,11 @@ export class RestaurantMenuComponent {
             return;
         }
 
-        const sectionItem = new SectionComponent({ root: content, section: section, controller: this.controller });
+        const sectionItem = new SectionComponent({
+            root: content,
+            section: section,
+            controller: this.controller
+        });
         sectionItem.render();
     }
 
@@ -73,9 +79,7 @@ export class RestaurantMenuComponent {
             e.preventDefault();
 
             this.addingSectionItem = document.createElement('div');
-            this.root
-                .querySelector('#restaurant-left-block')
-                .append(this.addingSectionItem);
+            this.root.append(this.addingSectionItem);
 
             const addingSection = new RestaurantAddingSection({
                 root: this.addingSectionItem,
@@ -86,7 +90,6 @@ export class RestaurantMenuComponent {
     }
 
     updateSection (section) {
-        console.log(section);
         this.addingSectionItem = document.createElement('div');
         this.root.querySelector(`[data-section-id="${section.id}"]`)
             .insertAdjacentElement('afterbegin', this.addingSectionItem);
@@ -100,9 +103,7 @@ export class RestaurantMenuComponent {
     }
 
     deleteSection ({ id }) {
-        console.log('deleteSectionSuccess', id);
         const deleteItem = this.root.querySelector(`[data-section-id="${id}"]`);
-        console.log('deleteItem', deleteItem);
         deleteItem.remove();
     }
 }

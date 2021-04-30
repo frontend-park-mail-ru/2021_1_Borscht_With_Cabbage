@@ -50,7 +50,7 @@ export class SectionComponent {
     }
 
     appendDish (dish) {
-        console.log('dish:', dish);
+        // console.log('dish:', dish);
         if (!dish) {
             return;
         }
@@ -64,7 +64,11 @@ export class SectionComponent {
         dishItem.classList.add('card');
         dishItem.dataset.dishId = dish.id;
         this.container.appendChild(dishItem);
-        const dishComponent = new DishComponent({ root: dishItem, dish: dish });
+        const dishComponent = new DishComponent({
+            root: dishItem,
+            dish: dish,
+            controller: this.controller
+        });
         dishComponent.render();
 
         dishAddingBtn = document.createElement('li');
@@ -80,8 +84,6 @@ export class SectionComponent {
     }
 
     appendDishes (dishes) {
-        console.log('all dishes:', dishes);
-        console.log(this.container);
         this.container.innerHTML = '';
         const dishAddingBtn = document.createElement('li');
         dishAddingBtn.classList.add('card-add', 'card');
@@ -95,7 +97,6 @@ export class SectionComponent {
     }
 
     addAddDishEventListeners () {
-        console.log('container:', this.container);
         const addDish = this.container.querySelector('.card-add');
         if (!addDish) {
             return;
@@ -106,7 +107,6 @@ export class SectionComponent {
 
             this.addingDishItem = document.createElement('div');
             this.root.append(this.addingDishItem);
-            console.log('addindDish:', this.addingDishItem);
 
             const addingDish = new RestaurantAddingDish({
                 root: this.addingDishItem,
@@ -119,7 +119,6 @@ export class SectionComponent {
     }
 
     closeAddingDishComponent () {
-        console.log(this.addingDishItem);
         this.addingDishItem.remove();
     }
 
@@ -143,15 +142,12 @@ export class SectionComponent {
     }
 
     deleteDishSuccess ({ id }) {
-        console.log('deleteDishSuccess', id);
         const deleteItem = this.root.querySelector(`[data-dish-id="${id}"]`);
-        console.log('deleteItem', deleteItem);
         deleteItem.remove();
     }
 
     deleteDishFailed () {
         // TODO: показать ошибку сервера пользователю
-        console.log('deleteDishFailed');
     }
 
     addUpdateSectionEventListener () {

@@ -19,13 +19,14 @@ export class RestaurantMainController {
         this.view = new RestaurantMainView({ root, goTo, controller: this })
         eventBus.on(DishEvents.addingDishSuccess, this.addingDishDataSuccess.bind(this));
         eventBus.on(DishEvents.addingDishFailed, this.addingDishDataFailed.bind(this));
-
-        eventBus.on(DishEvents.getAllDishSuccess, this.renderAppendSections.bind(this));
-        eventBus.on(DishEvents.getAllDishFailed, this.renderDishLoadingError.bind(this));
+        eventBus.on(DishEvents.getAllDishSuccess, this.draw.bind(this));
+        eventBus.on(DishEvents.getAllDishFailed, this.loadError.bind(this));
         eventBus.on(SectionEvents.addingSectionSuccess, this.renderAddingSuccess.bind(this));
-        eventBus.on(SectionEvents.closeAddingSectionComponent, this.renderCloseAddingSectionComponent.bind(this));
-        eventBus.on(SectionEvents.updateSection, this.renderUpdateSection.bind(this));
         eventBus.on(SectionEvents.deleteSectionSuccess, this.renderDeleteSection.bind(this));
+        eventBus.on(RestaurantEvents.restaurantGetChatsSuccess, this.draw.bind(this));
+        eventBus.on(RestaurantEvents.restaurantGetChatsFailed, this.loadError.bind(this)); // TODO
+        eventBus.on(RestaurantEvents.restaurantGetChatMessagesSuccess, this.draw.bind(this));
+        eventBus.on(RestaurantEvents.restaurantGetChatMessagesFailed, this.loadError.bind(this)); // TODO
     }
 
     render (url) {
@@ -44,13 +45,13 @@ export class RestaurantMainController {
             this.getChatMessages(url);
         } else if (/chats/.test(url)) {
             this.getChats();
-        } else if (/menu/) {
+        } else if (/menu/.test(url)) {
             this.getDishes();
-        } else {
-            this.url = 'edits';
+        } else if (/edits/.test(url)) {
             this.draw();
+        } else {
+            this.goTo('/restaurant/edits');
         }
-        this.draw()
     }
 
     draw (data) {
@@ -67,14 +68,6 @@ export class RestaurantMainController {
 
     renderAddingSuccess (data) {
         this.view.renderAddingSuccess(data);
-    }
-
-    renderCloseAddingSectionComponent (data) {
-        this.view.renderCloseAddingSectionComponent(data);
-    }
-
-    renderUpdateSection (data) {
-        this.view.renderUpdateSection(data);
     }
 
     renderDeleteSection (data) {
@@ -111,7 +104,6 @@ export class RestaurantMainController {
     }
 
     addNewMessage (message) {
-        console.log('i get new message, ua -> ', message, 'url=', this.url)
         if (message.action === 'message') {
             if (String(message.payload.from.id) === this.url.substring(this.url.lastIndexOf('/') + 1) // TODO overthink
                 && window.location.pathname.match(/restaurant\/chats\/./)) {
@@ -302,5 +294,9 @@ export class RestaurantMainController {
             repeatPasswordError,
             radiusError
         };
+    }
+
+    loadError (error) {
+        console.log('restaurant main controller -> loadError', error)
     }
 }

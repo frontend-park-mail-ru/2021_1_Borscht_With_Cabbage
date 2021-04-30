@@ -11,9 +11,11 @@ export class RestaurantRightMenu {
     }
 
     render () {
-        this.root = document.querySelector('#restaurant-right-block');
-        this.root.innerHTML = renderRestaurantRightMenu({});
-        this.addLinksListeners();
+        // if (!document.getElementById('restaurant-menu__edit')) {
+            this.root = document.getElementById('restaurant-right-block');
+            this.root.innerHTML = renderRestaurantRightMenu({});
+            this.addLinksListeners();
+        // }
     }
 
     addLinksListeners () {
@@ -21,7 +23,7 @@ export class RestaurantRightMenu {
         const edits = document.getElementById(editsID);
         if (edits) {
             edits.addEventListener('click', () => {
-                this.goTo('/restaurant/edit');
+                this.goTo('/restaurant/edits');
             });
         }
 
@@ -37,7 +39,7 @@ export class RestaurantRightMenu {
         const orders = document.getElementById(ordersID);
         if (orders) {
             orders.addEventListener('click', () => {
-                // this.goTo('/restaurant/orders');
+                // TODO
             });
         }
 

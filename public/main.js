@@ -12,15 +12,14 @@ import { RestaurantSignUpController } from './controllers/RestaurantSignUpContro
 import { BasketController } from './controllers/BasketController.js';
 import { ProfileController } from './controllers/ProfileController.js';
 import { StoreController } from './controllers/StoreController.js';
+import { RestaurantMainController } from './controllers/RestaurantMainController.js';
 import { MainView } from './views/MainView.js';
-import { RestaurantMainView } from './views/RestaurantMainView.js';
 import { Logout } from './views/Logout.js';
 import { authGet } from './modules/api.js';
 
-import registerSW from './registerSW.js';
-import { RestaurantMainController } from './controllers/RestaurantMainController.js';
-
-registerSW();
+// import registerSW from './registerSW.js';
+//
+// registerSW();
 
 const application = document.querySelector('body');
 

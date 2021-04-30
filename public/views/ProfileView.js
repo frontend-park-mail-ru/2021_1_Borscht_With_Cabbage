@@ -5,6 +5,8 @@ import { ProfileController } from '../controllers/ProfileController.js';
 import { RightMenu } from '../components/Profile/RightMenu/RightMenu.js';
 import { Orders } from '../components/Profile/Orders/Orders.js';
 import { noop } from '../modules/utils.js';
+import { ChatList } from '../components/ChatList/ChatList.js';
+import { Chat } from '../components/Chat/Chat.js';
 
 export class ProfileView {
     constructor ({

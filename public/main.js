@@ -18,6 +18,7 @@ import { Logout } from './views/Logout.js';
 import { authGet } from './modules/api.js';
 
 import registerSW from './registerSW.js';
+import { RestaurantMainController } from './controllers/RestaurantMainController.js';
 
 registerSW();
 
@@ -44,7 +45,7 @@ const storeController = new StoreController({ root: view, goTo: goTo });
 const profileController = new ProfileController({ root: view, goTo: goTo });
 const basketController = new BasketController({ root: view, goTo: goTo })
 const logout = new Logout({ root: view, goTo: goTo });
-const restaurantMainView = new RestaurantMainView(view, goTo);
+const restaurantMainController = new RestaurantMainController({ root: view, goTo: goTo });
 
 router.addRoute('login', signInController);
 router.addRoute('signup', signUpController);
@@ -55,7 +56,7 @@ router.addRoute('main', mainView);
 router.addRoute('store', storeController);
 router.addRoute('basket', basketController)
 router.addRoute('logout', logout);
-router.addRoute('restaurantMain', restaurantMainView);
+router.addRoute('restaurantMain', restaurantMainController);
 
 authGet()
     .then(_ => goTo(window.location.pathname))

@@ -1,6 +1,5 @@
 import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
 import eventBus from '../../../modules/eventBus.js';
-import { ProfileEvents } from '../../../events/ProfileEvents.js';
 import renderRestaurantEdits from './RestaurantEditsTmpl.hbs';
 import { Preview } from '../../Preview/Preview.js';
 import { renderInput } from '../../../modules/rendering.js';
@@ -10,6 +9,7 @@ import { maskPhone } from '../../../modules/phoneMask.js';
 import { getError, noop } from '../../../modules/utils.js';
 import user from '../../../modules/user.js';
 import { YandexMap } from '../../../modules/yandexMap.js';
+import { RestaurantEvents } from '../../../events/RestaurantEvents.js';
 
 export class RestaurantEdits {
     constructor ({
@@ -29,8 +29,8 @@ export class RestaurantEdits {
         this.repeatPasswordID = 'password_repeat';
         this.radiusID = 'radius';
         this.controller = controller;
-        eventBus.on(ProfileEvents.restaurantSetUserDataSuccess, this.updateInputs.bind(this));
-        eventBus.on(ProfileEvents.restaurantSetUserDataFailed, this.changeFailed.bind(this));
+        eventBus.on(RestaurantEvents.restaurantSetUserDataSuccess, this.updateInputs.bind(this));
+        eventBus.on(RestaurantEvents.restaurantSetUserDataFailed, this.changeFailed.bind(this));
         this.setCoords = this.setCoords.bind(this);
     }
 
@@ -40,6 +40,7 @@ export class RestaurantEdits {
     }
 
     render () {
+        this.root = this.root.querySelector('#restaurant-left-block');
         this.root.innerHTML = renderRestaurantEdits({
             user: user
         });

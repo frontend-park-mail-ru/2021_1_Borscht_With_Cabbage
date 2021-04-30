@@ -6,7 +6,11 @@ class ChatModel {
     constructor () {}
 
     sendMessage (message) {
-        socket.send(message);
+        const data = {
+            action: 'message',
+            payload: message
+        };
+        socket.send(data);
     }
 
     getChatsMessage ({ id, handler, successEvent, failEvent }) {

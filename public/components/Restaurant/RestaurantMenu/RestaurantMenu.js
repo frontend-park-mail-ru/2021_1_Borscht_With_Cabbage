@@ -17,19 +17,11 @@ export class RestaurantMenuComponent {
         this.root = root;
         this.goTo = goTo;
         this.controller = controller;
-        eventBus.on(DishEvents.getAllDishSuccess, this.appendSections.bind(this));
-        eventBus.on(DishEvents.getAllDishFailed, this.dishLoadingError.bind(this));
-        eventBus.on(SectionEvents.addingSectionSuccess, this.addingSuccess.bind(this));
-        eventBus.on(SectionEvents.closeAddingSectionComponent, this.closeAddingSectionComponent.bind(this));
-        eventBus.on(SectionEvents.updateSection, this.updateSection.bind(this));
-        eventBus.on(SectionEvents.deleteSectionSuccess, this.deleteSection.bind(this));
     }
 
-    render () {
-        this.root.innerHTML = renderRestaurantMenu({});
-
+    render (data) {
+        this.root.querySelector('#restaurant-left-block').innerHTML = renderRestaurantMenu({});
         this.addAddSectionEventListeners();
-        this.controller.getDishes();
     }
 
     addingSuccess (section) {
@@ -52,7 +44,7 @@ export class RestaurantMenuComponent {
             return;
         }
 
-        content.innerHTML = ''
+        content.innerHTML = '';
 
         console.log(sections.length);
         sections.forEach(section => {
@@ -81,7 +73,9 @@ export class RestaurantMenuComponent {
             e.preventDefault();
 
             this.addingSectionItem = document.createElement('div');
-            this.root.append(this.addingSectionItem);
+            this.root
+                .querySelector('#restaurant-left-block')
+                .append(this.addingSectionItem);
 
             const addingSection = new RestaurantAddingSection({
                 root: this.addingSectionItem,

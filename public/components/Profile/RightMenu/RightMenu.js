@@ -38,7 +38,7 @@ export class RightMenu {
         const chats = document.getElementById(chatsID)
         if (chats) {
             chats.addEventListener('click', () => {
-
+                this.goTo('/profile/chats');
             });
         }
     }

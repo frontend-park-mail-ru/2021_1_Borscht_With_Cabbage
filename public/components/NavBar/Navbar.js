@@ -37,18 +37,21 @@ export class Navbar {
     }
 
     renderUserAuth (info) {
+        let path = '';
         if (info.role === 'user') {
             this.root.innerHTML = renderTopNavUserView({ address: this.address });
+            path = '/profile';
         } else {
             info.name = info.title;
             this.root.innerHTML = renderTopNavRestaurantView({});
+            path = '/restaurant';
         }
         const authBlock = document.getElementById('auth_block');
         if (authBlock) {
             authBlock.innerHTML = renderAuthBlock({
                 user: info
             });
-            this.goProfileListener();
+            this.goProfileListener(path);
         }
         this.onOffline();
         this.addEventListener();
@@ -74,11 +77,11 @@ export class Navbar {
         }
     }
 
-    goProfileListener () {
+    goProfileListener (path) {
         const profileLink = document.getElementById('js-go-profile')
         if (profileLink) {
             profileLink.addEventListener('click', () => {
-                this.goTo('/profile/edits');
+                this.goTo(path + '/edits');
             });
         }
     }

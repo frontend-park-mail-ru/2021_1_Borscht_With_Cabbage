@@ -11,8 +11,8 @@ import {
 
 import eventBus from '../modules/eventBus.js';
 import { DishEvents } from '../events/DishEvents.js';
-import { ProfileEvents } from '../events/ProfileEvents.js';
 import { SectionEvents } from '../events/SectionEvents.js';
+import { RestaurantEvents } from '../events/RestaurantEvents.js';
 
 class RestaurantMainModel {
     getDish () {
@@ -99,15 +99,15 @@ class RestaurantMainModel {
                     data_.parsedJSON = Object.assign(...res.map(value => value.parsedJSON));
                 }
                 if (data_.status === 200) {
-                    eventBus.emit(ProfileEvents.restaurantSetUserDataSuccess, {
+                    eventBus.emit(RestaurantEvents.restaurantSetUserDataSuccess, {
                         info: data_.parsedJSON,
                         status: data_.status
                     });
                 } else {
-                    eventBus.emit(ProfileEvents.restaurantSetUserDataFailed, data_);
+                    eventBus.emit(RestaurantEvents.restaurantSetUserDataFailed, data_);
                 }
             })
-            .catch(res => eventBus.emit(ProfileEvents.restaurantSetUserDataFailed, res));
+            .catch(res => eventBus.emit(RestaurantEvents.restaurantSetUserDataFailed, res));
     }
 
     addSection ({ name }) {

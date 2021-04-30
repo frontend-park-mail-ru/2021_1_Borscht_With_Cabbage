@@ -1,66 +1,52 @@
-import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
-import { RestaurantEdits } from '../RestaurantEdits/RestaurantEdits.js';
-import user from '../../../modules/user.js';
 import renderRestaurantRightMenu from './RightMenuTmpl.hbs';
-import { RestaurantMenuComponent } from '../RestaurantMenu/RestaurantMenu.js';
+import { noop } from '../../../modules/utils.js';
 
 export class RestaurantRightMenu {
     constructor ({
         root = document.body,
-        restaurantController = new RestaurantMainController(),
-        editsView = new RestaurantEdits({
-            root,
-            user,
-            controller: restaurantController
-        }),
-        menuView = new RestaurantMenuComponent({
-            root,
-            controller: restaurantController
-        })
+        goTo = noop
     } = {}) {
-        this.root = root;
-        this.restaurantController = restaurantController;
-        this.editsView = editsView;
-        this.menuView = menuView;
+        this.root = root.querySelector('#restaurant-right-block');
+        this.goTo = goTo;
     }
 
     render () {
+        this.root = document.querySelector('#restaurant-right-block');
         this.root.innerHTML = renderRestaurantRightMenu({});
-
-        this.addLinksListeners()
+        this.addLinksListeners();
     }
 
     addLinksListeners () {
-        const editsID = 'restaurant-menu__edit'
-        const edits = document.getElementById(editsID)
+        const editsID = 'restaurant-menu__edit';
+        const edits = document.getElementById(editsID);
         if (edits) {
-            edits.onclick = () => {
-                this.editsView.render()
-            }
+            edits.addEventListener('click', () => {
+                this.goTo('/restaurant/edit');
+            });
         }
 
-        const menuID = 'restaurant-menu__menu'
-        const menu = document.getElementById(menuID)
+        const menuID = 'restaurant-menu__menu';
+        const menu = document.getElementById(menuID);
         if (menu) {
-            menu.onclick = () => {
-                this.menuView.render()
-            }
+            menu.addEventListener('click', () => {
+                this.goTo('/restaurant/menu');
+            });
         }
 
-        const ordersID = 'restaurant-menu__orders'
-        const orders = document.getElementById(ordersID)
+        const ordersID = 'restaurant-menu__orders';
+        const orders = document.getElementById(ordersID);
         if (orders) {
-            orders.onclick = () => {
-
-            }
+            orders.addEventListener('click', () => {
+                // this.goTo('/restaurant/orders');
+            });
         }
 
-        const chatsID = 'restaurant-menu__chats'
-        const chats = document.getElementById(chatsID)
+        const chatsID = 'restaurant-menu__chats';
+        const chats = document.getElementById(chatsID);
         if (chats) {
-            chats.onclick = () => {
-
-            }
+            chats.addEventListener('click', () => {
+                this.goTo('/restaurant/chats');
+            });
         }
     }
 }

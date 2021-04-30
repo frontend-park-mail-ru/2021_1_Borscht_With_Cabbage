@@ -21,7 +21,7 @@ export function auth (res) {
     setAddress(res.parsedJSON);
     return getWSKey()
         .then(responseKey => {
-            socket.connect(responseKey.parsedJSON);
+            socket.connect(responseKey.parsedJSON.key);
             return setBasket(res);
         })
         .catch(_ => setBasket(res));

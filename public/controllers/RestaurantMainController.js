@@ -2,11 +2,122 @@ import { Validator } from '../modules/validation.js';
 import mainModel from '../models/RestaurantMainModel.js';
 import { DishEvents } from '../events/DishEvents.js';
 import eventBus from '../modules/eventBus.js';
+import { noop } from '../modules/utils.js';
+import { RestaurantMainView } from '../views/RestaurantMainView.js';
+import user from '../modules/user.js';
+import chatModel from '../models/ChatModel.js';
+import { RestaurantEvents } from '../events/RestaurantEvents.js';
+import { SectionEvents } from '../events/SectionEvents.js';
 
 export class RestaurantMainController {
-    constructor () {
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
+        this.goTo = goTo;
+        this.root = root;
+        this.view = new RestaurantMainView({ root, goTo, controller: this })
         eventBus.on(DishEvents.addingDishSuccess, this.addingDishDataSuccess.bind(this));
         eventBus.on(DishEvents.addingDishFailed, this.addingDishDataFailed.bind(this));
+
+        eventBus.on(DishEvents.getAllDishSuccess, this.renderAppendSections.bind(this));
+        eventBus.on(DishEvents.getAllDishFailed, this.renderDishLoadingError.bind(this));
+        eventBus.on(SectionEvents.addingSectionSuccess, this.renderAddingSuccess.bind(this));
+        eventBus.on(SectionEvents.closeAddingSectionComponent, this.renderCloseAddingSectionComponent.bind(this));
+        eventBus.on(SectionEvents.updateSection, this.renderUpdateSection.bind(this));
+        eventBus.on(SectionEvents.deleteSectionSuccess, this.renderDeleteSection.bind(this));
+    }
+
+    render (url) {
+        this.url = url;
+        if (user.role === 'user') {
+            this.goTo('profile');
+            return;
+        } else if (user.role !== 'admin') {
+            this.goTo('main');
+            return;
+        }
+
+        if (/orders/.test(url)) {
+            // this.getOrders();
+        } else if (/chats\/./.test(url)) {
+            this.getChatMessages(url);
+        } else if (/chats/.test(url)) {
+            this.getChats();
+        } else if (/menu/) {
+            this.getDishes();
+        } else {
+            this.url = 'edits';
+            this.draw();
+        }
+        this.draw()
+    }
+
+    draw (data) {
+        this.view.render({ data, url: this.url });
+    }
+
+    renderAppendSections (data) {
+        this.view.renderAppendSections(data);
+    }
+
+    renderDishLoadingError (data) {
+        this.view.renderDishLoadingError(data);
+    }
+
+    renderAddingSuccess (data) {
+        this.view.renderAddingSuccess(data);
+    }
+
+    renderCloseAddingSectionComponent (data) {
+        this.view.renderCloseAddingSectionComponent(data);
+    }
+
+    renderUpdateSection (data) {
+        this.view.renderUpdateSection(data);
+    }
+
+    renderDeleteSection (data) {
+        this.view.renderDeleteSection(data);
+    }
+
+    sendMessage (value) {
+        const message = {
+            to: {
+                id: 1
+            },
+            message: {
+                date: 'today',
+                text: value
+            }
+        }
+
+        chatModel.sendMessage(message);
+    }
+
+    getChats () {
+        chatModel.getChats(RestaurantEvents.restaurantGetChatsSuccess, RestaurantEvents.restaurantGetChatsFailed);
+    }
+
+    getChatMessages (url) {
+        console.log('getChatMessages -> ', url.substring(url.lastIndexOf('/') + 1))
+        const handler = this.addNewMessage.bind(this);
+        chatModel.getChatsMessage({
+            id: url.substring(url.lastIndexOf('/') + 1),
+            handler,
+            successEvent: RestaurantEvents.restaurantGetChatMessagesSuccess,
+            failEvent: RestaurantEvents.restaurantGetChatMessagesFailed
+        });
+    }
+
+    addNewMessage (message) {
+        console.log('i get new message, ua -> ', message, 'url=', this.url)
+        if (message.action === 'message') {
+            if (String(message.payload.from.id) === this.url.substring(this.url.lastIndexOf('/') + 1) // TODO overthink
+                && window.location.pathname.match(/restaurant\/chats\/./)) {
+                this.view.renderNewMessage(message.payload);
+            }
+        }
     }
 
     addSection (section) {

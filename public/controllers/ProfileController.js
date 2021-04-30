@@ -126,7 +126,17 @@ export class ProfileController {
         this.profileView.renderServerError(error);
     }
 
-    sendMessage (message) {
+    sendMessage (value) {
+        const message = {
+            to: {
+                id: 1
+            },
+            message: {
+                date: 'today',
+                text: value
+            }
+        }
+
         chatModel.sendMessage(message);
     }
 
@@ -135,10 +145,10 @@ export class ProfileController {
     }
 
     getChatMessages (url) {
-        console.log('getChatMessages -> ', url.substring(url.lastIndexOf('/')))
+        console.log('getChatMessages -> ', url.substring(url.lastIndexOf('/') + 1))
         const handler = this.addNewMessage.bind(this);
         chatModel.getChatsMessage({
-            id: url.substring(url.lastIndexOf('/')),
+            id: url.substring(url.lastIndexOf('/') + 1),
             handler,
             successEvent: ProfileEvents.profileGetChatMessagesSuccess,
             failEvent: ProfileEvents.profileGetChatMessagesFailed
@@ -146,10 +156,13 @@ export class ProfileController {
     }
 
     addNewMessage (message) {
-        const msg = JSON.parse(message);
-        if (msg.from === this.url // TODO overthink
-            && window.location.pathname.match(/profile\/chats\/./)) {
-            this.profileView.renderNewMessage(message);
+        console.log('i get ew mesg, oua ->', message, 'url=', this.url, message.payload.from.id === this.url.substring(this.url.lastIndexOf('/') + 1),
+            window.location.pathname.match(/profile\/chats\/./))
+        if (message.action === 'message') {
+            if (String(message.payload.from.id) === this.url.substring(this.url.lastIndexOf('/') + 1) // TODO overthink
+                && window.location.pathname.match(/profile\/chats\/./)) {
+                this.profileView.renderNewMessage(message.payload);
+            }
         }
     }
 }

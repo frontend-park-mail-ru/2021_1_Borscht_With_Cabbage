@@ -1,7 +1,7 @@
 class Socket {
     constructor () {
         this.messageHandlers = new Set();
-        this.socketTimer = null;
+        // this.socketTimer = null;
     }
 
     subscribe (event, handler) {
@@ -9,6 +9,7 @@ class Socket {
     }
 
     send (data) {
+        console.log('socket send -> ', data)
         this.socket.send(JSON.stringify(data));
     }
 
@@ -16,20 +17,24 @@ class Socket {
         this.id = id;
         const connectionState = this.socket?.readyState;
         if (connectionState === WebSocket.OPEN || connectionState === WebSocket.CONNECTING) {
+            console.log('Socked already connected');
             return;
         }
         this.socket = new WebSocket(`ws://127.0.0.1:5000/ws/${this.id}`);
         this.socket.onopen = () => {
-            this.socketTimer = setInterval(() => this.socket.send(''), 10000);
+            console.log('Socked connected');
+            // this.socketTimer = setInterval(() => this.socket.send(''), 10000);
         };
         this.socket.onmessage = (event) => {
+            console.log('Socked message -> ', event);
             this.messageHandlers.forEach((handler) => {
-                handler(event);
+                handler(JSON.parse(event.data));
             });
         };
         this.socket.onclose = () => {
-            clearInterval(this.socketTimer);
-            this.socketTimer = null;
+            console.log('Socked close');
+            // clearInterval(this.socketTimer);
+            // this.socketTimer = null;
         };
     }
 

@@ -4,6 +4,7 @@ import { RestaurantEdits } from '../components/Restaurant/RestaurantEdits/Restau
 import renderRestaurantView from '../components/Restaurant/RestaurantMainTmpl.hbs';
 import { RestaurantRightMenu } from '../components/Restaurant/RestaurantRightMenu/RightMenu.js';
 import user from '../modules/user.js';
+import { RestaurantOrdersComponent } from "../components/Restaurant/RestaurantOrders/RestaurantOrders";
 
 export class RestaurantMainView {
     constructor (root, goTo) {
@@ -38,12 +39,19 @@ export class RestaurantMainView {
             controller: this.mainController
         });
 
+        const orders = new RestaurantOrdersComponent({
+            root: this.root.querySelector('#restaurant-left-block'),
+            goTo: this.goTo,
+            controller: this.mainController
+        });
+
         const rightMenu = new RestaurantRightMenu({
             root: this.root.querySelector('#restaurant-right-block'),
             profileController: this.mainController,
             editsView: edits,
-            menuView: menu
-        });
+            menuView: menu,
+            ordersView: orders
+    });
         rightMenu.render();
     }
 

@@ -22,4 +22,8 @@ export class StoreController {
             isPlus
         })
     }
+
+    getReviews(storeID) {
+        this.storeModel.getReviews(storeID)
+    }
 }

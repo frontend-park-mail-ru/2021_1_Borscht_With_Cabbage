@@ -1,0 +1,30 @@
+.rating_block {
+  width: 125px;
+  height: 25px;
+  margin-bottom: 8px;
+}
+
+.rating_block__input {
+  display: none;
+}
+
+.label_rating {
+  float: right;
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: url(../../../../../static/img/rating.png) no-repeat 50% 0;
+  cursor: pointer;
+}
+
+.rating_block .label_rating:hover,
+.rating_block .label_rating:hover ~ .label_rating,
+.rating_block input[type="radio"]:checked ~ .label_rating {
+  background-position: 50% -25px;
+}
+
+.review_button-disabled {
+  background-color: var(--grey_color);
+
+  disabled: true;
+}

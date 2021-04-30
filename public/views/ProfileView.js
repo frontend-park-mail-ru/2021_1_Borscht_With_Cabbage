@@ -32,7 +32,7 @@ export class ProfileView {
         this.root.innerHTML = ''
 
         const profile = document.createElement('div')
-        profile.innerHTML = renderProfileView({}) // создаем правое меню
+        profile.innerHTML = renderProfileView({})
         this.root.append(profile)
 
         // добавляем поля профиля и его изменения
@@ -45,7 +45,8 @@ export class ProfileView {
         edits.render()
 
         const orders = new Orders({
-            root: this.root,
+            // root: this.root,
+            root: this.root.querySelector('#profile-left-block'),
             controller: this.profileController,
             goTo: this.goTo,
             user: user

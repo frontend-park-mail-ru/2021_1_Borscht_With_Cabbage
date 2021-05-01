@@ -61,4 +61,9 @@ export class ProfileController {
     getOrders () {
         this.profileModel.getOrders()
     }
+
+    postReview (oid, review, stars) {
+        stars = parseInt(stars)
+        this.profileModel.postReview(oid, review, stars)
+    }
 }

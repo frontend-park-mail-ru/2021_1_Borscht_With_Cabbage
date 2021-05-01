@@ -5,8 +5,9 @@
         <div class="store-title__info">
             <span class="store-title__delivery-time">Время доставки: {{ deliveryTime }} минут</span>
             <span class="store-title__delivery-cost">Доставка: {{ deliveryCost }} рублей</span>
-            <span class="store-title__rating"><img style="margin-top: -4px"
-                                                   src="../../../static/img/star_rating.svg">{{ rating }}</span>
+            <span class="store-title__rating link" id="reviews">
+                <img style="margin-top: -4px" src="../../../static/img/star.png">{{ rating }} | Отзывы
+            </span>
         </div>
     </div>
 </div>

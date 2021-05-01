@@ -1,5 +1,5 @@
 import eventBus from 'Modules/eventBus.js';
-import { addDishInBasket, getBasket, storeGet } from 'Modules/api.js';
+import { addDishInBasket, getBasket, storeGet, getReviews } from 'Modules/api.js';
 import { StoreEvents } from 'Events/StoreEvents.js';
 import { ChangeBasketEvents } from 'Events/ChangeBasketEvents.js';
 
@@ -58,5 +58,19 @@ export class StoreModel {
             .catch(res => {
                 eventBus.emit(ChangeBasketEvents.chooseFoodFailed, res.parsedJSON);
             });
+    }
+
+    getReviews(storeID) {
+        getReviews(storeID)
+            .then(res =>{
+                if (res.status === 200) {
+                    eventBus.emit(StoreEvents.storeGetReviewsSuccess, res.parsedJSON);
+                } else {
+                    eventBus.emit(StoreEvents.storeGetReviewsFailed, res.parsedJSON);
+                }
+            })
+            .catch(res => {
+                eventBus.emit(StoreEvents.storeGetReviewsFailed, res.parsedJSON);
+            })
     }
 }

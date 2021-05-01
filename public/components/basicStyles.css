@@ -72,3 +72,12 @@ input:focus {
     border-radius: 50%;
     text-align: center;
 }
+
+h1, h2, h3, h4, h5, span {
+    cursor: default;
+}
+
+.text-with-small-weight {
+    font-weight: 300;
+    cursor: default;
+}

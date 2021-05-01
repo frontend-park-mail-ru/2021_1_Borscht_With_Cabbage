@@ -1,14 +1,14 @@
 import renderProfileEdits from './ProfileEditsTmpl.hbs';
-import { renderInput } from '../../../modules/rendering.js';
-import { Validator } from '../../../modules/validation.js';
-import { maskPhone } from '../../../modules/phoneMask.js';
-import eventBus from '../../../modules/eventBus.js';
+import { renderInput } from 'Modules/rendering.js';
+import { Validator } from 'Modules/validation.js';
+import { maskPhone } from 'Modules/phoneMask.js';
+import eventBus from 'Modules/eventBus.js';
 import { Preview } from '../../Preview/Preview.js';
-import { noop } from '../../../modules/utils.js';
-import user from '../../../modules/user.js';
-import { ProfileEvents } from '../../../events/ProfileEvents.js';
-import { ProfileController } from '../../../controllers/ProfileController.js';
-import { AuthEvents } from '../../../events/AuthEvents.js';
+import { noop } from 'Modules/utils.js';
+import user from 'Modules/user.js';
+import { ProfileEvents } from 'Events/ProfileEvents.js';
+import { ProfileController } from 'Controllers/ProfileController.js';
+import { AuthEvents } from 'Events/AuthEvents.js';
 
 export class ProfileEdits {
     constructor ({

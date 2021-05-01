@@ -1,5 +1,5 @@
-import { Validator } from '../modules/validation.js';
-import { RestaurantSignInModel } from "../models/RestaurantSignInModel.js";
+import { Validator } from 'Modules/validation.js';
+import { RestaurantSignInModel } from "Models/RestaurantSignInModel.js";
 
 export class RestaurantSignInController {
     constructor () {

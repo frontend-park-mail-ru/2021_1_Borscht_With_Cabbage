@@ -1,6 +1,6 @@
 import eventBus from './eventBus.js';
-import { ChangeBasketEvents } from '../events/ChangeBasketEvents.js';
-import { StoreEvents } from '../events/StoreEvents.js';
+import { ChangeBasketEvents } from 'Events/ChangeBasketEvents.js';
+import { StoreEvents } from 'Events/StoreEvents.js';
 
 class Basket {
     constructor () {

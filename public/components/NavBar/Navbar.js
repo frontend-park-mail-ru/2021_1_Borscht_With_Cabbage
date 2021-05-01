@@ -2,10 +2,10 @@ import renderTopNavUserView from './NavbarUserTmpl.hbs';
 import renderTopNavRestaurantView from './NavbarRestaurantTmpl.hbs';
 import renderAuthBlock from './AuthBlockTmpl.hbs';
 import renderNotAuthBlock from './NotAuthBlockTmpl.hbs';
-import { noop } from '../../modules/utils.js';
-import user from '../../modules/user.js';
-import eventBus from '../../modules/eventBus.js';
-import { AuthEvents } from '../../events/AuthEvents.js';
+import { noop } from 'Modules/utils.js';
+import user from 'Modules/user.js';
+import eventBus from 'Modules/eventBus.js';
+import { AuthEvents } from 'Events/AuthEvents.js';
 import { Toast } from '../Toast/Toast.js';
 
 export class Navbar {

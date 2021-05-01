@@ -6,12 +6,14 @@ import {
     sectionAddPost,
     sectionUpdatePut,
     sectionDelete, restaurantAvatarPut, restaurantOrdersGet, updateStatus
-} from '../modules/api.js';
-import { restaurantUpdateDishDataPut, restaurantDeleteDish } from '../modules/api.js';
-import eventBus from '../modules/eventBus.js';
-import { DishEvents } from '../events/DishEvents.js';
-import { RestaurantOrdersEvents } from '../events/RestaurantOrdersEvents.js';
-import { SectionEvents } from '../events/SectionEvents.js';
+} from 'Modules/api.js';
+import { restaurantUpdateDishDataPut, restaurantDeleteDish } from 'Modules/api.js';
+import eventBus from 'Modules/eventBus.js';
+import { DishEvents } from 'Events/DishEvents';
+import { ProfileEvents } from 'Events/ProfileEvents.js';
+import { SectionEvents } from 'Events/SectionEvents.js';
+import {RestaurantOrdersEvents} from "Events/RestaurantOrdersEvents.js";
+
 
 export class RestaurantMainModel {
     getOrders () {

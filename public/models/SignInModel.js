@@ -1,6 +1,6 @@
-import { loginPost } from '../modules/api.js';
-import eventBus from '../modules/eventBus.js';
-import { SignInEvents } from '../events/SignInEvents.js';
+import { loginPost } from 'Modules/api.js';
+import eventBus from 'Modules/eventBus.js';
+import { SignInEvents } from 'Events/SignInEvents.js';
 
 export class SignInModel {
     signIn (login, password) {

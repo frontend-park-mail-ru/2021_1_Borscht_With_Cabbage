@@ -1,8 +1,8 @@
-import { Validator } from '../modules/validation.js';
-import { RestaurantMainModel } from '../models/RestaurantMainModel.js';
-import { DishEvents } from '../events/DishEvents.js';
-import eventBus from '../modules/eventBus.js';
-import { RestaurantOrdersEvents } from "../events/RestaurantOrdersEvents.js";
+import { Validator } from 'Modules/validation.js';
+import { RestaurantMainModel } from 'Models/RestaurantMainModel.js';
+import { DishEvents } from 'Events/DishEvents.js';
+import eventBus from 'Modules/eventBus.js';
+import { RestaurantOrdersEvents } from "Events/RestaurantOrdersEvents.js";
 
 export class RestaurantMainController {
     constructor () {

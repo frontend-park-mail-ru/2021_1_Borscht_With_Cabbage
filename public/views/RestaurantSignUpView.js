@@ -1,7 +1,7 @@
-import { RestaurantSignUpController } from "../controllers/RestaurantSignUpController.js";
-import { RestaurantSignUp } from "../components/Restaurant/RestaurantSignUp/RestaurantSignUp.js";
-import user from '../modules/user.js';
-import { noop } from '../modules/utils.js';
+import { RestaurantSignUpController } from "Controllers/RestaurantSignUpController.js";
+import { RestaurantSignUp } from "Components/Restaurant/RestaurantSignUp/RestaurantSignUp.js";
+import user from 'Modules/user.js';
+import { noop } from 'Modules/utils.js';
 
 export class RestaurantSignUpView {
     constructor ({

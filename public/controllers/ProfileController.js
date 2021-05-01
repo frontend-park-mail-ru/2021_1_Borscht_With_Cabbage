@@ -1,5 +1,5 @@
-import { ProfileModel } from '../models/ProfileModel.js';
-import { Validator } from '../modules/validation.js';
+import { ProfileModel } from 'Models/ProfileModel.js';
+import { Validator } from 'Modules/validation.js';
 
 export class ProfileController {
     constructor () {

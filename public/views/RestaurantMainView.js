@@ -1,10 +1,10 @@
-import { RestaurantMainController } from '../controllers/RestaurantMainController.js';
-import { RestaurantMenuComponent } from '../components/Restaurant/RestaurantMenu/RestaurantMenu.js'
-import { RestaurantEdits } from '../components/Restaurant/RestaurantEdits/RestaurantEdits.js';
-import renderRestaurantView from '../components/Restaurant/RestaurantMainTmpl.hbs';
-import { RestaurantRightMenu } from '../components/Restaurant/RestaurantRightMenu/RightMenu.js';
-import user from '../modules/user.js';
-import { RestaurantOrdersComponent } from "../components/Restaurant/RestaurantOrders/RestaurantOrders";
+import { RestaurantMainController } from 'Controllers/RestaurantMainController.js';
+import { RestaurantMenuComponent } from 'Components/Restaurant/RestaurantMenu/RestaurantMenu.js'
+import { RestaurantEdits } from 'Components/Restaurant/RestaurantEdits/RestaurantEdits.js';
+import renderRestaurantView from 'Components/Restaurant/RestaurantMainTmpl.hbs';
+import { RestaurantRightMenu } from 'Components/Restaurant/RestaurantRightMenu/RightMenu.js';
+import user from 'Modules/user.js';
+import { RestaurantOrdersComponent } from "Components/Restaurant/RestaurantOrders/RestaurantOrders";
 
 export class RestaurantMainView {
     constructor (root, goTo) {

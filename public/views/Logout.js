@@ -1,7 +1,7 @@
-import { logoutGet } from '../modules/api.js';
-import { noop } from '../modules/utils.js';
-import eventBus from '../modules/eventBus.js';
-import { AuthEvents } from '../events/AuthEvents.js';
+import { logoutGet } from 'Modules/api.js';
+import { noop } from 'Modules/utils.js';
+import eventBus from 'Modules/eventBus.js';
+import { AuthEvents } from 'Events/AuthEvents.js';
 
 export class Logout {
     constructor ({

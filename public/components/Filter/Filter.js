@@ -1,5 +1,5 @@
 import renderFilter from './FilterTmpl.hbs';
-import { noop } from '../../modules/utils.js';
+import { noop } from 'Modules/utils.js';
 
 export class FilterComponent {
     constructor ({

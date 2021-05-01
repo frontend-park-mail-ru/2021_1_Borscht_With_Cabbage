@@ -16,13 +16,11 @@ export class ChatList {
     }
 
     render (info) {
-
         info.forEach(value => {
             value.lastMessage = value['last message'];
             console.log(value)
         });
 
-        console.log(info);
         let redir = '';
         if (user.role === 'user') {
             redir = '/profile';
@@ -42,10 +40,6 @@ export class ChatList {
                 .addEventListener('click', () => {
                     this.goTo(redir + `/chats/${value.id}`);
                 });
-            console
-                .log(value,
-                    this.root.querySelector('#js__chat-list'),
-                    this.root.querySelector(`[data-chatID="${value.id}"]`))
         });
     }
 }

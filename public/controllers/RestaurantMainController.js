@@ -74,10 +74,10 @@ export class RestaurantMainController {
         this.view.renderDeleteSection(data);
     }
 
-    sendMessage (value) {
+    sendMessage (value, id) {
         const message = {
             to: {
-                id: 1
+                id
             },
             message: {
                 date: 'today',
@@ -93,7 +93,6 @@ export class RestaurantMainController {
     }
 
     getChatMessages (url) {
-        console.log('getChatMessages -> ', url.substring(url.lastIndexOf('/') + 1))
         const handler = this.addNewMessage.bind(this);
         chatModel.getChatsMessage({
             id: url.substring(url.lastIndexOf('/') + 1),
@@ -105,7 +104,7 @@ export class RestaurantMainController {
 
     addNewMessage (message) {
         if (message.action === 'message') {
-            if (String(message.payload.from.id) === this.url.substring(this.url.lastIndexOf('/') + 1) // TODO overthink
+            if (String(message.payload.from.id) === this.url.substring(this.url.lastIndexOf('/') + 1)
                 && window.location.pathname.match(/restaurant\/chats\/./)) {
                 this.view.renderNewMessage(message.payload.message);
             }

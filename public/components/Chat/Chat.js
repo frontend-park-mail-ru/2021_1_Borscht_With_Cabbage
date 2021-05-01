@@ -17,16 +17,16 @@ export class Chat {
     }
 
     render (info) {
-        const data = info[0];
+        this.data = info[0];
         let docID = '';
         if (user.role === 'user') {
             docID = '#profile-left-block';
         } else {
             docID = '#restaurant-left-block';
         }
-        this.root.querySelector(docID).innerHTML = renderChat(data);
+        this.root.querySelector(docID).innerHTML = renderChat(this.data);
 
-        data.messages.forEach(message => {
+        this.data.messages.forEach(message => {
             const position = message.fromMe ? 'right' : 'left';
             this.renderNewMessage(message, position, 'afterbegin');
         });
@@ -54,7 +54,7 @@ export class Chat {
         const input = this.root.querySelector('#js__send-input');
         const text = input.value;
         if (text) {
-            this.controller.sendMessage(text);
+            this.controller.sendMessage(text, this.data.id);
             this.renderNewMessage({ text, id: ++this.biggestID }, 'right');
             input.value = '';
             this.scrollDown();

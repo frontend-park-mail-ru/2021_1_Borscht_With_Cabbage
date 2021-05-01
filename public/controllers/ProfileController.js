@@ -126,10 +126,10 @@ export class ProfileController {
         this.profileView.renderServerError(error);
     }
 
-    sendMessage (value) {
+    sendMessage (value, id) {
         const message = {
             to: {
-                id: 1
+                id
             },
             message: {
                 date: 'today',
@@ -156,10 +156,8 @@ export class ProfileController {
     }
 
     addNewMessage (message) {
-        console.log('i get ew mesg, oua ->', message, 'url=', this.url, message.payload.from.id === this.url.substring(this.url.lastIndexOf('/') + 1),
-            window.location.pathname.match(/profile\/chats\/./))
         if (message.action === 'message') {
-            if (String(message.payload.from.id) === this.url.substring(this.url.lastIndexOf('/') + 1) // TODO overthink
+            if (String(message.payload.from.id) === this.url.substring(this.url.lastIndexOf('/') + 1)
                 && window.location.pathname.match(/profile\/chats\/./)) {
                 this.profileView.renderNewMessage(message.payload.message);
             }

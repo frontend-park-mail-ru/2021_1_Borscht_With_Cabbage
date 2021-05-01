@@ -18,7 +18,10 @@ function getParams ({
         body = JSON.stringify(body);
     }
     if (method !== 'GET') {
-        headers['X-XSRF-Token'] = document.cookie.match(/_csrf=([\w-]+)/)[1];
+        const csrf = document.cookie.match(/_csrf=([\w-]+)/);
+        if (csrf) {
+            headers['X-XSRF-Token'] = csrf[1];
+        }
     }
     const init = {
         mode: 'cors',

@@ -13,4 +13,6 @@
     --white_color: #FFFFFF;
     --error_color: red;
     --background_color: rgba(50, 50, 50, 0.7);
+    --chat-back_color: #effddf;
+    --chat-border_color: #C7E6BE;
 }

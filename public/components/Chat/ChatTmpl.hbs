@@ -1,5 +1,8 @@
 <div class="chat-container">
-    <img src="{{avatar}}"><h2>{{name}}</h2>
+    <div class="chat-container__header">
+        <img class="chat-container__header__avatar" src="{{avatar}}">
+        <h2 class="chat-container__header__name">{{name}}</h2>
+    </div>
     <div class="message-container"></div>
     <div class="chat-send">
         <input type="text" placeholder="Введите сообщение..." class="chat-send__input" id="js__send-input" autocomplete="off">

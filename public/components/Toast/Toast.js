@@ -1,5 +1,5 @@
-import eventBus from '../../modules/eventBus.js';
-import { AuthEvents } from '../../events/AuthEvents.js';
+import eventBus from 'Modules/eventBus.js';
+import { AuthEvents } from 'Events/AuthEvents.js';
 import renderToastMessage from './ToastTmpl.hbs';
 
 export class Toast {

@@ -1,11 +1,11 @@
-import { CategoryComponent } from '../components/Category/Category.js'
-import { ParamsComponent } from '../components/Params/Params.js'
-import { FilterComponent } from '../components/Filter/Filter.js'
-import { PanelRestaurantsComponent } from '../components/PanelRestaurants/PanelRestaurants.js'
-import { MainController } from '../controllers/MainController.js';
-import { MoreRestaurantsComponent } from '../components/MoreRestaurants/MoreRestaurants.js';
-import eventBus from '../modules/eventBus.js';
-import { MainEvents } from '../events/MainEvents.js';
+import { CategoryComponent } from 'Components/Category/Category.js'
+import { ParamsComponent } from 'Components/Params/Params.js'
+import { FilterComponent } from 'Components/Filter/Filter.js'
+import { PanelRestaurantsComponent } from 'Components/PanelRestaurants/PanelRestaurants.js'
+import { MainController } from 'Controllers/MainController.js';
+import { MoreRestaurantsComponent } from 'Components/MoreRestaurants/MoreRestaurants.js';
+import eventBus from 'Modules/eventBus.js';
+import { MainEvents } from 'Events/MainEvents.js';
 
 export class MainView {
     constructor (root, goTo) {

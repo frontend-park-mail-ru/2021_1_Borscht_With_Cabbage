@@ -1,6 +1,6 @@
-import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
+import { RestaurantMainController } from 'Controllers/RestaurantMainController.js';
 import { RestaurantEdits } from '../RestaurantEdits/RestaurantEdits.js';
-import user from '../../../modules/user.js';
+import user from 'Modules/user.js';
 import renderRestaurantRightMenu from './RightMenuTmpl.hbs';
 import { RestaurantMenuComponent } from '../RestaurantMenu/RestaurantMenu.js';
 

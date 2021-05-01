@@ -1,11 +1,11 @@
-import renderProfileView from '../components/Profile/ProfileTmpl.hbs'
-import { ProfileEdits } from '../components/Profile/ProfileEdits/ProfileEdits.js';
-import { ProfileController } from '../controllers/ProfileController.js';
-import eventBus from '../modules/eventBus.js';
-import { ProfileEvents } from '../events/ProfileEvents.js';
-import { RightMenu } from '../components/Profile/RightMenu/RightMenu.js';
-import { Orders } from '../components/Profile/Orders/Orders.js';
-import user from '../modules/user.js';
+import renderProfileView from 'Components/Profile/ProfileTmpl.hbs'
+import { ProfileEdits } from 'Components/Profile/ProfileEdits/ProfileEdits.js';
+import { ProfileController } from 'Controllers/ProfileController.js';
+import eventBus from 'Modules/eventBus.js';
+import { ProfileEvents } from 'Events/ProfileEvents.js';
+import { RightMenu } from 'Components/Profile/RightMenu/RightMenu.js';
+import { Orders } from 'Components/Profile/Orders/Orders.js';
+import user from 'Modules/user.js';
 
 export class ProfileView {
     constructor (root, goTo) {

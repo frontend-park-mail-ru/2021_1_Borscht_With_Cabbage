@@ -1,5 +1,5 @@
 import renderRightMenu from "./RightMenuTmpl.hbs";
-import { ProfileController } from "../../../controllers/ProfileController.js";
+import { ProfileController } from "Controllers/ProfileController.js";
 import { ProfileEdits } from "../ProfileEdits/ProfileEdits.js";
 import { Orders } from "../Orders/Orders.js";
 

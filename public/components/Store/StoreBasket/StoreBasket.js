@@ -1,9 +1,9 @@
 import renderStoreBasket from './StoreBasketTmpl.hbs';
 import { StoreBasketFood } from './StoreBasketFood/StoreBasketFood.js';
-import eventBus from '../../../modules/eventBus.js';
-import { ChangeBasketEvents } from '../../../events/ChangeBasketEvents.js';
-import { noop } from '../../../modules/utils.js';
-import basket from '../../../modules/basket.js';
+import eventBus from 'Modules/eventBus.js';
+import { ChangeBasketEvents } from 'Events/ChangeBasketEvents.js';
+import { noop } from 'Modules/utils.js';
+import basket from 'Modules/basket.js';
 
 export class StoreBasket {
     constructor ({

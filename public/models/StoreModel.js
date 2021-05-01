@@ -1,7 +1,7 @@
-import eventBus from '../modules/eventBus.js';
-import { addDishInBasket, getBasket, storeGet } from '../modules/api.js';
-import { StoreEvents } from '../events/StoreEvents.js';
-import { ChangeBasketEvents } from '../events/ChangeBasketEvents.js';
+import eventBus from 'Modules/eventBus.js';
+import { addDishInBasket, getBasket, storeGet } from 'Modules/api.js';
+import { StoreEvents } from 'Events/StoreEvents.js';
+import { ChangeBasketEvents } from 'Events/ChangeBasketEvents.js';
 
 export class StoreModel {
     getDishes (url) {

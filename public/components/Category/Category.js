@@ -1,6 +1,6 @@
 import renderCategory from './CategoryTmpl.hbs';
 import { category } from './Category.constants.js'
-import { MainController } from '../../controllers/MainController.js'
+import { MainController } from 'Controllers/MainController.js'
 
 export class CategoryComponent {
     constructor ({

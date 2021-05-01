@@ -1,7 +1,7 @@
-import { SignUp } from '../components/SignUp/SignUp.js';
-import user from '../modules/user.js';
-import { SignUpController } from '../controllers/SignUpController.js';
-import { noop } from '../modules/utils.js';
+import { SignUp } from 'Components/SignUp/SignUp.js';
+import user from 'Modules/user.js';
+import { SignUpController } from 'Controllers/SignUpController.js';
+import { noop } from 'Modules/utils.js';
 
 export class SignUpView {
     constructor ({

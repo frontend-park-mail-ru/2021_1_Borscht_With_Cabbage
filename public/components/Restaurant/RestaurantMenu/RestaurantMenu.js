@@ -1,9 +1,9 @@
-import eventBus from '../../../modules/eventBus.js';
-import { noop } from '../../../modules/utils.js';
-import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
+import eventBus from 'Modules/eventBus.js';
+import { noop } from 'Modules/utils.js';
+import { RestaurantMainController } from 'Controllers/RestaurantMainController.js';
 import renderRestaurantMenu from './RestaurantMenuTmpl.hbs';
-import { DishEvents } from '../../../events/DishEvents.js';
-import { SectionEvents } from '../../../events/SectionEvents.js'
+import { DishEvents } from 'Events/DishEvents.js';
+import { SectionEvents } from 'Events/SectionEvents.js'
 import { SectionComponent } from '../Section/Section.js';
 import { RestaurantAddingSection } from '../RestaurantAddingSection/RestaurantAddingSection.js'
 

@@ -1,12 +1,12 @@
-import { noop } from '../modules/utils.js';
-import { BasketController } from '../controllers/BasketController.js';
-import eventBus from '../modules/eventBus.js';
-import { BasketEvents } from '../events/BasketEvents.js';
-import renderBasketPage from '../components/Basket/BasketTmpl.hbs';
-import renderEmptyBasket from '../components/Basket/EmptyBasketTmpl.hbs';
-import { DeliveryBasket } from '../components/DeliveryBasket/DeliveryBasket.js';
-import { DeliveryOptions } from '../components/DeliveryOptions/DeliveryOptions.js';
-import user from '../modules/user.js';
+import { noop } from 'Modules/utils.js';
+import { BasketController } from 'Controllers/BasketController.js';
+import eventBus from 'Modules/eventBus.js';
+import { BasketEvents } from 'Events/BasketEvents.js';
+import renderBasketPage from 'Components/Basket/BasketTmpl.hbs';
+import renderEmptyBasket from 'Components/Basket/EmptyBasketTmpl.hbs';
+import { DeliveryBasket } from 'Components/DeliveryBasket/DeliveryBasket.js';
+import { DeliveryOptions } from 'Components/DeliveryOptions/DeliveryOptions.js';
+import user from 'Modules/user.js';
 
 export class BasketView {
     constructor ({

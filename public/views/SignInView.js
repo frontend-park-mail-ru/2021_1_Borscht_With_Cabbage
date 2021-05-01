@@ -1,7 +1,7 @@
-import { SignIn } from '../components/SignIn/SignIn.js';
-import user from '../modules/user.js';
-import { SignInController } from '../controllers/SignInController.js';
-import { noop } from '../modules/utils.js';
+import { SignIn } from 'Components/SignIn/SignIn.js';
+import user from 'Modules/user.js';
+import { SignInController } from 'Controllers/SignInController.js';
+import { noop } from 'Modules/utils.js';
 
 export class SignInView {
     constructor ({

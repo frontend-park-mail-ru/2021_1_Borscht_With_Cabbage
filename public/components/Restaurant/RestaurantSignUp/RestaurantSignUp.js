@@ -1,11 +1,11 @@
-import { noop } from "../../../modules/utils.js";
-import { RestaurantSignUpController } from "../../../controllers/RestaurantSignUpController.js";
-import eventBus from "../../../modules/eventBus.js";
-import { SignUpEvents } from "../../../events/SignUpEvents.js";
+import { noop } from "Modules/utils.js";
+import { RestaurantSignUpController } from "Controllers/RestaurantSignUpController.js";
+import eventBus from "Modules/eventBus.js";
+import { SignUpEvents } from "Events/SignUpEvents.js";
 import renderRestaurantSignUp from "./RestaurantSignUpTmpl.hbs"; // todo
-import { renderInput } from "../../../modules/rendering.js"; // todo
-import { Validator } from "../../../modules/validation.js";
-import { maskPhone } from "../../../modules/phoneMask.js";
+import { renderInput } from "Modules/rendering.js"; // todo
+import { Validator } from "Modules/validation.js";
+import { maskPhone } from "Modules/phoneMask.js";
 
 export class RestaurantSignUp {
     constructor ({

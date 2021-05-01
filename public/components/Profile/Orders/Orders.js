@@ -1,7 +1,7 @@
-import eventBus from '../../../modules/eventBus.js';
-import { noop } from '../../../modules/utils.js';
-import { ProfileEvents } from '../../../events/ProfileEvents.js';
-import { ProfileController } from '../../../controllers/ProfileController.js';
+import eventBus from 'Modules/eventBus.js';
+import { noop } from 'Modules/utils.js';
+import { ProfileEvents } from 'Events/ProfileEvents.js';
+import { ProfileController } from 'Controllers/ProfileController.js';
 import { OrderElement } from "./Order/Order.js";
 import renderOrderList from "./OrdersListTmpl.hbs";
 

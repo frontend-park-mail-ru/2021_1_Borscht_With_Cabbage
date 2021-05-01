@@ -1,6 +1,6 @@
-import { userOrdersGet, userGet, userPut, userAvatarPut } from '../modules/api.js';
-import eventBus from '../modules/eventBus.js';
-import { ProfileEvents } from '../events/ProfileEvents.js';
+import { userOrdersGet, userGet, userPut, userAvatarPut } from 'Modules/api.js';
+import eventBus from 'Modules/eventBus.js';
+import { ProfileEvents } from 'Events/ProfileEvents.js';
 
 export class ProfileModel {
     getUserData () {

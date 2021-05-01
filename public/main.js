@@ -1,18 +1,18 @@
-import { Router } from './modules/router.js';
-import { SignUpView } from './views/SignUpView.js';
-import { SignInView } from './views/SignInView.js';
-import { RestaurantSignInView } from "./views/RestaurantSignInView.js";
-import { RestaurantSignUpView } from "./views/RestaurantSignUpView.js";
-import { StoreView } from './views/StoreView.js';
-import { ProfileView } from './views/ProfileView.js';
-import { Logout } from './views/Logout.js';
-import { RestaurantMainView } from './views/RestaurantMainView.js';
-import { Navbar } from './components/NavBar/Navbar.js';
-import { authGet } from './modules/api.js';
-import { MainView } from "./views/MainView.js";
-import { InitViews } from './components/InitViews/InitViews.js';
+import { Router } from 'Modules/router.js';
+import { SignUpView } from 'Views/SignUpView.js';
+import { SignInView } from 'Views/SignInView.js';
+import { RestaurantSignInView } from "Views/RestaurantSignInView.js";
+import { RestaurantSignUpView } from "Views/RestaurantSignUpView.js";
+import { StoreView } from 'Views/StoreView.js';
+import { ProfileView } from 'Views/ProfileView.js';
+import { Logout } from 'Views/Logout.js';
+import { RestaurantMainView } from 'Views/RestaurantMainView.js';
+import { Navbar } from 'Components/NavBar/Navbar.js';
+import { authGet } from 'Modules/api.js';
+import { MainView } from "Views/MainView.js";
+import { InitViews } from 'Components/InitViews/InitViews.js';
 import registerSW from './registerSW.js';
-import { BasketView } from './views/BasketView.js';
+import { BasketView } from 'Views/BasketView.js';
 
 import './static/css/main.css';
 

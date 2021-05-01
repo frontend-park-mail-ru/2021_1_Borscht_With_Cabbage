@@ -1,10 +1,10 @@
-import { noop } from "../../../modules/utils.js";
-import { RestaurantMainController } from "../../../controllers/RestaurantMainController.js";
+import { noop } from "Modules/utils.js";
+import { RestaurantMainController } from "Controllers/RestaurantMainController.js";
 import renderRestaurantAddingDish from "./RestaurantAddingDishTmpl.hbs";
-import eventBus from "../../../modules/eventBus.js";
-import { DishEvents } from "../../../events/DishEvents.js";
-import { Validator } from "../../../modules/validation.js";
-import { renderInput } from "../../../modules/rendering.js";
+import eventBus from "Modules/eventBus.js";
+import { DishEvents } from "Events/DishEvents.js";
+import { Validator } from "Modules/validation.js";
+import { renderInput } from "Modules/rendering.js";
 import { Preview } from '../../Preview/Preview.js'
 
 export class RestaurantAddingDish {

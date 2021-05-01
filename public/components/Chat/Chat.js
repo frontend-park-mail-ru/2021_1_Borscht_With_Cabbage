@@ -18,8 +18,6 @@ export class Chat {
 
     render (info) {
         const data = info[0];
-        const id = data.id;
-        console.log(data);
         let docID = '';
         if (user.role === 'user') {
             docID = '#profile-left-block';

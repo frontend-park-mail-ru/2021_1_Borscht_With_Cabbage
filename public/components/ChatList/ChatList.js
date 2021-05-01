@@ -1,3 +1,4 @@
+import './ChatList.less';
 import { noop } from '../../modules/utils.js';
 import renderChatList from './ChatListTmpl.hbs';
 import renderNode from './ChatNodeTmpl.hbs';

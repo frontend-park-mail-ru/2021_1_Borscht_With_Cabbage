@@ -1,37 +1,30 @@
+import './Params.less';
 import renderParams from './ParamsTmpl.hbs';
 import { params } from './Params.constants.js';
 import { MainController } from '../../controllers/MainController.js'
-import { DropListComponent } from '../DropList/DropList.js'
+import list from '../DropList/DropList.js'
 import eventBus from '../../modules/eventBus.js';
 import { DropListEvents } from '../../events/DropListEvents.js';
-import './Params.less'
 
 export class ParamsComponent {
     constructor ({
-        root = document.body,
         controller = new MainController()
     } = {}) {
-        this.root = root;
         this.controller = controller;
         this.idDropList = 'Params';
+
+        eventBus.on(DropListEvents.chooseElement + this.idDropList, this.chooseElement.bind(this));
     }
 
-    render () {
+    render ({
+        root = document.body
+    } = {}) {
+        this.root = root;
         this.root.innerHTML = renderParams({
             params: params
         });
 
-        eventBus.on(DropListEvents.closeDropListComponent + this.idDropList, this.closeDropList.bind(this));
-        eventBus.on(DropListEvents.chooseElement + this.idDropList, this.chooseElement.bind(this));
         this.addParamsListeners();
-    }
-
-    closeDropList () {
-        if (this.list) {
-            this.list.remove();
-        }
-        this.item = null;
-        this.list = null;
     }
 
     chooseElement (name) {
@@ -39,6 +32,7 @@ export class ParamsComponent {
         console.log(name);
         this.correctItem.innerHTML = params[this.correctItem.dataset.params]
             .val[name].name;
+        this.item = null;
 
         this.controller.clickParams({
             name: this.correctItem.dataset.params,
@@ -63,23 +57,18 @@ export class ParamsComponent {
 
             // убираем список при повторном нажатии
             if (this.item === this.correctItem) {
-                this.closeDropList();
+                list.remove();
+                this.item = null;
                 return;
-            }
-
-            if (this.list) {
-                this.closeDropList();
             }
 
             this.item = this.correctItem;
 
-            this.list = new DropListComponent({
+            list.render({
                 root: this.correctItem,
                 content: params[this.correctItem.dataset.params].val,
                 idList: this.idDropList
             });
-
-            this.list.add();
         })
     }
 }

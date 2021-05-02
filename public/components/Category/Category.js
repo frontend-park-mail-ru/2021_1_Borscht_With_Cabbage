@@ -1,22 +1,25 @@
+import './Category.less';
 import renderCategory from './CategoryTmpl.hbs';
 import { category } from './Category.constants.js'
 import { MainController } from '../../controllers/MainController.js'
-import { DropListComponent } from '../DropList/DropList.js'
+import list from '../DropList/DropList.js'
 import eventBus from '../../modules/eventBus.js';
 import { DropListEvents } from '../../events/DropListEvents.js';
-import './Category.less'
 
 export class CategoryComponent {
     constructor ({
-        root = document.body,
         controller = new MainController()
     } = {}) {
-        this.root = root;
         this.controller = controller;
         this.idDropList = 'Category';
+
+        eventBus.on(DropListEvents.chooseElement + this.idDropList, this.chooseElement.bind(this));
     }
 
-    render () {
+    render ({
+        root = document.body
+    } = {}) {
+        this.root = root;
         this.root.innerHTML = renderCategory({
             category: category
         });
@@ -24,20 +27,14 @@ export class CategoryComponent {
         this.numberCategory = this.elemCategory.length - 1;
         this.numberVisability = 0;
 
-        eventBus.on(DropListEvents.closeDropListComponent + this.idDropList, this.closeDropList.bind(this));
-        eventBus.on(DropListEvents.chooseElement + this.idDropList, this.chooseElement.bind(this));
         this.addCategoryListeners();
         this.addSizeListener();
     }
 
-    closeDropList () {
-        if (this.list) {
-            this.list.remove();
-            this.list = null;
-        }
-    }
-
     chooseElement (name) {
+        const target = this.root.querySelector(`[data-category="${name}"`);
+        this.correctStyle(target);
+        console.log(target);
         this.controller.clickCategory({ name: name });
     }
 
@@ -54,17 +51,25 @@ export class CategoryComponent {
             // проверяе что нажали именно на кнопку
             const currCategory = target.dataset.category;
             if (currCategory === 'more') {
-                if (!this.list) {
-                    this.dropList(target);
-                } else {
-                    this.closeDropList();
-                }
+                this.dropList(target);
             } else if (currCategory) {
-                // TODO меняем элемент визуально как нибудь
+                this.correctStyle(target);
 
-                this.controller.clickCategory(currCategory);
+                this.controller.clickCategory({ name: currCategory });
             }
         })
+    }
+
+    correctStyle (target) {
+        const currCategory = target.dataset.category;
+        category[currCategory].isSelect = !category[currCategory].isSelect;
+        if (category[currCategory].isSelect) {
+            target.style.backgroundColor = 'var(--main-green_color)';
+            target.style.color = 'var(--navbar-href-white_color)';
+        } else {
+            target.style.backgroundColor = 'var(--cuisines-panel__slide_color)';
+            target.style.color = 'black';
+        }
     }
 
     dropList (item) {
@@ -76,13 +81,12 @@ export class CategoryComponent {
             }
             itemList.push(itemBody);
         }
-        this.list = new DropListComponent({
-            root: item,
-            content: itemList,
-            idList: this.idDropList
-        });
 
-        this.list.add();
+        list.render({
+            idList: this.idDropList,
+            root: item,
+            content: itemList
+        });
     }
 
     addSizeListener () {

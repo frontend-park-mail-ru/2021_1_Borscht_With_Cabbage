@@ -1,10 +1,22 @@
 import mainModel from '../models/MainModel.js';
 import eventBus from '../modules/eventBus.js';
 import { MainEvents } from '../events/MainEvents.js';
+import { noop } from '../modules/utils.js';
+import { MainView } from '../views/MainView.js';
+import user from '../modules/user.js';
 
 export class MainController {
-    constructor () {
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
+        this.goTo = goTo;
+        this.root = root;
+        this.mainView = new MainView({ goTo: goTo, controller: this });
+
         this.init();
+        eventBus.on(MainEvents.mainGetRestaurantsSuccess, this.renderContent.bind(this))
+        eventBus.on(MainEvents.mainGetRestaurantsFailed, this.loadError.bind(this))
     }
 
     init () {
@@ -21,21 +33,36 @@ export class MainController {
         }
     }
 
+    render (url) {
+        this.url = url;
+        if (user.role === 'admin') {
+            this.goTo('restaurantMain');
+            return;
+        } 
+        this.mainView.render({ root: this.root });
+        this.request.offset = 0;
+        this.getRestaurants();
+    }
+
     getRestaurants () {
         const url = this.#getUrl();
         this.request.offset += this.request.limit;
         mainModel.getRestaurants(url);
     }
 
+    renderContent (data) {
+        this.mainView.renderContent(data);
+    }
+
     clickCategory ({ name }) {
-        eventBus.emit(MainEvents.mainClearContent);
+        this.mainView.clearContent();
 
         this.#changeCategory({ name: name });
         this.getRestaurants();
     }
 
     clickParams (params) {
-        eventBus.emit(MainEvents.mainClearContent);
+        this.mainView.clearContent();
 
         this.#changeParams(params);
         this.getRestaurants();
@@ -74,5 +101,10 @@ export class MainController {
         }
 
         return url;
+    }
+
+    loadError (error) {
+        // TODO изобразить сообщение о пропаввшем интернете
+        console.log('mainVIew -> loadError', error)
     }
 }

@@ -5,16 +5,17 @@ import { MainController } from '../../controllers/MainController.js'
 
 export class PanelRestaurantsComponent {
     constructor ({
-        root = document.body,
         controller = new MainController(),
         goTo = noop
     } = {}) {
-        this.root = root;
         this.controller = controller;
         this.goTo = goTo;
     }
 
-    render () {
+    render ({
+        root = document.body
+    }) {
+        this.root = root;
         const restaurantsElem = document.createElement('div');
         restaurantsElem.innerHTML = renderPanelRestaurants({});
         this.root.append(restaurantsElem);

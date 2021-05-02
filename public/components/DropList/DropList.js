@@ -3,18 +3,20 @@ import eventBus from '../../modules/eventBus.js';
 import { DropListEvents } from '../../events/DropListEvents.js';
 import './DropList.less'
 
-export class DropListComponent {
-    constructor ({
+class DropListComponent {
+    constructor () {
+    }
+
+    render ({
         idList = '',
         root = document.body,
         content = null
     } = {}) {
-        this.idList = idList;
+        this.remove();
         this.root = root;
         this.content = content;
-    }
+        this.idList = idList;
 
-    add () {
         this.listItem = document.createElement('div');
 
         this.listItem.innerHTML = renderDropList({ content: this.content });
@@ -25,14 +27,16 @@ export class DropListComponent {
     }
 
     remove () {
-        this.listItem.remove();
+        if (this.listItem) {
+            this.listItem.remove();
+        }
     }
 
     addCloseListener () {
         const backgroundClose = this.root.querySelector('.drop-list__background');
         backgroundClose.addEventListener('click', () => {
-            eventBus.emit(DropListEvents.closeDropListComponent + this.idList);
-        })
+            this.remove();
+        });
     }
 
     addDropListeners () {
@@ -51,8 +55,10 @@ export class DropListComponent {
                 return;
             }
 
-            eventBus.emit(DropListEvents.closeDropListComponent + this.idList);
+            this.remove();
             eventBus.emit(DropListEvents.chooseElement + this.idList, item.dataset.list);
         })
     }
 }
+
+export default new DropListComponent();

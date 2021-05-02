@@ -4,6 +4,7 @@ import { MainEvents } from '../events/MainEvents.js';
 
 class MainModel {
     getRestaurants (url) {
+        console.log(url);
         restaurantsGet({ url: url })
             .then(res => {
                 if (res.status === 200) {

@@ -12,6 +12,7 @@ export class RestaurantMainView {
     constructor ({
         root = document.body,
         goTo = noop,
+        menu,
         controller = new RestaurantMainController({ root, goTo })
     } = {}) {
         this.goTo = goTo;
@@ -23,7 +24,11 @@ export class RestaurantMainView {
             goTo: this.goTo
         };
 
-        this.menu = new RestaurantMenuComponent(initialData);
+        this.menu = new RestaurantMenuComponent({
+            controller: this.mainController,
+            goTo: this.goTo, 
+            menu: menu
+        });
         this.edits = new RestaurantEdits(initialData);
         this.chats = new ChatList(initialData);
         this.chat = new Chat(initialData);
@@ -45,12 +50,21 @@ export class RestaurantMainView {
         } else if (/chats/.test(url)) {
             this.activeComponent = this.chats;
         } else if (/menu/.test(url)) {
-            this.activeComponent = this.menu;
+            this.menu.render({ root: document.getElementById('restaurant-left-block') });
+            return;
         } else {
             console.log('strange', url);
             this.activeComponent = this.edits;
         }
         this.activeComponent.render(data);
+    }
+
+    appendSection(section) {
+        this.menu.appendSection(section);
+    }
+
+    appendDish(dish) {
+        this.menu.appendDish(dish);
     }
 
     renderServerError (error) {
@@ -66,19 +80,7 @@ export class RestaurantMainView {
         this.chat.renderNewMessage(message);
     }
 
-    renderAppendSections (data) {
-        this.menu.appendSections(data);
-    }
-
-    renderDishLoadingError (data) {
-        this.menu.dishLoadingError(data);
-    }
-
-    renderAddingSuccess (data) {
-        this.menu.addingSuccess(data);
-    }
-
-    renderDeleteSection (data) {
-        this.menu.deleteSection(data);
+    deleteAll () {
+        this.menu.sections = [];
     }
 }

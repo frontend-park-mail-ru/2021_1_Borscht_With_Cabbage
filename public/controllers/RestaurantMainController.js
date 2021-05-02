@@ -4,10 +4,15 @@ import { DishEvents } from '../events/DishEvents.js';
 import eventBus from '../modules/eventBus.js';
 import { noop } from '../modules/utils.js';
 import { RestaurantMainView } from '../views/RestaurantMainView.js';
+import { RestaurantAddingDish } from '../components/Restaurant/RestaurantAddDish/RestaurantAddingDish.js';
+import { RestaurantAddingSection } from '../components/Restaurant/RestaurantAddingSection/RestaurantAddingSection.js'
 import user from '../modules/user.js';
 import chatModel from '../models/ChatModel.js';
 import { RestaurantEvents } from '../events/RestaurantEvents.js';
 import { SectionEvents } from '../events/SectionEvents.js';
+import { MenuModel } from '../modules/menu.js';
+import { ConfirmationEvents } from '../events/ConfirmationEvents.js';
+import { ConfirmationComponent } from '../components/Confirmation/Confirmation.js';
 
 export class RestaurantMainController {
     constructor ({
@@ -16,13 +21,24 @@ export class RestaurantMainController {
     } = {}) {
         this.goTo = goTo;
         this.root = root;
-        this.view = new RestaurantMainView({ root, goTo, controller: this })
-        eventBus.on(DishEvents.addingDishSuccess, this.addingDishDataSuccess.bind(this));
-        eventBus.on(DishEvents.addingDishFailed, this.addingDishDataFailed.bind(this));
+
+        this.confirmationId = 'restaurantController';
+        this.menu = new MenuModel();
+        this.view = new RestaurantMainView({ root, goTo, menu: this.menu, controller: this });
+        this.addingDish = new RestaurantAddingDish({ goTo: this.goTo, controller: this });
+        this.addingSection = new RestaurantAddingSection({ controller: this });
+        this.confirmation = new ConfirmationComponent();
+        eventBus.on(SectionEvents.addingSectionSuccess, this.addSectionSuccess.bind(this));
+        eventBus.on(ConfirmationEvents.confirmationSuccess + this.confirmationId, this.confirmationSuccess.bind(this));
+        eventBus.on(ConfirmationEvents.confirmationFailed + this.confirmationId, this.confirmationFailed.bind(this));
+        eventBus.on(SectionEvents.deleteSectionSuccess, this.deleteSectionSuccess.bind(this));
+        eventBus.on(SectionEvents.addingDishSuccess, this.addingDishDataSuccess.bind(this));
+        eventBus.on(SectionEvents.addingDishFailed, this.addingDishDataFailed.bind(this));
+        eventBus.on(SectionEvents.deleteDishSuccess, this.deleteDishSuccess.bind(this));
         eventBus.on(DishEvents.getAllDishSuccess, this.draw.bind(this));
         eventBus.on(DishEvents.getAllDishFailed, this.loadError.bind(this));
-        eventBus.on(SectionEvents.addingSectionSuccess, this.renderAddingSuccess.bind(this));
-        eventBus.on(SectionEvents.deleteSectionSuccess, this.renderDeleteSection.bind(this));
+
+
         eventBus.on(RestaurantEvents.restaurantGetChatsSuccess, this.draw.bind(this));
         eventBus.on(RestaurantEvents.restaurantGetChatsFailed, this.loadError.bind(this)); // TODO
         eventBus.on(RestaurantEvents.restaurantGetChatMessagesSuccess, this.draw.bind(this));
@@ -55,24 +71,148 @@ export class RestaurantMainController {
     }
 
     draw (data) {
+        data.forEach(section => {
+            const model = this.menu.addSection(section);
+            this.view.appendSection({ section: model });
+        })
+
         this.view.render({ data, url: this.url });
     }
 
-    renderAppendSections (data) {
-        this.view.renderAppendSections(data);
+    editSection (section) {
+        this.addingSectionItem = document.createElement('div');
+        this.root.appendChild(this.addingSectionItem);
+        // this.root.querySelector(`[data-section-id="${section.id}"]`)
+        //     .insertAdjacentElement('afterbegin', this.addingSectionItem);
+
+
+        this.addingSection.render({ root: this.addingSectionItem, section: section });
     }
 
-    renderDishLoadingError (data) {
-        this.view.renderDishLoadingError(data);
+    closeAddingSection () {
+        this.addingSectionItem.remove();
     }
 
-    renderAddingSuccess (data) {
-        this.view.renderAddingSuccess(data);
+    addSection (section) {
+        const nameError = Validator.validateName(section.name);
+        if (nameError.result) {
+            mainModel.addSection(section);
+            return {
+                error: false
+            }
+        } else {
+            return {
+                error: true,
+                nameError,
+                descriptionError,
+                priceError,
+                weightError
+            }
+        }
     }
 
-    renderDeleteSection (data) {
-        this.view.renderDeleteSection(data);
+    addSectionSuccess (section) {
+        const model = this.menu.addSection(section);
+        this.view.appendSection({ section: model });
+
+        this.view.render({ url: this.url });
     }
+
+    deleteSection ({ section }) {
+        this.removeSection = section;
+        this.confirmation.render({ root: this.root, id: this.confirmationId });
+    }
+
+    deleteDish ({ dish }) {
+        this.removeDish = dish;
+        this.confirmation.render({ root: this.root, id: this.confirmationId });
+    }
+
+    deleteSectionSuccess ({ id }) {
+        this.menu.deleteSection({ id: id });
+        this.view.render({ url: this.url });
+    }
+
+    deleteDishSuccess ({ id }) {
+        this.menu.deleteDish({ id: id });
+        this.view.render({ url: this.url });
+    }
+
+    confirmationSuccess () {
+        console.log(this.removeSection);
+        console.log(this.removeDish);
+        if (this.removeSection) {
+            mainModel.deleteSection({ id: this.removeSection.id });
+            this.removeSection = null;
+        }
+        if (this.removeDish) {
+            mainModel.deleteDish({ id: this.removeDish.id });
+            this.removeDish = null;
+        }
+    }
+
+    confirmationFailed () {
+        console.log('confirmationFailed');
+        this.removeSection = null;
+        this.removeDish = null;
+    }
+
+    editDish (dish) {
+        console.log('editDish', dish);
+        this.addingDishItem = document.createElement('div');
+        this.root.append(this.addingDishItem);
+
+        this.addingDish.render({
+            root: this.addingDishItem,
+            dish: dish
+        });
+    }
+    
+    closeAddingDish() {
+        if (this.addingDishItem) {
+            this.addingDishItem.remove();
+        }
+    }
+
+    addDish (dish) {
+        const nameError = Validator.validateName(dish.name);
+        const descriptionError = Validator.validateDescription(dish.description);
+        const priceError = Validator.validateNumber(dish.price);
+        const weightError = Validator.validateNumber(dish.weight);
+        this.imageDish = dish.image;
+
+        if (nameError.result && descriptionError.result && priceError.result && weightError.result) {
+            dish.price = Number(dish.price);
+            dish.weight = Number(dish.weight);
+            mainModel.addDish(dish);
+            return {
+                error: false
+            };
+        }
+        return {
+            error: true,
+            nameError,
+            descriptionError,
+            priceError,
+            weightError
+        };
+    }
+
+    addingDishDataSuccess (dish) {
+        const model = this.menu.addDish(dish);
+        this.view.appendDish({ dish: model });
+        model.updateImage({ id: dish.id, image: this.imageDish });
+        this.view.render({ url: this.url });
+    }
+
+
+
+
+
+
+
+
+
 
     sendMessage (value, id) {
         const message = {
@@ -111,134 +251,14 @@ export class RestaurantMainController {
         }
     }
 
-    addSection (section) {
-        const nameError = Validator.validateName(section.name);
-        if (nameError.result) {
-            mainModel.addSection(section);
-            return {
-                error: false
-            }
-        } else {
-            return {
-                error: true,
-                nameError,
-                descriptionError,
-                priceError,
-                weightError
-            }
-        }
-    }
-
-    updateSection (section) {
-        if (!section.id) {
-            return {
-                error: true
-            }
-        }
-
-        section.id = Number(section.id);
-        const nameError = Validator.validateName(section.name);
-        if (nameError.result) {
-            mainModel.updateSection(section);
-            return {
-                error: false
-            }
-        } else {
-            return {
-                error: true,
-                nameError,
-                descriptionError,
-                priceError,
-                weightError
-            }
-        }
-    }
-
-    deleteSection (id) {
-        if (!id) {
-            return {
-                error: true
-            }
-        }
-        return mainModel.deleteSection({ id: Number(id) });
-    }
-
     getDishes () {
+        this.menu.deleteAll();
+        this.view.deleteAll();
         mainModel.getDish();
-    }
-
-    updateDish (dish) {
-        if (!dish.id) {
-            return {
-                error: true
-            }
-        }
-        const actonFunc = mainModel.updateDataDish;
-        const result = this.correctAndSendDish(dish, actonFunc);
-
-        // загрузка изображения
-        if (!dish.image) {
-            return result;
-        }
-        const formData = new FormData();
-        formData.append('image', dish.image);
-        formData.append('id', dish.id);
-        mainModel.updateImageDish({ id: dish.id, data: formData });
-
-        return result;
-    }
-
-    correctAndSendDish (dish, action) {
-        const nameError = Validator.validateName(dish.name);
-        const descriptionError = Validator.validateDescription(dish.description);
-        const priceError = Validator.validateNumber(dish.price);
-        const weightError = Validator.validateNumber(dish.weight);
-
-        if (nameError.result && descriptionError.result && priceError.result && weightError.result) {
-            dish.price = Number(dish.price);
-            dish.weight = Number(dish.weight);
-            action(dish);
-            return {
-                error: false
-            };
-        }
-        return {
-            error: true,
-            nameError,
-            descriptionError,
-            priceError,
-            weightError
-        };
-    }
-
-    addDish (dish) {
-        const actonFunc = mainModel.addDish;
-        this.imageDish = dish.image;
-        return this.correctAndSendDish(dish, actonFunc)
-    }
-
-    addingDishDataSuccess ({ id }) {
-        if (this.imageDish) {
-            const formData = new FormData();
-            formData.append('image', this.imageDish);
-            formData.append('id', id);
-            mainModel.updateImageDish({ id: id, data: formData });
-
-            this.imageDish = null;
-        }
     }
 
     addingDishDataFailed () {
         this.imageDish = null;
-    }
-
-    deleteDish (id, sectionId) {
-        if (!id) {
-            return {
-                error: true
-            }
-        }
-        return mainModel.deleteDish({ id: Number(id), sectionId: sectionId });
     }
 
     setRestaurantData ({

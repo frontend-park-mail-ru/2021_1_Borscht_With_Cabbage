@@ -6,24 +6,23 @@ import { SectionEvents } from '../../../events/SectionEvents.js';
 import { Validator } from '../../../modules/validation.js';
 import { renderInput } from '../../../modules/rendering.js';
 import { getError } from '../../../modules/utils.js';
+import { SectionModel } from '../../../modules/section.js';
 
 export class RestaurantAddingSection {
     constructor ({
-        root = document.body,
         controller = new RestaurantMainController(),
-        section
     } = {}) {
-        this.root = root;
         this.controller = controller;
-        this.section = section;
         this.nameID = 'name';
         
         eventBus.on(SectionEvents.updateSectionSuccess, this.closeItem.bind(this));
     }
 
-    render () {
+    render ({ root = document.body, section = null } = {}) {
+        this.root = root;
+        this.section = section;
         let buttonName = 'Добавить';
-        if (this.section && this.section.id) {
+        if (this.section) {
             buttonName = 'Обновить';
         }
         this.root.innerHTML += renderRestaurantAddingSection({
@@ -62,7 +61,7 @@ export class RestaurantAddingSection {
 
     closeItem () {
         console.log('close');
-        eventBus.emit(SectionEvents.closeAddingSectionComponent, {});
+        this.controller.closeAddingSection();
     }
 
     addAddingSectionEventListeners () {
@@ -83,17 +82,14 @@ export class RestaurantAddingSection {
     formSubmit (event) {
         event.preventDefault();
 
-        if (!this.section) {
-            this.section = {};
-        }
-        this.section.name = document.getElementById(this.nameID).value;
+        let name = document.getElementById(this.nameID).value;
 
         let errors;
-        if (this.section.id) {
+        if (this.section) {
             console.log('update');
-            errors = this.controller.updateSection(this.section);
+            errors = this.section.updateSection({ name });
         } else {
-            errors = this.controller.addSection(this.section);
+            errors = this.controller.addSection({ name });
         }
 
         if (errors.error === true) {

@@ -30,13 +30,12 @@ class RestaurantMainModel {
         restaurantAddDishPost({ name, description, price, weight, section })
             .then(res => {
                 if (res.status === 200) {
-                    eventBus.emit(DishEvents.addingDishSuccess + section, res.parsedJSON);
-                    eventBus.emit(DishEvents.addingDishSuccess, res.parsedJSON);
+                    eventBus.emit(SectionEvents.addingDishSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(DishEvents.addingDishFailed, res);
+                    eventBus.emit(SectionEvents.addingDishFailed, res);
                 }
             })
-            .catch(res => eventBus.emit(DishEvents.addingDishFailed, res));
+            // .catch(res => eventBus.emit(SectionEvents.addingDishFailed, res));
     }
 
     updateDataDish ({ id, name, description, price, weight }) {
@@ -65,15 +64,15 @@ class RestaurantMainModel {
             .catch(res => eventBus.emit(DishEvents.updateDishImageFailed, res));
     }
 
-    deleteDish ({ id, sectionId }) {
+    deleteDish ({ id }) {
         restaurantDeleteDish({ id: id })
             .then(res => {
                 if (res.status === 200) {
                     console.log('model success');
-                    eventBus.emit(DishEvents.deleteDishSuccess + sectionId, res.parsedJSON);
+                    eventBus.emit(SectionEvents.deleteDishSuccess, res.parsedJSON);
                 } else {
                     console.log('model failed');
-                    eventBus.emit(DishEvents.deleteDishFailed + sectionId, res.parsedJSON);
+                    eventBus.emit(SectionEvents.deleteDishFailed, res.parsedJSON);
                 }
             })
             .catch(res => {

@@ -30,13 +30,13 @@ export class ParamsComponent {
     chooseElement (name) {
         // элемент в котором нужно поменять значение параметра
         console.log(name);
-        this.correctItem.innerHTML = params[this.correctItem.dataset.params]
-            .val[name].name;
+        const nameCurrentParams = this.correctItem.dataset.params;
+        this.correctItem.innerHTML = params[nameCurrentParams].val[name].name;
         this.item = null;
 
         this.controller.clickParams({
-            name: this.correctItem.dataset.params,
-            value: name
+            name: nameCurrentParams,
+            value: params[nameCurrentParams].val[name].value
         });
     }
 

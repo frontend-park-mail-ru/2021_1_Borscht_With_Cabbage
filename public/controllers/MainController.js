@@ -26,9 +26,9 @@ export class MainController {
             limit: 5,
             category: [],
             params: {
-                time: 'not',
-                receipt: 'not',
-                rating: 'not'
+                time: 0,
+                receipt: 0,
+                rating: 0
             }
         }
     }

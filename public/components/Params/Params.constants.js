@@ -4,26 +4,30 @@ export const params = {
         data: 'time',
 
         default: {
-            name: '< 120 мин',
-            data: 'max'
+            name: '-',
+            data: 'not'
         },
 
         val: {
             not: {
                 name: '-',
-                data: 'not'
+                data: 'not',
+                value: 0
             },
             min: {
-                name: '< 45 мин',
-                data: 'min'
+                name: '< 20 мин',
+                data: 'min',
+                value: 20
             },
             middle: {
-                name: '< 60 мин',
-                data: 'middle'
+                name: '< 30 мин',
+                data: 'middle',
+                value: 30
             },
             max: {
-                name: '< 120 мин',
-                data: 'max'
+                name: '< 60 мин',
+                data: 'max',
+                value: 60
             }
         }
     },
@@ -32,26 +36,30 @@ export const params = {
         data: 'receipt',
 
         default: {
-            name: '< 2000 ₽',
-            data: 'max'
+            name: '-',
+            data: 'not'
         },
 
         val: {
             not: {
                 name: '-',
-                data: 'not'
+                data: 'not',
+                value: 0
             },
             min: {
                 name: '< 500 ₽',
-                data: 'min'
+                data: 'min',
+                value: 500
             },
             middle: {
                 name: '< 1000 ₽',
-                data: 'middle'
+                data: 'middle',
+                value: 1000
             },
             max: {
                 name: '< 2000 ₽',
-                data: 'max'
+                data: 'max',
+                value: 2000
             }
         }
     },
@@ -67,19 +75,23 @@ export const params = {
         val: {
             not: {
                 name: '-',
-                data: 'not'
+                data: 'not',
+                value: 0
             },
             min: {
                 name: '❤3',
-                data: 'min'
+                data: 'min',
+                value: 3
             },
             middle: {
                 name: '❤4',
-                data: 'middle'
+                data: 'middle',
+                value: 4
             },
             max: {
                 name: '❤4.5',
-                data: 'max'
+                data: 'max',
+                value: 4.5
             }
         }
     }

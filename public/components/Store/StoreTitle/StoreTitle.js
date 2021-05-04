@@ -1,13 +1,16 @@
 import './StoreTitle.less';
 import renderStoreTitle from './StoreTitleTmpl.hbs';
+import { noop } from '../../../modules/utils.js';
 
 export class StoreTitle {
     constructor ({
         root = document.body,
-        store
+        store,
+        goTo = noop
     } = {}) {
         this.root = root;
         this.store = store;
+        this.goTo = goTo;
     }
 
     render () {
@@ -25,13 +28,14 @@ export class StoreTitle {
         this.sectionsPanel = this.root.querySelector('.sections-hrefs');
         this.startPosition = this.sectionsPanel.offsetTop;
         const func = this.sticky.bind(this);
-        window.onscroll = function () { func() };
+        window.onscroll = function () {
+            func();
+        };
     }
 
     addEventListeners () {
         const hrefs = Array.from(this.root.querySelector('.sections-hrefs').children);
         hrefs.forEach(value => {
-            console.log(value)
             value.addEventListener('click', () => {
                 const href = value.href.substr(value.href.lastIndexOf('#') + 1);
                 const scrollTarget = document.getElementById(href);
@@ -44,6 +48,11 @@ export class StoreTitle {
                 });
             });
         });
+        this.root
+            .querySelector('#js-goToChat')
+            .addEventListener('click', () => {
+                this.goTo(`/profile/chats/${this.store.id}`);
+            });
     }
 
     sticky () {

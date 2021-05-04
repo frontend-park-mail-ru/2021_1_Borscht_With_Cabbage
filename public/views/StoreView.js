@@ -27,7 +27,8 @@ export class StoreView {
         this.root.append(main);
         this.storeTitle = new StoreTitle({
             root: document.getElementById('store-info__title'),
-            store: info
+            store: info,
+            goTo: this.goTo
         });
         this.storeTitle.render();
 

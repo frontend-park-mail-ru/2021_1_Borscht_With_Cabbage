@@ -1,15 +1,19 @@
 import './StoreTitle.less';
 import renderStoreTitle from './StoreTitleTmpl.hbs';
 import { noop } from '../../../modules/utils.js';
+import { StoreReviews } from "../StoreReviews/StoreReviews.js";
+import { I18n } from "../../../modules/intlApi.js";
 
 export class StoreTitle {
     constructor ({
         root = document.body,
         store,
+        controller,
         goTo = noop
     } = {}) {
         this.root = root;
         this.store = store;
+        this.controller = controller
         this.goTo = goTo;
     }
 
@@ -31,6 +35,14 @@ export class StoreTitle {
         window.onscroll = function () {
             func();
         };
+        this.storeReviews = new StoreReviews(
+            this.root,
+            this.store,
+            this.controller,
+        )
+
+        const reviews = document.getElementById('reviews')
+        reviews.addEventListener('click', this.checkReviews.bind(this))
     }
 
     addEventListeners () {
@@ -53,6 +65,11 @@ export class StoreTitle {
             .addEventListener('click', () => {
                 this.goTo(`/profile/chats/${this.store.id}`);
             });
+    }
+
+    checkReviews(event) {
+        event.preventDefault()
+        this.storeReviews.render()
     }
 
     sticky () {

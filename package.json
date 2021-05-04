@@ -52,6 +52,7 @@
     "less-loader": "^8.1.1",
     "mini-css-extract-plugin": "^1.4.1",
     "postcss-loader": "^5.2.0",
+    "prettier": "2.2.1",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
     "standard": "^16.0.3",

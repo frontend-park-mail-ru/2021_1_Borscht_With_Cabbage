@@ -1,12 +1,13 @@
 import '../components/Restaurant/Restaurant.less'
-import { RestaurantMainController } from '../controllers/RestaurantMainController.js';
-import { RestaurantMenuComponent } from '../components/Restaurant/RestaurantMenu/RestaurantMenu.js'
-import { RestaurantEdits } from '../components/Restaurant/RestaurantEdits/RestaurantEdits.js';
-import renderRestaurantView from '../components/Restaurant/RestaurantMainTmpl.hbs';
-import { RestaurantRightMenu } from '../components/Restaurant/RestaurantRightMenu/RightMenu.js';
 import { noop } from '../modules/utils.js';
 import { ChatList } from '../components/ChatList/ChatList.js';
 import { Chat } from '../components/Chat/Chat.js';
+import { RestaurantMainController } from 'Controllers/RestaurantMainController.js';
+import { RestaurantMenuComponent } from 'Components/Restaurant/RestaurantMenu/RestaurantMenu.js'
+import { RestaurantEdits } from 'Components/Restaurant/RestaurantEdits/RestaurantEdits.js';
+import renderRestaurantView from 'Components/Restaurant/RestaurantMainTmpl.hbs';
+import { RestaurantRightMenu } from 'Components/Restaurant/RestaurantRightMenu/RightMenu.js';
+import { RestaurantOrdersComponent } from "Components/Restaurant/RestaurantOrders/RestaurantOrders";
 
 export class RestaurantMainView {
     constructor ({
@@ -26,12 +27,13 @@ export class RestaurantMainView {
 
         this.menu = new RestaurantMenuComponent({
             controller: this.mainController,
-            goTo: this.goTo, 
+            goTo: this.goTo,
             menu: menu
         });
         this.edits = new RestaurantEdits(initialData);
         this.chats = new ChatList(initialData);
         this.chat = new Chat(initialData);
+        this.orders = new RestaurantOrdersComponent(initialData);
 
         this.rightMenu = new RestaurantRightMenu({
             root: this.root,
@@ -44,7 +46,7 @@ export class RestaurantMainView {
         this.rightMenu.render();
 
         if (/orders/.test(url)) {
-            // this.activeComponent = this.orders;
+            this.activeComponent = this.orders;
         } else if (/chats\/./.test(url)) {
             this.activeComponent = this.chat;
         } else if (/chats/.test(url)) {
@@ -69,11 +71,6 @@ export class RestaurantMainView {
 
     renderServerError (error) {
         this.activeComponent.renderServerError(error);
-    }
-
-    loadError (error) {
-        // TODO изобразить сообщение о пропаввшем интернете
-        console.log('mainVIew -> loadError', error)
     }
 
     renderNewMessage (message) {

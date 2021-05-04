@@ -1,7 +1,7 @@
 import renderPanelRestaurants from './PanelRestaurantsTmpl.hbs';
-import { noop } from '../../modules/utils.js';
+import { noop } from 'Modules/utils.js';
 import renderInfoRestaurant from '../InfoRestaurant/InfoRestaurantTmpl.hbs';
-import { MainController } from '../../controllers/MainController.js'
+import { MainController } from 'Controllers/MainController.js'
 
 export class PanelRestaurantsComponent {
     constructor ({

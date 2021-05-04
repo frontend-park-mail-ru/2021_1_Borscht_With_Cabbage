@@ -1,4 +1,4 @@
-import { noop } from '../../modules/utils.js';
+import { noop } from 'Modules/utils.js';
 import renderDeliveryBasketHeader from './DeliveryBasketHeaderTmpl.hbs';
 import renderDeliveryBasketBody from './DeliveryBasketBodyTmpl.hbs';
 import renderDeliveryBasketFooter from './DeliveryBasketFooterTmpl.hbs';

@@ -36,6 +36,10 @@ export class StoreController {
         });
     }
 
+    getReviews(storeID) {
+        this.storeModel.getReviews(storeID)
+    }
+
     render (url) {
         this.getDishes(url);
     }

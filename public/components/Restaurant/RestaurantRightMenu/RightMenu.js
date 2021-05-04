@@ -39,7 +39,7 @@ export class RestaurantRightMenu {
         const orders = document.getElementById(ordersID);
         if (orders) {
             orders.addEventListener('click', () => {
-                // TODO
+                this.goTo('/restaurant/orders');
             });
         }
 

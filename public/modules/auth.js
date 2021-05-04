@@ -1,5 +1,5 @@
 import eventBus from './eventBus.js';
-import { AuthEvents } from '../events/AuthEvents.js';
+import { AuthEvents } from 'Events/AuthEvents.js';
 import { getWSKey, postBasket } from './api.js';
 import basket from './basket.js';
 import address from './address.js';

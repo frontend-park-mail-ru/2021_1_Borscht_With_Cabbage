@@ -1,5 +1,5 @@
 import renderBtn from './MoreRestaurantsTmpl.hbs';
-import { MainController } from '../../controllers/MainController.js'
+import { MainController } from 'Controllers/MainController.js'
 
 export class MoreRestaurantsComponent {
     constructor ({

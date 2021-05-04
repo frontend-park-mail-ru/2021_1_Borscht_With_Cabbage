@@ -1,8 +1,8 @@
 import './NumButtons.less';
 import renderNumButtons from './NumButtonsTmpl.hbs';
-import eventBus from '../../modules/eventBus.js';
-import basket from '../../modules/basket.js';
-import { StoreController } from '../../controllers/StoreController.js';
+import eventBus from 'Modules/eventBus.js';
+import basket from 'Modules/basket.js';
+import { StoreController } from 'Controllers/StoreController.js';
 
 export class NumButtons {
     constructor ({

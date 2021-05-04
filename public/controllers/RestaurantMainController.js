@@ -13,6 +13,7 @@ import { SectionEvents } from '../events/SectionEvents.js';
 import { MenuModel } from '../modules/menu.js';
 import { ConfirmationEvents } from '../events/ConfirmationEvents.js';
 import { ConfirmationComponent } from '../components/Confirmation/Confirmation.js';
+import { RestaurantOrdersEvents } from '../events/RestaurantOrdersEvents.js';
 
 export class RestaurantMainController {
     constructor ({
@@ -37,12 +38,12 @@ export class RestaurantMainController {
         eventBus.on(SectionEvents.deleteDishSuccess, this.deleteDishSuccess.bind(this));
         eventBus.on(DishEvents.getAllDishSuccess, this.draw.bind(this));
         eventBus.on(DishEvents.getAllDishFailed, this.loadError.bind(this));
-
-
         eventBus.on(RestaurantEvents.restaurantGetChatsSuccess, this.draw.bind(this));
         eventBus.on(RestaurantEvents.restaurantGetChatsFailed, this.loadError.bind(this)); // TODO
         eventBus.on(RestaurantEvents.restaurantGetChatMessagesSuccess, this.draw.bind(this));
         eventBus.on(RestaurantEvents.restaurantGetChatMessagesFailed, this.loadError.bind(this)); // TODO
+        eventBus.on(RestaurantOrdersEvents.restaurantGetOrdersSuccess, this.draw.bind(this));
+        eventBus.on(RestaurantOrdersEvents.restaurantGetOrdersFailed, this.loadError.bind(this));
     }
 
     render (url) {
@@ -56,7 +57,7 @@ export class RestaurantMainController {
         }
 
         if (/orders/.test(url)) {
-            // this.getOrders();
+            this.getOrders();
         } else if (/chats\/./.test(url)) {
             this.getChatMessages(url);
         } else if (/chats/.test(url)) {
@@ -71,10 +72,12 @@ export class RestaurantMainController {
     }
 
     draw (data) {
-        data.forEach(section => {
-            const model = this.menu.addSection(section);
-            this.view.appendSection({ section: model });
-        })
+        if (this.url.match(/menu/)) {
+            data.forEach(section => {
+                const model = this.menu.addSection(section);
+                this.view.appendSection({ section: model });
+            })
+        }
 
         this.view.render({ data, url: this.url });
     }
@@ -205,15 +208,6 @@ export class RestaurantMainController {
         this.view.render({ url: this.url });
     }
 
-
-
-
-
-
-
-
-
-
     sendMessage (value, id) {
         const message = {
             to: {
@@ -226,6 +220,10 @@ export class RestaurantMainController {
         }
 
         chatModel.sendMessage(message);
+    }
+
+    getOrders () {
+        mainModel.getOrders();
     }
 
     getChats () {

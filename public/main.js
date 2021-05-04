@@ -2,9 +2,6 @@ import './static/css/variables.less'
 import './components/basicStyles.less'
 import './static/css/main.less';
 
-import { Router } from './modules/router.js';
-import { Navbar } from './components/NavBar/Navbar.js';
-import { InitViews } from './components/InitViews/InitViews.js';
 import { SignInController } from './controllers/SignInController.js';
 import { SignUpController } from './controllers/SignUpController.js';
 import { RestaurantSignInController } from './controllers/RestaurantSignInController.js';
@@ -14,8 +11,11 @@ import { ProfileController } from './controllers/ProfileController.js';
 import { StoreController } from './controllers/StoreController.js';
 import { RestaurantMainController } from './controllers/RestaurantMainController.js';
 import { MainController } from './controllers/MainController.js';
-import { Logout } from './views/Logout.js';
-import { authGet } from './modules/api.js';
+import { Router } from 'Modules/router.js';
+import { Logout } from 'Views/Logout.js';
+import { Navbar } from 'Components/NavBar/Navbar.js';
+import { authGet } from 'Modules/api.js';
+import { InitViews } from 'Components/InitViews/InitViews.js';
 
 // import registerSW from './registerSW.js';
 //

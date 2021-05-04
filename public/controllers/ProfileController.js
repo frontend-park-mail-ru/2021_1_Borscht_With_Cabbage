@@ -1,5 +1,5 @@
-import profileModel from '../models/ProfileModel.js';
-import { Validator } from '../modules/validation.js';
+import profileModel from 'Models/ProfileModel.js';
+import { Validator } from 'Modules/validation.js';
 import user from '../modules/user.js';
 import { noop } from '../modules/utils.js';
 import { ProfileView } from '../views/ProfileView.js';
@@ -162,5 +162,10 @@ export class ProfileController {
                 this.profileView.renderNewMessage(message.payload.message);
             }
         }
+    }
+
+    postReview (oid, review, stars) {
+        stars = parseInt(stars)
+        this.profileModel.postReview(oid, review, stars)
     }
 }

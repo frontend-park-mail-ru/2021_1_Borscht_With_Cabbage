@@ -5,16 +5,43 @@ import {
     restaurantPut,
     sectionAddPost,
     sectionUpdatePut,
-    sectionDelete, restaurantAvatarPut, userPut, userAvatarPut
-    , restaurantUpdateDishDataPut, restaurantDeleteDish
+    sectionDelete, restaurantAvatarPut,
+    userPut, userAvatarPut,
+    restaurantOrdersGet, updateStatus
 } from '../modules/api.js';
-
+import { restaurantUpdateDishDataPut, restaurantDeleteDish } from '../modules/api.js';
 import eventBus from '../modules/eventBus.js';
 import { DishEvents } from '../events/DishEvents.js';
+import { ProfileEvents } from '../events/ProfileEvents.js';
 import { SectionEvents } from '../events/SectionEvents.js';
-import { RestaurantEvents } from '../events/RestaurantEvents.js';
+import {RestaurantOrdersEvents} from "Events/RestaurantOrdersEvents.js";
 
 class RestaurantMainModel {
+    getOrders () {
+        restaurantOrdersGet()
+            .then(res => {
+                if (res.status === 200) {
+                    eventBus.emit(RestaurantOrdersEvents.restaurantGetOrdersSuccess, res.parsedJSON)
+                } else {
+                    eventBus.emit(RestaurantOrdersEvents.restaurantGetOrdersFailed, res.parsedJSON)
+                }
+            })
+            .catch(res => eventBus.emit(RestaurantOrdersEvents.restaurantGetOrdersFailed, res.parsedJSON));
+    }
+
+    updateStatus (status, deliveryTime, order) {
+        updateStatus(status, deliveryTime, order)
+            .then(res => {
+                if (res.status === 200) {
+                    eventBus.emit(RestaurantOrdersEvents.restaurantOrderUpdateStatusSuccess, res.parsedJSON);
+                } else {
+                    eventBus.emit(RestaurantOrdersEvents.restaurantOrderUpdateStatusFailed, res.parsedJSON);
+                }
+            })
+            .catch(res => eventBus.emit(RestaurantOrdersEvents.restaurantOrderUpdateStatusFailed, res.parsedJSON));
+    }
+
+
     getDish () {
         allDishesGet().then(res => {
             if (res.status === 200) {

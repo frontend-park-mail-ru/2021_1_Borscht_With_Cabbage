@@ -1,11 +1,13 @@
 import '../components/Store/Store.less';
 
-import renderStoreView from '../components/Store/StoreTmpl.hbs';
-import { StoreTitle } from '../components/Store/StoreTitle/StoreTitle.js';
-import { StoreFoodList } from '../components/Store/StoreFoodList/StoreFoodList.js';
-import { StoreBasket } from '../components/Store/StoreBasket/StoreBasket.js';
-import { StoreController } from '../controllers/StoreController.js';
-import { noop } from '../modules/utils.js';
+import renderStoreView from 'Components/Store/StoreTmpl.hbs';
+import { StoreTitle } from 'Components/Store/StoreTitle/StoreTitle.js';
+import { StoreFoodList } from 'Components/Store/StoreFoodList/StoreFoodList.js';
+import { StoreBasket } from 'Components/Store/StoreBasket/StoreBasket.js';
+import { StoreController } from 'Controllers/StoreController.js';
+import eventBus from 'Modules/eventBus.js';
+import { StoreEvents } from 'Events/StoreEvents.js';
+import { noop } from 'Modules/utils.js';
 import { StoreSectionList } from '../components/Store/StoreSectionList/StoreSectionList.js';
 
 export class StoreView {
@@ -28,7 +30,8 @@ export class StoreView {
         this.storeTitle = new StoreTitle({
             root: document.getElementById('store-info__title'),
             store: info,
-            goTo: this.goTo
+            goTo: this.goTo,
+            controller: this.storeController
         });
         this.storeTitle.render();
 

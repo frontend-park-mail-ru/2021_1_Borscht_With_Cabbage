@@ -1,7 +1,7 @@
 import './Confirmation.less';
 import renderConfirmation from './ConfirmationTmpl.hbs';
-import eventBus from '../../modules/eventBus.js';
-import { ConfirmationEvents } from '../../events/ConfirmationEvents.js'
+import eventBus from 'Modules/eventBus.js';
+import { ConfirmationEvents } from 'Events/ConfirmationEvents.js'
 
 export class ConfirmationComponent {
     constructor () {

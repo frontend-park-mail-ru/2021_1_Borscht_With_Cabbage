@@ -1,10 +1,10 @@
 import './FoodElement.less';
 import renderFoodElement from './StoreFoodElementTmpl.hbs';
-import eventBus from '../../../modules/eventBus.js';
-import { ChangeBasketEvents } from '../../../events/ChangeBasketEvents.js';
+import eventBus from 'Modules/eventBus.js';
+import { ChangeBasketEvents } from 'Events/ChangeBasketEvents.js';
 import { NumButtons } from '../../NumButtons/NumButtons.js';
-import { StoreController } from '../../../controllers/StoreController.js';
-import basket from '../../../modules/basket.js';
+import { StoreController } from 'Controllers/StoreController.js';
+import basket from 'Modules/basket.js';
 
 export class StoreFoodElement {
     constructor ({

@@ -17,14 +17,6 @@ export class Orders {
         this.user = user;
         this.goTo = goTo;
         this.controller = controller;
-        // eventBus.on(
-        //     ProfileEvents.profileGetOrdersSuccess,
-        //     this.ordersDraw.bind(this)
-        // );
-        // eventBus.on(
-        //     ProfileEvents.profileGetOrdersFailed,
-        //     this.renderServerError.bind(this)
-        // );
     }
 
     render (orders) {
@@ -37,7 +29,8 @@ export class Orders {
                 const element = new OrderElement({
                     root: orderList,
                     order: order,
-                    controller: this.controller
+                    controller: this.controller,
+                    goTo: this.goTo
                 });
                 element.render();
             }

@@ -60,11 +60,6 @@ export class StoreTitle {
                 });
             });
         });
-        this.root
-            .querySelector('#js-goToChat')
-            .addEventListener('click', () => {
-                this.goTo(`/profile/chats/${this.store.id}`);
-            });
     }
 
     checkReviews(event) {

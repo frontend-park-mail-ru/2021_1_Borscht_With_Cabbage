@@ -4,17 +4,20 @@ import renderDish from '../../../Profile/Orders/Order/OrderDish/DishTmpl.hbs';
 import { RestaurantMainController } from '../../../../controllers/RestaurantMainController.js';
 import { StatusesComponent } from './StatusOptions/StatusOptions.js';
 import { I18n } from "../../../../modules/intlApi.js";
+import { noop } from '../../../../modules/utils.js';
 
 export class RestaurantOrderElement {
     constructor ({
         root = document.body,
         order = null,
         i18n = null,
-        restaurantController
+        restaurantController,
+        goTo = noop
     } = {}) {
         this.root = root;
         this.order = order;
         this.restaurantController = restaurantController;
+        this.goTo = goTo;
     }
 
     render () {
@@ -50,6 +53,12 @@ export class RestaurantOrderElement {
                     dishPlace.innerHTML += renderDish({ dish: dish });
                 }
             }
+
+            this.root
+                .querySelector('#js_go-to-chat')
+                .addEventListener('click', () => {
+                    this.goTo(`/restaurant/chats/${this.order.user}`);
+                });
         }
     }
 }

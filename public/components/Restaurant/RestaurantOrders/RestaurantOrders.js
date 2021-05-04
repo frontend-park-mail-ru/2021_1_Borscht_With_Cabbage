@@ -24,7 +24,8 @@ export class RestaurantOrdersComponent {
                 const element = new RestaurantOrderElement({
                     root: orderList,
                     order: order,
-                    restaurantController: this.controller
+                    restaurantController: this.controller,
+                    goTo: this.goTo
                 });
                 element.render();
             }

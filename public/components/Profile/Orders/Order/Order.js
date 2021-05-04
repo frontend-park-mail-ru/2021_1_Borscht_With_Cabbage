@@ -4,16 +4,19 @@ import renderDish from './OrderDish/DishTmpl.hbs';
 import { OrderReview } from './OrderReview/OrderReview.js';
 import { ProfileController } from '../../../../controllers/ProfileController.js';
 import { I18n } from "../../../../modules/intlApi.js";
+import { noop } from '../../../../modules/utils.js';
 
 export class OrderElement {
     constructor ({
         root = document.body,
         order = null,
-        controller = new ProfileController()
+        controller = new ProfileController(),
+        goTo = noop
     } = {}) {
         this.root = root;
         this.order = order;
         this.controller = controller;
+        this.goTo = goTo;
     }
 
     render () {
@@ -74,5 +77,11 @@ export class OrderElement {
                 review.render();
             }
         }
+
+        this.root
+            .querySelector('#js_go-to-chat')
+            .addEventListener('click', () => {
+                this.goTo(`/profile/chats/${this.order.restaurant}`);
+            });
     }
 }

@@ -26,6 +26,7 @@ export class ProfileController {
         eventBus.on(ProfileEvents.profileGetChatsFailed, this.loadError.bind(this)); // TODO
         eventBus.on(ProfileEvents.profileGetChatMessagesSuccess, this.draw.bind(this));
         eventBus.on(ProfileEvents.profileGetChatMessagesFailed, this.loadError.bind(this)); // TODO
+        chatModel.subscribe(this.addNewMessage.bind(this));
     }
 
     setUserData ({
@@ -157,8 +158,9 @@ export class ProfileController {
 
     addNewMessage (message) {
         if (message.action === 'message') {
-            if (String(message.payload.from.id) === this.url.substring(this.url.lastIndexOf('/') + 1)
-                && window.location.pathname.match(/profile\/chats\/./)) {
+            const link = window.location.pathname;
+            if (String(message.payload.from.id) === link.substring(link.lastIndexOf('/') + 1)
+                && link.match(/profile\/chats\/./)) {
                 this.profileView.renderNewMessage(message.payload.message);
             }
         }

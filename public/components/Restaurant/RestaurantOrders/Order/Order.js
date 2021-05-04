@@ -53,9 +53,8 @@ export class RestaurantOrderElement {
                     dishPlace.innerHTML += renderDish({ dish: dish });
                 }
             }
-
             this.root
-                .querySelector('#js_go-to-chat')
+                .querySelector(`#js_go-to-chat_${this.order.user}`)
                 .addEventListener('click', () => {
                     this.goTo(`/restaurant/chats/${this.order.user}`);
                 });

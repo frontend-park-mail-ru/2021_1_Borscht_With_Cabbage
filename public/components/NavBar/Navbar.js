@@ -58,7 +58,7 @@ export class Navbar {
     }
 
     renderNotAuth () {
-        this.root.innerHTML = renderTopNavUserView({ address: this.address });
+        this.root.innerHTML = renderTopNavUserView({ address: address.getAddress().name });
         const authBlock = document.getElementById('auth_block');
         if (authBlock) {
             authBlock.innerHTML = renderNotAuthBlock({});

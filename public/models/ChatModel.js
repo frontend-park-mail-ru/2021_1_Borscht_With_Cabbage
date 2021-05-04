@@ -13,9 +13,11 @@ class ChatModel {
         socket.send(data);
     }
 
-    getChatsMessage ({ id, handler, successEvent, failEvent }) {
+    subscribe(handler) {
         socket.subscribe('message', handler);
+    }
 
+    getChatsMessage ({ id, handler, successEvent, failEvent }) {
         getChatMessage(id)
             .then(res => {
                 if (res.status === 200) {

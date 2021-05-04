@@ -76,12 +76,11 @@ export class OrderElement {
                 });
                 review.render();
             }
+            this.root
+                .querySelector(`#js_go-to-chat_${this.order.restaurant}`)
+                .addEventListener('click', () => {
+                    this.goTo(`/profile/chats/${this.order.restaurant}`);
+                });
         }
-
-        this.root
-            .querySelector('#js_go-to-chat')
-            .addEventListener('click', () => {
-                this.goTo(`/profile/chats/${this.order.restaurant}`);
-            });
     }
 }

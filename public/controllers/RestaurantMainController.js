@@ -316,4 +316,18 @@ export class RestaurantMainController {
     loadError (error) {
         console.log('restaurant main controller -> loadError', error)
     }
+
+    saveStatus (status, time, order) {
+        console.log(time)
+        time = time + ':00'
+        mainModel.updateStatus(status, time, order)
+    }
+
+    setStatusSuccess() {
+        console.log("set new status success")
+    }
+
+    setStatusFailed() {
+        console.log("set new status error")
+    }
 }

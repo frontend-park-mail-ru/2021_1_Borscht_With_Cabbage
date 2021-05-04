@@ -4,6 +4,7 @@ import { MainEvents } from '../events/MainEvents.js';
 import { noop } from '../modules/utils.js';
 import { MainView } from '../views/MainView.js';
 import user from '../modules/user.js';
+import address from '../modules/address.js';
 
 export class MainController {
     constructor ({
@@ -99,6 +100,10 @@ export class MainController {
         for (const key in this.request.params) {
             url += `&${key}=${this.request.params[key]}`;
         }
+
+        const address_ = address.getAddress();
+        url += '&longitude=' + address_.longitude;
+        url += '&latitude=' + address_.latitude;
 
         return url;
     }

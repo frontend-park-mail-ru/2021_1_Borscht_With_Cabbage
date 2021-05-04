@@ -1,14 +1,14 @@
 import renderSection from './SectionTmpl.hbs';
-import eventBus from '../../../modules/eventBus.js';
-import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
+import eventBus from 'Modules/eventBus.js';
+import { RestaurantMainController } from 'Controllers/RestaurantMainController.js';
 import { RestaurantAddingDish } from '../RestaurantAddDish/RestaurantAddingDish.js';
 import { DishComponent } from '../Dish/Dish.js'
 import renderDishAdding from '../DishAdding/DishAddingTmpl.hbs'
-import { DishEvents } from '../../../events/DishEvents.js';
-import { SectionEvents } from '../../../events/SectionEvents.js';
-import { ConfirmationEvents } from '../../../events/ConfirmationEvents.js';
+import { DishEvents } from 'Events/DishEvents.js';
+import { SectionEvents } from 'Events/SectionEvents.js';
+import { ConfirmationEvents } from 'Events/ConfirmationEvents.js';
 import { ConfirmationComponent } from '../../Confirmation/Confirmation.js';
-import { noop } from '../../../modules/utils.js';
+import { noop } from 'Modules/utils.js';
 
 export class SectionComponent {
     constructor ({

@@ -1,9 +1,9 @@
-import { renderInput } from '../../../modules/rendering.js';
-import { Validator } from '../../../modules/validation.js';
-import eventBus from '../../../modules/eventBus.js';
-import { getError, noop } from '../../../modules/utils.js';
-import { RestaurantSignInController } from "../../../controllers/RestaurantSignInController.js";
-import { SignInEvents } from '../../../events/SignInEvents.js';
+import { renderInput } from 'Modules/rendering.js';
+import { Validator } from 'Modules/validation.js';
+import eventBus from 'Modules/eventBus.js';
+import { getError, noop } from 'Modules/utils.js';
+import { RestaurantSignInController } from "Controllers/RestaurantSignInController.js";
+import { SignInEvents } from 'Events/SignInEvents.js';
 import renderRestaurantLogin from "./RestaurantSignInTmpl.hbs";
 
 export class RestaurantSignIn {

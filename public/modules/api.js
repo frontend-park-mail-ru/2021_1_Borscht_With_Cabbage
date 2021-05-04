@@ -287,12 +287,48 @@ export function logoutGet () {
 }
 
 /**
- * Send server get-request to get user's active orders
+ * Send server get-request to get user's orders
  *
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
 export function userOrdersGet () {
     return Http.ajaxGet({ url: '/user/orders' });
+}
+
+/**
+ * Send server post-request to post user's review for order
+ *
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+export function userOrderPostReview (oid, review, stars) {
+    return Http.ajaxPost({
+        url: '/user/order/review',
+        body: { oid, review, stars }
+    });
+}
+
+/**
+ * Send server put-request with formData to put new order's status
+ *
+ * @param {string} status
+ * @param {string} deliveryTime
+ * @param {int} order
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+export function updateStatus (status, deliveryTime, order) {
+    return Http.ajaxPutJson({
+        url: '/restaurant/order/status',
+        body: { status, deliveryTime, order }
+    });
+}
+
+/**
+ * Send server get-request to get restaurant's orders
+ *
+ * @returns {Promise<{parsedJSON: object, status: number}>}
+ */
+export function restaurantOrdersGet () {
+    return Http.ajaxGet({ url: '/restaurant/orders' });
 }
 
 /**
@@ -345,6 +381,13 @@ export function getBasket () {
         url: '/user/basket'
     });
 }
+
+export function getReviews (rid) {
+    return Http.ajaxGet({
+        url: '/restaurant/'+rid+'/reviews'
+    });
+}
+
 
 export function postBasket (basket) {
     return Http.ajaxPost({

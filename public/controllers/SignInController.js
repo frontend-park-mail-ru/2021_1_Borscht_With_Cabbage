@@ -1,5 +1,5 @@
-import { SignInModel } from '../models/SignInModel.js';
-import { Validator } from '../modules/validation.js';
+import { SignInModel } from 'Models/SignInModel.js';
+import { Validator } from 'Modules/validation.js';
 
 export class SignInController {
     constructor () {

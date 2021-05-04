@@ -1,5 +1,6 @@
 @import "RestaurantEdits/RestasurantEdits.css";
 @import "Section/Section.css";
+@import "RestaurantOrders/Order/Order.css";
 
 .restaurant {
     margin: 25px;

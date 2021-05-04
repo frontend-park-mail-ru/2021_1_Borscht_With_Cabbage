@@ -1,6 +1,6 @@
-import { signupPost } from '../modules/api.js';
-import { SignUpEvents } from '../events/SignUpEvents.js';
-import eventBus from '../modules/eventBus.js';
+import { signupPost } from 'Modules/api.js';
+import { SignUpEvents } from 'Events/SignUpEvents.js';
+import eventBus from 'Modules/eventBus.js';
 
 export class SignUpModel {
     signUp ({ email, password, name, number }) {

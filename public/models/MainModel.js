@@ -1,6 +1,6 @@
-import { restaurantsGet } from '../modules/api.js';
-import eventBus from '../modules/eventBus.js';
-import { MainEvents } from '../events/MainEvents.js';
+import { restaurantsGet } from 'Modules/api.js';
+import eventBus from 'Modules/eventBus.js';
+import { MainEvents } from 'Events/MainEvents.js';
 
 export class MainModel {
     getRestaurants (url) {

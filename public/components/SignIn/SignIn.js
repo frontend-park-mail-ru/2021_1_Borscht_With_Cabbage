@@ -1,10 +1,10 @@
-import { renderInput } from '../../modules/rendering.js';
-import { Validator } from '../../modules/validation.js';
+import { renderInput } from 'Modules/rendering.js';
+import { Validator } from 'Modules/validation.js';
 import renderLogin from './SignInTmpl.hbs';
-import eventBus from '../../modules/eventBus.js';
-import { getError, noop } from '../../modules/utils.js';
-import { SignInController } from '../../controllers/SignInController.js';
-import { SignInEvents } from '../../events/SignInEvents.js';
+import eventBus from 'Modules/eventBus.js';
+import { getError, noop } from 'Modules/utils.js';
+import { SignInController } from 'Controllers/SignInController.js';
+import { SignInEvents } from 'Events/SignInEvents.js';
 import redirect from '../../modules/redirect.js';
 
 export class SignIn {

@@ -1,11 +1,11 @@
-import renderProfileView from '../components/Profile/ProfileTmpl.hbs'
-import { ProfileEdits } from '../components/Profile/ProfileEdits/ProfileEdits.js';
-import { ProfileController } from '../controllers/ProfileController.js';
-import eventBus from '../modules/eventBus.js';
-import { ProfileEvents } from '../events/ProfileEvents.js';
-import { RightMenu } from '../components/Profile/RightMenu/RightMenu.js';
-import { Orders } from '../components/Profile/Orders/Orders.js';
-import user from '../modules/user.js';
+import renderProfileView from 'Components/Profile/ProfileTmpl.hbs'
+import { ProfileEdits } from 'Components/Profile/ProfileEdits/ProfileEdits.js';
+import { ProfileController } from 'Controllers/ProfileController.js';
+import eventBus from 'Modules/eventBus.js';
+import { ProfileEvents } from 'Events/ProfileEvents.js';
+import { RightMenu } from 'Components/Profile/RightMenu/RightMenu.js';
+import { Orders } from 'Components/Profile/Orders/Orders.js';
+import user from 'Modules/user.js';
 
 export class ProfileView {
     constructor (root, goTo) {
@@ -33,7 +33,7 @@ export class ProfileView {
         this.root.innerHTML = ''
 
         const profile = document.createElement('div')
-        profile.innerHTML = renderProfileView({}) // создаем правое меню
+        profile.innerHTML = renderProfileView({})
         this.root.append(profile)
 
         // добавляем поля профиля и его изменения
@@ -45,7 +45,8 @@ export class ProfileView {
         });
 
         const orders = new Orders({
-            root: this.root,
+            // root: this.root,
+            root: this.root.querySelector('#profile-left-block'),
             controller: this.profileController,
             goTo: this.goTo,
             user: user

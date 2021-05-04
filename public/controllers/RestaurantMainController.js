@@ -1,13 +1,34 @@
-import { Validator } from '../modules/validation.js';
-import { RestaurantMainModel } from '../models/RestaurantMainModel.js';
-import { DishEvents } from '../events/DishEvents.js';
-import eventBus from '../modules/eventBus.js';
+import { Validator } from 'Modules/validation.js';
+import { RestaurantMainModel } from 'Models/RestaurantMainModel.js';
+import { DishEvents } from 'Events/DishEvents.js';
+import eventBus from 'Modules/eventBus.js';
+import { RestaurantOrdersEvents } from "Events/RestaurantOrdersEvents.js";
 
 export class RestaurantMainController {
     constructor () {
         this.mainModel = new RestaurantMainModel();
         eventBus.on(DishEvents.addingDishSuccess, this.addingDishDataSuccess.bind(this));
         eventBus.on(DishEvents.addingDishFailed, this.addingDishDataFailed.bind(this));
+        eventBus.on(RestaurantOrdersEvents.restaurantOrderUpdateStatusSuccess, this.setStatusSuccess.bind(this))
+        eventBus.on(RestaurantOrdersEvents.restaurantOrderUpdateStatusFailed, this.setStatusFailed.bind(this))
+    }
+
+    getOrders () {
+        this.mainModel.getOrders()
+    }
+
+    saveStatus (status, time, order) {
+        console.log(time)
+        time = time + ':00'
+        this.mainModel.updateStatus(status, time, order)
+    }
+
+    setStatusSuccess() {
+        console.log("set new status success")
+    }
+
+    setStatusFailed() {
+        console.log("set new status error")
     }
 
     addSection (section) {

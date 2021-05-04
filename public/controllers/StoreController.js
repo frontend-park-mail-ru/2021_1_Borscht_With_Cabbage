@@ -1,4 +1,4 @@
-import { StoreModel } from '../models/StoreModel.js';
+import { StoreModel } from 'Models/StoreModel.js';
 
 export class StoreController {
     constructor () {
@@ -21,5 +21,9 @@ export class StoreController {
             food,
             restaurant
         });
+    }
+
+    getReviews(storeID) {
+        this.storeModel.getReviews(storeID)
     }
 }

@@ -1,9 +1,10 @@
-import eventBus from '../../../modules/eventBus.js';
-import { noop } from '../../../modules/utils.js';
-import { ProfileEvents } from '../../../events/ProfileEvents.js';
-import { ProfileController } from '../../../controllers/ProfileController.js';
+import eventBus from 'Modules/eventBus.js';
+import { noop } from 'Modules/utils.js';
+import { ProfileEvents } from 'Events/ProfileEvents.js';
+import { ProfileController } from 'Controllers/ProfileController.js';
 import { OrderElement } from "./Order/Order.js";
 import renderOrderList from "./OrdersListTmpl.hbs";
+import { I18n } from 'Modules/intlApi.js';
 
 export class Orders {
     constructor ({
@@ -12,28 +13,37 @@ export class Orders {
         user = null,
         controller = new ProfileController()
     } = {}) {
-        this.root = root
-        this.user = user
-        this.goTo = goTo
-        this.controller = controller
-        eventBus.on(ProfileEvents.profileGetOrdersSuccess, this.ordersDraw.bind(this))
-        eventBus.on(ProfileEvents.profileGetOrdersFailed, this.loadError.bind(this))
+        this.root = root;
+        this.user = user;
+        this.goTo = goTo;
+        this.controller = controller;
+        eventBus.on(
+            ProfileEvents.profileGetOrdersSuccess,
+            this.ordersDraw.bind(this)
+        );
+        eventBus.on(
+            ProfileEvents.profileGetOrdersFailed,
+            this.loadError.bind(this)
+        );
     }
 
     render () {
-        this.controller.getOrders()
+        this.controller.getOrders();
     }
 
-    ordersDraw(orders) {
-        document.getElementById('profile-left-block').innerHTML =  renderOrderList({})
-        const orderList = document.getElementById('orders-list')
+    ordersDraw (orders) {
+        document.getElementById('profile-left-block').innerHTML = renderOrderList(
+            {}
+        );
+        const orderList = document.getElementById('orders-list');
 
-        if (orders) {
+        if (orders && orderList) {
             for (const order of orders) {
-                console.log(order)
+                console.log(order);
                 const element = new OrderElement({
                     root: orderList,
-                    order: order
+                    order: order,
+                    controller: this.controller
                 });
                 element.render();
             }
@@ -41,6 +51,6 @@ export class Orders {
     }
 
     loadError (error) {
-        console.log('profileView -> GetOrders -> loadError', error)
+        console.log('profileView -> GetOrders -> loadError', error);
     }
 }

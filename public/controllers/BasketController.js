@@ -1,5 +1,5 @@
-import { BasketModel } from '../models/BasketModel.js';
-import { Validator } from '../modules/validation.js';
+import { BasketModel } from 'Models/BasketModel.js';
+import { Validator } from 'Modules/validation.js';
 
 export class BasketController {
     constructor () {

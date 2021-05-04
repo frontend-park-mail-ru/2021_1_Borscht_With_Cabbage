@@ -1,8 +1,9 @@
-import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
+import { RestaurantMainController } from 'Controllers/RestaurantMainController.js';
 import { RestaurantEdits } from '../RestaurantEdits/RestaurantEdits.js';
-import user from '../../../modules/user.js';
+import user from 'Modules/user.js';
 import renderRestaurantRightMenu from './RightMenuTmpl.hbs';
 import { RestaurantMenuComponent } from '../RestaurantMenu/RestaurantMenu.js';
+import { RestaurantOrdersComponent } from "../RestaurantOrders/RestaurantOrders.js";
 
 export class RestaurantRightMenu {
     constructor ({
@@ -16,12 +17,17 @@ export class RestaurantRightMenu {
         menuView = new RestaurantMenuComponent({
             root,
             controller: restaurantController
+        }),
+        ordersView = new RestaurantOrdersComponent({
+            root,
+            controller: restaurantController
         })
     } = {}) {
         this.root = root;
         this.restaurantController = restaurantController;
         this.editsView = editsView;
         this.menuView = menuView;
+        this.ordersView = ordersView;
     }
 
     render () {
@@ -51,7 +57,7 @@ export class RestaurantRightMenu {
         const orders = document.getElementById(ordersID)
         if (orders) {
             orders.onclick = () => {
-
+                this.ordersView.render()
             }
         }
 

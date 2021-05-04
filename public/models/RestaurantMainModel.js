@@ -5,15 +5,42 @@ import {
     restaurantPut,
     sectionAddPost,
     sectionUpdatePut,
-    sectionDelete, restaurantAvatarPut, userPut, userAvatarPut
-} from '../modules/api.js';
-import { restaurantUpdateDishDataPut, restaurantDeleteDish } from '../modules/api.js';
-import eventBus from '../modules/eventBus.js';
-import { DishEvents } from '../events/DishEvents.js';
-import { ProfileEvents } from '../events/ProfileEvents.js';
-import { SectionEvents } from '../events/SectionEvents.js';
+    sectionDelete, restaurantAvatarPut, restaurantOrdersGet, updateStatus, userPut, userAvatarPut
+} from 'Modules/api.js';
+import { restaurantUpdateDishDataPut, restaurantDeleteDish } from 'Modules/api.js';
+import eventBus from 'Modules/eventBus.js';
+import { DishEvents } from 'Events/DishEvents';
+import { ProfileEvents } from 'Events/ProfileEvents.js';
+import { SectionEvents } from 'Events/SectionEvents.js';
+import {RestaurantOrdersEvents} from "Events/RestaurantOrdersEvents.js";
+
 
 export class RestaurantMainModel {
+    getOrders () {
+        restaurantOrdersGet()
+            .then(res => {
+                if (res.status === 200) {
+                    eventBus.emit(RestaurantOrdersEvents.restaurantGetOrdersSuccess, res.parsedJSON)
+                } else {
+                    eventBus.emit(RestaurantOrdersEvents.restaurantGetOrdersFailed, res.parsedJSON)
+                }
+            })
+            .catch(res => eventBus.emit(RestaurantOrdersEvents.restaurantGetOrdersFailed, res.parsedJSON));
+    }
+
+    updateStatus (status, deliveryTime, order) {
+        updateStatus(status, deliveryTime, order)
+            .then(res => {
+                if (res.status === 200) {
+                    eventBus.emit(RestaurantOrdersEvents.restaurantOrderUpdateStatusSuccess, res.parsedJSON);
+                } else {
+                    eventBus.emit(RestaurantOrdersEvents.restaurantOrderUpdateStatusFailed, res.parsedJSON);
+                }
+            })
+            .catch(res => eventBus.emit(RestaurantOrdersEvents.restaurantOrderUpdateStatusFailed, res.parsedJSON));
+    }
+
+
     getDish () {
         allDishesGet().then(res => {
             if (res.status === 200) {

@@ -1,9 +1,9 @@
-import { RestaurantMainController } from "../../../controllers/RestaurantMainController.js";
+import { RestaurantMainController } from "Controllers/RestaurantMainController.js";
 import renderRestaurantAddingSection from "./RestaurantAddingSectionTmpl.hbs";
-import eventBus from "../../../modules/eventBus.js";
-import { SectionEvents } from "../../../events/SectionEvents.js";
-import { Validator } from "../../../modules/validation.js";
-import { renderInput } from "../../../modules/rendering.js";
+import eventBus from "Modules/eventBus.js";
+import { SectionEvents } from "Events/SectionEvents.js";
+import { Validator } from "Modules/validation.js";
+import { renderInput } from "Modules/rendering.js";
 import { getError } from '../../../modules/utils.js';
 
 export class RestaurantAddingSection {

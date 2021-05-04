@@ -1,11 +1,11 @@
 import SignUpTemplate from './SignUpTmpl.hbs';
-import { renderInput } from '../../modules/rendering.js';
-import { Validator } from '../../modules/validation.js';
-import { maskPhone } from '../../modules/phoneMask.js';
-import eventBus from '../../modules/eventBus.js';
-import { getError, noop } from '../../modules/utils.js';
-import { SignUpController } from '../../controllers/SignUpController.js';
-import { SignUpEvents } from '../../events/SignUpEvents.js';
+import { renderInput } from 'Modules/rendering.js';
+import { Validator } from 'Modules/validation.js';
+import { maskPhone } from 'Modules/phoneMask.js';
+import eventBus from 'Modules/eventBus.js';
+import { getError, noop } from 'Modules/utils.js';
+import { SignUpController } from 'Controllers/SignUpController.js';
+import { SignUpEvents } from 'Events/SignUpEvents.js';
 import redirect from '../../modules/redirect.js';
 
 export class SignUp {

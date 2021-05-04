@@ -1,5 +1,5 @@
 import renderPreview from './PreviewTmpl.hbs';
-import { bytesToSize } from '../../modules/utils.js';
+import { bytesToSize } from 'Modules/utils.js';
 
 export class Preview {
     constructor ({

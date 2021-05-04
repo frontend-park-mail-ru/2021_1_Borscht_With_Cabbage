@@ -1,14 +1,14 @@
-import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
-import eventBus from '../../../modules/eventBus.js';
-import { ProfileEvents } from '../../../events/ProfileEvents.js';
+import { RestaurantMainController } from 'Controllers/RestaurantMainController.js';
+import eventBus from 'Modules/eventBus.js';
+import { ProfileEvents } from 'Events/ProfileEvents.js';
 import renderRestaurantEdits from './RestaurantEditsTmpl.hbs';
 import { Preview } from '../../Preview/Preview.js';
-import { renderInput } from '../../../modules/rendering.js';
-import { AuthEvents } from '../../../events/AuthEvents.js';
-import { Validator } from '../../../modules/validation.js';
-import { maskPhone } from '../../../modules/phoneMask.js';
-import { getError, noop } from '../../../modules/utils.js';
-import user from '../../../modules/user.js';
+import { renderInput } from 'Modules/rendering.js';
+import { AuthEvents } from 'Events/AuthEvents.js';
+import { Validator } from 'Modules/validation.js';
+import { maskPhone } from 'Modules/phoneMask.js';
+import { getError, noop } from 'Modules/utils.js';
+import user from 'Modules/user.js';
 
 export class RestaurantEdits {
     constructor ({

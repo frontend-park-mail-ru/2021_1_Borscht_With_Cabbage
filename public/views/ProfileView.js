@@ -62,4 +62,8 @@ export class ProfileView {
     renderNewMessage (message) {
         this.chat.renderNewMessage(message);
     }
+
+    reNewLastMessage (message) {
+        this.chats.reNewLastMessage(message);
+    }
 }

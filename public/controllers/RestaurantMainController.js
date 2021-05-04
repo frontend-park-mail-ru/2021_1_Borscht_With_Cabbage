@@ -20,7 +20,6 @@ export class RestaurantMainController {
         root = document.body,
         goTo = noop
     } = {}) {
-        console.trace()
         this.goTo = goTo;
         this.root = root;
 
@@ -46,6 +45,7 @@ export class RestaurantMainController {
         eventBus.on(RestaurantOrdersEvents.restaurantGetOrdersSuccess, this.draw.bind(this));
         eventBus.on(RestaurantOrdersEvents.restaurantGetOrdersFailed, this.loadError.bind(this));
         chatModel.subscribe(this.addNewMessage.bind(this));
+        chatModel.subscribe(this.reNewLastMessage.bind(this));
     }
 
     render (url) {
@@ -240,6 +240,15 @@ export class RestaurantMainController {
             successEvent: RestaurantEvents.restaurantGetChatMessagesSuccess,
             failEvent: RestaurantEvents.restaurantGetChatMessagesFailed
         });
+    }
+
+    reNewLastMessage (message) {
+        if (message.action === 'message') {
+            const link = window.location.pathname;
+            if (link.match(/restaurant\/chats$/)) {
+                this.view.reNewLastMessage(message.payload);
+            }
+        }
     }
 
     addNewMessage (message) {

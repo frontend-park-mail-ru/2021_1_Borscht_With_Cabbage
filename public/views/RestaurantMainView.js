@@ -8,6 +8,7 @@ import { RestaurantEdits } from 'Components/Restaurant/RestaurantEdits/Restauran
 import renderRestaurantView from 'Components/Restaurant/RestaurantMainTmpl.hbs';
 import { RestaurantRightMenu } from 'Components/Restaurant/RestaurantRightMenu/RightMenu.js';
 import { RestaurantOrdersComponent } from "Components/Restaurant/RestaurantOrders/RestaurantOrders";
+import chatModel from '../models/ChatModel.js';
 
 export class RestaurantMainView {
     constructor ({
@@ -79,5 +80,9 @@ export class RestaurantMainView {
 
     deleteAll () {
         this.menu.sections = [];
+    }
+
+    reNewLastMessage (message) {
+        this.chats.reNewLastMessage(message);
     }
 }

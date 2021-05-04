@@ -42,4 +42,10 @@ export class ChatList {
                 });
         });
     }
+
+    reNewLastMessage (message) {
+        this.root
+            .querySelector(`[data-chatID="${message.from.id}"]`)
+            .querySelector('.chat-node__last-msg').textContent = message.message.text;
+    }
 }

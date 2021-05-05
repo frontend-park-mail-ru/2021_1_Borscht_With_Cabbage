@@ -4,7 +4,8 @@
     margin-top: 16px;
     display: grid;
     grid-template-areas: "info"
-                         "store";
+                         "store"
+                         "basket";
 
     @media @tablet {
         grid-template-columns: @grid-two-column-tablet;
@@ -26,11 +27,10 @@
 
     &-info__basket {
         grid-area: basket;
-        display: none;
-        padding: 16px;
+        margin-bottom: 24px;
 
         @media @tablet {
-            display: block;
+            padding: 16px;
         }
     }
 }

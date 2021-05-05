@@ -6,7 +6,7 @@ import { Validator } from '../../modules/validation.js';
 import address from '../../modules/address.js';
 import { YandexMap } from '../../modules/yandexMap.js';
 import { maskPhone } from '../../modules/phoneMask.js';
-import './DeliveryOptions.css';
+import './DeliveryOptions.less';
 
 export class DeliveryOptions {
     constructor ({

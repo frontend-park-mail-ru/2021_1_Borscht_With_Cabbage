@@ -1,0 +1,40 @@
+.chat-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-node {
+  border: 1px var(--main-green_color) solid;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  margin-bottom: 10px;
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 30px;
+  }
+
+  &__avatar {
+    max-height: 64px;
+    max-width: 64px;
+    border-radius: 50%;
+  }
+
+  &__name {
+    margin-top: 0;
+  }
+
+  &__last-msg {
+      max-width: 450px;
+      white-space: normal;
+      word-break: break-all;
+      text-align: left;
+      border: 1px var(--chat-border_color) solid;
+      border-radius: 16px;
+      padding: 10px;
+  }
+}

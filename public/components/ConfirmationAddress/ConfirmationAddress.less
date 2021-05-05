@@ -1,0 +1,60 @@
+@import "../../static/css/variables.less";
+
+.confirmation-address {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(50, 50, 50, 0.7);
+    min-height: 100vh;
+    height: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.confirmation-address-container {
+    left: 0;
+    top: 0;
+    border-radius: 24px;
+    box-shadow: 0 15px 15px rgba(0 0 0 0.5);
+    padding: 16px 16px;
+    margin: 0 16px;
+    background: var(--white_color);
+    display: flex;
+    flex-direction: column;
+
+    @media @tablet {
+        padding: 32px 64px;
+    }
+}
+
+.confirmation-address-container__title {
+    font-size: 18px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.confirmation-address-container__btn {
+    display: flex;
+    flex-direction: row;
+    font-size: 24px;
+    margin-top: 16px;
+    justify-content: space-evenly;
+}
+
+.confirmation-address-btn {
+    cursor: pointer;
+}
+
+.confirmation-address-map {
+    height: 20vh;
+    margin-top: 30px;
+    margin-bottom: 10px;
+
+    @media @tablet {
+        height: 250px;
+    }
+}

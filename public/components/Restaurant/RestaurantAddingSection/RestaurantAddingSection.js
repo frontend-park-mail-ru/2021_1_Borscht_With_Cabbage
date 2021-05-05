@@ -1,28 +1,29 @@
-import { RestaurantMainController } from "../../../controllers/RestaurantMainController.js";
-import renderRestaurantAddingSection from "./RestaurantAddingSectionTmpl.hbs";
-import eventBus from "../../../modules/eventBus.js";
-import { SectionEvents } from "../../../events/SectionEvents.js";
-import { Validator } from "../../../modules/validation.js";
-import { renderInput } from "../../../modules/rendering.js";
+import './RestaurantAddingSection.less';
+import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
+import renderRestaurantAddingSection from './RestaurantAddingSectionTmpl.hbs';
+import eventBus from '../../../modules/eventBus.js';
+import { SectionEvents } from '../../../events/SectionEvents.js';
+import { Validator } from '../../../modules/validation.js';
+import { renderInput } from '../../../modules/rendering.js';
+import { getError } from '../../../modules/utils.js';
+import { SectionModel } from '../../../modules/section.js';
 
 export class RestaurantAddingSection {
     constructor ({
-        root = document.body,
         controller = new RestaurantMainController(),
-        section
     } = {}) {
-        this.root = root;
         this.controller = controller;
-        this.section = section;
         this.nameID = 'name';
         
         eventBus.on(SectionEvents.updateSectionSuccess, this.closeItem.bind(this));
     }
 
-    render () {
-        let buttonName = 'Добавить раздел';
-        if (this.section && this.section.id) {
-            buttonName = 'Обновить раздел';
+    render ({ root = document.body, section = null } = {}) {
+        this.root = root;
+        this.section = section;
+        let buttonName = 'Добавить';
+        if (this.section) {
+            buttonName = 'Обновить';
         }
         this.root.innerHTML += renderRestaurantAddingSection({
             buttonName: buttonName,
@@ -33,22 +34,34 @@ export class RestaurantAddingSection {
         this.addCloseAddingEventListeners();
     }
 
-    addCloseAddingEventListeners() {
-        const close = this.root.querySelector('.adding-section');
-        if (!close) {
-            return;
+    addCloseAddingEventListeners () {
+        const closeBackground = this.root.querySelector('.adding-section');
+        if (closeBackground) {
+            closeBackground.addEventListener('click', e => {
+                if (e.target === closeBackground) {
+                    this.closeItem();
+                }
+            })
         }
 
-        close.addEventListener('click', e => {
-            if (e.target === close) {
+        const closeButton1 = this.root.querySelector('.btn-close');
+        if (closeButton1) {
+            closeButton1.addEventListener('click', e => {
                 this.closeItem();
-            }
-        })
+            })
+        }
+
+        const closeButton2 = this.root.querySelector('.adding-section__icone-close');
+        if (closeButton2) {
+            closeButton2.addEventListener('click', e => {
+                this.closeItem();
+            })
+        }
     }
 
     closeItem () {
         console.log('close');
-        eventBus.emit(SectionEvents.closeAddingSectionComponent, {});
+        this.controller.closeAddingSection();
     }
 
     addAddingSectionEventListeners () {
@@ -69,17 +82,14 @@ export class RestaurantAddingSection {
     formSubmit (event) {
         event.preventDefault();
 
-        if (!this.section) {
-            this.section = {};
-        }
-        this.section.name = document.getElementById(this.nameID).value;
+        let name = document.getElementById(this.nameID).value;
 
         let errors;
-        if (this.section.id) {
+        if (this.section) {
             console.log('update');
-            errors = this.controller.updateSection(this.section);
+            errors = this.section.updateSection({ name });
         } else {
-            errors = this.controller.addSection(this.section);
+            errors = this.controller.addSection({ name });
         }
 
         if (errors.error === true) {
@@ -92,6 +102,6 @@ export class RestaurantAddingSection {
     addingFailed (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
-        serverError.textContent = error;
+        serverError.textContent = getError(error);
     }
 }

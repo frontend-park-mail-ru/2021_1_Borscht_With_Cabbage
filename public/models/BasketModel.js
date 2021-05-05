@@ -1,19 +1,20 @@
-import eventBus from '../modules/eventBus.js';
-import { getBasket, orderPost } from '../modules/api.js';
-import { BasketEvents } from '../events/BasketEvents.js';
+import eventBus from 'Modules/eventBus.js';
+import { getBasket, orderPost } from 'Modules/api.js';
+import { BasketEvents } from 'Events/BasketEvents.js';
 
-
-export class BasketModel {
+class BasketModel {
     getBasket () {
         getBasket()
             .then(res => {
                 if (res.status === 200) {
                     eventBus.emit(BasketEvents.basketGetBasketSuccess, res.parsedJSON);
                 } else {
+                    console.log('basket get failed', res)
                     eventBus.emit(BasketEvents.basketGetBasketFailed, res.parsedJSON);
                 }
             })
             .catch(res => {
+                console.log('basket get catch', res);
                 eventBus.emit(BasketEvents.basketGetBasketFailed, res.parsedJSON);
             });
     }
@@ -36,3 +37,5 @@ export class BasketModel {
             });
     }
 }
+
+export default new BasketModel();

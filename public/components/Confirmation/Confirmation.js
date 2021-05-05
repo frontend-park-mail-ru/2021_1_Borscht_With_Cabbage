@@ -1,17 +1,20 @@
+import './Confirmation.less';
 import renderConfirmation from './ConfirmationTmpl.hbs';
-import eventBus from '../../modules/eventBus.js';
-import { ConfirmationEvents } from '../../events/ConfirmationEvents.js'
+import eventBus from 'Modules/eventBus.js';
+import { ConfirmationEvents } from 'Events/ConfirmationEvents.js'
 
 export class ConfirmationComponent {
-    constructor ({
+    constructor () {
+    }
+
+    render ({
         root = document.body,
-        id = 0
+        id = ''
     } = {}) {
         this.root = root;
         this.id = id;
-    }
 
-    render () {
+        console.log('???????????????????');
         const confirmationItem = document.createElement('div');
         confirmationItem.innerHTML += renderConfirmation();
         this.root.append(confirmationItem);

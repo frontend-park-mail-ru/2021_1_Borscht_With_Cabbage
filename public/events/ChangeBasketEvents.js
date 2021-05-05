@@ -6,5 +6,5 @@
 export const ChangeBasketEvents = {
     chooseFood: 'chooseFood',
     chooseFoodSuccess: 'chooseFoodSuccess',
-    chooseFoodFailed: 'chooseFoodFailed',
+    chooseFoodFailed: 'chooseFoodFailed'
 }

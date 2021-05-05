@@ -1,8 +1,8 @@
 import eventBus from './eventBus.js';
-import { AuthEvents } from '../events/AuthEvents.js';
+import { AuthEvents } from 'Events/AuthEvents.js';
 
-window.serverAddress = 'http://89.208.197.150:5000';
-// window.serverAddress = 'http://127.0.0.1:5000'
+//window.serverAddress = 'http://89.208.197.150:5000';
+ window.serverAddress = 'http://127.0.0.1:5000'
 
 function getParams ({
     method = 'GET',
@@ -18,13 +18,16 @@ function getParams ({
         body = JSON.stringify(body);
     }
     if (method !== 'GET') {
-        headers['X-XSRF-Token'] = document.cookie.match(/_csrf=([\w-]+)/)[1];
+        const csrf = document.cookie.match(/_csrf=([\w-]+)/);
+        if (csrf) {
+            headers['X-XSRF-Token'] = csrf[1];
+        }
     }
     const init = {
         mode: 'cors',
-        method: method,
         credentials: 'include',
-        headers: headers
+        method,
+        headers
     };
     if (method !== 'GET') {
         init.body = body;
@@ -38,7 +41,7 @@ async function makeFetch ({
     method = 'GET',
     type
 } = {}) {
-    const response = await fetch(window.serverAddress + url, getParams({ method: method, body: body, type: type }));
+    const response = await fetch(window.serverAddress + url, getParams({ method, body, type }));
     const parsedJSON = await response.json();
     if (parsedJSON.code === 418) {
         eventBus.emit(AuthEvents.offline, { message: parsedJSON.message });

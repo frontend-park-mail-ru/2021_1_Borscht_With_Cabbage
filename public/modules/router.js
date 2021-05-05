@@ -5,8 +5,8 @@ const urls = {
     },
     store: {
         constUrl: null,
-        regularUrl: /\/restaurant\/./
-    }, // '/restaurant/:id'
+        regularUrl: /\/store\/./
+    }, // '/store/:id'
     login: {
         constUrl: '/signin',
         regularUrl: null
@@ -16,11 +16,11 @@ const urls = {
         regularUrl: null
     },
     restaurantSignin: {
-        constUrl: '/store/signin',
+        constUrl: '/restaurants/signin',
         regularUrl: null
     },
     restaurantSignup: {
-        constUrl: '/store/signup',
+        constUrl: '/restaurants/signup',
         regularUrl: null
     },
     basket: {
@@ -28,16 +28,16 @@ const urls = {
         regularUrl: null
     },
     profile: {
-        constUrl: '/profile',
+        constUrl: null,
         regularUrl: /\/profile\/./
-    }, // '/profile/edit', '/profile/orders', '/profile/chats'
+    }, // '/profile/edits', '/profile/orders', '/profile/chats', '/profile/chats/${id}'
     logout: {
         constUrl: '/logout',
         regularUrl: null
     },
     restaurantMain: {
-        constUrl: '/restaurant',
-        regularUrl: null
+        constUrl: null,
+        regularUrl: /\/restaurant\/./
     }
 };
 
@@ -60,13 +60,14 @@ export class Router {
     }
 
     open (page, isBack = false) {
-        console.log('open');
+        console.log('router open ->', page);
         Object.entries(urls).forEach(([url, { constUrl, regularUrl }]) => {
             if (page === url && isBack && url === 'logout') {
                 this.open('main', isBack);
                 return
             }
             if (page === url || page === constUrl || (regularUrl && regularUrl.test(page))) {
+                console.log(1, url, constUrl, regularUrl)
                 if (page === url) {
                     page = constUrl
                 }
@@ -86,6 +87,10 @@ export class Router {
 
     catchFollowLinks (event) {
         if (event.target.closest('a') instanceof HTMLAnchorElement) {
+            if (event.target.closest('a').href.includes('#')) {
+                event.preventDefault();
+                return;
+            }
             event.preventDefault();
             const link = event.target.closest('a').pathname;
             this.open(link);

@@ -6,46 +6,53 @@ import { MainController } from '../controllers/MainController.js';
 import { MoreRestaurantsComponent } from '../components/MoreRestaurants/MoreRestaurants.js';
 import eventBus from '../modules/eventBus.js';
 import { MainEvents } from '../events/MainEvents.js';
+import renderMainPage from '../components/MainPage/MainPageTmpl.hbs'
+import '../components/MainPage/MainPage.less'
+import address from '../modules/address.js';
+import { ConfirmationAddress } from '../components/ConfirmationAddress/ConfirmationAddress.js';
 
 export class MainView {
-    constructor (root, goTo) {
+    constructor ({ 
+        goTo, 
+        controller = new MainController() 
+    } = {}) {
         this.goTo = goTo;
-        this.root = root;
-        this.mainController = new MainController()
-        eventBus.on(MainEvents.mainGetRestaurantsSuccess, this.contentDraw.bind(this))
-        eventBus.on(MainEvents.mainGetRestaurantsFailed, this.loadError.bind(this))
-        eventBus.on(MainEvents.mainClearContent, this.clearContent.bind(this))
+        this.mainController = controller;
+        this.category = new CategoryComponent({
+            controller: this.mainController
+        });
+        this.params = new ParamsComponent({
+            controller: this.mainController
+        });
+        this.restaurants = new PanelRestaurantsComponent({
+            controller: this.mainController,
+            goTo: this.goTo
+        });
     }
 
-    render () {
+    render ({ root }) {
+        this.root = root;
+        this.root.innerHTML = renderMainPage();
+        this.container = this.root.querySelector('.main-page__container');
         console.log('render MainView');
         this.headerDraw();
-        this.mainController.init();
-        this.mainController.getRestaurants();
+        const address_ = address.getAddress();
+        if (address_.name === '') {
+            new ConfirmationAddress({ goTo: this.goTo }).render();
+        }
     }
 
     headerDraw () {
-        this.root.innerHTML = '';
-
-        const category = new CategoryComponent({
-            root: this.root,
-            controller: this.mainController
-        });
-        category.render();
-
-        const params = new ParamsComponent({
-            root: this.root,
-            controller: this.mainController
-        });
-        params.render();
+        this.category.render({ root: this.container.querySelector('.main-page__category') });
+        this.params.render({ root: this.container.querySelector('.main-page__params') });
 
         // const filter = new FilterComponent({ root: this.root });
         // filter.render();
 
         // поле для отображения рестаранов
-        this.content = document.createElement('div');
+        this.content = document.querySelector('.main-page__content');
         this.content.innerHTML = '';
-        this.root.append(this.content);
+        this.container.append(this.content);
 
         // const more = new MoreRestaurantsComponent({
         //     root: this.root,
@@ -54,25 +61,15 @@ export class MainView {
 
         // more.render();
 
-        this.restaurants = new PanelRestaurantsComponent({
-            root: this.content,
-            controller: this.mainController,
-            goTo: this.goTo
-        });
-
-        this.restaurants.render();
+        this.restaurants.render({ root: this.content });
     }
 
-    contentDraw (info) {
+    renderContent (info) {
         this.restaurants.add({ restaurants: info })
     }
 
     clearContent () {
         this.content.innerHTML = '';
-    }
-
-    loadError (error) {
-        // TODO изобразить сообщение о пропаввшем интернете
-        console.log('mainVIew -> loadError', error)
+        this.restaurants.render({ root: this.content });
     }
 }

@@ -1,5 +1,5 @@
 import eventBus from './eventBus.js';
-import { AuthEvents } from '../events/AuthEvents.js';
+import { AuthEvents } from 'Events/AuthEvents.js';
 
 class User {
     constructor () {
@@ -16,7 +16,7 @@ class User {
         email = '',
         number = '',
         role = '',
-        address = '',
+        address = {}
     } = {}) {
         if (name || title) {
             this.name = name || title;

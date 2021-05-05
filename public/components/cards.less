@@ -1,0 +1,90 @@
+@import '../static/css/variables.less';
+
+.card {
+    width: 100%;
+    max-height: 360px;
+    min-height: 280px;
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    margin: 0;
+    margin-bottom: 16px;
+
+    @media @tablet {
+        min-width: 270px;
+        max-width: 340px;
+        width: auto;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: 40px;
+        flex-basis: 0;
+        flex-grow: 1;
+    }
+    
+    &:hover {
+        transform: scale(1.03);
+        transition: transform 0.2s;
+    }
+
+    &__header {
+        position: relative;
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        padding-left: 16px;
+    }
+
+    &__name {
+        font-size: 20px;
+        line-height: 24px;
+        margin-bottom: 8px;
+        letter-spacing: 0.15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: bolder;
+    }
+
+    &__image {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 164px;
+    }
+
+    &__sum {
+        font-size: 14px;
+        margin-top: auto;
+        margin-bottom: 12px;
+        float: right;
+        margin-right: 12px;
+    }
+
+    &__description {
+        margin: 16px 12px 0 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__header {
+        &-top {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+        }
+
+        &-icons {
+            margin-left: auto;
+            margin-right: 0;
+        }
+    
+        &-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
+            cursor: pointer;
+        }
+    }
+}

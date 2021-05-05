@@ -1,25 +1,69 @@
-import { StoreModel } from '../models/StoreModel.js';
+import storeModel from '../models/StoreModel.js';
+import { noop } from '../modules/utils.js';
+import eventBus from '../modules/eventBus.js';
+import { StoreEvents } from '../events/StoreEvents.js';
+import { StoreView } from '../views/StoreView.js';
+import address from '../modules/address.js';
+import { ConfirmationAddress } from '../components/ConfirmationAddress/ConfirmationAddress.js';
 
 export class StoreController {
-    constructor () {
-        this.storeModel = new StoreModel();
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
+        this.goTo = goTo;
+        this.root = root;
+        this.storeView = new StoreView({ root, goTo, controller: this })
+        eventBus.on(StoreEvents.storeGetDishesSuccess, this.storePageDraw.bind(this));
+        eventBus.on(StoreEvents.storeGetDishesFailed, this.loadError.bind(this));
     }
 
     getDishes (url) {
-        this.storeModel.getDishes(url.substring('/restaurant'.length));
+        const address_ = address.getAddress();
+        storeModel.getDishes(
+            url.substring('/store'.length)
+                .concat('?latitude=', String(address_.latitude), '&longitude=',String(address_.longitude))
+        );
     }
 
     addDish ({
-        dishID = '',
-        restaurantID = '',
         isNewBasket = true,
-        isPlus = true
+        isPlus = true,
+        food = {},
+        restaurant = {}
     } = {}) {
-        this.storeModel.addDish({
-            dishID,
-            restaurantID,
+        storeModel.addDish({
             isNewBasket,
-            isPlus
-        })
+            isPlus,
+            food,
+            restaurant
+        });
+    }
+
+    getReviews(storeID) {
+        storeModel.getReviews(storeID)
+    }
+
+    render (url) {
+        this.getDishes(url);
+    }
+
+    storePageDraw (info) {
+        this.storeView.render(info);
+        if (address.getAddress().name === '') {
+            new ConfirmationAddress({ goTo: this.goTo }).render();
+        }
+    }
+
+    loadError (error) {
+        this.storeView.renderServerError(error);
+    }
+
+    order () {
+        if (address.getAddress().name === '') {
+            new ConfirmationAddress({ goTo: this.goTo }).render('basket');
+        } else {
+            this.goTo('basket');
+        }
     }
 }

@@ -1,0 +1,40 @@
+@import '../../static/css/variables.less';
+
+.confirmation {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(50, 50, 50, 0.7);
+    min-height: 100vh;
+    height: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    &-container {
+        border-radius: 16px;
+        padding: 32px;
+        background: var(--cuisines-panel__slide_color);
+
+        &__title {
+            font-size: 24px;
+            text-align: center;
+            font-weight: bolder;
+        }
+
+        &__btn {
+            display: flex;
+            flex-direction: row;
+            font-size: 24px;
+            margin-top: 16px;
+            justify-content: space-evenly;
+        }
+    }
+
+    &-btn {
+        cursor: pointer;
+    }
+}

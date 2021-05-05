@@ -1,6 +1,7 @@
 :root {
     --main-green_color: #97B498;
     --main-green_color_darker: #acbdac;
+    --main-green_color_light: #E6FCE6;
     --navbar-white_color: #FBFFFC;
     --navbar-href-white_color: #F2F2F2;
     --delivery-background_color: #DDDDDD;
@@ -11,4 +12,8 @@
     --grey_color: #C4C4C4;
     --light-grey_color: #F2F2F2;
     --white_color: #FFFFFF;
+    --error_color: red;
+    --background_color: rgba(50, 50, 50, 0.7);
+    --chat-back_color: #effddf;
+    --chat-border_color: #C7E6BE;
 }

@@ -1,0 +1,44 @@
+@import '../../static/css/variables.less';
+@import 'StoreReviews/StoreReviews.css';
+
+.store {
+    margin-top: 16px;
+    display: grid;
+    grid-template-areas: "info"
+                         "store"
+                         "basket";
+
+    @media @tablet {
+        grid-template-columns: @grid-two-column-tablet;
+        grid-template-areas: "info basket"
+                             "store basket";
+    }
+
+    @media @desktop {
+        grid-template-columns: @grid-two-column-desktop;
+    }
+
+    &-info__title {
+        grid-area: info;
+    }
+
+    &-info__food {
+        grid-area: store;
+    }
+
+    &-info__basket {
+        grid-area: basket;
+        margin-bottom: 24px;
+
+        @media @tablet {
+            padding: 16px;
+        }
+    }
+}
+
+.sticky-basket {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+}

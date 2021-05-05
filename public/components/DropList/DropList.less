@@ -1,0 +1,76 @@
+@import "../../static/css/variables.less";
+
+.drop-list {
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    @media @tablet {
+        min-width: 200px;
+        margin-left: -20px;
+        margin-top: 16px;
+
+        position: absolute;
+        width: auto;
+        height: auto;
+        left: auto;
+        top: auto;
+    }
+
+    &__background {
+        background-color: var(--background_color);
+
+        @media @tablet {
+            background-color: transparent;
+        }
+    }
+
+    &__container {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+
+        border-radius: @border-radius-top-mobile;
+        background-color: var(--white_color);
+        padding-top: 24px;
+
+        @media @tablet {
+            bottom: inherit;
+            right: inherit;
+            background-color: transparent;
+            padding-top: 0;
+        }
+    }
+
+    &__slider {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    &__slide {
+        overflow: hidden;
+        text-align: center;
+        margin: auto;
+        padding: 12px;
+        font-size: 20px;
+        cursor: pointer;
+        width: 80%;
+
+        border-bottom: @line-bottom;
+
+        @media @tablet {
+            margin-bottom: 4px;
+            border-radius: 16px;
+            box-shadow: @shadow;
+            padding: 8px;
+            border: none;
+            font-size: 16px;
+            background-color: var(--params-panel__slide-btn_color);
+        }
+    }
+}

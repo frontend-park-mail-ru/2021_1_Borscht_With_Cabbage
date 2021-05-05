@@ -1,16 +1,17 @@
+import './FoodElement.less';
 import renderFoodElement from './StoreFoodElementTmpl.hbs';
-import eventBus from '../../../modules/eventBus.js';
-import { ChangeBasketEvents } from '../../../events/ChangeBasketEvents.js';
+import eventBus from 'Modules/eventBus.js';
+import { ChangeBasketEvents } from 'Events/ChangeBasketEvents.js';
 import { NumButtons } from '../../NumButtons/NumButtons.js';
-import { StoreController } from '../../../controllers/StoreController.js';
-import basket from '../../../modules/basket.js';
+import { StoreController } from 'Controllers/StoreController.js';
+import basket from 'Modules/basket.js';
 
 export class StoreFoodElement {
     constructor ({
         root = document.body,
         food = null,
-        controller = new StoreController(),
-        info = {}
+        controller = new StoreController({ root }),
+        restaurant = {}
     } = {}) {
         this.root = root;
         this.food = food;
@@ -18,10 +19,9 @@ export class StoreFoodElement {
         this.buttonID = `[data-foodAddButtonID="${this.food.id}"]`;
         this.numButtonsSelector = `[data-foodID="${this.food.id}"]`;
         eventBus.on(ChangeBasketEvents.chooseFood, ({ food, isPlus }) => {
-            console.log('store food element ->', food, isPlus)
             if (food.id === this.food.id) {
                 if (isPlus) {
-                    this.num += 1
+                    this.num += 1;
                     if (this.num === 1) {
                         this.choose();
                     }
@@ -34,18 +34,18 @@ export class StoreFoodElement {
             }
         });
         this.controller = controller;
-        this.info = info;
+        this.restaurant = restaurant;
     }
 
     render () {
         if (this.food) {
             this.root.innerHTML += renderFoodElement({ food: this.food });
-
+            // const headerRoot = ;
             this.numButtons = new NumButtons({
                 food: this.food,
                 root: this.root.querySelector(this.numButtonsSelector).querySelector('.card__header'),
                 event: ChangeBasketEvents.chooseFood,
-                restaurantID: this.info.id,
+                restaurant: this.restaurant,
                 controller: this.controller
             });
             this.numButtons.render();
@@ -71,7 +71,6 @@ export class StoreFoodElement {
     }
 
     addListener () {
-
         this.addButtonListener = () => {
             eventBus.emit(ChangeBasketEvents.chooseFood, {
                 food: this.food,
@@ -83,17 +82,16 @@ export class StoreFoodElement {
 
             let isNewBasket = false;
             if (basket.restaurantID) {
-                console.log('addBasket ->', this.info, basket)
-                if (this.info.id !== basket.restaurantID) {
+                if (this.restaurant.id !== basket.restaurantID) {
                     isNewBasket = true;
                 }
             }
 
             this.controller.addDish({
-                dishID: this.food.id,
                 isNewBasket,
                 isPlus: true,
-                restaurantID: this.info.id
+                food: this.food,
+                restaurant: this.restaurant
             });
         };
 

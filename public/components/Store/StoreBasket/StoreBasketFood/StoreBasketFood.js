@@ -1,3 +1,4 @@
+import './StoreBasketFood.less';
 import renderStoreBasketFood from './StoreBasketFoodTmpl.hbs';
 
 export class StoreBasketFood {

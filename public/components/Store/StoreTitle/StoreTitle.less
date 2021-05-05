@@ -1,0 +1,101 @@
+@import '../../../static/css/variables.less';
+
+.store-title {
+    &__container {
+        display: grid;
+        grid-template-columns: min-content;
+        grid-template-areas: "image title title title"
+                            "image time cost rating";
+
+        box-shadow: @shadow-mobile;
+        padding: 24px;
+
+        @media @tablet {
+            margin: 16px 0 0 0;
+            box-shadow: @shadow;
+        }
+    }
+
+    &__image {
+        grid-area: image;
+        max-height: 64px;
+        margin-right: 20px;
+        display: none;
+
+        @media @mobile {
+            display: block;
+        }
+    }
+
+    &__name {
+        grid-area: title;
+        font-size: 24px;
+        font-weight: bolder;
+        margin-bottom: 16px;
+    }
+
+    &__delivery-time {
+        grid-area: time;
+        margin-right: 16px;
+    }
+
+    &__delivery-cost {
+        grid-area: cost;
+        margin-right: 16px;
+    }
+
+    &__rating {
+        grid-area: rating;
+    }
+
+    &__const-info {
+        display: none;
+
+        @media @desktop {
+            display: contents;
+        }
+    }
+}
+
+// для закрепления панели на экране
+.sticky {
+    @media (max-width: 640px) {
+        background-color: var(--navbar-white_color);
+        position: fixed;
+        z-index: 1000;
+        padding: 8px;
+        margin-left: -72px;
+        top: 0;
+        border-bottom: @line-bottom;
+        width: 110%;
+        padding-left: 72px;
+    }
+}
+
+.sticky + .sections-hrefs {
+    padding-top: 60px;
+}
+
+.sections-hrefs {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.section-href {
+    padding: 8px;
+    margin: 8px;
+    border-radius: 40%;
+
+    &__basket {
+        @media @tablet {
+            display: none;
+        }
+    }
+}
+
+.section-href:hover {
+    cursor: pointer;
+    background: var(--main-green_color_darker);
+    color: var(--navbar-href-white_color);
+}

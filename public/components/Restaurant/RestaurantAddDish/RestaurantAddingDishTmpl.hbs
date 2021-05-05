@@ -1,7 +1,7 @@
 <div class="adding-dish" >
-    <div class="adding-dish-container" style="margin: 50px 0">
+    <div class="adding-dish-container">
         <h2 class="adding-dish-container__title">{{buttonName}}</h2>
-        <form id="adding-dish-form">
+        <form id="adding-dish-form" class="adding-dish-container__form">
             <input type="text" id="name" placeholder="Название блюда" name="name" data-name="Название блюда" value="{{dish.name}}">
             <p id="nameError" class="error">Название блюда</p>
             <input type="text" id="description" placeholder="Описание" name="description" data-name="Описание" value="{{dish.description}}">
@@ -11,11 +11,11 @@
             <input type="number" id="weight" placeholder="Вес" name="weight" data-name="Вес" value="{{dish.weight}}">
             <p id="weightError" class="error">Вес</p>
 
-            <button class="button" id="input-avatar-button">Загрузить аватар</button>
+            <button class="button adding-dish-button" id="input-avatar-button">Загрузить аватар</button>
             <input name="avatar" id="input-avatar" type="file" style="display: none;"/>
             
-            <input type="submit" class="button" value="{{buttonName}}">
-            <p id="serverError" class="error"> </p>
+            <input type="submit" class="button adding-dish-submit" value="{{buttonName}}">
+            <p id="serverError" class="error red_error"> </p>
         </form>
     </div>
 </div>

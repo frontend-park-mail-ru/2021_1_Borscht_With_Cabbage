@@ -8,5 +8,7 @@
 
 export const StoreEvents = {
     storeGetDishesSuccess: 'storeGetDishesSuccess',
-    storeGetDishesFailed: 'storeGetDishesFailed'
+    storeGetDishesFailed: 'storeGetDishesFailed',
+    storeGetReviewsSuccess: 'storeGetReviewsSuccess',
+    storeGetReviewsFailed: 'storeGetReviewsFailed'
 }

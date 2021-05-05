@@ -1,43 +1,41 @@
-import { noop } from "../../../modules/utils.js";
-import { RestaurantMainController } from "../../../controllers/RestaurantMainController.js";
-import renderRestaurantAddingDish from "./RestaurantAddingDishTmpl.hbs";
-import eventBus from "../../../modules/eventBus.js";
-import { DishEvents } from "../../../events/DishEvents.js";
-import { Validator } from "../../../modules/validation.js";
-import { renderInput } from "../../../modules/rendering.js";
-import { Preview } from '../../Preview/Preview.js'
+import './RestaurantAddingDish.less';
+import { getError, noop } from '../../../modules/utils.js';
+import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
+import renderRestaurantAddingDish from './RestaurantAddingDishTmpl.hbs';
+import eventBus from '../../../modules/eventBus.js';
+import { DishEvents } from '../../../events/DishEvents.js';
+import { Validator } from '../../../modules/validation.js';
+import { renderInput } from '../../../modules/rendering.js';
+import { Preview } from '../../Preview/Preview.js';
+import { DishModel } from '../../../modules/dish.js';
 
 export class RestaurantAddingDish {
     constructor ({
-        root = document.body,
         goTo = noop,
         controller = new RestaurantMainController(),
-        dish,
-        section
     } = {}) {
-        this.root = root;
         this.goTo = goTo;
         this.controller = controller;
-        this.dish = dish;
-        this.section = section;
         this.nameID = 'name';
         this.descriptionID = 'description';
         this.priceID = 'price';
         this.weightID = 'weight';
-        eventBus.on(DishEvents.addingDishFailed, this.addingFailed.bind(this));
-        eventBus.on(DishEvents.updateDishDataFailed, this.addingFailed.bind(this));
         eventBus.on(DishEvents.updateDishDataSuccess, this.closeItem.bind(this));
         eventBus.on(DishEvents.updateDishImageSuccess, this.closeItem.bind(this));
-        eventBus.on(DishEvents.updateDishImageFailed, this.addingFailed.bind(this));
     }
 
-    render () {
+    render ({
+        root = document.body,
+        dish
+    } = {}) {
+        this.root = root;
+        this.dish = dish;
         let buttonName = 'Добавить блюдо';
-        if (this.dish && this.dish.id) {
+        if (this.dish?.id) {
             buttonName = 'Обновить блюдо';
         }
         this.root.innerHTML += renderRestaurantAddingDish({
-            buttonName: buttonName,
+            buttonName,
             dish: this.dish
         });
 
@@ -55,7 +53,7 @@ export class RestaurantAddingDish {
         this.addCloseAddingEventListeners();
     }
 
-    addCloseAddingEventListeners() {
+    addCloseAddingEventListeners () {
         const close = this.root.querySelector('.adding-dish');
         if (!close) {
             return;
@@ -65,12 +63,11 @@ export class RestaurantAddingDish {
             if (e.target === close) {
                 this.closeItem();
             }
-        })
+        });
     }
 
     closeItem () {
-        console.log('close');
-        eventBus.emit(DishEvents.closeAddingDishComponent + this.section, {});
+        this.controller.closeAddingDish();
     }
 
     addAddingDishEventListeners () {
@@ -112,23 +109,23 @@ export class RestaurantAddingDish {
     formSubmit (event) {
         event.preventDefault();
 
-        if (!this.dish) {
-            this.dish = {};
-        }
-        this.dish.name = document.getElementById(this.nameID).value;
-        this.dish.description = document.getElementById(this.descriptionID).value;
-        this.dish.price = document.getElementById(this.priceID).value;
-        this.dish.weight = document.getElementById(this.weightID).value;
-        this.dish.image = this.preview.getFile();
-        this.dish.section = this.section;
+        let dish = {};
+        dish.name = document.getElementById(this.nameID).value;
+        dish.description = document.getElementById(this.descriptionID).value;
+        dish.price = document.getElementById(this.priceID).value;
+        dish.weight = document.getElementById(this.weightID).value;
+        dish.image = this.preview.getFile();
 
         let errors;
-        if (this.dish.id) {
-            console.log('update');
-            errors = this.controller.updateDish(this.dish);
+        if (this.dish?.id) {
+            console.log('update', this.dish);
+            dish.id = this.dish.id;
+            errors = this.dish.updateDish({ dish: dish });
         } else {
-            errors = this.controller.addDish(this.dish);
+            dish.section = this.dish.section;
+            errors = this.controller.addDish(dish);
         }
+        // errors = this.dish.updateDish(dish);
 
         if (errors.error === true) {
             renderInput(this.nameID, errors.nameError)
@@ -143,6 +140,6 @@ export class RestaurantAddingDish {
     addingFailed (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
-        serverError.textContent = error;
+        serverError.textContent = getError(error);
     }
 }

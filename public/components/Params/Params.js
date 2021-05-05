@@ -1,26 +1,43 @@
+import './Params.less';
 import renderParams from './ParamsTmpl.hbs';
 import { params } from './Params.constants.js';
 import { MainController } from '../../controllers/MainController.js'
-import { DropListComponent } from '../DropList/DropList.js'
+import list from '../DropList/DropList.js'
+import eventBus from '../../modules/eventBus.js';
+import { DropListEvents } from '../../events/DropListEvents.js';
 
 export class ParamsComponent {
     constructor ({
-        root = document.body,
         controller = new MainController()
     } = {}) {
-        this.root = root;
         this.controller = controller;
+        this.idDropList = 'Params';
+
+        eventBus.on(DropListEvents.chooseElement + this.idDropList, this.chooseElement.bind(this));
     }
 
-    render () {
-        const paramsElem = document.createElement('div');
-
-        paramsElem.innerHTML = renderParams({
+    render ({
+        root = document.body
+    } = {}) {
+        this.root = root;
+        this.root.innerHTML = renderParams({
             params: params
         });
-        this.root.append(paramsElem);
 
         this.addParamsListeners();
+    }
+
+    chooseElement (name) {
+        // элемент в котором нужно поменять значение параметра
+        console.log(name);
+        const nameCurrentParams = this.correctItem.dataset.params;
+        this.correctItem.innerHTML = params[nameCurrentParams].val[name].name;
+        this.item = null;
+
+        this.controller.clickParams({
+            name: nameCurrentParams,
+            value: params[nameCurrentParams].val[name].value
+        });
     }
 
     addParamsListeners () {
@@ -33,39 +50,25 @@ export class ParamsComponent {
             const { target } = e;
             e.preventDefault();
 
-            const item = target.closest('.panel__btn');
-            if (!item) {
+            this.correctItem = target.closest('.panel__btn');
+            if (!this.correctItem) {
                 return;
             }
 
-            if (this.list) {
-                this.list.remove();
-            }
-
             // убираем список при повторном нажатии
-            if (this.item === item) {
+            if (this.item === this.correctItem) {
+                list.remove();
                 this.item = null;
                 return;
             }
 
-            this.item = item;
-            
-            this.list = new DropListComponent({ 
-                root: item,
-                content: params[item.dataset.params].val,
-                callback: (value) => {
-                    // элемент в котором нужно поменять значение параметра
-                    item.childNodes[1].innerHTML = params[item.dataset.params]
-                                                .val[value].name;
+            this.item = this.correctItem;
 
-                    this.controller.clickParams({ 
-                        name: item.dataset.params,
-                        value: value
-                    });
-                }
+            list.render({
+                root: this.correctItem,
+                content: params[this.correctItem.dataset.params].val,
+                idList: this.idDropList
             });
-
-            this.list.add();
         })
     }
 }

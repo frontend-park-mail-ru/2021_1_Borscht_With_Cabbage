@@ -1,14 +1,15 @@
 import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
 import eventBus from '../../../modules/eventBus.js';
-import { ProfileEvents } from '../../../events/ProfileEvents.js';
 import renderRestaurantEdits from './RestaurantEditsTmpl.hbs';
 import { Preview } from '../../Preview/Preview.js';
 import { renderInput } from '../../../modules/rendering.js';
 import { AuthEvents } from '../../../events/AuthEvents.js';
 import { Validator } from '../../../modules/validation.js';
 import { maskPhone } from '../../../modules/phoneMask.js';
-import { noop } from '../../../modules/utils.js';
+import { getError, noop } from '../../../modules/utils.js';
 import user from '../../../modules/user.js';
+import { YandexMap } from '../../../modules/yandexMap.js';
+import { RestaurantEvents } from '../../../events/RestaurantEvents.js';
 
 export class RestaurantEdits {
     constructor ({
@@ -26,13 +27,21 @@ export class RestaurantEdits {
         this.currentPasswordID = 'password_current';
         this.newPasswordID = 'password';
         this.repeatPasswordID = 'password_repeat';
-
+        this.radiusID = 'radius';
         this.controller = controller;
-        eventBus.on(ProfileEvents.profileSetUserDataSuccess, this.updateInputs.bind(this));
-        eventBus.on(ProfileEvents.profileSetUserDataFailed, this.changeFailed.bind(this));
+        eventBus.on(RestaurantEvents.restaurantSetUserDataSuccess, this.updateInputs.bind(this));
+        eventBus.on(RestaurantEvents.restaurantSetUserDataFailed, this.changeFailed.bind(this));
+        this.setCoords = this.setCoords.bind(this);
+    }
+
+    setCoords (latitude, longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     render () {
+        this.root = document.getElementById('restaurant-left-block');
+        console.log(this.root)
         this.root.innerHTML = renderRestaurantEdits({
             user: user
         });
@@ -44,6 +53,15 @@ export class RestaurantEdits {
             input: this.avatarInput,
             button: this.avatarButton
         });
+
+        this.yaMap = new YandexMap();
+        this.yaMap.render({ id: 'js__map-edit', isStatic: false }, (address, isRenew) => {
+            if (isRenew) {
+                document.getElementById('js__map-edit-address').value = address.name;
+            }
+            this.setCoords(address.latitude, address.longitude);
+        });
+        this.yaMap.addSearch('js__map-edit-address');
 
         this.addErrorListeners();
         this.addSubmitListener();
@@ -58,7 +76,7 @@ export class RestaurantEdits {
     formSubmit (event) {
         event.preventDefault()
 
-        const errors = this.controller.setRestaurantData({
+        this.controller.setRestaurantData({
             email: document.getElementById(this.emailID).value,
             title: document.getElementById(this.titleID).value,
             phone: document.getElementById(this.phoneID).value.replace(/\D/g, ''),
@@ -66,30 +84,26 @@ export class RestaurantEdits {
             currentPassword: document.getElementById(this.currentPasswordID).value,
             newPassword: document.getElementById(this.newPasswordID).value,
             repeatPassword: document.getElementById(this.repeatPasswordID).value,
-            avatar: this.preview.getFile()
+            avatar: this.preview.getFile(),
+            address: {
+                name: document.getElementById('js__map-edit-address').value,
+                latitude: String(this.latitude),
+                longitude: String(this.longitude),
+                radius: Math.round(Number(document.getElementById(this.radiusID).value))
+            }
         });
-        if (errors.error) {
-            renderInput(this.emailID, errors.emailError);
-            renderInput(this.titleID, errors.nameError);
-            renderInput(this.phoneID, errors.phoneError);
-            renderInput(this.currentPasswordID, errors.currentPasswordError);
-            renderInput(this.newPasswordID, errors.newPasswordError);
-            renderInput(this.repeatPasswordID, errors.repeatPasswordError);
-        } else {
-            // TODO обратная связь что грузится и все хорошо
-        }
     }
 
     changeFailed (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
-        serverError.textContent = error;
+        serverError.textContent = getError(error);
     }
 
     updateInputs ({ info, status }) {
         if (status === 200) {
             document.getElementById(this.emailID).value = info.email;
-            document.getElementById(this.titleID).value = info.name;
+            document.getElementById(this.titleID).value = info.title;
             document.getElementById(this.phoneID).value = info.number;
             document.getElementById(this.phoneID).focus();
             if (info.avatar) {
@@ -140,6 +154,16 @@ export class RestaurantEdits {
             );
         }
 
+        const radius = document.getElementById(this.radiusID);
+        if (radius) {
+            radius.addEventListener('focusout',
+                () => renderInput(this.phoneID, Validator.validateNumber(radius.value))
+            );
+            radius.addEventListener('input', () => {
+                this.yaMap.changeRadius(radius.value);
+            });
+        }
+
         const currentPassword = document.getElementById(this.currentPasswordID);
         if (currentPassword) {
             currentPassword.addEventListener('focusout',
@@ -164,5 +188,25 @@ export class RestaurantEdits {
         phone.focus();
 
         this.preview.setPreview();
+    }
+
+    renderErrors (errors) {
+        if (errors.error) {
+            renderInput(this.emailID, errors.emailError);
+            renderInput(this.titleID, errors.titleError);
+            renderInput(this.phoneID, errors.phoneError);
+            renderInput(this.currentPasswordID, errors.currentPasswordError);
+            renderInput(this.newPasswordID, errors.newPasswordError);
+            renderInput(this.repeatPasswordID, errors.repeatPasswordError);
+            renderInput(this.radiusID, errors.radiusError);
+        } else {
+            // TODO обратная связь что грузится и все хорошо
+        }
+    }
+
+    renderServerError (error) {
+        const serverError = document.getElementById('serverError');
+        serverError.hidden = false;
+        serverError.textContent = getError(error);
     }
 }

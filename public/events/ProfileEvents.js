@@ -10,6 +10,18 @@
  *
  *  profileSetUserDataFailed
  *      data: { error }
+ *
+ *  profileGetOrdersSuccess
+ *      data: { orders }
+ *
+ *  profileGetOrdersFailed
+ *      data: { error }
+ *
+ *  profileOrderPostReviewSuccess
+ *      data: { order }
+ *
+ *  profileOrderPostReviewFailed
+ *      data: { error }
  */
 
 export const ProfileEvents = {
@@ -18,5 +30,12 @@ export const ProfileEvents = {
     profileSetUserDataSuccess: 'profileSetUserDataSuccess',
     profileSetUserDataFailed: 'profileSetUserDataFailed',
     profileGetOrdersSuccess: 'profileGetOrdersSuccess',
-    profileGetOrdersFailed: 'profileGetOrdersFailed'
+    profileGetOrdersFailed: 'profileGetOrdersFailed',
+    profileGetChatsSuccess: 'profileGetChatsSuccess',
+    profileGetChatsFailed: 'profileGetChatsFailed',
+    profileGetChatMessagesSuccess: 'profileGetChatMessagesSuccess',
+    profileGetChatMessagesFailed: 'profileGetChatMessagesFailed',
+    profileGetNewMessageSocket: 'profileGetNewMessageSocket',
+    profileOrderPostReviewSuccess: 'profileOrderPostReviewSuccess',
+    profileOrderPostReviewFailed: 'profileOrderPostReviewFailed'
 }

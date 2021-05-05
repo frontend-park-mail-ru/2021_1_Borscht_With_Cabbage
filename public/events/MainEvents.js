@@ -8,6 +8,5 @@
 
 export const MainEvents = {
     mainGetRestaurantsSuccess: 'mainGetRestaurantsSuccess',
-    mainGetRestaurantsFailed: 'mainGetRestaurantsFailed',
-    mainClearContent: 'mainClearContent'
+    mainGetRestaurantsFailed: 'mainGetRestaurantsFailed'
 }

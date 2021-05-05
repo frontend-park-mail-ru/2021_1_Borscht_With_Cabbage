@@ -1,9 +1,22 @@
-import { SignInModel } from '../models/SignInModel.js';
+import signInModel from '../models/SignInModel.js';
 import { Validator } from '../modules/validation.js';
+import { noop } from '../modules/utils.js';
+import { SignInView } from '../views/SignInView.js';
+import user from '../modules/user.js';
+import eventBus from '../modules/eventBus.js';
+import { SignInEvents } from '../events/SignInEvents.js';
+import redirect from '../modules/redirect.js';
 
 export class SignInController {
-    constructor () {
-        this.signInModel = new SignInModel();
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
+        this.goTo = goTo;
+        this.root = root;
+        this.signInView = new SignInView({ root, controller: this });
+        eventBus.on(SignInEvents.userSignInSuccess, this.loginSuccess.bind(this));
+        eventBus.on(SignInEvents.userSignInFailed, this.loginFailed.bind(this));
     }
 
     signIn (login, password) {
@@ -11,16 +24,35 @@ export class SignInController {
         const passwordError = Validator.validatePassword(password);
 
         if (loginError.result && passwordError.result) {
-            this.signInModel.signIn(login, password);
+            signInModel.signIn(login, password);
             return {
                 error: false
             };
-        } else {
-            return {
-                error: true,
-                loginError,
-                passwordError
-            };
         }
+        return {
+            error: true,
+            loginError,
+            passwordError
+        };
+    }
+
+    render () {
+        if (user.isAuth) {
+            return;
+        }
+        this.signInView.render();
+    }
+
+    loginFailed (error) {
+        this.signInView.renderServerError(error);
+    }
+
+    loginSuccess () {
+        const url = redirect.pop();
+        if (url) {
+            this.goTo(url);
+            return;
+        }
+        this.goTo('main');
     }
 }

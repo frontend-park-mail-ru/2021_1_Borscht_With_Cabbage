@@ -1,5 +1,5 @@
-import eventBus from './modules/eventBus.js';
-import { AuthEvents } from './events/AuthEvents.js';
+import eventBus from 'Modules/eventBus.js';
+import { AuthEvents } from 'Events/AuthEvents.js';
 
 export default function registerSW () {
     const message = { message: 'Контент не доступен в оффлайн режиме' };
@@ -19,7 +19,7 @@ export default function registerSW () {
                 if (registration.installing) {
                     const data = {
                         type: 'CACHE_URLS',
-                        payload: [location.href, ...performance.getEntriesByType('resource').map(r => r.name)],
+                        payload: [location.href, ...performance.getEntriesByType('resource').map(r => r.name)]
                     };
                     registration.installing.postMessage(data);
                 }

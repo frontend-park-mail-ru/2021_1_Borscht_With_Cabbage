@@ -1,9 +1,22 @@
 import { Validator } from '../modules/validation.js';
-import { SignUpModel } from '../models/SignUpModel.js';
+import signUpModel from '../models/SignUpModel.js';
+import eventBus from '../modules/eventBus.js';
+import { SignUpEvents } from '../events/SignUpEvents.js';
+import redirect from '../modules/redirect.js';
+import { noop } from '../modules/utils.js';
+import { SignUpView } from '../views/SignUpView.js';
+import user from '../modules/user.js';
 
 export class SignUpController {
-    constructor () {
-        this.signUpModel = new SignUpModel();
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
+        this.goTo = goTo;
+        this.root = root;
+        this.signUpView = new SignUpView({ root, goTo, controller: this })
+        eventBus.on(SignUpEvents.userSignUpSuccess, this.signupSuccess.bind(this));
+        eventBus.on(SignUpEvents.userSignUpFailed, this.signupFailed.bind(this));
     }
 
     signUp ({ email, password, name, number, repeatPassword }) {
@@ -14,7 +27,7 @@ export class SignUpController {
         const repeatPasswordError = Validator.validateEqualPassword(password, repeatPassword);
 
         if (emailError.result && passwordError.result && nameError.result && phoneError.result && repeatPasswordError.result) {
-            this.signUpModel.signUp({
+            signUpModel.signUp({
                 email,
                 password,
                 name,
@@ -23,15 +36,34 @@ export class SignUpController {
             return {
                 error: false
             };
-        } else {
-            return {
-                error: true,
-                emailError,
-                passwordError,
-                nameError,
-                phoneError,
-                repeatPasswordError
-            };
         }
+        return {
+            error: true,
+            emailError,
+            passwordError,
+            nameError,
+            phoneError,
+            repeatPasswordError
+        };
+    }
+
+    render () {
+        if (user.isAuth) {
+            return;
+        }
+        this.signUpView.render();
+    }
+
+    signupSuccess () {
+        const url = redirect.pop();
+        if (url) {
+            this.goTo(url);
+            return;
+        }
+        this.goTo('main');
+    }
+
+    signupFailed (error) {
+        this.signUpView.renderServerError(error);
     }
 }

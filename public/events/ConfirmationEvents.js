@@ -1,4 +1,4 @@
- export const ConfirmationEvents = {
+export const ConfirmationEvents = {
     confirmationSuccess: 'confirmationSuccess',
     confirmationFailed: 'confirmationFailed'
 }

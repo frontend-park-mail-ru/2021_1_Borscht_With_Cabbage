@@ -1,66 +1,69 @@
+import '../components/Profile/Profile.less';
 import renderProfileView from '../components/Profile/ProfileTmpl.hbs'
 import { ProfileEdits } from '../components/Profile/ProfileEdits/ProfileEdits.js';
 import { ProfileController } from '../controllers/ProfileController.js';
-import eventBus from '../modules/eventBus.js';
-import { ProfileEvents } from '../events/ProfileEvents.js';
 import { RightMenu } from '../components/Profile/RightMenu/RightMenu.js';
 import { Orders } from '../components/Profile/Orders/Orders.js';
-import user from '../modules/user.js';
+import { noop } from '../modules/utils.js';
+import { ChatList } from '../components/ChatList/ChatList.js';
+import { Chat } from '../components/Chat/Chat.js';
 
 export class ProfileView {
-    constructor (root, goTo) {
+    constructor ({
+        root = document.body,
+        goTo = noop,
+        controller = new ProfileController({ root, goTo })
+    } = {}) {
         this.goTo = goTo;
         this.root = root;
-        this.profileController = new ProfileController()
-        eventBus.on(ProfileEvents.profileGetUserDataSuccess, this.userDraw.bind(this))
-        eventBus.on(ProfileEvents.profileGetUserDataFailed, this.loadError.bind(this))
-    }
-
-    render () {
-        if (user.role === 'admin') {
-            this.goTo('restaurantMain');
-            return;
-        } else if (user.role === '') {
-            this.goTo('main');
-            return;
-        }
-        // TODO вынести эту лоику в компонент, который отвечает за это конкретно
-        this.profileController.getUserData()
-    }
-
-    userDraw (data) {
-        this.root.innerHTML = ''
-
-        const profile = document.createElement('div')
-        profile.innerHTML = renderProfileView({}) // создаем правое меню
-        this.root.append(profile)
-
-        // добавляем поля профиля и его изменения
-        const edits = new ProfileEdits({
-            root: this.root,
-            goTo: this.goTo,
-            user: data,
-            controller: this.profileController
-        })
-        edits.render()
-
-        const orders = new Orders({
+        this.profileController = controller;
+        const initialData = {
             root: this.root,
             controller: this.profileController,
-            goTo: this.goTo,
-            user: user
-        });
+            goTo: this.goTo
+        };
 
-        const rightMenu = new RightMenu({
-            root: this.root.querySelector('#profile-right-block'),
-            profileController: this.profileController,
-            editsView: edits,
-            ordersView: orders
+        this.edits = new ProfileEdits(initialData);
+        this.orders = new Orders(initialData);
+        this.chats = new ChatList(initialData);
+        this.chat = new Chat(initialData);
+
+        this.rightMenu = new RightMenu({
+            root: this.root,
+            goTo: this.goTo
         });
-        rightMenu.render()
     }
 
-    loadError (error) {
-        console.log('profileView -> loadError', error)
+    render ({ data, url } = {}) {
+        this.root.innerHTML = '';
+
+        const profile = document.createElement('div');
+        profile.innerHTML = renderProfileView({});
+        this.root.append(profile);
+
+        this.rightMenu.render();
+
+        if (/orders/.test(url)) {
+            this.activeComponent = this.orders;
+        } else if (/chats\/./.test(url)) {
+            this.activeComponent = this.chat;
+        } else if (/chats/.test(url)) {
+            this.activeComponent = this.chats;
+        } else {
+            this.activeComponent = this.edits;
+        }
+        this.activeComponent.render(data);
+    }
+
+    renderServerError (error) {
+        this.activeComponent.renderServerError(error);
+    }
+
+    renderNewMessage (message) {
+        this.chat.renderNewMessage(message);
+    }
+
+    reNewLastMessage (message) {
+        this.chats.reNewLastMessage(message);
     }
 }

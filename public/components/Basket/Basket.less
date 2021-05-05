@@ -1,0 +1,47 @@
+@import "../../static/css/variables.less";
+
+.basket-container {
+    display: grid;
+    grid-template-areas: "delivery"
+                         "options";
+    grid-column-gap: 24px;
+    grid-row-gap: 24px;
+    margin: 24px 0;
+
+
+    @media @tablet {
+        grid-template-areas: "options delivery";
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media @desktop {
+        grid-template-columns: 2fr 1fr;
+        grid-column-gap: 48px;
+    }
+
+    &__options {
+        grid-area: options;
+        box-shadow: @shadow-mobile;
+        padding: 0 24px;
+
+        @media @tablet {
+            box-shadow: @shadow;
+            padding: 24px;
+        }
+    }
+
+    &__delivery {
+        grid-area: delivery;
+        box-shadow: @shadow-mobile;
+        padding: 0 24px;
+
+        @media @tablet {
+            box-shadow: @shadow;
+            padding: 24px;
+        }
+    }
+}
+
+.basket-empty {
+    margin: 64px;
+}

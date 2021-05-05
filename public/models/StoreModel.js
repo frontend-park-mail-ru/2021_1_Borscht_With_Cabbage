@@ -2,28 +2,38 @@ import eventBus from 'Modules/eventBus.js';
 import { addDishInBasket, getBasket, storeGet, getReviews } from 'Modules/api.js';
 import { StoreEvents } from 'Events/StoreEvents.js';
 import { ChangeBasketEvents } from 'Events/ChangeBasketEvents.js';
+import user from '../modules/user.js';
+import basket from '../modules/basket.js';
 
-export class StoreModel {
+class StoreModel {
     getDishes (url) {
-        const food = storeGet({ url: url });
-        const basket = getBasket();
+        const promises = [];
+        promises.push(storeGet({ url }));
+        if (!user.isAuth) {
 
-        Promise.all([food, basket])
+        } else {
+            promises.push(getBasket());
+        }
+
+        Promise.all(promises)
             .then(res => {
                 const data_ = {};
-                data_.status = Math.max(res[0].status, res[1].status);
-                if (res[0].status !== 200 || res[1].status !== 200) {
-                    if (res[0].status !== 200) {
-                        data_.parsedJSON = res[0].parsedJSON;
-                    } else {
-                        data_.parsedJSON = res[1].parsedJSON;
-                    }
+                if (res[0].status !== 200) {
+                    data_.status = res[0].status;
+                    data_.parsedJSON = res[0].parsedJSON;
                 } else {
-                    data_.parsedJSON = Object.assign(
-                        res[0].parsedJSON, { basket: res[1].parsedJSON });
+                    data_.status = res[0].status;
+                    if (res.length > 1) {
+                        if (res[1].status !== 200) {
+                            data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: {} });
+                        } else {
+                            data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: res[1].parsedJSON });
+                        }
+                    } else {
+                        data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: {} });
+                    }
                 }
-                // const data_ = res[0]
-                console.log('data_ -> ', data_)
+                console.log(data_)
                 if (data_.status === 200) {
                     eventBus.emit(StoreEvents.storeGetDishesSuccess, data_.parsedJSON);
                 } else {
@@ -36,15 +46,21 @@ export class StoreModel {
     }
 
     addDish ({
-        dishID = '',
-        restaurantID = '',
         isNewBasket = true,
-        isPlus = true
+        isPlus = true,
+        food,
+        restaurant
     } = {}) {
-        console.log(dishID, restaurantID, isNewBasket, isPlus)
+        if (!user.isAuth) {
+            basket.addNew({
+                food,
+                restaurant
+            });
+            return;
+        }
         addDishInBasket({
-            dishID,
-            restaurantID,
+            dishID: food.id,
+            restaurantID: restaurant.id,
             same: !isNewBasket,
             isPlus
         })
@@ -74,3 +90,5 @@ export class StoreModel {
             })
     }
 }
+
+export default new StoreModel();

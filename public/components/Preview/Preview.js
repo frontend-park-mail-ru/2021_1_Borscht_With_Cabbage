@@ -1,3 +1,4 @@
+import './Preview.less';
 import renderPreview from './PreviewTmpl.hbs';
 import { bytesToSize } from 'Modules/utils.js';
 
@@ -7,10 +8,10 @@ export class Preview {
         input = null,
         button = null
     } = {}) {
-        this.root = root
-        this.file = null
-        this.input = input
-        this.button = button
+        this.root = root;
+        this.file = null;
+        this.input = input;
+        this.button = button;
     }
 
     setPreview () {
@@ -20,44 +21,44 @@ export class Preview {
                 return;
             }
 
-            const preview = this.root.querySelector('#profile-preview')
+            const preview = this.root.querySelector('#profile-preview');
             if (preview) {
-                preview.innerHTML = ''
+                preview.innerHTML = '';
             }
 
-            this.file = event.target.files[0]
-            const reader = new FileReader()
+            this.file = event.target.files[0];
+            const reader = new FileReader();
 
             reader.onload = ev => {
                 this.input.insertAdjacentHTML('afterend', renderPreview({
                     src: ev.target.result,
                     name: this.file.name,
                     size: bytesToSize(this.file.size)
-                }))
+                }));
                 this.root.querySelector('.input-avatar__preview-remove')
                     .addEventListener('click', () => {
                         this.deletePreview()
-                    })
-            }
-            reader.readAsDataURL(this.file)
+                    });
+            };
+            reader.readAsDataURL(this.file);
         };
 
-        const triggerInput = () => this.input.click()
+        const triggerInput = () => this.input.click();
 
-        this.button.addEventListener('click', triggerInput)
-        this.input.addEventListener('change', changeHandler)
+        this.button.addEventListener('click', triggerInput);
+        this.input.addEventListener('change', changeHandler);
     }
 
     deletePreview () {
-        if (this.file) {
-            const elemPreview = this.root.querySelector('.input-avatar__preview')
-            elemPreview.classList.add('removing')
-            elemPreview.addEventListener('transitionend', () => elemPreview.remove())
-            this.file = null
+        const elemPreview = this.root.querySelector('.input-avatar__preview');
+        if (elemPreview) {
+            elemPreview.classList.add('removing');
+            elemPreview.addEventListener('transitionend', () => elemPreview.remove());
         }
+        this.file = null;
     }
 
     getFile () {
-        return this.file
+        return this.file;
     }
 }

@@ -4,7 +4,7 @@ import { Validator } from 'Modules/validation.js';
 import { maskPhone } from 'Modules/phoneMask.js';
 import eventBus from 'Modules/eventBus.js';
 import { Preview } from '../../Preview/Preview.js';
-import { noop } from 'Modules/utils.js';
+import { getError, noop } from 'Modules/utils.js';
 import user from 'Modules/user.js';
 import { ProfileEvents } from 'Events/ProfileEvents.js';
 import { ProfileController } from 'Controllers/ProfileController.js';
@@ -14,11 +14,9 @@ export class ProfileEdits {
     constructor ({
         root = document.body,
         goTo = noop,
-        user = null,
         controller = new ProfileController()
     } = {}) {
         this.root = root;
-        this.user = user;
         this.goTo = goTo;
 
         this.emailID = 'email';
@@ -29,15 +27,12 @@ export class ProfileEdits {
         this.repeatPasswordID = 'password_repeat';
 
         this.controller = controller;
-        eventBus.on(ProfileEvents.profileSetUserDataSuccess, this.updateInputs.bind(this));
-        eventBus.on(ProfileEvents.profileSetUserDataFailed, this.changeFailed.bind(this));
     }
 
-    render () {
+    render (user) {
         const profilePlace = document.getElementById('profile-left-block');
         profilePlace.innerHTML = renderProfileEdits({
-            user: this.user,
-            serverUrl: window.serverAddress
+            user
         });
         this.avatarInput = this.root.querySelector('#input-avatar');
         this.avatarButton = this.root.querySelector('#input-avatar-button');
@@ -71,37 +66,46 @@ export class ProfileEdits {
             avatar: this.preview.getFile()
         });
         if (errors.error) {
-            renderInput(this.emailID, errors.emailError)
-            renderInput(this.nameID, errors.nameError)
-            renderInput(this.phoneID, errors.phoneError)
-            renderInput(this.currentPasswordID, errors.currentPasswordError)
-            renderInput(this.newPasswordID, errors.newPasswordError)
-            renderInput(this.repeatPasswordID, errors.repeatPasswordError)
+            renderInput(this.emailID, errors.emailError);
+            renderInput(this.nameID, errors.nameError);
+            renderInput(this.phoneID, errors.phoneError);
+            renderInput(this.currentPasswordID, errors.currentPasswordError);
+            renderInput(this.newPasswordID, errors.newPasswordError);
+            renderInput(this.repeatPasswordID, errors.repeatPasswordError);
         } else {
             // TODO обратная связь что грузится и все хорошо
         }
     }
 
-    changeFailed (error) {
-        const serverError = document.getElementById('serverError')
-        serverError.hidden = false
-        serverError.textContent = error
+    renderServerError (error) {
+        const serverError = document.getElementById('serverError');
+        serverError.hidden = false;
+        serverError.textContent = getError(error);
     }
 
-    updateInputs ({ info, status }) {
-        if (status === 200) {
-            document.getElementById(this.emailID).value = info.email;
-            document.getElementById(this.nameID).value = info.name;
-            document.getElementById(this.phoneID).value = info.number;
-            document.getElementById(this.phoneID).focus();
-            if (info.avatar) {
-                this.preview.deletePreview()
-            } else {
-                info.avatar = user.avatar
-            }
-            eventBus.emit(AuthEvents.userSignIn, info)
-        }
-    }
+    // updateInputs (info) {
+    //
+    //         const emailInput = document.getElementById(this.emailID);
+    //         if (emailInput) {
+    //             emailInput.value = info.email;
+    //         }
+    //         const nameInput = document.getElementById(this.nameID)
+    //         if (nameInput) {
+    //             nameInput.value = info.name;
+    //         }
+    //         const phoneInput = document.getElementById(this.phoneID)
+    //         if (phoneInput) {
+    //             phoneInput.value = info.number;
+    //             phoneInput.focus();
+    //         }
+    //         if (info.avatar) {
+    //             this.preview.deletePreview();
+    //         } else {
+    //             info.avatar = user.avatar;
+    //         }
+    //
+    //
+    // }
 
     addErrorListeners () {
         const email = document.getElementById(this.emailID);

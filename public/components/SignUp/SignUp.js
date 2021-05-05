@@ -1,17 +1,15 @@
 import SignUpTemplate from './SignUpTmpl.hbs';
-import { renderInput } from 'Modules/rendering.js';
-import { Validator } from 'Modules/validation.js';
-import { maskPhone } from 'Modules/phoneMask.js';
-import eventBus from 'Modules/eventBus.js';
-import { noop } from 'Modules/utils.js';
-import { SignUpController } from 'Controllers/SignUpController.js';
-import { SignUpEvents } from 'Events/SignUpEvents.js';
+import { renderInput } from '../../modules/rendering.js';
+import { Validator } from '../../modules/validation.js';
+import { maskPhone } from '../../modules/phoneMask.js';
+import { getError, noop } from '../../modules/utils.js';
+import { SignUpController } from '../../controllers/SignUpController.js';
 
 export class SignUp {
     constructor ({
         root = document.body,
         goTo = noop,
-        controller = new SignUpController()
+        controller = new SignUpController({ root, goTo })
     } = {}) {
         this.root = root;
         this.goTo = goTo;
@@ -21,8 +19,6 @@ export class SignUp {
         this.phoneID = 'number';
         this.passwordID = 'password';
         this.repeatPasswordID = 'repeatPassword';
-        eventBus.on(SignUpEvents.userSignUpSuccess, this.signupSuccess.bind(this));
-        eventBus.on(SignUpEvents.userSignUpFailed, this.signupFailed.bind(this));
     }
 
     render () {
@@ -83,9 +79,10 @@ export class SignUp {
         const loginID = 'js_toLogin';
         const login = document.getElementById(loginID);
         if (login) {
-            login.onclick = () => {
+            console.log('signup -> ', login)
+            login.addEventListener('click', () => {
                 this.goTo('login');
-            }
+            });
         }
     }
 
@@ -109,13 +106,9 @@ export class SignUp {
         }
     }
 
-    signupSuccess () {
-        this.goTo('main');
-    }
-
-    signupFailed (error) {
+    renderServerError (error) {
         const serverError = document.getElementById('serverError');
         serverError.hidden = false;
-        serverError.textContent = error;
+        serverError.textContent = getError(error);
     }
 }

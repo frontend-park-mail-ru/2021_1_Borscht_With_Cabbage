@@ -2,8 +2,9 @@ import { restaurantsGet } from 'Modules/api.js';
 import eventBus from 'Modules/eventBus.js';
 import { MainEvents } from 'Events/MainEvents.js';
 
-export class MainModel {
+class MainModel {
     getRestaurants (url) {
+        console.log(url);
         restaurantsGet({ url: url })
             .then(res => {
                 if (res.status === 200) {
@@ -15,3 +16,5 @@ export class MainModel {
             .catch(res => eventBus.emit(MainEvents.mainGetRestaurantsFailed, res.parsedJSON));
     }
 }
+
+export default new MainModel();

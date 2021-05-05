@@ -31,6 +31,11 @@ export const ProfileEvents = {
     profileSetUserDataFailed: 'profileSetUserDataFailed',
     profileGetOrdersSuccess: 'profileGetOrdersSuccess',
     profileGetOrdersFailed: 'profileGetOrdersFailed',
+    profileGetChatsSuccess: 'profileGetChatsSuccess',
+    profileGetChatsFailed: 'profileGetChatsFailed',
+    profileGetChatMessagesSuccess: 'profileGetChatMessagesSuccess',
+    profileGetChatMessagesFailed: 'profileGetChatMessagesFailed',
+    profileGetNewMessageSocket: 'profileGetNewMessageSocket',
     profileOrderPostReviewSuccess: 'profileOrderPostReviewSuccess',
     profileOrderPostReviewFailed: 'profileOrderPostReviewFailed'
 }

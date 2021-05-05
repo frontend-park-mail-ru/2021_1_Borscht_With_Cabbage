@@ -17,24 +17,10 @@ export class Orders {
         this.user = user;
         this.goTo = goTo;
         this.controller = controller;
-        eventBus.on(
-            ProfileEvents.profileGetOrdersSuccess,
-            this.ordersDraw.bind(this)
-        );
-        eventBus.on(
-            ProfileEvents.profileGetOrdersFailed,
-            this.loadError.bind(this)
-        );
     }
 
-    render () {
-        this.controller.getOrders();
-    }
-
-    ordersDraw (orders) {
-        document.getElementById('profile-left-block').innerHTML = renderOrderList(
-            {}
-        );
+    render (orders) {
+        document.getElementById('profile-left-block').innerHTML = renderOrderList({});
         const orderList = document.getElementById('orders-list');
 
         if (orders && orderList) {
@@ -43,14 +29,15 @@ export class Orders {
                 const element = new OrderElement({
                     root: orderList,
                     order: order,
-                    controller: this.controller
+                    controller: this.controller,
+                    goTo: this.goTo
                 });
                 element.render();
             }
         }
     }
 
-    loadError (error) {
+    renderServerError (error) {
         console.log('profileView -> GetOrders -> loadError', error);
     }
 }

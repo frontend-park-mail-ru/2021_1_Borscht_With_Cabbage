@@ -1,24 +1,27 @@
+import './static/css/variables.less'
+import './components/basicStyles.less'
+import './static/css/main.less';
+
+import { SignInController } from './controllers/SignInController.js';
+import { SignUpController } from './controllers/SignUpController.js';
+import { RestaurantSignInController } from './controllers/RestaurantSignInController.js';
+import { RestaurantSignUpController } from './controllers/RestaurantSignUpController.js';
+import { BasketController } from './controllers/BasketController.js';
+import { ProfileController } from './controllers/ProfileController.js';
+import { StoreController } from './controllers/StoreController.js';
+import { RestaurantMainController } from './controllers/RestaurantMainController.js';
+import { MainController } from './controllers/MainController.js';
 import { Router } from 'Modules/router.js';
-import { SignUpView } from 'Views/SignUpView.js';
-import { SignInView } from 'Views/SignInView.js';
-import { RestaurantSignInView } from "Views/RestaurantSignInView.js";
-import { RestaurantSignUpView } from "Views/RestaurantSignUpView.js";
-import { StoreView } from 'Views/StoreView.js';
-import { ProfileView } from 'Views/ProfileView.js';
 import { Logout } from 'Views/Logout.js';
-import { RestaurantMainView } from 'Views/RestaurantMainView.js';
 import { Navbar } from 'Components/NavBar/Navbar.js';
 import { authGet } from 'Modules/api.js';
-import { MainView } from "Views/MainView.js";
 import { InitViews } from 'Components/InitViews/InitViews.js';
-import registerSW from './registerSW.js';
-import { BasketView } from 'Views/BasketView.js';
 
-import './static/css/main.css';
+// import registerSW from './registerSW.js';
+//
+// registerSW();
 
-registerSW();
-
-const application = document.getElementById('app');
+const application = document.querySelector('body');
 
 const router = new Router(application);
 
@@ -32,28 +35,28 @@ const view = initViews.getViewPlace();
 const navbar = new Navbar({ root: navbarView, goTo: goTo });
 navbar.render();
 
-const signUpView = new SignUpView({ root: view, goTo: goTo });
-const signInView = new SignInView({ root: view, goTo: goTo });
-const restSignInView = new RestaurantSignInView({ root: view, goTo: goTo });
-const restSignUpView = new RestaurantSignUpView({ root: view, goTo: goTo });
-const mainView = new MainView(view, goTo);
-const storeView = new StoreView({ root: view, goTo: goTo });
-const profileView = new ProfileView(view, goTo);
-const basketView = new BasketView({ root: view, goTo: goTo })
+const signUpController = new SignUpController({ root: view, goTo: goTo });
+const signInController = new SignInController({ root: view, goTo: goTo });
+const restaurantSignInController = new RestaurantSignInController({ root: view, goTo: goTo });
+const restaurantSignUpController = new RestaurantSignUpController({ root: view, goTo: goTo });
+const storeController = new StoreController({ root: view, goTo: goTo });
+const profileController = new ProfileController({ root: view, goTo: goTo });
+const basketController = new BasketController({ root: view, goTo: goTo })
 const logout = new Logout({ root: view, goTo: goTo });
-const restaurantMainView = new RestaurantMainView(view, goTo);
+const restaurantMainController = new RestaurantMainController({ root: view, goTo: goTo });
+const mainController = new MainController({ root: view, goTo: goTo });
 
-router.addRoute('login', signInView);
-router.addRoute('signup', signUpView);
-router.addRoute('restaurantSignin', restSignInView)
-router.addRoute('restaurantSignup', restSignUpView)
-router.addRoute('profile', profileView)
-router.addRoute('main', mainView);
-router.addRoute('store', storeView);
-router.addRoute('basket', basketView)
+router.addRoute('login', signInController);
+router.addRoute('signup', signUpController);
+router.addRoute('restaurantSignin', restaurantSignInController)
+router.addRoute('restaurantSignup', restaurantSignUpController)
+router.addRoute('profile', profileController)
+router.addRoute('main', mainController);
+router.addRoute('store', storeController);
+router.addRoute('basket', basketController)
 router.addRoute('logout', logout);
-router.addRoute('restaurantMain', restaurantMainView);
+router.addRoute('restaurantMain', restaurantMainController);
 
 authGet()
-    .then(_ => router.open(window.location.pathname))
-    .catch(_ => router.open(window.location.pathname));
+    .then(_ => goTo(window.location.pathname))
+    .catch(_ => goTo(window.location.pathname));

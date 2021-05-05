@@ -1,12 +1,12 @@
 import RenderStoreReviewsContainer from './StoreReviews.hbs'
 import RenderStoreReview from './StoreReview.hbs'
-import {StoreController} from '../../../controllers/StoreController.js';
+import { StoreController } from '../../../controllers/StoreController.js';
 import eventBus from '../../../modules/eventBus.js';
-import {StoreEvents} from '../../../events/StoreEvents.js';
-import {I18n} from "../../../modules/intlApi";
+import { StoreEvents } from '../../../events/StoreEvents.js';
+import { I18n } from '../../../modules/intlApi';
 
 export class StoreReviews {
-    constructor(root, store, controller) {
+    constructor (root, store, controller) {
         this.root = root;
         this.store = store;
         this.controller = controller;
@@ -14,15 +14,16 @@ export class StoreReviews {
         eventBus.on(StoreEvents.storeGetReviewsFailed, this.loadError.bind(this))
     }
 
-    render() {
+    render () {
         this.controller.getReviews(this.store.id)
     }
 
-    renderReviews(reviews) {
+    renderReviews (reviews) {
         const i18n = new I18n()
-        this.root.insertAdjacentHTML('beforeend', RenderStoreReviewsContainer({}))
-        let reviewsContainer = document.getElementById('reviews_container')
-
+        if (!this.root.querySelector('#store-reviews')) {
+            this.root.insertAdjacentHTML('beforeend', RenderStoreReviewsContainer({}))
+        }
+        let reviewsContainer = this.root.querySelector('#reviews_container')
         reviews.forEach((review) => {
             reviewsContainer.insertAdjacentHTML('beforeend', RenderStoreReview({
                     user: review.user,
@@ -36,7 +37,7 @@ export class StoreReviews {
         document.addEventListener('click', this.closeReviews.bind(this))
     }
 
-    closeReviews(event) {
+    closeReviews (event) {
         let reviewsContainer = document.getElementById('reviews_container');
         if (reviewsContainer) {
             if (!reviewsContainer.contains(event.target)) {
@@ -48,7 +49,7 @@ export class StoreReviews {
     }
 
 
-    loadError(err) {
+    loadError (err) {
         console.log('error while getting restaurant reviews:' + err)
     }
 }

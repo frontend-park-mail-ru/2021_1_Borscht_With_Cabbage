@@ -1,0 +1,59 @@
+@import '../../../static/css/variables.less';
+
+.adding-dish {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: var(--background_color);
+    min-height: 100vh;
+    height: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    &-button {
+        width: 100%;
+        margin: 0;
+        font-size: 16px;
+    }
+
+    &-submit {
+        margin: 0;
+        margin-top: 12px;
+        font-size: 16px;
+    }
+}
+
+.adding-dish-container {
+    position: absolute;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    box-shadow: @shadow;
+    text-align: -webkit-center;
+    background: var(--cuisines-panel__slide_color);
+    border-radius: @border-radius-top-mobile;
+
+    @media @tablet {
+        padding: 48px 64px;
+        bottom: auto;
+        box-shadow: @shadow;
+        width: auto;
+        border-radius: @border-radius-desktop;
+    }
+
+    &__form {
+        width: 95%;
+
+        @media @tablet {
+            width: 100%;
+        }
+    }
+
+    &__title {
+        text-align: center
+    }
+}

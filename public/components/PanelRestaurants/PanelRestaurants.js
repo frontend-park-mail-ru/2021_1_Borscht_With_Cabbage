@@ -5,16 +5,17 @@ import { MainController } from 'Controllers/MainController.js'
 
 export class PanelRestaurantsComponent {
     constructor ({
-        root = document.body,
         controller = new MainController(),
         goTo = noop
     } = {}) {
-        this.root = root;
         this.controller = controller;
         this.goTo = goTo;
     }
 
-    render () {
+    render ({
+        root = document.body
+    }) {
+        this.root = root;
         const restaurantsElem = document.createElement('div');
         restaurantsElem.innerHTML = renderPanelRestaurants({});
         this.root.append(restaurantsElem);
@@ -24,6 +25,7 @@ export class PanelRestaurantsComponent {
     }
 
     add ({ restaurants }) {
+        this.restaurantList = document.getElementById('restaurants_list')
         for (const restaurant of restaurants) {
             this.restaurantList.innerHTML += renderInfoRestaurant({
                 node: restaurant
@@ -47,7 +49,7 @@ export class PanelRestaurantsComponent {
             if (idRestaurant) {
                 // TODO меняем элемент визуально как нибудь
 
-                this.goTo('/restaurant/' + idRestaurant);
+                this.goTo('/store/' + idRestaurant);
             }
         })
     }

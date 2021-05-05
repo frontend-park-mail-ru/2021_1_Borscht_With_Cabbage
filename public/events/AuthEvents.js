@@ -15,5 +15,7 @@ export const AuthEvents = {
     offline: 'offlineRequest',
     restaurantSignIn: 'restaurantSignIn',
     restaurantLogout: 'restaurantLogout',
-    notAuth: 'notAuth'
+    notAuth: 'notAuth',
+    changeActiveAddress: 'changeActiveAddress',
+    wantToChangeActiveAddress: 'wantToChangeActiveAddress'
 }

@@ -1,52 +1,53 @@
-import renderRightMenu from "./RightMenuTmpl.hbs";
-import { ProfileController } from "Controllers/ProfileController.js";
-import { ProfileEdits } from "../ProfileEdits/ProfileEdits.js";
-import { Orders } from "../Orders/Orders.js";
+import renderRightMenu from './RightMenuTmpl.hbs';
+import { noop } from '../../../modules/utils.js';
 
 export class RightMenu {
     constructor ({
         root = document.body,
-        profileController = new ProfileController(),
-        editsView = new ProfileEdits(),
-        ordersView = new Orders(),
+        goTo = noop
     } = {}) {
-        this.root = root
-        this.profileController = profileController
-        this.editsView = editsView
-        this.ordersView = ordersView
+        this.root = root;
+        this.goTo = goTo;
     }
 
     render () {
         const profilePlace = document.getElementById('profile-right-block')
         profilePlace.innerHTML = renderRightMenu({});
 
-        this.addLinksListeners()
+        this.addLinksListeners();
     }
 
-    addLinksListeners() {
+    addLinksListeners () {
+        const restaurantsID = 'profile-menu__restaurant'
+        const restaurants = document.getElementById(restaurantsID)
+        if (restaurants) {
+            restaurants.addEventListener('click', () => {
+                this.goTo('/');
+            });
+        }
+
         const editsID = 'profile-menu__edit'
         const edits = document.getElementById(editsID)
         if (edits) {
-            edits.onclick = () => {
-                this.editsView.render()
-            }
+            edits.addEventListener('click', () => {
+                this.goTo('/profile/edit');
+            });
         }
 
         const ordersID = 'profile-menu__orders'
         const orders = document.getElementById(ordersID)
         if (orders) {
-            orders.onclick = () => {
-                this.ordersView.render()
-            }
+            orders.addEventListener('click', () => {
+                this.goTo('/profile/orders');
+            });
         }
 
         const chatsID = 'profile-menu__chats'
         const chats = document.getElementById(chatsID)
         if (chats) {
-            chats.onclick = () => {
-
-            }
+            chats.addEventListener('click', () => {
+                this.goTo('/profile/chats');
+            });
         }
     }
-
 }

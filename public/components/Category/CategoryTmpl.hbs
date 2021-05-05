@@ -1,11 +1,14 @@
 <div class="cuisines-panel cuisines-panel__container">
     <ul class="cuisines-panel__slider">
         {{#each category}}
-            <a href="/{{this.name}}" class="cuisines-panel__slide-btn">
-                <li data-category="{{this.name}}" class="cuisines-panel__slide">
+            <li data-category="{{this.name}}" class="cuisines-panel__slide cuisines-panel__slide--is-hidden"
+            style="{{#if this.isSelect}} background-color: var(--main-green_color);
+                   color: var(--navbar-href-white_color); {{/if}}">
                 {{this.text}}
-                </li>
-            </a>
+            </li>
         {{/each}}
+        <li data-category="more" class="cuisines-panel__slide cuisines-panel__slide-more">
+            ­
+        </li>
     </ul>
 </div>

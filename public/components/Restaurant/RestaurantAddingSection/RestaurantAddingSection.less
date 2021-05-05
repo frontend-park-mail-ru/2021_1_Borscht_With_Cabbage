@@ -1,0 +1,64 @@
+@import '../../../static/css/variables.less';
+
+.adding-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: var(--background_color);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    &-container {
+        width: 95%;
+        position: absolute;
+        padding: 8px 16px;
+        border-radius: @border-radius-top-mobile;
+        background: var(--cuisines-panel__slide_color);
+        bottom: 0;
+
+        @media @tablet {
+            border-radius: @border-radius-desktop;
+            padding: 32px 48px;
+            width: 50%;
+            max-width: 500px;
+            bottom: auto;
+        }
+    }
+    
+    &-form__buttons {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+        @media @tablet {
+            flex-direction: row;
+        }
+    }
+    
+    &-form__btn {
+        text-align: center;
+        min-width: inherit;
+        margin: 4px 0;
+        width: 100%;
+
+        @media @tablet {
+            width: 48%;
+        }
+    }
+    
+    &__icone-close {
+        float: right;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+    }
+
+    &-input {
+        width: 100%;
+    }
+}

@@ -1,29 +1,32 @@
-import { RestaurantSignUpController } from "Controllers/RestaurantSignUpController.js";
-import { RestaurantSignUp } from "Components/Restaurant/RestaurantSignUp/RestaurantSignUp.js";
-import user from 'Modules/user.js';
-import { noop } from 'Modules/utils.js';
+import { RestaurantSignUpController } from '../controllers/RestaurantSignUpController.js';
+import { RestaurantSignUp } from '../components/Restaurant/RestaurantSignUp/RestaurantSignUp.js';
+import { noop } from '../modules/utils.js';
 
 export class RestaurantSignUpView {
     constructor ({
         root = document.body,
-        goTo = noop
+        goTo = noop,
+        controller = new RestaurantSignUpController({ root, goTo })
     } = {}) {
         this.goTo = goTo;
         this.root = root;
-        this.signUpController = new RestaurantSignUpController()
+        this.signUpController = controller;
+        this.signup = new RestaurantSignUp({ root, goTo, controller });
     }
 
     render () {
-        if (user.isAuth) {
-            this.goTo('restaurantMain');
-            return;
-        }
         this.root.innerHTML = '';
-        const signup = new RestaurantSignUp({
-            root: this.root,
-            goTo: this.goTo,
-            controller: this.signUpController
-        });
-        signup.render()
+        if (!this.signup) {
+
+        }
+        this.signup.render()
+    }
+
+    renderErrors (errors) {
+        this.signup.renderErrors(errors);
+    }
+
+    renderServerError (error) {
+        this.signup.renderServerError(error);
     }
 }

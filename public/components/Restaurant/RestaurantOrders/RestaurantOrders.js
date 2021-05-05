@@ -1,31 +1,20 @@
 import { noop } from '../../../modules/utils.js';
-import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
 import renderOrders from '../../Profile/Orders/OrdersListTmpl.hbs';
-import eventBus from '../../../modules/eventBus.js';
-import { RestaurantOrdersEvents } from '../../../events/RestaurantOrdersEvents.js';
 import { RestaurantOrderElement } from './Order/Order';
 
 export class RestaurantOrdersComponent {
-    constructor ({ root = document.body, goTo = noop, controller } = {}) {
+    constructor ({
+        root = document.body,
+        goTo = noop,
+        controller
+    } = {}) {
         this.root = root;
         this.goTo = goTo;
         this.controller = controller;
-        eventBus.on(
-            RestaurantOrdersEvents.restaurantGetOrdersSuccess,
-            this.ordersDraw.bind(this)
-        );
-        eventBus.on(
-            RestaurantOrdersEvents.restaurantGetOrdersFailed,
-            this.loadError.bind(this)
-        );
     }
 
-    render () {
-        this.controller.getOrders();
-    }
-
-    ordersDraw (orders) {
-        this.root.innerHTML = renderOrders({});
+    render (orders) {
+        document.getElementById('restaurant-left-block').innerHTML = renderOrders({});
 
         const orderList = document.getElementById('orders-list');
 
@@ -35,14 +24,11 @@ export class RestaurantOrdersComponent {
                 const element = new RestaurantOrderElement({
                     root: orderList,
                     order: order,
-                    restaurantController: this.controller
+                    restaurantController: this.controller,
+                    goTo: this.goTo
                 });
                 element.render();
             }
         }
-    }
-
-    loadError (error) {
-        console.log('mainVIew -> loadError', error);
     }
 }

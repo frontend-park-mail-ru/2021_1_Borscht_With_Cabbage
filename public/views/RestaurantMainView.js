@@ -1,62 +1,92 @@
+import '../components/Restaurant/Restaurant.less'
+import { noop } from '../modules/utils.js';
+import { ChatList } from '../components/ChatList/ChatList.js';
+import { Chat } from '../components/Chat/Chat.js';
 import { RestaurantMainController } from 'Controllers/RestaurantMainController.js';
 import { RestaurantMenuComponent } from 'Components/Restaurant/RestaurantMenu/RestaurantMenu.js'
 import { RestaurantEdits } from 'Components/Restaurant/RestaurantEdits/RestaurantEdits.js';
 import renderRestaurantView from 'Components/Restaurant/RestaurantMainTmpl.hbs';
 import { RestaurantRightMenu } from 'Components/Restaurant/RestaurantRightMenu/RightMenu.js';
-import user from 'Modules/user.js';
 import { RestaurantOrdersComponent } from "Components/Restaurant/RestaurantOrders/RestaurantOrders";
+import chatModel from '../models/ChatModel.js';
 
 export class RestaurantMainView {
-    constructor (root, goTo) {
+    constructor ({
+        root = document.body,
+        goTo = noop,
+        menu,
+        controller = new RestaurantMainController({ root, goTo })
+    } = {}) {
         this.goTo = goTo;
         this.root = root;
-        this.mainController = new RestaurantMainController()
-        // eventBus.on(MainEvents.mainGetRestaurantsSuccess, this.contentDraw.bind(this))
-        // eventBus.on(MainEvents.mainGetRestaurantsFailed, this.loadError.bind(this))
+        this.mainController = controller;
+        const initialData = {
+            root: this.root,
+            controller: this.mainController,
+            goTo: this.goTo
+        };
+
+        this.menu = new RestaurantMenuComponent({
+            controller: this.mainController,
+            goTo: this.goTo,
+            menu: menu
+        });
+        this.edits = new RestaurantEdits(initialData);
+        this.chats = new ChatList(initialData);
+        this.chat = new Chat(initialData);
+        this.orders = new RestaurantOrdersComponent(initialData);
+
+        this.rightMenu = new RestaurantRightMenu({
+            root: this.root,
+            goTo: this.goTo
+        });
     }
 
-    render () {
-        if (user.role === 'user') {
-            this.goTo('profile');
-            return;
-        } else if (user.role === '') {
-            this.goTo('main');
-            return;
-        }
+    render ({ data, url } = {}) {
         this.root.innerHTML = renderRestaurantView({});
+        this.rightMenu.render();
 
-        const menu = new RestaurantMenuComponent({
-            root: this.root.querySelector('#restaurant-left-block'),
-            goTo: this.goTo,
-            controller: this.mainController
-        });
-        menu.render();
-
-        // добавляем поля профиля и его изменения
-        const edits = new RestaurantEdits({
-            root: this.root.querySelector('#restaurant-left-block'),
-            goTo: this.goTo,
-            controller: this.mainController
-        });
-
-        const orders = new RestaurantOrdersComponent({
-            root: this.root.querySelector('#restaurant-left-block'),
-            goTo: this.goTo,
-            controller: this.mainController
-        });
-
-        const rightMenu = new RestaurantRightMenu({
-            root: this.root.querySelector('#restaurant-right-block'),
-            profileController: this.mainController,
-            editsView: edits,
-            menuView: menu,
-            ordersView: orders
-    });
-        rightMenu.render();
+        if (/orders/.test(url)) {
+            this.activeComponent = this.orders;
+        } else if (/chats\/./.test(url)) {
+            this.activeComponent = this.chat;
+        } else if (/chats/.test(url)) {
+            this.activeComponent = this.chats;
+        } else if (/menu/.test(url)) {
+            this.menu.render({ root: document.getElementById('restaurant-left-block') });
+            return;
+        } else {
+            console.log('strange', url);
+            this.activeComponent = this.edits;
+        }
+        this.activeComponent.render(data);
     }
 
-    loadError (error) {
-        // TODO изобразить сообщение о пропаввшем интернете
-        console.log('mainVIew -> loadError', error)
+    appendSection(section) {
+        this.menu.appendSection(section);
+    }
+
+    appendDish(dish) {
+        this.menu.appendDish(dish);
+    }
+
+    renderServerError (error) {
+        this.activeComponent.renderServerError(error);
+    }
+
+    renderNewMessage (message) {
+        this.chat.renderNewMessage(message);
+    }
+
+    deleteAll () {
+        this.menu.sections = [];
+    }
+
+    reNewLastMessage (message) {
+        this.chats.reNewLastMessage(message);
+    }
+
+    renderErrors (errors) {
+        this.edits.renderErrors(errors);
     }
 }

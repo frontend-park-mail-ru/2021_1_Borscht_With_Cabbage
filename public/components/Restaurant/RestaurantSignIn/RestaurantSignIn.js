@@ -1,10 +1,8 @@
-import { renderInput } from 'Modules/rendering.js';
-import { Validator } from 'Modules/validation.js';
-import eventBus from 'Modules/eventBus.js';
-import { noop } from 'Modules/utils.js';
-import { RestaurantSignInController } from "Controllers/RestaurantSignInController.js";
-import { SignInEvents } from 'Events/SignInEvents.js';
-import renderRestaurantLogin from "./RestaurantSignInTmpl.hbs";
+import { renderInput } from '../../../modules/rendering.js';
+import { Validator } from '../../../modules/validation.js';
+import { getError, noop } from '../../../modules/utils.js';
+import { RestaurantSignInController } from '../../../controllers/RestaurantSignInController.js';
+import renderRestaurantLogin from './RestaurantSignInTmpl.hbs';
 
 export class RestaurantSignIn {
     constructor ({
@@ -15,10 +13,8 @@ export class RestaurantSignIn {
         this.root = root;
         this.goTo = goTo;
         this.controller = controller
-        this.loginID = 'login'
-        this.passwordID = 'password'
-        eventBus.on(SignInEvents.restaurantSignInSuccess, this.loginSuccess.bind(this))
-        eventBus.on(SignInEvents.restaurantSignInFailed, this.loginFailed.bind(this))
+        this.loginID = 'login';
+        this.passwordID = 'password';
     }
 
     render () {
@@ -51,9 +47,9 @@ export class RestaurantSignIn {
         const regID = 'js_toLogin';
         const reg = document.getElementById(regID);
         if (reg) {
-            reg.onclick = () => {
-                this.goTo('login')
-            }
+            reg.addEventListener('click', () => {
+                this.goTo('login');
+            });
         }
     }
 
@@ -69,14 +65,9 @@ export class RestaurantSignIn {
         }
     }
 
-    loginFailed (error) {
-        const serverError = document.getElementById('serverError')
-        serverError.hidden = false
-        serverError.textContent = error
-    }
-
-    loginSuccess () {
-        console.log('success autorization restaurant');
-        this.goTo('restaurantMain');
+    renderServerError (error) {
+        const serverError = document.getElementById('serverError');
+        serverError.hidden = false;
+        serverError.textContent = getError(error);
     }
 }

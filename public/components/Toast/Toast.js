@@ -1,5 +1,3 @@
-import eventBus from 'Modules/eventBus.js';
-import { AuthEvents } from 'Events/AuthEvents.js';
 import renderToastMessage from './ToastTmpl.hbs';
 
 export class Toast {
@@ -7,7 +5,6 @@ export class Toast {
         root = document.body
     } = {}) {
         this.root = root;
-        eventBus.on(AuthEvents.offline, this.render.bind(this));
     }
 
     render ({ message }) {
@@ -22,8 +19,7 @@ export class Toast {
             setTimeout(() => {
                 toast.classList.add('removing');
                 toast.addEventListener('transitionend', () => toast.remove());
-            }, 5000);
+            }, 3000);
         })();
-
     }
 }

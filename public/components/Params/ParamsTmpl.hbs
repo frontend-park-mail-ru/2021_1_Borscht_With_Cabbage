@@ -3,9 +3,7 @@
         {{#each params}}
         <li class="params-panel__slide">
             <div class="params-panel__slide-name">{{this.name}}</div>
-            <a href="/{{this.default.data}}" data-params="{{this.data}}" class="panel__btn">
-                <div class="params-panel__slide-btn">{{this.default.name}}</div>
-            </a>
+            <div class="params-panel__slide-btn panel__btn" data-params="{{this.data}}">{{this.default.name}}</div>
         </li>
         {{/each}}
     </ul>

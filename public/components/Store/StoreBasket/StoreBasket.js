@@ -1,24 +1,27 @@
+import './StoreBasket.less';
 import renderStoreBasket from './StoreBasketTmpl.hbs';
 import { StoreBasketFood } from './StoreBasketFood/StoreBasketFood.js';
-import eventBus from 'Modules/eventBus.js';
-import { ChangeBasketEvents } from 'Events/ChangeBasketEvents.js';
-import { noop } from 'Modules/utils.js';
-import basket from 'Modules/basket.js';
+import eventBus from '../../../modules/eventBus.js';
+import { ChangeBasketEvents } from '../../../events/ChangeBasketEvents.js';
+import { noop } from '../../../modules/utils.js';
+import basket from '../../../modules/basket.js';
+import { StoreController } from '../../../controllers/StoreController.js';
 
 export class StoreBasket {
     constructor ({
         root = document.body,
         store = null,
-        goTo = noop
+        goTo = noop,
+        controller = new StoreController({ root, goTo })
     } = {}) {
         this.root = root;
         this.store = store;
         this.basket = store.basket;
         this.elements = [];
+        this.controller = controller;
         this.orderButtonSelector = '#store-basket__order';
         this.totalSumSelector = '#store-basket__sum';
         this.itemsSelector = '#store-basket__items';
-        this.deliverySelector = '#store__basket__delivery';
         this.goTo = goTo;
         eventBus.on(ChangeBasketEvents.chooseFood, this.append.bind(this));
     }
@@ -28,7 +31,7 @@ export class StoreBasket {
             deliveryCost: this.store.deliveryCost.toString()
         }));
         this.root.querySelector(this.orderButtonSelector)
-            .addEventListener('click', () => this.goTo('basket'));
+            .addEventListener('click', () => this.controller.order());
         if (basket.restaurantID && basket.foods) {
             if (this.store.id === basket.restaurantID) {
                 for (const food of basket.foods) {

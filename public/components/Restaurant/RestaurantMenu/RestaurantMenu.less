@@ -1,0 +1,32 @@
+@import "../../../static/css/variables.less";
+
+.menu-container {
+
+    &__title {
+        font-size: 32px;
+        margin-top: 0;
+        margin-bottom: 36px;
+
+        @media @desktop {
+            padding-inline-start: 40px;
+        }
+    }
+
+    &__btn {
+        box-shadow: 0 0 4px rgba(0 0 0 / 25%);
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.03);
+            transition: transform 0.2s;
+        }
+    }
+
+    &__content {
+        flex-direction: column;
+    }
+}

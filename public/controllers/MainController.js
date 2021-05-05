@@ -1,11 +1,23 @@
-import { MainModel } from 'Models/MainModel.js';
-import eventBus from 'Modules/eventBus.js';
-import { MainEvents } from 'Events/MainEvents.js';
+import mainModel from '../models/MainModel.js';
+import eventBus from '../modules/eventBus.js';
+import { MainEvents } from '../events/MainEvents.js';
+import { noop } from '../modules/utils.js';
+import { MainView } from '../views/MainView.js';
+import user from '../modules/user.js';
+import address from '../modules/address.js';
 
 export class MainController {
-    constructor () {
-        this.mainModel = new MainModel()
+    constructor ({
+        root = document.body,
+        goTo = noop
+    } = {}) {
+        this.goTo = goTo;
+        this.root = root;
+        this.mainView = new MainView({ goTo: goTo, controller: this });
+
         this.init();
+        eventBus.on(MainEvents.mainGetRestaurantsSuccess, this.renderContent.bind(this))
+        eventBus.on(MainEvents.mainGetRestaurantsFailed, this.loadError.bind(this))
     }
 
     init () {
@@ -15,29 +27,43 @@ export class MainController {
             limit: 5,
             category: [],
             params: {
-                time: 'not',
-                receipt: 'not',
-                rating: 'not'
+                time: 0,
+                receipt: 0,
+                rating: 0
             }
         }
     }
 
+    render (url) {
+        this.url = url;
+        if (user.role === 'admin') {
+            this.goTo('restaurantMain');
+            return;
+        } 
+        this.mainView.render({ root: this.root });
+        this.request.offset = 0;
+        this.getRestaurants();
+    }
+
     getRestaurants () {
-        console.log('getRestaurants');
         const url = this.#getUrl();
         this.request.offset += this.request.limit;
-        this.mainModel.getRestaurants(url);
+        mainModel.getRestaurants(url);
+    }
+
+    renderContent (data) {
+        this.mainView.renderContent(data);
     }
 
     clickCategory ({ name }) {
-        eventBus.emit(MainEvents.mainClearContent);
+        this.mainView.clearContent();
 
         this.#changeCategory({ name: name });
         this.getRestaurants();
     }
 
     clickParams (params) {
-        eventBus.emit(MainEvents.mainClearContent);
+        this.mainView.clearContent();
 
         this.#changeParams(params);
         this.getRestaurants();
@@ -75,8 +101,15 @@ export class MainController {
             url += `&${key}=${this.request.params[key]}`;
         }
 
-        console.log(url);
+        const address_ = address.getAddress();
+        url += '&longitude=' + address_.longitude;
+        url += '&latitude=' + address_.latitude;
 
         return url;
+    }
+
+    loadError (error) {
+        // TODO изобразить сообщение о пропаввшем интернете
+        console.log('mainVIew -> loadError', error)
     }
 }

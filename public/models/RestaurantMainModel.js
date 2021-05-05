@@ -5,17 +5,19 @@ import {
     restaurantPut,
     sectionAddPost,
     sectionUpdatePut,
-    sectionDelete, restaurantAvatarPut, restaurantOrdersGet, updateStatus
-} from 'Modules/api.js';
-import { restaurantUpdateDishDataPut, restaurantDeleteDish } from 'Modules/api.js';
-import eventBus from 'Modules/eventBus.js';
-import { DishEvents } from 'Events/DishEvents';
-import { ProfileEvents } from 'Events/ProfileEvents.js';
-import { SectionEvents } from 'Events/SectionEvents.js';
+    sectionDelete, restaurantAvatarPut,
+    userPut, userAvatarPut,
+    restaurantOrdersGet, updateStatus
+} from '../modules/api.js';
+import { restaurantUpdateDishDataPut, restaurantDeleteDish } from '../modules/api.js';
+import eventBus from '../modules/eventBus.js';
+import { DishEvents } from '../events/DishEvents.js';
+import { ProfileEvents } from '../events/ProfileEvents.js';
+import { SectionEvents } from '../events/SectionEvents.js';
 import {RestaurantOrdersEvents} from "Events/RestaurantOrdersEvents.js";
+import { RestaurantEvents } from '../events/RestaurantEvents.js';
 
-
-export class RestaurantMainModel {
+class RestaurantMainModel {
     getOrders () {
         restaurantOrdersGet()
             .then(res => {
@@ -56,13 +58,12 @@ export class RestaurantMainModel {
         restaurantAddDishPost({ name, description, price, weight, section })
             .then(res => {
                 if (res.status === 200) {
-                    eventBus.emit(DishEvents.addingDishSuccess + section, res.parsedJSON);
-                    eventBus.emit(DishEvents.addingDishSuccess, res.parsedJSON);
+                    eventBus.emit(SectionEvents.addingDishSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(DishEvents.addingDishFailed, res.parsedJSON);
+                    eventBus.emit(SectionEvents.addingDishFailed, res);
                 }
             })
-            .catch(res => eventBus.emit(DishEvents.addingDishFailed, res.parsedJSON));
+            // .catch(res => eventBus.emit(SectionEvents.addingDishFailed, res));
     }
 
     updateDataDish ({ id, name, description, price, weight }) {
@@ -72,10 +73,10 @@ export class RestaurantMainModel {
                     eventBus.emit(DishEvents.updateDishDataSuccess + id, res.parsedJSON);
                     eventBus.emit(DishEvents.updateDishDataSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(DishEvents.updateDishDataFailed, res.parsedJSON);
+                    eventBus.emit(DishEvents.updateDishDataFailed, res);
                 }
             })
-            .catch(res => eventBus.emit(DishEvents.updateDishDataFailed, res.parsedJSON));
+            .catch(res => eventBus.emit(DishEvents.updateDishDataFailed, res));
     }
 
     updateImageDish ({ id, data }) {
@@ -85,21 +86,21 @@ export class RestaurantMainModel {
                     eventBus.emit(DishEvents.updateDishImageSuccess + id, res.parsedJSON);
                     eventBus.emit(DishEvents.updateDishImageSuccess, res.parsedJSON);
                 } else {
-                    eventBus.emit(DishEvents.updateDishImageFailed, res.parsedJSON);
+                    eventBus.emit(DishEvents.updateDishImageFailed, res);
                 }
             })
-            .catch(res => eventBus.emit(DishEvents.updateDishImageFailed, res.parsedJSON));
+            .catch(res => eventBus.emit(DishEvents.updateDishImageFailed, res));
     }
 
-    deleteDish ({ id, sectionId }) {
+    deleteDish ({ id }) {
         restaurantDeleteDish({ id: id })
             .then(res => {
                 if (res.status === 200) {
                     console.log('model success');
-                    eventBus.emit(DishEvents.deleteDishSuccess + sectionId, res.parsedJSON);
+                    eventBus.emit(SectionEvents.deleteDishSuccess, res.parsedJSON);
                 } else {
                     console.log('model failed');
-                    eventBus.emit(DishEvents.deleteDishFailed + sectionId, res.parsedJSON);
+                    eventBus.emit(SectionEvents.deleteDishFailed, res.parsedJSON);
                 }
             })
             .catch(res => {
@@ -109,32 +110,31 @@ export class RestaurantMainModel {
     }
 
     setRestaurantData (data, avatar) {
-        const textData = restaurantPut({ data });
-        const avatarData = restaurantAvatarPut({ avatar })
+        const promise = [];
+        promise.push(restaurantPut({ data }));
+        if (avatar.get('avatar')) {
+            promise.push(restaurantAvatarPut({ avatar }));
+        }
 
-        Promise.all([textData, avatarData])
+        Promise.all(promise)
             .then(res => {
                 const data_ = {};
-                data_.status = Math.max(res[0].status, res[1].status);
-                if (res[0].status !== 200 || res[1].status !== 200) {
-                    if (res[0].status !== 200) {
-                        data_.parsedJSON = res[0].parsedJSON;
-                    } else {
-                        data_.parsedJSON = res[1].parsedJSON;
-                    }
+                data_.status = Math.max(...res.map(value => value.status));
+                if (data_.status !== 200) {
+                    data_.parsedJSON = res.find(value => value.status !== 200).parsedJSON;
                 } else {
-                    data_.parsedJSON = Object.assign(res[0].parsedJSON, res[1].parsedJSON);
+                    data_.parsedJSON = Object.assign(...res.map(value => value.parsedJSON));
                 }
                 if (data_.status === 200) {
-                    eventBus.emit(ProfileEvents.profileSetUserDataSuccess, {
+                    eventBus.emit(RestaurantEvents.restaurantSetUserDataSuccess, {
                         info: data_.parsedJSON,
                         status: data_.status
                     });
                 } else {
-                    eventBus.emit(ProfileEvents.profileSetUserDataFailed, data_.parsedJSON);
+                    eventBus.emit(RestaurantEvents.restaurantSetUserDataFailed, data_);
                 }
             })
-            .catch(res => eventBus.emit(ProfileEvents.profileSetUserDataFailed, res.parsedJSON));
+            .catch(res => eventBus.emit(RestaurantEvents.restaurantSetUserDataFailed, res));
     }
 
     addSection ({ name }) {
@@ -181,3 +181,5 @@ export class RestaurantMainModel {
             });
     }
 }
+
+export default new RestaurantMainModel();

@@ -1,7 +1,10 @@
 import { I18n } from "../../../../../modules/intlApi.js";
 
 export class StatusesComponent {
-    constructor ({ root = document.body, controller } = {}) {
+    constructor ({
+        root = document.body,
+        controller
+    } = {}) {
         this.root = root;
         this.controller = controller;
     }

@@ -19,7 +19,7 @@ export default function registerSW () {
                 if (registration.installing) {
                     const data = {
                         type: 'CACHE_URLS',
-                        payload: [location.href, ...performance.getEntriesByType('resource').map(r => r.name)],
+                        payload: [location.href, ...performance.getEntriesByType('resource').map(r => r.name)]
                     };
                     registration.installing.postMessage(data);
                 }

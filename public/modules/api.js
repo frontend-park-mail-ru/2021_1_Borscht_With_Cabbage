@@ -53,7 +53,6 @@ export function restaurantLoginPost ({ login, password }) {
         .then(auth)
 }
 
-
 /**
  * Send server post-request to user register and save username and avatar if status 200 ok
  *
@@ -63,14 +62,15 @@ export function restaurantLoginPost ({ login, password }) {
  * @param {string} number
  * @returns {Promise<{parsedJSON: object, status: number}>}
  */
-export function restaurantSignupPost ({ email, password, title, number }) {
+export function restaurantSignupPost ({ email, password, title, number, address }) {
     return Http.ajaxPost({
         url: '/restaurant/signup',
         body: {
             email,
             password,
             title,
-            number
+            number,
+            address
         }
     })
         .then(auth)
@@ -207,11 +207,11 @@ export function allDishesGet () {
 /**
  * Send server get-request to check if user auth and get data about him (username and avatar)
  *
- * @returns {Promise<void>}
+ * @returns {Promise<{parsedJSON: *, status: *}>}
  */
 export function authGet () {
     return Http.ajaxGet({ url: '/auth' }) // TODO: разобраться с /user/auth что из этого надо
-        .then(auth)
+        .then(auth);
 }
 
 /**
@@ -369,7 +369,7 @@ export function orderPost (data = {}) {
     });
 }
 
-export function addDishInBasket ( data = {}) {
+export function addDishInBasket (data = {}) {
     return Http.ajaxPutJson({
         url: '/user/basket',
         body: data
@@ -388,3 +388,35 @@ export function getReviews (rid) {
     });
 }
 
+
+export function postBasket (basket) {
+    return Http.ajaxPost({
+        url: '/user/basket',
+        body: basket
+    });
+}
+
+export function postAddress (address) {
+    return Http.ajaxPost({
+        url: '/user/address',
+        body: address
+    });
+}
+
+export function getChats () {
+    return Http.ajaxGet({
+        url: '/chats'
+    });
+}
+
+export function getChatMessage (id) {
+    return Http.ajaxGet({
+        url: `/chat/${id}`
+    });
+}
+
+export function getWSKey () {
+    return Http.ajaxGet({
+       url: '/connect/ws'
+    });
+}

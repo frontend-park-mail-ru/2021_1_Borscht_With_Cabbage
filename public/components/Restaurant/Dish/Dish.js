@@ -4,29 +4,26 @@ import { DishEvents } from '../../../events/DishEvents.js';
 import { ConfirmationEvents } from '../../../events/ConfirmationEvents.js';
 import { ConfirmationComponent } from '../../Confirmation/Confirmation.js';
 import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
+import { DishModel } from '../../../modules/dish.js';
 
 export class DishComponent {
     constructor ({
-        root = document.body,
-        dish = null, 
+        dish = new DishModel(),
         controller = new RestaurantMainController()
     } = {}) {
-        this.root = root;
         this.dish = dish;
         this.controller = controller;
-        eventBus.on(DishEvents.updateDishDataSuccess + dish.id, this.updateDishDataSuccess.bind(this));
-        eventBus.on(DishEvents.updateDishImageSuccess + dish.id, this.updateDishImageSuccess.bind(this));
-        eventBus.on(ConfirmationEvents.confirmationSuccess + dish.id, this.confirmationSuccess.bind(this));
-        eventBus.on(ConfirmationEvents.confirmationFailed + dish.id, this.confirmationFailed.bind(this));
+        eventBus.on(DishEvents.updateDish + this.dish.id, this.update.bind(this));
     }
 
-    render () {
-        if (this.dish) {
-            this.root.innerHTML += renderDish({ dish: this.dish });
+    render ({
+        root = document.body
+    }) {
+        this.root = root;
+        this.root.innerHTML += renderDish({ dish: this.dish });
 
-            this.addEditDishEventListener();
-            this.addDeleteDishEventListener();
-        }
+        this.addEditDishEventListener();
+        this.addDeleteDishEventListener();
     }
 
     addEditDishEventListener () {
@@ -34,9 +31,9 @@ export class DishComponent {
         if (!editDish) {
             return;
         }
-        
+
         editDish.addEventListener('click', e => {
-            eventBus.emit(DishEvents.editDish + this.dish.section, this.dish);
+            this.controller.editDish(this.dish);
         });
     }
 
@@ -45,33 +42,29 @@ export class DishComponent {
         if (!deleteDish) {
             return;
         }
-        
+
         deleteDish.addEventListener('click', e => {
-            const confirmation = new ConfirmationComponent({ root: this.root, id: this.dish.id });
-            confirmation.render();
+            this.controller.deleteDish({ dish: this.dish })
         });
     }
 
-    updateDishDataSuccess (dish) {
-        if (!dish) {
-            return;
+    update() {
+        console.log('update dish');
+        const dishName = this.root.querySelector('.card__name');
+        if (dishName) {
+            dishName.textContent = this.dish.name;
         }
-        this.root.querySelector('.card__name').textContent = dish.name;
-        this.root.querySelector('.card__sum').textContent = dish.price;
-        this.root.querySelector('.card__description').textContent = dish.description;
-    }
-
-    updateDishImageSuccess ({filename}) {
-        console.log(filename);
-        this.root.querySelector('.card__image').style.backgroundImage = `url(${filename})`;
-    }
-
-    confirmationSuccess () {
-        console.log('confirmationSuccess', this.dish);
-        this.controller.deleteDish(this.dish.id, this.dish.section);
-    }
-
-    confirmationFailed () {
-        console.log('confirmationFailed');
+        const dishSum = this.root.querySelector('.card__sum')
+        if (dishSum) {
+            dishSum.textContent = this.dish.price;
+        }
+        const dishDesc = this.root.querySelector('.card__description');
+        if (dishDesc) {
+            dishDesc.textContent = this.dish.description;
+        }
+        const dishImage = this.root.querySelector('.card__image');
+        if (dishImage) {
+            dishImage.style.backgroundImage = `url(${this.dish.image})`;
+        }
     }
 }

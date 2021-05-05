@@ -4,70 +4,94 @@ export const params = {
         data: 'time',
 
         default: {
-            name: 'до 120 минут',
-            data: 'max'
+            name: '-',
+            data: 'not'
         },
 
         val: {
+            not: {
+                name: '-',
+                data: 'not',
+                value: 0
+            },
             min: {
-                name: 'до 45 минут',
-                data: 'min'
+                name: '< 20 мин',
+                data: 'min',
+                value: 20
             },
             middle: {
-                name: 'до 60 минут',
-                data: 'middle'
+                name: '< 30 мин',
+                data: 'middle',
+                value: 30
             },
             max: {
-                name: 'до 120 минут',
-                data: 'max'
+                name: '< 60 мин',
+                data: 'max',
+                value: 60
             }
         }
     },
     receipt: {
         name: 'Средний чек',
         data: 'receipt',
-        
+
         default: {
-            name: 'до 2000',
-            data: 'max'
+            name: '-',
+            data: 'not'
         },
 
         val: {
+            not: {
+                name: '-',
+                data: 'not',
+                value: 0
+            },
             min: {
-                name: 'до 500',
-                data: 'min'
+                name: '< 500 ₽',
+                data: 'min',
+                value: 500
             },
             middle: {
-                name: 'до 1000',
-                data: 'middle'
+                name: '< 1000 ₽',
+                data: 'middle',
+                value: 1000
             },
             max: {
-                name: 'до 2000',
-                data: 'max'
+                name: '< 2000 ₽',
+                data: 'max',
+                value: 2000
             }
         }
     },
     rating: {
         name: 'Рейтинг',
         data: 'rating',
-        
+
         default: {
-            name: 'не важен',
+            name: '-',
             data: 'not'
         },
 
         val: {
+            not: {
+                name: '-',
+                data: 'not',
+                value: 0
+            },
             min: {
-                name: 'от 500',
-                data: 'min'
+                name: '❤3',
+                data: 'min',
+                value: 3
             },
             middle: {
-                name: 'от 1000',
-                data: 'middle'
+                name: '❤4',
+                data: 'middle',
+                value: 4
             },
             max: {
-                name: 'от 2000',
-                data: 'max'
+                name: '❤4.5',
+                data: 'max',
+                value: 4.5
             }
         }
     }

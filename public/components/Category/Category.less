@@ -1,0 +1,55 @@
+@import "../../static/css/variables.less";
+
+.cuisines-panel {
+    &__slide {
+        overflow: hidden;
+        margin: 0;
+        background-color: var(--cuisines-panel__slide_color);
+        box-shadow: @shadow-mobile;
+        text-align: center;
+        margin-top: 8px;
+        font-size: @font-size-mobile;
+        cursor: pointer;
+        flex: auto;
+        padding: @padding-category-mobile;
+
+        @media @tablet {
+            box-shadow: @shadow;
+            padding: 8px;
+            font-size: 24px;
+            min-width: 160px;
+            max-width: 160px;
+            margin: 0 20px;
+        }
+
+        &-more{
+            min-width: 0;
+            max-width: 32px;
+            border-radius: 16px;
+            background-image: url(../../static/img/dish.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            @media @tablet {
+                min-width: 40px;
+                max-width: 160px;
+                border-radius: 0;
+            }
+
+            @media @desktop-big {
+                visibility: hidden;
+            }
+        }
+
+        &--is-hidden {
+            display: none;
+        }
+    }
+    
+    &__slider {
+        display: flex;
+        flex-basis: 0;
+        flex-grow: 1;
+    }
+}

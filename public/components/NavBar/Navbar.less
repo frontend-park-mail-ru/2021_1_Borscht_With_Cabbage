@@ -1,0 +1,143 @@
+@import "../../static/css/variables.less";
+
+.navbar {
+    overflow: hidden;
+    height: 4em;
+    background-color: var(--navbar-white_color);
+    box-shadow: @shadow-mobile;
+    position: relative;
+    display: grid;
+    grid-template-areas: "adress adress user basket";
+    align-items: center;
+
+    @media @tablet {
+        height: 6em;
+        grid-template-columns: 4fr 3fr 1fr 1fr;
+        grid-template-areas: "title adress user basket";
+        box-shadow: @shadow;
+    }
+
+    &-restaurant {
+        grid-template-areas: "user";
+
+        @media @tablet {
+            grid-template-columns: 4fr 1fr;
+            grid-template-areas: "title user";
+        }
+    }
+
+    &_title {
+        display: none;
+        align-items: center;
+        height: 6em;
+        margin-left: 2em;
+        grid-area: title;
+
+        @media @tablet {
+            display: flex;
+        }
+
+        &__project-name {
+            color: black;
+            font-weight: 700;
+            font-size: 32px;
+        }
+    }
+
+    &_right-items {
+        &__address {
+            background-image: url('../../static/img/map.png');
+            background-position: left;
+            background-repeat: no-repeat;
+            background-color: var(--main-green_color_darker);
+            height: 50px;
+            border-radius: 8px;
+            color: white;
+            vertical-align: center;
+            border: none;
+            padding: 14px 40px;
+            grid-area: adress;
+            margin-left: 16px;
+            margin-right: 16px;
+            white-space: nowrap;
+            width: 85%;
+            min-width: 100px;
+        }
+
+        &-auth {
+            padding: 0 16px;
+            display: flex;
+            justify-content: center;
+            grid-area: user;
+
+            @media @tablet {
+                border-left: 1px solid var(--main-green_color);
+                border-right: 1px solid var(--main-green_color);
+            }
+
+            &_user {
+                display: flex;
+                flex-direction: row;
+
+                &__username {
+                    text-align: center;
+                    color: black;
+                    display: none;
+
+                    @media @tablet {
+                        display: block; // TODO: потом посмотреть
+                    }
+                }
+
+                &__avatar {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+
+                    @media @tablet {
+                        margin-right: 8px;
+                        margin-top: 8px;
+                    }
+                }
+
+                &__text {
+                    width: 100%;
+                    text-align: center;
+                    font-weight: 500;
+                    color: var(--profile-link-hover_color_darker);
+                }
+            }
+        }
+
+        &_basket {
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            text-align: center;
+            justify-content: center;
+            grid-area: basket;
+            cursor: pointer;
+
+            margin-right: 8px;
+
+            &__text {
+                color: black;
+                font-weight: 500;
+                display: none;
+
+                @media @tablet {
+                    display: block;
+                }
+            }
+
+            &__image {
+                width: 32px;
+                height: 32px
+            }
+    }
+    }
+}
+
+::placeholder {
+    color: whitesmoke;
+}

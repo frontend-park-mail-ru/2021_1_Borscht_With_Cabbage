@@ -18,6 +18,14 @@ export class RightMenu {
     }
 
     addLinksListeners () {
+        const restaurantsID = 'profile-menu__restaurant'
+        const restaurants = document.getElementById(restaurantsID)
+        if (restaurants) {
+            restaurants.addEventListener('click', () => {
+                this.goTo('/');
+            });
+        }
+
         const editsID = 'profile-menu__edit'
         const edits = document.getElementById(editsID)
         if (edits) {

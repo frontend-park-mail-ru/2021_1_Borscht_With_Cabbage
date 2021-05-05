@@ -57,6 +57,7 @@ export class OrderReview {
         }
 
         sendReview.classList.toggle('review_button-disabled');
+        sendReview.disabled = true;
 
         const review = document.getElementById('review-' + this.order.orderID)
             .value;

@@ -23,7 +23,7 @@ export class StoreTitle {
             name: this.store.title,
             rating: this.store.rating.toString(),
             deliveryCost: this.store.deliveryCost.toString(),
-            deliveryTime: '60', // TODO
+            deliveryTime: this.store.deliveryTime | 60, // TODO
             image: this.store.avatar,
             id: this.store.id,
             sections: this.store.sections

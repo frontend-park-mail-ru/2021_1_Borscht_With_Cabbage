@@ -67,6 +67,7 @@ export class Router {
                 return
             }
             if (page === url || page === constUrl || (regularUrl && regularUrl.test(page))) {
+                console.log(1, url, constUrl, regularUrl)
                 if (page === url) {
                     page = constUrl
                 }

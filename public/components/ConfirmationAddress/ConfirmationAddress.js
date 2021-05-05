@@ -1,3 +1,4 @@
+import './ConfirmationAddress.less';
 import renderConfirmation from './ConfirmationAddressTmpl.hbs';
 import eventBus from '../../modules/eventBus.js';
 import { AuthEvents } from '../../events/AuthEvents.js';

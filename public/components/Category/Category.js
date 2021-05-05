@@ -91,6 +91,9 @@ export class CategoryComponent {
 
     addSizeListener () {
         const moreItem = this.root.querySelector('.cuisines-panel__slide-more');
+        if (!moreItem || !moreItem.offsetParent) {
+            return;
+        }
         if (moreItem && getComputedStyle(moreItem).display !== 'none') {
             const offsetRight = moreItem.offsetParent.offsetWidth - moreItem.offsetLeft - moreItem.offsetWidth;
             if (moreItem.offsetWidth <= 120) {

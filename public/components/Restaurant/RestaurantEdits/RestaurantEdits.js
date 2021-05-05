@@ -76,7 +76,7 @@ export class RestaurantEdits {
     formSubmit (event) {
         event.preventDefault()
 
-        const errors = this.controller.setRestaurantData({
+        this.controller.setRestaurantData({
             email: document.getElementById(this.emailID).value,
             title: document.getElementById(this.titleID).value,
             phone: document.getElementById(this.phoneID).value.replace(/\D/g, ''),
@@ -92,16 +92,6 @@ export class RestaurantEdits {
                 radius: Math.round(Number(document.getElementById(this.radiusID).value))
             }
         });
-        if (errors.error) {
-            renderInput(this.emailID, errors.emailError);
-            renderInput(this.titleID, errors.nameError);
-            renderInput(this.phoneID, errors.phoneError);
-            renderInput(this.currentPasswordID, errors.currentPasswordError);
-            renderInput(this.newPasswordID, errors.newPasswordError);
-            renderInput(this.repeatPasswordID, errors.repeatPasswordError);
-        } else {
-            // TODO обратная связь что грузится и все хорошо
-        }
     }
 
     changeFailed (error) {
@@ -198,5 +188,25 @@ export class RestaurantEdits {
         phone.focus();
 
         this.preview.setPreview();
+    }
+
+    renderErrors (errors) {
+        if (errors.error) {
+            renderInput(this.emailID, errors.emailError);
+            renderInput(this.titleID, errors.titleError);
+            renderInput(this.phoneID, errors.phoneError);
+            renderInput(this.currentPasswordID, errors.currentPasswordError);
+            renderInput(this.newPasswordID, errors.newPasswordError);
+            renderInput(this.repeatPasswordID, errors.repeatPasswordError);
+            renderInput(this.radiusID, errors.radiusError);
+        } else {
+            // TODO обратная связь что грузится и все хорошо
+        }
+    }
+
+    renderServerError (error) {
+        const serverError = document.getElementById('serverError');
+        serverError.hidden = false;
+        serverError.textContent = getError(error);
     }
 }

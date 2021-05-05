@@ -14,6 +14,7 @@ import { MenuModel } from '../modules/menu.js';
 import { ConfirmationEvents } from '../events/ConfirmationEvents.js';
 import { ConfirmationComponent } from '../components/Confirmation/Confirmation.js';
 import { RestaurantOrdersEvents } from '../events/RestaurantOrdersEvents.js';
+import { YandexMap } from '../modules/yandexMap.js';
 
 export class RestaurantMainController {
     constructor ({
@@ -172,8 +173,8 @@ export class RestaurantMainController {
             dish: dish
         });
     }
-    
-    closeAddingDish() {
+
+    closeAddingDish () {
         if (this.addingDishItem) {
             this.addingDishItem.remove();
         }
@@ -293,36 +294,53 @@ export class RestaurantMainController {
 
         if (emailError.result && titleError.result && phoneError.result && deliveryCostError.result &&
             currentPasswordError.result && newPasswordError.result && repeatPasswordError.result && radiusError.result) {
-            const formData = new FormData();
-            if (avatar) {
-                formData.append('avatar', avatar);
-            }
+            YandexMap.isAddressCorrect(address.name)
+                .then(isCorrect => {
+                    if (isCorrect) {
+                        const formData = new FormData();
+                        if (avatar) {
+                            formData.append('avatar', avatar);
+                        }
 
-            mainModel.setRestaurantData({
-                email,
-                title,
-                deliveryCost: Number.parseInt(deliveryCost),
-                number: phone,
-                password_current: currentPassword,
-                password: newPassword,
-                password_repeat: repeatPassword,
-                address
-            }, formData);
-            return {
-                error: false
-            };
+                        mainModel.setRestaurantData({
+                            email,
+                            title,
+                            deliveryCost: Number.parseInt(deliveryCost),
+                            number: phone,
+                            password_current: currentPassword,
+                            password: newPassword,
+                            password_repeat: repeatPassword,
+                            address
+                        }, formData);
+                    } else {
+                        this.view.renderServerError({ status: 420, parsedJSON: 'Введите настоящий адрес' });
+                    }
+                })
+                .catch(() => this.view.renderServerError({ status: 420, parsedJSON: 'Введите настоящий адрес' }));
+        } else {
+            console.log({
+                error: true,
+                emailError,
+                titleError,
+                phoneError,
+                deliveryCostError,
+                currentPasswordError,
+                newPasswordError,
+                repeatPasswordError,
+                radiusError
+            })
+            this.view.renderErrors({
+                error: true,
+                emailError,
+                titleError,
+                phoneError,
+                deliveryCostError,
+                currentPasswordError,
+                newPasswordError,
+                repeatPasswordError,
+                radiusError
+            });
         }
-        return {
-            error: true,
-            emailError,
-            titleError,
-            phoneError,
-            deliveryCostError,
-            currentPasswordError,
-            newPasswordError,
-            repeatPasswordError,
-            radiusError
-        };
     }
 
     loadError (error) {
@@ -335,11 +353,11 @@ export class RestaurantMainController {
         mainModel.updateStatus(status, time, order)
     }
 
-    setStatusSuccess() {
-        console.log("set new status success")
+    setStatusSuccess () {
+        console.log('set new status success')
     }
 
-    setStatusFailed() {
-        console.log("set new status error")
+    setStatusFailed () {
+        console.log('set new status error')
     }
 }

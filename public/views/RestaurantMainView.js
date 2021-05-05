@@ -85,4 +85,8 @@ export class RestaurantMainView {
     reNewLastMessage (message) {
         this.chats.reNewLastMessage(message);
     }
+
+    renderErrors (errors) {
+        this.edits.renderErrors(errors);
+    }
 }

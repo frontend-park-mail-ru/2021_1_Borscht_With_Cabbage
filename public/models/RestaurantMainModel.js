@@ -15,6 +15,7 @@ import { DishEvents } from '../events/DishEvents.js';
 import { ProfileEvents } from '../events/ProfileEvents.js';
 import { SectionEvents } from '../events/SectionEvents.js';
 import {RestaurantOrdersEvents} from "Events/RestaurantOrdersEvents.js";
+import { RestaurantEvents } from '../events/RestaurantEvents.js';
 
 class RestaurantMainModel {
     getOrders () {

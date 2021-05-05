@@ -20,9 +20,10 @@ export class StoreController {
 
     getDishes (url) {
         const address_ = address.getAddress();
-        const latitude = address_.latitude | '';
-        const longitude = address_.longitude | '';
-        storeModel.getDishes(url.substring('/store'.length) + '?latitude=' + latitude + '&longitude=' + longitude);
+        storeModel.getDishes(
+            url.substring('/store'.length)
+                .concat('?latitude=', String(address_.latitude), '&longitude=',String(address_.longitude))
+        );
     }
 
     addDish ({

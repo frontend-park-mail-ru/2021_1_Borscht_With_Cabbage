@@ -19,11 +19,13 @@ export class StoreReviews {
     }
 
     renderReviews(reviews) {
+        console.log(reviews, this.root)
         const i18n = new I18n()
         this.root.insertAdjacentHTML('beforeend', RenderStoreReviewsContainer({}))
         let reviewsContainer = document.getElementById('reviews_container')
-
+        console.log(reviewsContainer)
         reviews.forEach((review) => {
+            console.log(review)
             reviewsContainer.insertAdjacentHTML('beforeend', RenderStoreReview({
                     user: review.user,
                     review: review.review,

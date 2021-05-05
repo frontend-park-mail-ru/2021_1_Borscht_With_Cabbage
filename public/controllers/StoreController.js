@@ -19,7 +19,10 @@ export class StoreController {
     }
 
     getDishes (url) {
-        storeModel.getDishes(url.substring('/store'.length));
+        const address_ = address.getAddress();
+        const latitude = address_.latitude | '';
+        const longitude = address_.longitude | '';
+        storeModel.getDishes(url.substring('/store'.length) + '?latitude=' + latitude + '&longitude=' + longitude);
     }
 
     addDish ({
@@ -37,7 +40,7 @@ export class StoreController {
     }
 
     getReviews(storeID) {
-        this.storeModel.getReviews(storeID)
+        storeModel.getReviews(storeID)
     }
 
     render (url) {

@@ -10,6 +10,7 @@ export class YandexMap {
 
     setRestaurant (pos, radius) {
         ymaps.ready(() => {
+            this.movePoint(pos);
             this.setCenter(pos, 12);
             this.circle = this.createCircle(pos, radius);
         });

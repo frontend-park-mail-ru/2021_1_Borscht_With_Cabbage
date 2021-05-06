@@ -41,6 +41,14 @@ export class YandexMap {
         });
     }
 
+    addPointCustom (pos) {
+        ymaps.ready(() => {
+            this.movePoint(pos);
+            this.setCenter(pos);
+            this.callback(pos, true);
+        });
+    }
+
     render ({
         id,
         pos = this.initPos,

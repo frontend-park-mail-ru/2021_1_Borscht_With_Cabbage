@@ -9,6 +9,7 @@ import eventBus from 'Modules/eventBus.js';
 import { StoreEvents } from 'Events/StoreEvents.js';
 import { noop } from 'Modules/utils.js';
 import { StoreSectionList } from '../components/Store/StoreSectionList/StoreSectionList.js';
+import {StoreRecommendations} from "Components/Store/StoreRecommendations/StoreRecommendations";
 
 export class StoreView {
     constructor ({
@@ -41,6 +42,14 @@ export class StoreView {
             controller: this.storeController
         });
         this.foodList.render();
+
+        this.recommendations = new StoreRecommendations({
+            root: document.getElementById('store-recommendations'),
+            store: info,
+            controller: this.storeController
+            }
+        )
+        this.recommendations.render();
 
         this.storeBasket = new StoreBasket({
             root: document.getElementById('store-basket'),

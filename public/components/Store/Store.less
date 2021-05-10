@@ -6,12 +6,14 @@
     display: grid;
     grid-template-areas: "info"
                          "store"
+                         "recommendations"
                          "basket";
 
     @media @tablet {
         grid-template-columns: @grid-two-column-tablet;
         grid-template-areas: "info basket"
-                             "store basket";
+                             "store basket"
+                             "recommendations basket";
     }
 
     @media @desktop {
@@ -24,6 +26,10 @@
 
     &-info__food {
         grid-area: store;
+    }
+
+    &-info__recommendations {
+        grid-area: recommendations;
     }
 
     &-info__basket {

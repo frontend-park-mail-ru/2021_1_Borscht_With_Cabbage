@@ -1,9 +1,8 @@
 import RenderStoreReviewsContainer from './StoreReviews.hbs'
 import RenderStoreReview from './StoreReview.hbs'
-import { StoreController } from '../../../controllers/StoreController.js';
-import eventBus from '../../../modules/eventBus.js';
-import { StoreEvents } from '../../../events/StoreEvents.js';
-import { I18n } from '../../../modules/intlApi';
+import eventBus from 'Modules/eventBus.js';
+import { StoreEvents } from 'Events/StoreEvents.js';
+import { I18n } from 'Modules/intlApi';
 
 export class StoreReviews {
     constructor (root, store, controller) {
@@ -47,7 +46,6 @@ export class StoreReviews {
         }
         document.removeEventListener('click', this.closeReviews.bind(this))
     }
-
 
     loadError (err) {
         console.log('error while getting restaurant reviews:' + err)

@@ -388,6 +388,11 @@ export function getReviews (rid) {
     });
 }
 
+export function getRecommendations (url) {
+    return Http.ajaxGet({
+        url: url
+    });
+}
 
 export function postBasket (basket) {
     return Http.ajaxPost({

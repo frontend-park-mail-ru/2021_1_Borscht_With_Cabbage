@@ -28,3 +28,9 @@
 
   disabled: true;
 }
+
+.add-review-text-area {
+  padding: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}

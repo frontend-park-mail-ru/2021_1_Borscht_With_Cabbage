@@ -56,11 +56,14 @@ export class OrderReview {
             });
         }
 
-        sendReview.classList.toggle('review_button-disabled');
-        sendReview.disabled = true;
-
         const review = document.getElementById('review-' + this.order.orderID)
             .value;
-        this.controller.postReview(this.order.orderID, review, starsCount);
+        if (review) {
+            this.order.stars = starsCount
+            this.order.review = review
+            this.reviewDraw()
+            this.controller.postReview(this.order.orderID, review, starsCount);
+        }
+
     }
 }

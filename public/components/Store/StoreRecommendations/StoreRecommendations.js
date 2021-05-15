@@ -28,15 +28,16 @@ export class StoreRecommendations {
 
     renderRecommendations (recommendations) {
         this.root.innerHTML = renderStoreRecommendationsList({});
-        console.log(this.root);
+
         const recommendationsList = document.getElementById('recommendations');
-        console.log(recommendationsList);
-        for (const restaurant of recommendations) {
-            recommendationsList.innerHTML += renderInfoRestaurant({
-                node: restaurant
-            });
+        if (recommendationsList) {
+            for (const restaurant of recommendations) {
+                recommendationsList.innerHTML += renderInfoRestaurant({
+                    node: restaurant
+                });
+            }
+            this.addRestaurantListeners();
         }
-        this.addRestaurantListeners();
     }
 
     loadError (err) {
@@ -53,14 +54,12 @@ export class StoreRecommendations {
 
         recommendationsPanel.addEventListener('click', (e) => {
             const { target } = e;
-
             e.preventDefault();
             // проверяе что нажали именно на кнопку
             const idRestaurant = target.closest('.card').dataset.restaurant;
             console.log('event', target);
             if (idRestaurant) {
                 // TODO меняем элемент визуально как нибудь
-
                 this.goTo('/store/' + idRestaurant);
             }
         });

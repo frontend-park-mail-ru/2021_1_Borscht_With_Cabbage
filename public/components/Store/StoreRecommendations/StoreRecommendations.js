@@ -1,24 +1,36 @@
-import eventBus from "Modules/eventBus.js";
-import {StoreEvents} from "Events/StoreEvents,js";
+import eventBus from 'Modules/eventBus.js';
+import { StoreEvents } from 'Events/StoreEvents.js';
 import renderStoreRecommendationsList from './StoreRecommendations.hbs';
-import renderInfoRestaurant from "Components/InfoRestaurant/InfoRestaurantTmpl.hbs";
+import renderInfoRestaurant from 'Components/InfoRestaurant/InfoRestaurantTmpl.hbs';
+import { StoreController } from 'Controllers/StoreController';
+import { noop } from 'Modules/utils';
 
 export class StoreRecommendations {
-    constructor(root, store, controller) {
+    constructor ({ root, store, goTo = noop, controller }) {
         this.root = root;
         this.store = store;
+        this.goTo = goTo;
         this.controller = controller;
-        eventBus.on(StoreEvents.storeGetRecommendationsSuccess, this.renderRecommendations.bind(this))
-        eventBus.on(StoreEvents.storeGetRecommendationsFailed, this.loadError.bind(this))
+        eventBus.on(
+            StoreEvents.storeGetRecommendationsSuccess,
+            this.renderRecommendations.bind(this)
+        );
+        eventBus.on(
+            StoreEvents.storeGetRecommendationsFailed,
+            this.loadError.bind(this)
+        );
     }
 
-    render() {
-        this.controller.getRecommendations(this.store.id)
+    render () {
+        console.log('get recommendations start');
+        this.controller.getRecommendations(this.store.id);
     }
 
-    renderRecommendations(recommendations) {
-        this.root.innerHTML = renderStoreRecommendationsList({})
-        const recommendationsList = this.root.getElementById('store-recommendations')
+    renderRecommendations (recommendations) {
+        this.root.innerHTML = renderStoreRecommendationsList({});
+        console.log(this.root);
+        const recommendationsList = document.getElementById('recommendations');
+        console.log(recommendationsList);
         for (const restaurant of recommendations) {
             recommendationsList.innerHTML += renderInfoRestaurant({
                 node: restaurant
@@ -28,16 +40,18 @@ export class StoreRecommendations {
     }
 
     loadError (err) {
-        console.log('error while getting restaurant recommendations:' + err)
+        console.log('error while getting restaurant recommendations:' + err);
     }
 
     addRestaurantListeners () {
-        const recommendationsPanel = this.root.querySelector('.store-recommendations');
+        const recommendationsPanel = this.root.querySelector(
+            '.store-recommendations'
+        );
         if (!recommendationsPanel) {
             return;
         }
 
-        recommendationsPanel.addEventListener('click', e => {
+        recommendationsPanel.addEventListener('click', (e) => {
             const { target } = e;
 
             e.preventDefault();
@@ -49,6 +63,6 @@ export class StoreRecommendations {
 
                 this.goTo('/store/' + idRestaurant);
             }
-        })
+        });
     }
 }

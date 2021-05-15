@@ -91,9 +91,11 @@ class StoreModel {
             })
     }
 
-    getRecommendations(url) {
-        let address = address.getAddress()
-        getRecommendations(url, address)
+    getRecommendations(id) {
+        let address_ = address.getAddress()
+        const url = '/restaurant/' + id + '/recommendations'
+        console.log('url ', url)
+         getRecommendations(url, address_)
             .then(res =>{
                 if (res.status === 200) {
                     eventBus.emit(StoreEvents.storeGetRecommendationsSuccess, res.parsedJSON);

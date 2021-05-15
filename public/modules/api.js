@@ -388,7 +388,7 @@ export function getReviews (rid) {
     });
 }
 
-export function getRecommendations (url) {
+export function getRecommendations (url, address_) {
     return Http.ajaxGet({
         url: url
     });

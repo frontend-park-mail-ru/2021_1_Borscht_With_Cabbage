@@ -1,4 +1,4 @@
-import '../components/Store/Store.less';
+import 'Components/Store/Store.less';
 
 import renderStoreView from 'Components/Store/StoreTmpl.hbs';
 import { StoreTitle } from 'Components/Store/StoreTitle/StoreTitle.js';
@@ -8,8 +8,8 @@ import { StoreController } from 'Controllers/StoreController.js';
 import eventBus from 'Modules/eventBus.js';
 import { StoreEvents } from 'Events/StoreEvents.js';
 import { noop } from 'Modules/utils.js';
-import { StoreSectionList } from '../components/Store/StoreSectionList/StoreSectionList.js';
-import {StoreRecommendations} from "Components/Store/StoreRecommendations/StoreRecommendations";
+import { StoreSectionList } from 'Components/Store/StoreSectionList/StoreSectionList.js';
+import { StoreRecommendations } from "Components/Store/StoreRecommendations/StoreRecommendations";
 
 export class StoreView {
     constructor ({
@@ -46,9 +46,9 @@ export class StoreView {
         this.recommendations = new StoreRecommendations({
             root: document.getElementById('store-recommendations'),
             store: info,
+            goTo: this.goTo,
             controller: this.storeController
-            }
-        )
+        });
         this.recommendations.render();
 
         this.storeBasket = new StoreBasket({

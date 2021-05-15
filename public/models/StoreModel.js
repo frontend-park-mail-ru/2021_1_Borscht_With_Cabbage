@@ -93,7 +93,7 @@ class StoreModel {
 
     getRecommendations(id) {
         let address_ = address.getAddress()
-        const url = '/restaurant/' + id + '/recommendations'
+        const url = '/restaurant/' + id + '/recommendations?latitude=' + address_.latitude + '&longitude=' + address_.longitude
         console.log('url ', url)
          getRecommendations(url, address_)
             .then(res =>{

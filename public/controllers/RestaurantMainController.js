@@ -290,45 +290,46 @@ export class RestaurantMainController {
         const newPasswordError = Validator.validateChangeNewPassword(newPassword);
         const repeatPasswordError = Validator.validateChangePasswordRepeat(newPassword, repeatPassword);
         const deliveryCostError = Validator.validateRealNumber(deliveryCost);
-        const radiusError = Validator.validateNumber(address?.radius);
+        const radiusError = address.name ? Validator.validateNumber(address?.radius) : Validator.validateOptionalNumber(address?.radius);
+
+        const sendAction = isCorrect => {
+            if (isCorrect || !address?.name) {
+                const formData = new FormData();
+                if (avatar) {
+                    formData.append('avatar', avatar);
+                }
+
+                mainModel.setRestaurantData({
+                    email,
+                    title,
+                    deliveryCost: Number.parseInt(deliveryCost),
+                    number: phone,
+                    password_current: currentPassword,
+                    password: newPassword,
+                    password_repeat: repeatPassword,
+                    address
+                }, formData);
+            } else {
+                this.view.renderServerError({ status: 420, parsedJSON: 'Введите настоящий адрес' });
+            }
+        };
 
         if (emailError.result && titleError.result && phoneError.result && deliveryCostError.result &&
             currentPasswordError.result && newPasswordError.result && repeatPasswordError.result && radiusError.result) {
-            YandexMap.isAddressCorrect(address.name)
-                .then(isCorrect => {
-                    if (isCorrect) {
-                        const formData = new FormData();
-                        if (avatar) {
-                            formData.append('avatar', avatar);
-                        }
 
-                        mainModel.setRestaurantData({
-                            email,
-                            title,
-                            deliveryCost: Number.parseInt(deliveryCost),
-                            number: phone,
-                            password_current: currentPassword,
-                            password: newPassword,
-                            password_repeat: repeatPassword,
-                            address
-                        }, formData);
-                    } else {
+            if (address?.name) {
+                YandexMap.isAddressCorrect(address?.name)
+                    .then(isCorrect => {
+                        console.log(isCorrect);
+                        sendAction(isCorrect);
+                    })
+                    .catch(() => {
                         this.view.renderServerError({ status: 420, parsedJSON: 'Введите настоящий адрес' });
-                    }
-                })
-                .catch(() => this.view.renderServerError({ status: 420, parsedJSON: 'Введите настоящий адрес' }));
+                    });
+            } else {
+                sendAction(true);
+            }
         } else {
-            console.log({
-                error: true,
-                emailError,
-                titleError,
-                phoneError,
-                deliveryCostError,
-                currentPasswordError,
-                newPasswordError,
-                repeatPasswordError,
-                radiusError
-            })
             this.view.renderErrors({
                 error: true,
                 emailError,

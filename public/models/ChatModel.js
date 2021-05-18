@@ -3,7 +3,8 @@ import { getChatMessage, getChats } from '../modules/api.js';
 import socket from '../modules/socket.js';
 
 class ChatModel {
-    constructor () {}
+    constructor () {
+    }
 
     sendMessage (message) {
         const data = {
@@ -13,8 +14,8 @@ class ChatModel {
         socket.send(data);
     }
 
-    subscribe(handler) {
-        socket.subscribe('message', handler);
+    subscribe (handler) {
+        socket.subscribe(handler);
     }
 
     getChatsMessage ({ id, handler, successEvent, failEvent }) {

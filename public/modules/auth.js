@@ -19,6 +19,7 @@ export function auth (res) {
     }
 
     setAddress(res.parsedJSON);
+    socket.subscribe(pushHandler);
     return getWSKey()
         .then(responseKey => {
             socket.connect(responseKey.parsedJSON.key);
@@ -55,4 +56,10 @@ function sendBasketToServer (res) {
             }
         })
         .then(_ => res);
+}
+
+function pushHandler (message) {
+    if (message.action === 'push') {
+        eventBus.emit(AuthEvents.offline, { message: message.payload.message, color: 'green' });
+    }
 }

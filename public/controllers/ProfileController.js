@@ -82,7 +82,7 @@ export class ProfileController {
     }
 
     getOrders () {
-        profileModel.getOrders()
+        profileModel.getOrders();
     }
 
     render (url) {

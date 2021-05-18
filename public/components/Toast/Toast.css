@@ -18,6 +18,11 @@
     color: #FFFFFF;
 }
 
+.toast_green {
+    background: var(--main-green_color);
+    color: #FFFFFF;
+}
+
 .toast.removing {
     opacity: 0;
     transition: opacity 1s;

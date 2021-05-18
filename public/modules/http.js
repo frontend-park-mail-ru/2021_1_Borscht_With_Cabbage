@@ -44,7 +44,7 @@ async function makeFetch ({
     const response = await fetch(window.serverAddress + url, getParams({ method, body, type }));
     const parsedJSON = await response.json();
     if (parsedJSON.code === 418) {
-        eventBus.emit(AuthEvents.offline, { message: parsedJSON.message });
+        eventBus.emit(AuthEvents.offline, { message: parsedJSON.message, color: 'red' });
     }
 
     return {

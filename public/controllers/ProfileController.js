@@ -30,8 +30,14 @@ export class ProfileController {
         chatModel.subscribe(this.addNewMessage.bind(this));
         chatModel.subscribe(this.reNewLastMessage.bind(this));
         socket.subscribe(message => {
-            if (message.action === 'push') {
-                eventBus.emit(AuthEvents.offline, { message: message.payload.message, color: 'green' });
+            if (message.action === 'notification') {
+                const status = {
+                    created: 'Ваш заказ создан',
+                    cooking: 'Ваш заказ готовится',
+                    delivering: 'Ваш заказ едет к вам',
+                    done: 'Ваш заказ доставлен'
+                };
+                eventBus.emit(AuthEvents.offline, { message: status[message.status], color: 'yellow' });
             }
         });
     }

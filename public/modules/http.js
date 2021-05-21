@@ -1,8 +1,8 @@
 import eventBus from './eventBus.js';
 import { AuthEvents } from 'Events/AuthEvents.js';
 
-window.serverAddress = 'http://89.208.197.150:5000';
-//  window.serverAddress = 'http://127.0.0.1:5000'
+window.serverAddress = 'http://delivery-borscht.ru:5000/api';
+//  window.serverAddress = 'http://127.0.0.1:5000/api'
 
 function getParams ({
     method = 'GET',

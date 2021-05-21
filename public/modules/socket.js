@@ -20,7 +20,8 @@ class Socket {
             console.log('Socked already connected');
             return;
         }
-        this.socket = new WebSocket(`ws://127.0.0.1:5000/ws/${this.id}`);
+        // this.socket = new WebSocket(`ws://127.0.0.1:5000/api/ws/${this.id}`);
+        this.socket = new WebSocket(`ws://delivery-borscht.ru:5000/api/ws/${this.id}`);
         this.socket.onopen = () => {
             console.log('Socked connected');
             // this.socketTimer = setInterval(() => this.socket.send(''), 10000);

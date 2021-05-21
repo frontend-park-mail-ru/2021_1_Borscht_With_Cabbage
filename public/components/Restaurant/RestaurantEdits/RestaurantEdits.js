@@ -10,6 +10,7 @@ import { getError, noop } from 'Modules/utils.js';
 import user from '../../../modules/user.js';
 import { YandexMap } from 'Modules/yandexMap.js';
 import { RestaurantEvents } from 'Events/RestaurantEvents.js';
+import { Categories } from 'Components/Restaurant/RestaurantEdits/Categories/Categories.js';
 
 export class RestaurantEdits {
     constructor ({
@@ -41,7 +42,6 @@ export class RestaurantEdits {
 
     render () {
         this.root = document.getElementById('restaurant-left-block');
-        console.log('rest edits', user)
         this.root.innerHTML = renderRestaurantEdits({ user });
         this.avatarInput = this.root.querySelector('#input-avatar');
         this.avatarButton = this.root.querySelector('#input-avatar-button');
@@ -63,6 +63,9 @@ export class RestaurantEdits {
 
         this.addErrorListeners();
         this.addSubmitListener();
+
+        this.categories = new Categories();
+        this.categories.render(this.root.querySelector('#categoriesPlace'));
     }
 
     addSubmitListener () {

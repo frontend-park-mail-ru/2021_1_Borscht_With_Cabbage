@@ -25,6 +25,5 @@
 
 .review_button-disabled {
   background-color: var(--grey_color);
-
   disabled: true;
 }

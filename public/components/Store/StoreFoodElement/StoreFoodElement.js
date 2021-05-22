@@ -40,7 +40,18 @@ export class StoreFoodElement {
     render () {
         if (this.food) {
             this.root.innerHTML += renderFoodElement({ food: this.food });
-            // const headerRoot = ;
+
+            // const dishCard = document.getElementById(this.food.id + "-dish")
+            // let dishAddButton = document.getElementById(this.food.id + "-dish-button")
+            // console.log("dishCard", dishCard)
+            // if (dishCard && dishAddButton) {
+            //     dishAddButton.style.visibility = 'hidden'
+            //     dishCard.onmouseover(() => {
+            //         console.log("hey visible")
+            //         dishAddButton.style.visibility = 'visible'
+            //     })
+            // }
+
             this.numButtons = new NumButtons({
                 food: this.food,
                 root: this.root.querySelector(this.numButtonsSelector).querySelector('.card__header'),

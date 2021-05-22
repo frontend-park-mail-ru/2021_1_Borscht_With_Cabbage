@@ -4,13 +4,13 @@ export const params = {
         data: 'time',
 
         default: {
-            name: '-',
+            name: 'Не важно',
             data: 'not'
         },
 
         val: {
             not: {
-                name: '-',
+                name: 'Не важно',
                 data: 'not',
                 value: 0
             },
@@ -36,13 +36,13 @@ export const params = {
         data: 'receipt',
 
         default: {
-            name: '-',
+            name: 'Не важно',
             data: 'not'
         },
 
         val: {
             not: {
-                name: '-',
+                name: 'Не важно',
                 data: 'not',
                 value: 0
             },
@@ -68,28 +68,28 @@ export const params = {
         data: 'rating',
 
         default: {
-            name: '-',
+            name: 'Не важно',
             data: 'not'
         },
 
         val: {
             not: {
-                name: '-',
+                name: 'Не важно',
                 data: 'not',
                 value: 0
             },
             min: {
-                name: '❤3',
+                name: '>3★',
                 data: 'min',
                 value: 3
             },
             middle: {
-                name: '❤4',
+                name: '>4★',
                 data: 'middle',
                 value: 4
             },
             max: {
-                name: '❤4.5',
+                name: '>4.5★',
                 data: 'max',
                 value: 4.5
             }

@@ -1,0 +1,22 @@
+<div class="chose-list__container">
+    {{#each baskets}}
+        <div class="chose-list__basket" id="chose-list__basket{{this}}">
+            <img src="{{this}}">
+            <span class="chose-list__basket-name">{{this}}</span>
+            <div class="chose-list__food-container">
+                {{#each this.foods}}
+                    {{this}}
+                {{/each}}
+            </div>
+            <div class="buttons-container">
+                <button class="button" data-button="delete" data-id="{{this}}" id="deleteButton{{this}}">Удалить
+                    корзину
+                </button>
+                <button class="button" data-button="store" data-id="{{this}}" id="goToStore{{this}}">Перейти в
+                    магазин
+                </button>
+                <button class="button" data-button="order" data-id="{{this}}" id="orderButton{{this}}">Заказать</button>
+            </div>
+        </div>
+    {{/each}}
+</div>

@@ -38,6 +38,10 @@ const urls = {
     restaurantMain: {
         constUrl: null,
         regularUrl: /\/restaurant\/./
+    },
+    chose: {
+        constUrl: null,
+        regularUrl: /\/chose\/./
     }
 };
 

@@ -9,9 +9,7 @@ class StoreModel {
     getDishes (url) {
         const promises = [];
         promises.push(storeGet({ url }));
-        if (!user.isAuth) {
-
-        } else {
+        if (user.isAuth) {
             promises.push(getBasket());
         }
 

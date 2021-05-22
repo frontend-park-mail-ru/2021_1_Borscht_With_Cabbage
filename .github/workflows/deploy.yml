@@ -40,11 +40,12 @@ jobs:
       with:
         name: build
 
-    - name: Build files transfer to server
-      uses: appleboy/scp-action@v0.0.10
+    - name: Upload to hotbox
+      uses: jakejarvis/s3-sync-action@master
       with:
-        host: 89.208.197.150
-        username: ${{ secrets.DEPLOY_USERNAME }}
-        key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
-        source: "build"
-        target: "/home/ubuntu/frontend"
+        args: --endpoint-url https://hb.bizmrg.com --acl public-read --follow-symlinks
+      env:
+        AWS_S3_BUCKET: delivery-borscht
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY : ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        SOURCE_DIR: "build"

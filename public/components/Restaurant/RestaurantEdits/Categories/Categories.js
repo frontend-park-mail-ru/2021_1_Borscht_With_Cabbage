@@ -46,6 +46,11 @@ export class Categories {
         categoryDivs.forEach(div => {
             div.addEventListener('click', () => {
                 this.categories[div.dataset.name].isSelect = !this.categories[div.dataset.name].isSelect;
+                if (this.categories[div.dataset.name].isSelect) {
+                    div.classList.add('selected');
+                } else {
+                    div.classList.remove('selected');
+                }
             });
         });
     }

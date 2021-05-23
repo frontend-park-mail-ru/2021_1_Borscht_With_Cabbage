@@ -8,10 +8,11 @@
                             "image time cost rating";
 
         box-shadow: @shadow-mobile;
-        padding: 24px;
+        padding: 16px;
 
         @media @tablet {
             margin: 16px 0 0 0;
+            padding: 24px;
             box-shadow: @shadow;
         }
     }
@@ -46,6 +47,12 @@
 
     &__rating {
         grid-area: rating;
+        display: flex;
+
+        &-image {
+            height: 16px;
+            margin-right: 4px;
+        }
     }
 
     &__const-info {
@@ -72,8 +79,8 @@
     }
 }
 
-.sticky + .sections-hrefs {
-    padding-top: 60px;
+.sticky-content {
+    margin-bottom: 50px;
 }
 
 .sections-hrefs {

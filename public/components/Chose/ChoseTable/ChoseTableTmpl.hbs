@@ -1,0 +1,62 @@
+<div class="chose-table__container">
+    <div class="chose-table__col">
+        <div class="chose-table__row">
+
+        </div>
+        <div class="chose-table__row">
+            Количество блюд
+        </div>
+        <div class="chose-table__row">
+            Суммарный вес
+        </div>
+        <div class="chose-table__row">
+            Количество калорий
+        </div>
+        <div class="chose-table__row">
+            Стоимость доставки
+        </div>
+        <div class="chose-table__row">
+            Время доставки
+        </div>
+        <div class="chose-table__row">
+            Итоговая стоимость
+        </div>
+    </div>
+    {{#each baskets}}
+        <div class="chose-table__col" id="chose-list__basket{{this.id}}">
+            <div class="chose-table__row">
+
+            </div>
+            <div class="chose-table__row">
+
+            </div>
+            <div class="chose-table__row">
+
+            </div>
+            <div class="chose-table__row">
+
+            </div>
+            <div class="chose-table__row">
+
+            </div>
+            <div class="chose-table__row">
+
+            </div>
+            <div class="chose-table__row">
+
+            </div>
+            <div class="chose-table__row">
+                <div class="buttons-container col">
+                    <button class="button" data-button="delete" data-id="{{this}}" id="deleteButton{{this}}">Удалить
+                        корзину
+                    </button>
+                    <button class="button" data-button="store" data-id="{{this}}" id="goToStore{{this}}">Перейти в
+                        магазин
+                    </button>
+                    <button class="button" data-button="order" data-id="{{this}}" id="orderButton{{this}}">Заказать
+                    </button>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</div>

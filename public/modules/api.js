@@ -388,9 +388,9 @@ export function getReviews (rid) {
     });
 }
 
-export function getRecommendations (url, address_) {
+export function getRecommendations (id, latitude, longitude) {
     return Http.ajaxGet({
-        url: url
+        url: '/restaurant/' + id + '/recommendations?latitude=' + latitude + '&longitude=' + longitude
     });
 }
 

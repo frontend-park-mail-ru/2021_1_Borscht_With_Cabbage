@@ -30,6 +30,6 @@
 
 .add-review-text-area {
   padding: 8px;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--main-font-family);
   font-weight: 700;
 }

@@ -93,9 +93,7 @@ class StoreModel {
 
     getRecommendations(id) {
         let address_ = address.getAddress()
-        const url = '/restaurant/' + id + '/recommendations?latitude=' + address_.latitude + '&longitude=' + address_.longitude
-        console.log('url ', url)
-         getRecommendations(url, address_)
+         getRecommendations(id, address_.latitude, address_.longitude)
             .then(res =>{
                 if (res.status === 200) {
                     eventBus.emit(StoreEvents.storeGetRecommendationsSuccess, res.parsedJSON);

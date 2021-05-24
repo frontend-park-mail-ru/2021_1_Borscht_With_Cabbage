@@ -371,14 +371,14 @@ export function orderPost (data = {}) {
 
 export function addDishInBasket (data = {}) {
     return Http.ajaxPutJson({
-        url: '/user/basket',
+        url: `/user/basket/${data.restaurantID}`,
         body: data
     });
 }
 
-export function getBasket () {
+export function getBasket (idRestaurant) {
     return Http.ajaxGet({
-        url: '/user/basket'
+        url: `/user/basket/${idRestaurant}`
     });
 }
 
@@ -418,5 +418,11 @@ export function getChatMessage (id) {
 export function getWSKey () {
     return Http.ajaxGet({
        url: '/connect/ws'
+    });
+}
+
+export function getBaskets () {
+    return Http.ajaxGet({
+
     });
 }

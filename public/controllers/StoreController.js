@@ -60,10 +60,11 @@ export class StoreController {
     }
 
     order () {
+        const nextURL = `/chose/all`;
         if (address.getAddress().name === '') {
-            new ConfirmationAddress({ goTo: this.goTo }).render('basket');
+            new ConfirmationAddress({ goTo: this.goTo }).render(nextURL);
         } else {
-            this.goTo('basket');
+            this.goTo(nextURL);
         }
     }
 }

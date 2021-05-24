@@ -25,7 +25,7 @@ export class BasketController {
     }
 
     getBasket () {
-        basketModel.getBasket();
+        basketModel.getBasket(1);
     }
 
     order ({
@@ -57,12 +57,13 @@ export class BasketController {
         }
     }
 
-    render () {
+    render (url) {
         if (!user.isAuth) {
             this.goTo('login');
-            redirect.push('basket');
+            redirect.push(url);
             return;
         }
+        this.idRestaurant = url;
 
         this.getBasket();
     }

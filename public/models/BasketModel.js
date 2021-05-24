@@ -3,8 +3,8 @@ import { getBasket, orderPost } from 'Modules/api.js';
 import { BasketEvents } from 'Events/BasketEvents.js';
 
 class BasketModel {
-    getBasket () {
-        getBasket()
+    getBasket (idRestaurant) {
+        getBasket(idRestaurant)
             .then(res => {
                 if (res.status === 200) {
                     eventBus.emit(BasketEvents.basketGetBasketSuccess, res.parsedJSON);

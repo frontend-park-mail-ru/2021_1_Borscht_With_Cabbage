@@ -21,7 +21,6 @@ export class ChoseView {
 
         const listHref = this.root.querySelector('#js__chose-list');
         const tableHref = this.root.querySelector('#js__chose-table');
-
         switch (activePage) {
         case 'comparison':
             tableHref.classList.add('chose_selected');

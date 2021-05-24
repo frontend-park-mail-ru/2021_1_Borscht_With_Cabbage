@@ -88,14 +88,16 @@ class Basket {
             }
             curBasket.totalPrice += food.price;
         } else {
+            const countID = this.baskets.length ? this.baskets[this.baskets.length - 1]++ : 1;
             this.makeNew({
-                id: this.baskets[this.baskets.length - 1]++,
+                id: countID,
                 restaurantName: restaurant.title,
                 restaurantID: restaurant.id,
                 foods: [food_],
                 deliveryPrice: restaurant.deliveryCost,
                 totalPrice: restaurant.totalPrice
             });
+            console.log(this.baskets)
         }
     }
 

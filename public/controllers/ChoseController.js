@@ -5,6 +5,7 @@ import redirect from 'Modules/redirect.js';
 import choseModel from 'Models/ChoseModel.js';
 import eventBus from '../modules/eventBus.js';
 import { BasketEvents } from '../events/BasketEvents.js';
+import address from '../modules/address.js';
 
 export class ChoseController {
     constructor ({
@@ -40,11 +41,13 @@ export class ChoseController {
     }
 
     getBaskets (successEvent, failEvent) {
-        choseModel.getBaskets(successEvent, failEvent);
+        const addr = address.getAddress();
+        const params = `?longitude=${addr.longitude}&latitude=${addr.latitude}`;
+        choseModel.getBaskets(params, successEvent, failEvent);
     }
 
-    draw (baskets) {
-        this.view.render(baskets, this.activePage);
+    draw (info) {
+        this.view.render(info.baskets, this.activePage);
     }
 
     deleteBasket (id) {

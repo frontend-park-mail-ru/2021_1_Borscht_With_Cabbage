@@ -6,8 +6,8 @@ class ChoseModel {
 
     }
 
-    getBaskets (successEvent, failEvent) {
-        getBaskets()
+    getBaskets (params, successEvent, failEvent) {
+        getBaskets(params)
             .then(res => {
                 if (res.status === 200) {
                     eventBus.emit(successEvent, res.parsedJSON);

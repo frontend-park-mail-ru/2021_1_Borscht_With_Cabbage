@@ -421,8 +421,8 @@ export function getWSKey () {
     });
 }
 
-export function getBaskets () {
+export function getBaskets (params) {
     return Http.ajaxGet({
-        url: '/user/baskets'
+        url: `/user/baskets${params}`
     });
 }

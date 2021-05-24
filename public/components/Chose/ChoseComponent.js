@@ -17,6 +17,9 @@ export class ChoseComponent {
 
     render (root, baskets, isList) {
         this.root = root;
+        baskets.forEach(basket_ => {
+            console.log(basket_);
+        });
         if (isList) {
             this.root.innerHTML = renderChoseList({ baskets });
         } else {

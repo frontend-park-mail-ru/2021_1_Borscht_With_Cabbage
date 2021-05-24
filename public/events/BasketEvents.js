@@ -10,6 +10,8 @@
 export const BasketEvents = {
     basketGetBasketSuccess: 'basketGetBasketSuccess',
     basketGetBasketFailed: 'basketGetBasketFailed',
+    basketGetBasketsSuccess: 'basketGetBasketsSuccess',
+    basketGetBasketsFailed: 'basketGetBasketsFailed',
     basketOrderSuccess: 'basketOrderSuccess',
     basketOrderFailed: 'basketOrderFailed'
 }

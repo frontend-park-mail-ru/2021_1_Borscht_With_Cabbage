@@ -10,7 +10,7 @@ class StoreModel {
         const promises = [];
         promises.push(storeGet({ url }));
         if (user.isAuth) {
-            promises.push(getBasket(url));
+            promises.push(getBasket(url.substr(1)));
         }
 
         Promise.all(promises)

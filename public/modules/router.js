@@ -24,8 +24,8 @@ const urls = {
         regularUrl: null
     },
     basket: {
-        constUrl: '/basket',
-        regularUrl: null
+        constUrl: null,
+        regularUrl: /\/basket\/./
     },
     profile: {
         constUrl: null,

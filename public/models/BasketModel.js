@@ -22,9 +22,10 @@ class BasketModel {
     order ({
         address,
         number,
-        comments
+        comments,
+        basketID
     } = {}) {
-        orderPost({ address, number, comments })
+        orderPost({ address, number, comments, basketID })
             .then(res => {
                 if (res.status === 200) {
                     eventBus.emit(BasketEvents.basketOrderSuccess, res.parsedJSON);

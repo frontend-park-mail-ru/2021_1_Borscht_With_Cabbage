@@ -364,7 +364,7 @@ export function restaurantAvatarPut ({ avatar = null }) {
  */
 export function orderPost (data = {}) {
     return Http.ajaxPost({
-        url: '/user/order',
+        url: `/user/order/${data.basketID}`,
         body: data
     });
 }
@@ -389,10 +389,10 @@ export function getReviews (rid) {
 }
 
 
-export function postBasket (basket) {
+export function postBasket (baskets) {
     return Http.ajaxPost({
         url: '/user/basket',
-        body: basket
+        body: baskets
     });
 }
 

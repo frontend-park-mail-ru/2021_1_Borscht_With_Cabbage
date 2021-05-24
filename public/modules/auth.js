@@ -35,23 +35,24 @@ function setAddress (user) {
 }
 
 function setBasket (res) {
-    if (basket.foods && user.role === 'user') {
-        if (basket.foods.length > 0) {
-            return sendBasketToServer(res);
-        }
+    if (basket.baskets.length > 0 && user.role === 'user') {
+        return sendBasketToServer(res);
     }
 
     return res;
 }
 
 function sendBasketToServer (res) {
-    return postBasket({
-        restaurantID: basket.restaurantID,
-        foods: basket.foods
-    })
+    const baskets = basket.baskets.map(basket_ => {
+        return {
+            restaurantID: basket_.restaurantID,
+            foods: basket_.foods
+        };
+    });
+    return postBasket(baskets)
         .then(res => {
             if (res.status === 200) {
-                basket.makeNew(res.parsedJSON);
+                basket.renewBaskets(res.parsedJSON);
             }
         })
         .then(_ => res);

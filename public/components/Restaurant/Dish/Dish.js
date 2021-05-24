@@ -20,7 +20,7 @@ export class DishComponent {
         root = document.body
     }) {
         this.root = root;
-        this.root.innerHTML += renderDish({ dish: this.dish });
+        this.root.innerHTML = renderDish({ dish: this.dish });
 
         this.addEditDishEventListener();
         this.addDeleteDishEventListener();
@@ -33,6 +33,9 @@ export class DishComponent {
         }
 
         editDish.addEventListener('click', e => {
+            this.controller.editDish(this.dish);
+        });
+        this.root.addEventListener('click', e => {
             this.controller.editDish(this.dish);
         });
     }

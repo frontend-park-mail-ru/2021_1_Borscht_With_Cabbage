@@ -27,3 +27,9 @@
   background-color: var(--grey_color);
   disabled: true;
 }
+
+.add-review-text-area {
+  padding: 8px;
+  font-family: var(--main-font-family);
+  font-weight: 700;
+}

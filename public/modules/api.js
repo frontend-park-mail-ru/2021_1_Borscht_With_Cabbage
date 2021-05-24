@@ -423,6 +423,6 @@ export function getWSKey () {
 
 export function getBaskets () {
     return Http.ajaxGet({
-
+        url: '/user/baskets'
     });
 }

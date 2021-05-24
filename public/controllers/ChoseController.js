@@ -47,6 +47,14 @@ export class ChoseController {
     }
 
     draw (info) {
+        info.baskets.forEach(basket => {
+            basket.foods.forEach(food => {
+                food.totalPrice = food.num * food.price;
+            });
+            basket.totalFoods = basket.foods.length;
+            basket.totalWeight = basket.totalFoods * 100;
+            basket.totalCalo = basket.totalWeight * 1.5;
+        });
         this.view.render(info.baskets, this.activePage);
     }
 

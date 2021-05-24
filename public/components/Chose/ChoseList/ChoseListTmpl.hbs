@@ -1,21 +1,29 @@
 <div class="chose-list__container">
     {{#each baskets}}
-        <div class="chose-list__basket" id="chose-list__basket{{this}}">
-            <img src="{{this}}">
-            <span class="chose-list__basket-name">{{this}}</span>
+        <div class="chose-list__basket" id="chose-list__basket{{this.id}}">
+            <img src="{{this.restaurantImage}}">
+            <span class="chose-list__basket-name">{{this.restaurantName}}</span>
+            <div>
+                Время доставки {{this.deliveryTime}}
+            </div>
             <div class="chose-list__food-container">
                 {{#each this.foods}}
-                    {{this}}
+                    <img src="{{this.image}}">
+                    <span>{{this.name}}</span><span>{{this.price}}</span>&times;<span>{{this.num}}</span><span>{{this.totalPrice}}</span>
                 {{/each}}
             </div>
+            <div>
+                <span> Стоимость доставки {{this.deliveryPrice}}</span>
+                <span> Итого {{this.totalPrice}}</span>
+            </div>
             <div class="buttons-container row">
-                <button class="button" data-button="delete" data-id="{{this}}" id="deleteButton{{this}}">Удалить
+                <button class="button" data-button="delete" data-id="{{this.id}}" id="deleteButton{{this.id}}">Удалить
                     корзину
                 </button>
-                <button class="button" data-button="store" data-id="{{this}}" id="goToStore{{this}}">Перейти в
+                <button class="button" data-button="store" data-id="{{this.restaurantID}}" id="goToStore{{this.id}}">Перейти в
                     магазин
                 </button>
-                <button class="button" data-button="order" data-id="{{this}}" id="orderButton{{this}}">Заказать</button>
+                <button class="button" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">Заказать</button>
             </div>
         </div>
     {{/each}}

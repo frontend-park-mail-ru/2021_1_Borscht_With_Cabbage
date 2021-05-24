@@ -65,7 +65,7 @@ export class StoreController {
     }
 
     chose () {
-        const nextURL = `/chose/all`;
+        const nextURL = `/chose/comparison`;
         this.go(nextURL);
     }
 

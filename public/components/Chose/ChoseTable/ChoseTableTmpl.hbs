@@ -25,35 +25,36 @@
     {{#each baskets}}
         <div class="chose-table__col" id="chose-list__basket{{this.id}}">
             <div class="chose-table__row">
-
+                <img src="{{this.restaurantImage}}">
+                <span>{{this.restaurantName}}</span>
             </div>
             <div class="chose-table__row">
-
+                {{this.totalFoods}}
             </div>
             <div class="chose-table__row">
-
+                {{this.totalWeight}}
             </div>
             <div class="chose-table__row">
-
+                {{this.totalCalo}}
             </div>
             <div class="chose-table__row">
-
+                {{this.deliveryPrice}}
             </div>
             <div class="chose-table__row">
-
+                {{this.deliveryTime}}
             </div>
             <div class="chose-table__row">
-
+                {{this.totalPrice}}
             </div>
             <div class="chose-table__row">
                 <div class="buttons-container col">
-                    <button class="button" data-button="delete" data-id="{{this}}" id="deleteButton{{this}}">Удалить
+                    <button class="button" data-button="delete" data-id="{{this.id}}" id="deleteButton{{this.id}}">Удалить
                         корзину
                     </button>
-                    <button class="button" data-button="store" data-id="{{this}}" id="goToStore{{this}}">Перейти в
+                    <button class="button" data-button="store" data-id="{{this.restaurantID}}" id="goToStore{{this.id}}">Перейти в
                         магазин
                     </button>
-                    <button class="button" data-button="order" data-id="{{this}}" id="orderButton{{this}}">Заказать
+                    <button class="button" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">Заказать
                     </button>
                 </div>
             </div>

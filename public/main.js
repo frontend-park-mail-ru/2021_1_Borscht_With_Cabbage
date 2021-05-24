@@ -17,9 +17,9 @@ import { Navbar } from 'Components/NavBar/Navbar.js';
 import { authGet } from 'Modules/api.js';
 import { InitViews } from 'Components/InitViews/InitViews.js';
 
-// import registerSW from './registerSW.js';
-//
-// registerSW();
+import registerSW from './registerSW.js';
+
+registerSW();
 
 const application = document.querySelector('body');
 

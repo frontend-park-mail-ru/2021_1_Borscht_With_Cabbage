@@ -1,29 +1,52 @@
 <div class="chose-list__container">
     {{#each baskets}}
         <div class="chose-list__basket" id="chose-list__basket{{this.id}}">
-            <img src="{{this.restaurantImage}}">
-            <span class="chose-list__basket-name">{{this.restaurantName}}</span>
-            <div>
-                Время доставки {{this.deliveryTime}}
+            <div class="chose-list__title">
+                <div class="chose-list__basket-img-cont"><img class="chose-list__basket-img"
+                                                              src="{{this.restaurantImage}}"></div>
+                <div class="chose-list__basket-name">{{this.restaurantName}}</div>
+                <div class="chose-list__basket-time">
+                    Время доставки {{this.deliveryTime}} минут
+                </div>
             </div>
+
             <div class="chose-list__food-container">
                 {{#each this.foods}}
-                    <img src="{{this.image}}">
-                    <span>{{this.name}}</span><span>{{this.price}}</span>&times;<span>{{this.num}}</span><span>{{this.totalPrice}}</span>
+                    <div class="chose-list__food">
+                        <div>
+                            <img class="chose-list__basket-img" src="{{this.image}}">
+                        </div>
+                        <div class="chose-list__food-desc">
+                            <div class="chose-list__food-title">{{this.name}}</div>
+
+                            <div class="chose-list__food-prices">
+                                <div>{{this.price}} руб.</div>
+                                <div>&times;{{this.num}} шт.</div>
+                                <div>={{this.totalPrice}} руб.</div>
+                            </div>
+                        </div>
+                    </div>
                 {{/each}}
             </div>
             <div>
-                <span> Стоимость доставки {{this.deliveryPrice}}</span>
-                <span> Итого {{this.totalPrice}}</span>
+                <span class="chose-list__delivery"> Стоимость доставки <span
+                        class="chose-list_right">{{this.deliveryPrice}} руб.</span></span>
+            </div>
+            <div>
+                <span class="chose-list__total"> Итого <span class="chose-list_right">{{this.totalPrice}}
+                    руб.</span></span>
             </div>
             <div class="buttons-container row">
                 <button class="button" data-button="delete" data-id="{{this.id}}" id="deleteButton{{this.id}}">Удалить
                     корзину
                 </button>
-                <button class="button" data-button="store" data-id="{{this.restaurantID}}" id="goToStore{{this.id}}">Перейти в
+                <button class="button" data-button="store" data-id="{{this.restaurantID}}" id="goToStore{{this.id}}">
+                    Перейти в
                     магазин
                 </button>
-                <button class="button" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">Заказать</button>
+                <button class="button" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">
+                    Заказать
+                </button>
             </div>
         </div>
     {{/each}}

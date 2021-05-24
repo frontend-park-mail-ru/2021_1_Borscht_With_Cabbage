@@ -1,19 +1,93 @@
 .chose-list {
   &__container {
+    display: flex;
+    flex-direction: column;
+  }
 
+  &__title {
+    display: flex;
+    flex-direction: row;
+    position: relative;
   }
 
   &__basket {
-    &-name {
-
+    &-img {
+      height: 40px;
+      width: 40px;
     }
+
+    &-name {
+      font-size: 24px;
+      margin: 8px 0 0 12px;
+      padding: -8px 0 0 0;
+    }
+
+    &-time {
+      right: 0;
+      position: absolute;
+      margin: 13px 0 0 0;
+    }
+
+    border-radius: 16px;
+    border: 1px var(--profile-link-hover_color_darker) solid;
+    padding: 20px 20px 0 20px;
+    margin: 25px 0 0 0;
+    position: relative;
   }
 
-  &__food-container {
+  &__food {
+    &-container {
+      border-radius: 16px;
+      border: 1px var(--chat-border_color) solid;
+      padding: 15px;
+      margin: 15px 0 15px 25px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      width: auto;
+    }
 
+    &-desc {
+      display: flex;
+      flex-direction: column;
+      margin: -8px 20px 0 20px;
+      width: auto;
+    }
+
+    &-title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      font: 20px bold;
+      margin: 0 0 8px 0;
+      align-items: baseline;
+    }
+
+    &-prices {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0;
+    align-items: center;
   }
-}
 
-.buttons-container {
+  &_right {
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+  }
 
+  &__delivery {
+    font: 18px bold;
+    margin: 20px 0;
+  }
+
+  &__total {
+    font: 24px bold;
+    margin: 12px 0 0 0;
+  }
 }

@@ -378,7 +378,7 @@ export function addDishInBasket (data = {}) {
 
 export function getBasket (idRestaurant) {
     return Http.ajaxGet({
-        url: `/user/basket/${idRestaurant}`
+        url: `/user/basket${idRestaurant}`
     });
 }
 

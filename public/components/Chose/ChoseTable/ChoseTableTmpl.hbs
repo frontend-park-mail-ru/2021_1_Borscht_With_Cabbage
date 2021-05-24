@@ -1,63 +1,161 @@
-<div class="chose-table__container">
-    <div class="chose-table__col">
-        <div class="chose-table__row">
+<!--<div class="chose-table__container">-->
+<!--    <div class="chose-table__col">-->
+<!--        <div class="chose-table__row">-->
 
-        </div>
-        <div class="chose-table__row">
-            Количество блюд
-        </div>
-        <div class="chose-table__row">
-            Суммарный вес
-        </div>
-        <div class="chose-table__row">
-            Количество калорий
-        </div>
-        <div class="chose-table__row">
-            Стоимость доставки
-        </div>
-        <div class="chose-table__row">
-            Время доставки
-        </div>
-        <div class="chose-table__row">
-            Итоговая стоимость
-        </div>
-    </div>
-    {{#each baskets}}
-        <div class="chose-table__col" id="chose-list__basket{{this.id}}">
-            <div class="chose-table__row">
-                <img src="{{this.restaurantImage}}">
-                <span>{{this.restaurantName}}</span>
-            </div>
-            <div class="chose-table__row">
-                {{this.totalFoods}}
-            </div>
-            <div class="chose-table__row">
-                {{this.totalWeight}}
-            </div>
-            <div class="chose-table__row">
-                {{this.totalCalo}}
-            </div>
-            <div class="chose-table__row">
-                {{this.deliveryPrice}}
-            </div>
-            <div class="chose-table__row">
-                {{this.deliveryTime}}
-            </div>
-            <div class="chose-table__row">
-                {{this.totalPrice}}
-            </div>
-            <div class="chose-table__row">
-                <div class="buttons-container col">
-                    <button class="button" data-button="delete" data-id="{{this.id}}" id="deleteButton{{this.id}}">Удалить
-                        корзину
-                    </button>
-                    <button class="button" data-button="store" data-id="{{this.restaurantID}}" id="goToStore{{this.id}}">Перейти в
-                        магазин
-                    </button>
-                    <button class="button" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">Заказать
-                    </button>
+<!--        </div>-->
+<!--        <div class="chose-table__row">-->
+<!--            Количество блюд-->
+<!--        </div>-->
+<!--        <div class="chose-table__row">-->
+<!--            Суммарный вес-->
+<!--        </div>-->
+<!--        <div class="chose-table__row">-->
+<!--            Количество калорий-->
+<!--        </div>-->
+<!--        <div class="chose-table__row">-->
+<!--            Стоимость доставки-->
+<!--        </div>-->
+<!--        <div class="chose-table__row">-->
+<!--            Время доставки-->
+<!--        </div>-->
+<!--        <div class="chose-table__row">-->
+<!--            Итоговая стоимость-->
+<!--        </div>-->
+<!--    </div>-->
+        <!--    {{#each baskets}}-->
+<!--        <div class="chose-table__col" id="chose-list__basket{{this.id}}">-->
+<!--            <div class="chose-table__row">-->
+<!--                <img src="{{this.restaurantImage}}">-->
+<!--                <span>{{this.restaurantName}}</span>-->
+<!--            </div>-->
+<!--            <div class="chose-table__row">-->
+<!--                {{this.totalFoods}}-->
+<!--            </div>-->
+<!--            <div class="chose-table__row">-->
+<!--                {{this.totalWeight}} гр.-->
+<!--            </div>-->
+<!--            <div class="chose-table__row">-->
+<!--                {{this.totalCalo}} ккал-->
+<!--            </div>-->
+<!--            <div class="chose-table__row">-->
+<!--                {{this.deliveryPrice}} руб.-->
+<!--            </div>-->
+<!--            <div class="chose-table__row">-->
+<!--                {{this.deliveryTime}} минут-->
+<!--            </div>-->
+<!--            <div class="chose-table__row">-->
+<!--                {{this.totalPrice}} руб.-->
+<!--            </div>-->
+<!--            <div class="chose-table__row">-->
+<!--                <div class="buttons-container col">-->
+<!--                    <button class="button" data-button="delete" data-id="{{this.id}}" id="deleteButton{{this.id}}">Удалить-->
+<!--                        корзину-->
+<!--                    </button>-->
+<!--                    <button class="button" data-button="store" data-id="{{this.restaurantID}}" id="goToStore{{this.id}}">Перейти в-->
+<!--                        магазин-->
+<!--                    </button>-->
+<!--                    <button class="button" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">Заказать-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <!--    {{/each}}-->
+<!--</div>-->
+
+
+<table cellspacing="8" cellpadding="8" align="center" class="chose-table__container">
+    <tr class="chose-table__row">
+        <td class="chose-table__col">
+
+        </td>
+        {{#each baskets}}
+            <td>
+                <div class="chose-table__col1">
+                    <img class="chose-table__img" src="{{this.restaurantImage}}">
+                    <div>{{this.restaurantName}}</div>
                 </div>
-            </div>
-        </div>
-    {{/each}}
-</div>
+            </td>
+        {{/each}}
+    </tr>
+    <tr class="chose-table__row">
+        <td class="chose-table__col">
+            Количество блюд
+        </td>
+        {{#each baskets}}
+            <td class="chose-table__col">
+                {{this.totalFoods}}
+            </td>
+        {{/each}}
+    </tr>
+    <tr class="chose-table__row">
+        <td class="chose-table__col">
+            Суммарный вес
+        </td>
+        {{#each baskets}}
+            <td class="chose-table__col">
+                {{this.totalWeight}} гр.
+            </td>
+        {{/each}}
+    </tr>
+    <tr class="chose-table__row">
+        <td class="chose-table__col">
+            Количество калорий
+        </td>
+        {{#each baskets}}
+            <td class="chose-table__col">
+                {{this.totalCalo}} ккал
+            </td>
+        {{/each}}
+    </tr>
+    <tr class="chose-table__row">
+        <td class="chose-table__col">
+            Стоимость доставки
+        </td>
+        {{#each baskets}}
+            <td class="chose-table__col">
+                {{this.deliveryPrice}} руб.
+            </td>
+        {{/each}}
+    </tr>
+    <tr class="chose-table__row">
+        <td class="chose-table__col">
+            Время доставки
+        </td>
+        {{#each baskets}}
+            <td class="chose-table__col">
+                {{this.deliveryTime}} минут
+            </td>
+        {{/each}}
+    </tr>
+    <tr class="chose-table__row">
+        <td class="chose-table__col">
+            Итоговая стоимость
+        </td>
+        {{#each baskets}}
+            <td class="chose-table__col">
+                {{this.totalPrice}} руб.
+            </td>
+        {{/each}}
+    </tr>
+
+    <tr class="chose-table__row">
+        <td class="chose-table__col">
+        </td>
+        {{#each baskets}}
+            <td>
+                <div><button class="button" data-button="delete" data-id="{{this.id}}"
+                        id="deleteButton{{this.id}}">Удалить корзину
+                </button></div>
+                <div><button class="button" data-button="store" data-id="{{this.restaurantID}}" id="goToStore{{this.id}}">
+                    Перейти в магазин
+                </button></div>
+                <div><button class="button" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">
+                    Заказать
+                </button></div>
+            </td>
+        {{/each}}
+    </tr>
+
+</table>
+
+

@@ -4,11 +4,11 @@
         <h2 class="adding-section-container__title">{{buttonName}}</h2>
         <form id="adding-section-form">
             <input type="text" id="name" class="adding-section-input" placeholder="Название раздела" name="name" data-name="Название раздела" value="{{section.name}}">
-            <p id="nameError" class="error">Название раздела</p>
+            {{!-- <p id="nameError" class="error">Название раздела</p> --}}
             
             <div class="adding-section-form__buttons">
-                <input type="submit" class="button adding-section-form__btn" value="{{buttonName}}">
-                <input type="close" class="button adding-section-form__btn btn-close" value="Отмена">
+                <input type="submit" class="button button-success adding-section-form__btn" value="{{buttonName}}">
+                <input type="close" class="button button-fail adding-section-form__btn btn-close" value="Отмена">
             </div>
             <p id="serverError" class="error red_error"> </p>
         </form>

@@ -1,8 +1,8 @@
 import eventBus from './eventBus.js';
 import { AuthEvents } from 'Events/AuthEvents.js';
 
-//window.serverAddress = 'http://89.208.197.150:5000';
- window.serverAddress = 'http://127.0.0.1:5000'
+window.serverAddress = 'https://delivery-borscht.ru/api';
+//  window.serverAddress = 'http://127.0.0.1:5000/api'
 
 function getParams ({
     method = 'GET',
@@ -19,6 +19,7 @@ function getParams ({
     }
     if (method !== 'GET') {
         const csrf = document.cookie.match(/_csrf=([\w-]+)/);
+        console.log("SCRF: ", csrf);
         if (csrf) {
             headers['X-XSRF-Token'] = csrf[1];
         }

@@ -3,7 +3,7 @@ import renderCategory from './CategoryTmpl.hbs';
 import { category } from './Category.constants.js'
 import { MainController } from 'Controllers/MainController.js'
 import list from '../DropList/DropList.js'
-import eventBus from '../../modules/eventBus.js';
+import eventBus from 'Modules/eventBus.js';
 import { DropListEvents } from 'Events/DropListEvents.js';
 
 export class CategoryComponent {

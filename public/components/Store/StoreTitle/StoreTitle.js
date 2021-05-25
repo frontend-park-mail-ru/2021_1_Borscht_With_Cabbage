@@ -1,8 +1,8 @@
 import './StoreTitle.less';
 import renderStoreTitle from './StoreTitleTmpl.hbs';
-import { noop } from '../../../modules/utils.js';
+import { noop } from 'Modules/utils.js';
 import { StoreReviews } from "../StoreReviews/StoreReviews.js";
-import { I18n } from "../../../modules/intlApi.js";
+import { I18n } from "Modules/intlApi.js";
 
 export class StoreTitle {
     constructor ({

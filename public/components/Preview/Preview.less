@@ -7,7 +7,7 @@
 
     position: relative;
     width: 100%; /*it depends from width .preview img*/
-    max-width: 320px;
+    max-width: 200px;
     max-height: 200px;
     overflow: hidden;
     margin-top: 12px;
@@ -22,7 +22,10 @@
         background-repeat: no-repeat;
         background-size: cover;
         height: 164px;
-        width: 100%; /*it depends from width .preview*/
+        width: 164px;
+        border-radius: 50%;
+        object-fit: cover;
+     //   width: 100%; /*it depends from width .preview*/
     }
 
     &:hover &-remove {

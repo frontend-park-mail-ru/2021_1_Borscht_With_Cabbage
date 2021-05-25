@@ -18,7 +18,6 @@ export class StoreTitle {
     }
 
     render () {
-        console.log(this.store)
         this.root.innerHTML = renderStoreTitle({
             name: this.store.title,
             rating: this.store.rating.toString(),

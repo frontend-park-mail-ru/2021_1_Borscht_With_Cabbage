@@ -6,6 +6,7 @@ import { ChangeBasketEvents } from '../../../events/ChangeBasketEvents.js';
 import { noop } from '../../../modules/utils.js';
 import basket from '../../../modules/basket.js';
 import { StoreController } from '../../../controllers/StoreController.js';
+import user from '../../../modules/user.js';
 
 export class StoreBasket {
     constructor ({
@@ -16,7 +17,12 @@ export class StoreBasket {
     } = {}) {
         this.root = root;
         this.store = store;
-        this.basket = store.basket;
+        if (user.isAuth) {
+            this.basket = store.basket;
+        } else {
+            console.log(basket.baskets)
+            this.basket = basket.baskets.find(basket_ => basket_.restaurantID === store.id);
+        }
         this.elements = [];
         this.controller = controller;
         this.orderButtonSelector = '#store-basket__order';
@@ -35,12 +41,12 @@ export class StoreBasket {
             .addEventListener('click', () => this.controller.order(this.store.id));
         this.root.querySelector(this.choseButtonSelector)
             .addEventListener('click', () => this.controller.chose());
+        console.log('Im here sir', this.basket)
         if (this.basket.restaurantID && this.basket.foods) {
             if (this.store.id === this.basket.restaurantID) {
                 for (const food of this.basket.foods) {
                     for (let i = 0; i < food.num; i++) {
                         eventBus.emit(ChangeBasketEvents.chooseFood, { food, isPlus: true });
-                        console.log(food);
                     }
                 }
             }

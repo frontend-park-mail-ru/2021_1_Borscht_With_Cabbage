@@ -31,7 +31,6 @@ class StoreModel {
                         data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: {} });
                     }
                 }
-                console.log(data_)
                 if (data_.status === 200) {
                     eventBus.emit(StoreEvents.storeGetDishesSuccess, data_.parsedJSON);
                 } else {
@@ -52,7 +51,8 @@ class StoreModel {
         if (!user.isAuth) {
             basket.addNew({
                 food,
-                restaurant
+                restaurant,
+                isPlus
             });
             return;
         }

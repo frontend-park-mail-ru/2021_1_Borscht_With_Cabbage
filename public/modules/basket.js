@@ -23,6 +23,7 @@ class Basket {
         deliveryPrice = 0,
         totalPrice = 0
     } = {}) {
+        console.log('makeNew', this.baskets)
         if (!id) {
             return;
         }
@@ -38,11 +39,9 @@ class Basket {
                 totalPrice
             });
         } else {
-            console.log(this.baskets)
             curBasket.id = id;
             curBasket.foods = foods;
             curBasket.totalPrice = totalPrice;
-            console.log(this.baskets)
         }
     }
 
@@ -57,53 +56,72 @@ class Basket {
 
     makeNew_ (store) {
         const basket = store.basket;
-        if (basket) {
+        if (basket.id) {
+            console.log('here not null mister', basket)
             this.makeNew(basket);
         }
     }
 
     addNew ({
         food = {},
-        restaurant = {}
+        restaurant = {},
+        isPlus = true
     } = {}) {
+        console.log('addNew 0 ', this.baskets, food, restaurant, isPlus)
         const curBasket = this.baskets.find(basket => basket.restaurantID === restaurant.id);
-        const food_ = {
+        console.log('addNew 1', curBasket, this.baskets)
+        const _food = {
             id: food.id,
             num: 1,
             image: food.image,
             name: food.name,
             price: food.price
         };
+        console.log('before before before', this.baskets)
         if (curBasket) {
             const thatFood = curBasket.foods.find(value => value.id === food.id);
             if (thatFood) {
                 for (const food_ of curBasket.foods) {
                     if (food_.id === thatFood.id) {
-                        food_.num += 1;
+                        if (isPlus) {
+                            food_.num += 1;
+                            curBasket.totalPrice += food.price;
+                        } else {
+                            if (food_.num === 1) {
+                                curBasket.foods = curBasket.foods.filter(food__ => food__ !== food_);
+                            } else {
+                                food_.num -= 1;
+                            }
+                            curBasket.totalPrice -= food.price;
+                        }
                         break;
                     }
                 }
             } else {
-                curBasket.foods.push(food_);
+                curBasket.foods.push(_food);
             }
-            curBasket.totalPrice += food.price;
         } else {
-            const countID = this.baskets.length ? this.baskets[this.baskets.length - 1]++ : 1;
+            console.log('before before', this.baskets)
+            const countID = this.baskets.length ? this.baskets[this.baskets.length - 1].id + 1 : 1;
+            console.log('before', this.baskets)
             this.makeNew({
                 id: countID,
                 restaurantName: restaurant.title,
                 restaurantID: restaurant.id,
-                foods: [food_],
+                foods: [_food],
                 deliveryPrice: restaurant.deliveryCost,
-                totalPrice: restaurant.totalPrice
+                totalPrice: _food.price
             });
-            console.log(this.baskets)
+            console.log('after', this.baskets)
         }
+
+
+        console.log('addNew end', this.baskets, curBasket)
     }
 
     renewBaskets (baskets) {
+        console.log('renewBaskets')
         this.baskets = [];
-        console.log(baskets);
         baskets.forEach(basket => {
             this.baskets.push(basket)
         });

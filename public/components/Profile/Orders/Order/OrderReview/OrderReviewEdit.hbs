@@ -1,23 +1,64 @@
 <h2 class="add-review-text">Оставьте отзыв о ресторане</h2>
 
 <form>
-<div class="rating_block">
-    <input name="rating" value="5" id="rating_5-{{order.orderID}}" type="radio" class="rating_block__input order-{{order.orderID}}"/>
+  <div class="rating_block">
+    <input
+      name="rating"
+      value="5"
+      id="rating_5-{{order.orderID}}"
+      type="radio"
+      class="rating_block__input order-{{order.orderID}}"
+    />
     <label for="rating_5-{{order.orderID}}" class="label_rating"></label>
 
-    <input name="rating" value="4" id="rating_4-{{order.orderID}}" type="radio" class="rating_block__input order-{{order.orderID}}"/>
+    <input
+      name="rating"
+      value="4"
+      id="rating_4-{{order.orderID}}"
+      type="radio"
+      class="rating_block__input order-{{order.orderID}}"
+    />
     <label for="rating_4-{{order.orderID}}" class="label_rating"></label>
 
-    <input name="rating" value="3" id="rating_3-{{order.orderID}}" type="radio" class="rating_block__input order-{{order.orderID}}"/>
+    <input
+      name="rating"
+      value="3"
+      id="rating_3-{{order.orderID}}"
+      type="radio"
+      class="rating_block__input order-{{order.orderID}}"
+    />
     <label for="rating_3-{{order.orderID}}" class="label_rating"></label>
 
-    <input name="rating" value="2" id="rating_2-{{order.orderID}}" type="radio" class="rating_block__input order-{{order.orderID}}"/>
+    <input
+      name="rating"
+      value="2"
+      id="rating_2-{{order.orderID}}"
+      type="radio"
+      class="rating_block__input order-{{order.orderID}}"
+    />
     <label for="rating_2-{{order.orderID}}" class="label_rating"></label>
 
-    <input name="rating" value="1" id="rating_1-{{order.orderID}}" type="radio" class="rating_block__input order-{{order.orderID}}"/>
+    <input
+      name="rating"
+      value="1"
+      id="rating_1-{{order.orderID}}"
+      type="radio"
+      class="rating_block__input order-{{order.orderID}}"
+    />
     <label for="rating_1-{{order.orderID}}" class="label_rating"></label>
-</div>
+  </div>
 
-<textarea id="review-{{order.orderID}}" name="review" cols="40" rows="3" class="add-review-text-area"></textarea>
-<input type="submit"  id="send_review-{{order.orderID}}" class="button" value="Отправить отзыв">
+  <textarea
+    id="review-{{order.orderID}}"
+    name="review"
+    cols="40"
+    rows="3"
+    class="add-review-text-area"
+  ></textarea>
+  <input
+    type="submit"
+    id="send_review-{{order.orderID}}"
+    class="button"
+    value="Отправить отзыв"
+  />
 </form>

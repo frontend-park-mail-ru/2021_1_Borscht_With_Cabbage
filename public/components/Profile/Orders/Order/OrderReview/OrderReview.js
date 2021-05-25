@@ -1,5 +1,4 @@
-import { ProfileController } from '../../../../../controllers/ProfileController.js';
-import eventBus from '../../../../../modules/eventBus';
+import { ProfileController } from 'Controllers/ProfileController.js';
 import renderOrderReview from './OrderReview.hbs';
 import renderOrderReviewInput from './OrderReviewEdit.hbs';
 
@@ -56,11 +55,14 @@ export class OrderReview {
             });
         }
 
-        sendReview.classList.toggle('review_button-disabled');
-        sendReview.disabled = true;
-
-        const review = document.getElementById('review-' + this.order.orderID)
-            .value;
-        this.controller.postReview(this.order.orderID, review, starsCount);
+        const review = document.getElementById(
+            'review-' + this.order.orderID
+        ).value;
+        if (review) {
+            this.order.stars = starsCount;
+            this.order.review = review;
+            this.reviewDraw();
+            this.controller.postReview(this.order.orderID, review, starsCount);
+        }
     }
 }

@@ -112,7 +112,8 @@ export class RestaurantEdits {
             } else {
                 info.avatar = user.avatar;
             }
-            eventBus.emit(AuthEvents.userSignIn, info)
+            eventBus.emit(AuthEvents.userSignIn, info);
+            console.log('rest edit',info)
         }
     }
 

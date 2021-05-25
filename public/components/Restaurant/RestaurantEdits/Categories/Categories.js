@@ -53,23 +53,26 @@ export class Categories {
             if (isSelect) {
                 return name;
             }
-        });
+        }).filter(value => value);
     }
 
     render (root, filters) {
         const categories = this.filtersToCategories(filters);
         this.setCategories(categories);
         root.innerHTML = renderCategories({ categories });
-        const categoryBlock = root.querySelectorAll('[data-name]');
-        categoryBlock.forEach(div => {
-            div.addEventListener('click', () => {
-                this.categories[div.dataset.name].isSelect = !this.categories[div.dataset.name].isSelect;
-                if (this.categories[div.dataset.name].isSelect) {
-                    div.classList.add('selected');
+        const categoryDiv = root.querySelectorAll('[data-categoryname]');
+        categoryDiv.forEach(categoryBlock => {
+            categoryBlock.addEventListener('click', () => {
+                this.categories[categoryBlock.dataset.categoryname].isSelect = !this.categories[categoryBlock.dataset.categoryname].isSelect;
+                if (this.categories[categoryBlock.dataset.categoryname].isSelect) {
+                    categoryBlock.classList.add('selected');
                 } else {
-                    div.classList.remove('selected');
+                    categoryBlock.classList.remove('selected');
                 }
             });
+            if (this.categories[categoryBlock.dataset.categoryname].isSelect) {
+                categoryBlock.classList.add('selected');
+            }
         });
     }
 

@@ -158,13 +158,11 @@ export class RestaurantMainController {
     }
 
     confirmationFailed () {
-        console.log('confirmationFailed');
         this.removeSection = null;
         this.removeDish = null;
     }
 
     editDish (dish) {
-        console.log('editDish', dish);
         this.addingDishItem = document.createElement('div');
         this.root.append(this.addingDishItem);
 
@@ -281,7 +279,8 @@ export class RestaurantMainController {
         repeatPassword,
         avatar,
         deliveryCost,
-        address
+        address,
+        filters
     } = {}) {
         const emailError = Validator.validateEmail(email);
         const titleError = Validator.validateName(title);
@@ -307,7 +306,8 @@ export class RestaurantMainController {
                     password_current: currentPassword,
                     password: newPassword,
                     password_repeat: repeatPassword,
-                    address
+                    address,
+                    filters
                 }, formData);
             } else {
                 this.view.renderServerError({ status: 420, parsedJSON: 'Введите настоящий адрес' });

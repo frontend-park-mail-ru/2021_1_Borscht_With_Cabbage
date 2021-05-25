@@ -65,7 +65,7 @@ export class RestaurantEdits {
         this.addSubmitListener();
 
         this.categories = new Categories();
-        this.categories.render(this.root.querySelector('#categoriesPlace'));
+        this.categories.render(this.root.querySelector('#categoriesPlace'), user.filters);
     }
 
     addSubmitListener () {

@@ -16,6 +16,7 @@ export function auth (res) {
         eventBus.emit(AuthEvents.notAuth, {});
     } else {
         eventBus.emit(AuthEvents.userSignIn, res.parsedJSON);
+        console.log('rest auth',res.parsedJSON)
     }
 
     setAddress(res.parsedJSON);

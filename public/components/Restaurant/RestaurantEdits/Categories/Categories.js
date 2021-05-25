@@ -39,11 +39,29 @@ export class Categories {
         this.categories = categoryDefault;
     }
 
-    render (root, categories = categoryDefault) {
+    filtersToCategories (filters = []) {
+        const categories = categoryDefault;
+        Object.entries(categoryDefault).forEach(category => category.isSelect = false);
+        for (const [_, val] of filters) {
+            categories[val].isSelect = true;
+        }
+        return categories;
+    }
+
+    categoriesToFilters (categories = categoryDefault) {
+        return Object.entries(categories).map(([name, { isSelect }]) => {
+            if (isSelect) {
+                return name;
+            }
+        });
+    }
+
+    render (root, filters) {
+        const categories = this.filtersToCategories(filters);
         this.setCategories(categories);
         root.innerHTML = renderCategories({ categories });
-        const categoryDivs = root.querySelectorAll('[data-name]');
-        categoryDivs.forEach(div => {
+        const categoryBlock = root.querySelectorAll('[data-name]');
+        categoryBlock.forEach(div => {
             div.addEventListener('click', () => {
                 this.categories[div.dataset.name].isSelect = !this.categories[div.dataset.name].isSelect;
                 if (this.categories[div.dataset.name].isSelect) {
@@ -64,6 +82,6 @@ export class Categories {
     }
 
     getCategories () {
-        return this.categories;
+        return this.categoriesToFilters(this.categories);
     }
 }

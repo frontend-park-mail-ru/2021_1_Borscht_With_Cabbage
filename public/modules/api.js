@@ -426,3 +426,15 @@ export function getBaskets (params) {
         url: `/user/baskets${params}`
     });
 }
+
+export function deleteBasket (id) {
+    return Http.ajaxDelete({
+       url: `/user/basket/${id}`
+    });
+}
+
+export function deleteAllBaskets () {
+    return Http.ajaxDelete({
+        url: '/user/basket/all'
+    });
+}

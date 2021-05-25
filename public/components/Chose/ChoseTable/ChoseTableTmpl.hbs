@@ -4,7 +4,7 @@
 
         </td>
         {{#each baskets}}
-            <td>
+            <td data-deleteID="{{this.id}}">
                 <div class="chose-table__col1">
                     <img class="chose-table__img" src="{{this.restaurantImage}}">
                     <div>{{this.restaurantName}}</div>
@@ -17,7 +17,7 @@
             Количество блюд
         </td>
         {{#each baskets}}
-            <td class="chose-table__col">
+            <td class="chose-table__col" data-deleteID="{{this.id}}">
                 {{this.totalFoods}}
             </td>
         {{/each}}
@@ -27,7 +27,7 @@
             Суммарный вес
         </td>
         {{#each baskets}}
-            <td class="chose-table__col">
+            <td class="chose-table__col" data-deleteID="{{this.id}}">
                 {{this.totalWeight}} гр.
             </td>
         {{/each}}
@@ -37,7 +37,7 @@
             Количество калорий
         </td>
         {{#each baskets}}
-            <td class="chose-table__col">
+            <td class="chose-table__col" data-deleteID="{{this.id}}">
                 {{this.totalCalo}} ккал
             </td>
         {{/each}}
@@ -47,7 +47,7 @@
             Стоимость доставки
         </td>
         {{#each baskets}}
-            <td class="chose-table__col">
+            <td class="chose-table__col" data-deleteID="{{this.id}}">
                 {{this.deliveryPrice}} руб.
             </td>
         {{/each}}
@@ -57,7 +57,7 @@
             Время доставки
         </td>
         {{#each baskets}}
-            <td class="chose-table__col">
+            <td class="chose-table__col" data-deleteID="{{this.id}}">
                 {{this.deliveryTime}} минут
             </td>
         {{/each}}
@@ -67,7 +67,7 @@
             Итоговая стоимость
         </td>
         {{#each baskets}}
-            <td class="chose-table__col">
+            <td class="chose-table__col" data-deleteID="{{this.id}}">
                 {{this.totalPrice}} руб.
             </td>
         {{/each}}
@@ -77,7 +77,7 @@
         <td class="chose-table__col">
         </td>
         {{#each baskets}}
-            <td>
+            <td data-deleteID="{{this.id}}">
                 <div><button class="button" data-button="delete" data-id="{{this.id}}"
                         id="deleteButton{{this.id}}">Удалить корзину
                 </button></div>

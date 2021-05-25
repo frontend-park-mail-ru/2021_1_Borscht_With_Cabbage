@@ -30,7 +30,9 @@ export class ChoseComponent {
         deleteButtons.forEach(button => {
             button.addEventListener('click', () => {
                 this.controller.deleteBasket(button.dataset.id);
-                this.root.querySelector(`#chose-list__basket${button.dataset.id}`)?.remove();
+                this.root
+                    .querySelectorAll(`[data-deleteID="${button.dataset.id}"]`)
+                    ?.forEach(el => el.remove());
             });
         });
 

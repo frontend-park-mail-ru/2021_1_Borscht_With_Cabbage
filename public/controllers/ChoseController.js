@@ -51,7 +51,8 @@ export class ChoseController {
             basket.foods.forEach(food => {
                 food.totalPrice = food.num * food.price;
             });
-            basket.totalFoods = basket.foods.length;
+            basket.totalFoods = basket.foods.reduce((prev, cur) => prev + cur.num, 0);
+            console.log(basket)
             basket.totalWeight = basket.totalFoods * 100;
             basket.totalCalo = basket.totalWeight * 1.5;
         });
@@ -59,7 +60,7 @@ export class ChoseController {
     }
 
     deleteBasket (id) {
-        choseModel.deleteBasket(id);
+        choseModel.deleteBasket(id, BasketEvents.basketDeleteSuccess, BasketEvents.basketDeleteFailed);
     }
 
     orderBasket (id) {

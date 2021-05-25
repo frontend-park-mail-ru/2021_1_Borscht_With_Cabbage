@@ -17,5 +17,9 @@ export const BasketEvents = {
     basketChoseAllSuccess: 'basketChoseAllSuccess',
     basketChoseComparisonSuccess: 'basketChoseComparisonSuccess',
     basketChoseAllFailed: 'basketChoseAllFailed',
-    basketChoseComparisonFailed: 'basketChoseComparisonFailed'
+    basketChoseComparisonFailed: 'basketChoseComparisonFailed',
+    basketDeleteSuccess: 'basketDeleteSuccess',
+    basketDeleteAllSuccess: 'basketDeleteAllSuccess',
+    basketDeleteFailed: 'basketDeleteFailed',
+    basketDeleteAllFailed: 'basketDeleteAllFailed'
 }

@@ -47,7 +47,7 @@ export class StoreTitle {
     }
 
     addEventListeners () {
-        const hrefs = Array.from(this.root.querySelector('.sections-hrefs').children);
+        const hrefs = Array.from(this.root.querySelector('.sections-hrefs__container').children);
         hrefs.forEach(value => {
             value.addEventListener('click', () => {
                 const href = value.href.substr(value.href.lastIndexOf('#') + 1);
@@ -69,7 +69,7 @@ export class StoreTitle {
     }
 
     sticky () {
-        if (window.pageYOffset >= this.startPosition + 20) {
+        if (window.pageYOffset >= this.startPosition) {
             this.sectionsPanel.classList.add('sticky');
             let body = this.root.querySelector('.store-title__container');
             if (body) {

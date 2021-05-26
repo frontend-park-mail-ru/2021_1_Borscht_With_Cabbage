@@ -1,9 +1,10 @@
 @import "../static/css/variables.less";
 
 body, html {
-    height: 100vh;
+    height: 100%;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 
 body {
@@ -11,17 +12,26 @@ body {
     display: grid;
     grid-template-rows: min-content 1fr;
 
+    header {
+        width: 100%;
+    }
+
     main {
-        padding: 16px;
+        height: auto;
+        width: calc(100% - 32px);
+        margin-left: auto;
+        margin-right: auto;
+
         @media @mobile {
-            padding: 0 calc(8vW - 9px);
+            width: calc(84% + 18px);
+            // padding: 0 calc(8vW - 9px);
         }
         @media @desktop {
-            padding: 0 72px;
+            // height: calc(100vh - 96px);
+            width: calc(100% - 144px);
+            // padding: 0 72px;
         }
         @media @desktop-big {
-            margin-left: auto;
-            margin-right: auto;
             width: @desktop-big-area;
         }
     }

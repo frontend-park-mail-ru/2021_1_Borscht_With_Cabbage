@@ -50,7 +50,8 @@ class Basket {
 
     addNew ({
         food = {},
-        restaurant = {}
+        restaurant = {},
+        isPlus = true
     } = {}) {
         if (this.restaurantID !== restaurant.id) {
             this.clear();
@@ -62,7 +63,17 @@ class Basket {
         if (thatFood) {
             for (const food_ of this.foods) {
                 if (food_.id === thatFood.id) {
-                    food_.num += 1;
+                    if (isPlus) {
+                        food_.num += 1;
+                        this.totalPrice += food.price;
+                    } else {
+                        if (food_.num === 1) {
+                            this.foods = this.foods.filter(food__ => food__ !== food_);
+                        } else {
+                            food_.num -= 1;
+                        }
+                        this.totalPrice -= food.price;
+                    }
                     break;
                 }
             }
@@ -75,7 +86,6 @@ class Basket {
                 price: food.price
             });
         }
-        this.totalPrice += food.price;
     }
 }
 

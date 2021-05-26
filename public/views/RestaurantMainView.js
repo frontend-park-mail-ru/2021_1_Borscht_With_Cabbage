@@ -4,11 +4,10 @@ import { ChatList } from '../components/ChatList/ChatList.js';
 import { Chat } from '../components/Chat/Chat.js';
 import { RestaurantMainController } from 'Controllers/RestaurantMainController.js';
 import { RestaurantMenuComponent } from 'Components/Restaurant/RestaurantMenu/RestaurantMenu.js'
-import { RestaurantEdits } from 'Components/Restaurant/RestaurantEdits/RestaurantEdits.js';
+import { RestaurantEdits } from '../components/Restaurant/RestaurantEdits/RestaurantEdits.js';
 import renderRestaurantView from 'Components/Restaurant/RestaurantMainTmpl.hbs';
 import { RestaurantRightMenu } from 'Components/Restaurant/RestaurantRightMenu/RightMenu.js';
 import { RestaurantOrdersComponent } from "Components/Restaurant/RestaurantOrders/RestaurantOrders";
-import chatModel from '../models/ChatModel.js';
 
 export class RestaurantMainView {
     constructor ({

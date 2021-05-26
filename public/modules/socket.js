@@ -1,10 +1,9 @@
 class Socket {
     constructor () {
         this.messageHandlers = new Set();
-        // this.socketTimer = null;
     }
 
-    subscribe (event, handler) {
+    subscribe (handler) {
         this.messageHandlers.add(handler);
     }
 
@@ -21,10 +20,9 @@ class Socket {
             return;
         }
         // this.socket = new WebSocket(`ws://127.0.0.1:5000/api/ws/${this.id}`);
-        this.socket = new WebSocket(`ws://delivery-borscht.ru/api/ws/${this.id}`);
+        this.socket = new WebSocket(`wss://delivery-borscht.ru/api/ws/${this.id}`);
         this.socket.onopen = () => {
             console.log('Socked connected');
-            // this.socketTimer = setInterval(() => this.socket.send(''), 10000);
         };
         this.socket.onmessage = (event) => {
             console.log('Socked message -> ', event);
@@ -34,8 +32,6 @@ class Socket {
         };
         this.socket.onclose = () => {
             console.log('Socked close');
-            // clearInterval(this.socketTimer);
-            // this.socketTimer = null;
         };
     }
 

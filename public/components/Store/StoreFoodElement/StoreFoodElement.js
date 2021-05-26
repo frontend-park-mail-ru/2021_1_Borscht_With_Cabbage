@@ -40,7 +40,6 @@ export class StoreFoodElement {
     render () {
         if (this.food) {
             this.root.innerHTML += renderFoodElement({ food: this.food });
-            this.root.innerHTML += renderFoodElement({ food: this.food });
 
             this.numButtons = new NumButtons({
                 food: this.food,

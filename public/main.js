@@ -19,7 +19,7 @@ import { InitViews } from 'Components/InitViews/InitViews.js';
 
 import registerSW from './registerSW.js';
 
-// registerSW();
+registerSW();
 
 const application = document.querySelector('body');
 

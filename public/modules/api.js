@@ -425,3 +425,21 @@ export function getWSKey () {
        url: '/connect/ws'
     });
 }
+
+export function getBaskets (params) {
+    return Http.ajaxGet({
+        url: `/user/baskets${params}`
+    });
+}
+
+export function deleteBasket (id) {
+    return Http.ajaxDelete({
+       url: `/user/basket/${id}`
+    });
+}
+
+export function deleteAllBaskets () {
+    return Http.ajaxDelete({
+        url: '/user/basket/all'
+    });
+}

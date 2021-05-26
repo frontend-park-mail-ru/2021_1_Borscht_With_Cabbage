@@ -93,6 +93,8 @@ class StoreModel {
 
     getRecommendations(id) {
         let address_ = address.getAddress()
+        address_.latitude = parseFloat(address_.latitude)
+        address_.longitude = parseFloat(address_.longitude)
          getRecommendations(id, address_.latitude, address_.longitude)
             .then(res =>{
                 if (res.status === 200) {

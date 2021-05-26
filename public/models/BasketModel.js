@@ -24,6 +24,8 @@ class BasketModel {
         number,
         comments
     } = {}) {
+        address.latitude = parseFloat(address.latitude)
+        address.longitude = parseFloat(address.longitude)
         orderPost({ address, number, comments })
             .then(res => {
                 if (res.status === 200) {

@@ -77,8 +77,6 @@ export class RestaurantEdits {
     formSubmit (event) {
         event.preventDefault()
 
-        console.log(1)
-        console.log(1)
         console.log('filters', this.categories.getCategories());
         this.controller.setRestaurantData({
             email: document.getElementById(this.emailID).value,

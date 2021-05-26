@@ -1,8 +1,8 @@
 import './StoreTitle.less';
 import renderStoreTitle from './StoreTitleTmpl.hbs';
-import { noop } from '../../../modules/utils.js';
+import { noop } from 'Modules/utils.js';
 import { StoreReviews } from "../StoreReviews/StoreReviews.js";
-import { I18n } from "../../../modules/intlApi.js";
+import { I18n } from "Modules/intlApi.js";
 
 export class StoreTitle {
     constructor ({
@@ -31,7 +31,7 @@ export class StoreTitle {
         this.addEventListeners();
 
         this.sectionsPanel = this.root.querySelector('.sections-hrefs');
-        this.startPosition = this.sectionsPanel.offsetTop;
+        this.startPosition = this.sectionsPanel.offsetTop + this.sectionsPanel.offsetHeight;
         const func = this.sticky.bind(this);
         window.onscroll = function () {
             func();
@@ -69,10 +69,18 @@ export class StoreTitle {
     }
 
     sticky () {
-        if (window.pageYOffset >= this.startPosition) {
+        if (window.pageYOffset >= this.startPosition + 20) {
             this.sectionsPanel.classList.add('sticky');
+            let body = this.root.querySelector('.store-title__container');
+            if (body) {
+                body.classList.add('sticky-content')
+            }
         } else {
             this.sectionsPanel.classList.remove('sticky');
+            let body = this.root.querySelector('.store-title__container');
+            if (body) {
+                body.classList.remove('sticky-content')
+            }
         }
     }
 }

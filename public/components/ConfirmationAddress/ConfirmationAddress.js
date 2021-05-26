@@ -4,6 +4,7 @@ import eventBus from '../../modules/eventBus.js';
 import { AuthEvents } from '../../events/AuthEvents.js';
 import { noop } from '../../modules/utils.js';
 import { YandexMap } from '../../modules/yandexMap.js';
+import address from 'Modules/address.js';
 
 export class ConfirmationAddress {
     constructor ({
@@ -34,6 +35,11 @@ export class ConfirmationAddress {
             this.setCoords(address.latitude, address.longitude);
         });
         this.yaMap.addSearch('js__map-add-address');
+        const address_ = address.getAddress();
+        if (address_.name) {
+            document.getElementById('js__map-add-address').value = address_.name;
+            this.yaMap.addPointCustom(address_);//{ longitude: address_.longitude, latitude: address_.latitude });
+        }
         this.addCloseConfirmationEventListeners(confirmationItem, redirect);
     }
 

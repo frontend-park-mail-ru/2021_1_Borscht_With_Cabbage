@@ -16,7 +16,8 @@ class User {
         email = '',
         number = '',
         role = '',
-        address = {}
+        address = {},
+        filters = []
     } = {}) {
         if (name || title) {
             this.name = name || title;
@@ -28,6 +29,7 @@ class User {
             this.number = number;
             this.role = role;
             this.isAuth = true;
+            this.filters = filters;
         }
     }
 
@@ -40,6 +42,7 @@ class User {
         this.number = '';
         this.role = '';
         this.isAuth = false;
+        this.filters = [];
     }
 }
 

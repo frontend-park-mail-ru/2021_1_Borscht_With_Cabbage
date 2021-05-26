@@ -2,14 +2,14 @@ import eventBus from 'Modules/eventBus.js';
 import { AuthEvents } from 'Events/AuthEvents.js';
 
 export default function registerSW () {
-    const message = { message: 'Контент не доступен в оффлайн режиме' };
+    const message = 'Контент не доступен в оффлайн режиме';
 
     if (!navigator.onLine) {
-        eventBus.emit(AuthEvents.offline, message);
+        eventBus.emit(AuthEvents.offline, { message, color: 'red' });
     }
 
     window.addEventListener('offline', () => {
-        eventBus.emit(AuthEvents.offline, message);
+        eventBus.emit(AuthEvents.offline, { message, color: 'red' });
     });
 
     if ('serviceWorker' in navigator) {

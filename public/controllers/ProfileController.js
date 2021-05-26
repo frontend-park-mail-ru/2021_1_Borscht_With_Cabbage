@@ -7,6 +7,7 @@ import eventBus from '../modules/eventBus.js';
 import { ProfileEvents } from '../events/ProfileEvents.js';
 import { AuthEvents } from '../events/AuthEvents.js';
 import chatModel from '../models/ChatModel.js';
+import socket from 'Modules/socket.js';
 
 export class ProfileController {
     constructor ({
@@ -28,6 +29,17 @@ export class ProfileController {
         eventBus.on(ProfileEvents.profileGetChatMessagesFailed, this.loadError.bind(this)); // TODO
         chatModel.subscribe(this.addNewMessage.bind(this));
         chatModel.subscribe(this.reNewLastMessage.bind(this));
+        socket.subscribe(message => {
+            if (message.action === 'notification') {
+                const status = {
+                    created: 'Ваш заказ создан',
+                    cooking: 'Ваш заказ готовится',
+                    delivering: 'Ваш заказ едет к вам',
+                    done: 'Ваш заказ доставлен'
+                };
+                eventBus.emit(AuthEvents.offline, { message: status[message.status], color: 'yellow' });
+            }
+        });
     }
 
     setUserData ({
@@ -82,7 +94,7 @@ export class ProfileController {
     }
 
     getOrders () {
-        profileModel.getOrders()
+        profileModel.getOrders();
     }
 
     render (url) {

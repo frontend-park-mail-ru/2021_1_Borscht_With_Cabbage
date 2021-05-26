@@ -1,7 +1,7 @@
 import renderSectionList from './StoreSectionListTmpl.hbs';
 import renderSection from './StoreSectionTmpl.hbs';
 import { StoreFoodList } from '../StoreFoodList/StoreFoodList.js';
-import { StoreController } from '../../../controllers/StoreController.js';
+import { StoreController } from 'Controllers/StoreController.js';
 
 export class StoreSectionList {
     constructor ({
@@ -33,7 +33,6 @@ export class StoreSectionList {
 
         for (const section of this.sections) {
             const rootSection = this.root.querySelector(`[data-section-id="${section.id}"]`);
-            console.log(rootSection)
             if (rootSection) {
                 const sectionFoods = new StoreFoodList({
                     root: rootSection,
@@ -61,7 +60,6 @@ export class StoreSectionList {
         for (const sec of sections) {
             if (sec.length > 0) {
                 if (sec[0].section === section.id) {
-                    console.log(sec)
                     return sec;
                 }
             }

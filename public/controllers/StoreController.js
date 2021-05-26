@@ -66,4 +66,8 @@ export class StoreController {
             this.goTo('basket');
         }
     }
+
+    getRecommendations(id) {
+        storeModel.getRecommendations(id)
+    }
 }

@@ -1,9 +1,10 @@
 import eventBus from 'Modules/eventBus.js';
-import { addDishInBasket, getBasket, storeGet, getReviews } from 'Modules/api.js';
+import {addDishInBasket, getBasket, storeGet, getReviews, getRecommendations} from 'Modules/api.js';
 import { StoreEvents } from 'Events/StoreEvents.js';
 import { ChangeBasketEvents } from 'Events/ChangeBasketEvents.js';
 import user from '../modules/user.js';
 import basket from '../modules/basket.js';
+import address from "Modules/address.js";
 
 class StoreModel {
     getDishes (url) {
@@ -54,7 +55,8 @@ class StoreModel {
         if (!user.isAuth) {
             basket.addNew({
                 food,
-                restaurant
+                restaurant,
+                isPlus
             });
             return;
         }
@@ -87,6 +89,23 @@ class StoreModel {
             })
             .catch(res => {
                 eventBus.emit(StoreEvents.storeGetReviewsFailed, res.parsedJSON);
+            })
+    }
+
+    getRecommendations(id) {
+        let address_ = address.getAddress()
+        address_.latitude = parseFloat(address_.latitude)
+        address_.longitude = parseFloat(address_.longitude)
+         getRecommendations(id, address_.latitude, address_.longitude)
+            .then(res =>{
+                if (res.status === 200) {
+                    eventBus.emit(StoreEvents.storeGetRecommendationsSuccess, res.parsedJSON);
+                } else {
+                    eventBus.emit(StoreEvents.storeGetRecommendationsFailed, res.parsedJSON);
+                }
+            })
+            .catch(res => {
+                eventBus.emit(StoreEvents.storeGetRecommendationsFailed, res.parsedJSON);
             })
     }
 }

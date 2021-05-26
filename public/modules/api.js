@@ -388,6 +388,11 @@ export function getReviews (rid) {
     });
 }
 
+export function getRecommendations (id, latitude, longitude) {
+    return Http.ajaxGet({
+        url: '/restaurant/' + id + '/recommendations?latitude=' + latitude + '&longitude=' + longitude
+    });
+}
 
 export function postBasket (basket) {
     return Http.ajaxPost({
@@ -418,5 +423,23 @@ export function getChatMessage (id) {
 export function getWSKey () {
     return Http.ajaxGet({
        url: '/connect/ws'
+    });
+}
+
+export function getBaskets (params) {
+    return Http.ajaxGet({
+        url: `/user/baskets${params}`
+    });
+}
+
+export function deleteBasket (id) {
+    return Http.ajaxDelete({
+       url: `/user/basket/${id}`
+    });
+}
+
+export function deleteAllBaskets () {
+    return Http.ajaxDelete({
+        url: '/user/basket/all'
     });
 }

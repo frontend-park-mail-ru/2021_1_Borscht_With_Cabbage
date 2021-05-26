@@ -10,6 +10,7 @@ export class YandexMap {
 
     setRestaurant (pos, radius) {
         ymaps.ready(() => {
+            this.movePoint(pos);
             this.setCenter(pos, 12);
             this.circle = this.createCircle(pos, radius);
         });
@@ -38,6 +39,14 @@ export class YandexMap {
                     draggable: false
                 }));
             this.setCenter(address, 10);
+        });
+    }
+
+    addPointCustom (pos) {
+        ymaps.ready(() => {
+            this.movePoint(pos);
+            this.setCenter(pos);
+            this.callback(pos, true);
         });
     }
 

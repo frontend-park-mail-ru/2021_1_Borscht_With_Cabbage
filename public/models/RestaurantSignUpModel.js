@@ -4,6 +4,8 @@ import { SignUpEvents } from '../events/SignUpEvents.js';
 
 class RestaurantSignUpModel {
     signUp ({ email, password, title, number, address }) {
+        address.latitude = parseFloat(address.latitude)
+        address.longitude = parseFloat(address.longitude)
         restaurantSignupPost({ email, password, title, number, address })
             .then(res => {
                 if (res.status === 200) {

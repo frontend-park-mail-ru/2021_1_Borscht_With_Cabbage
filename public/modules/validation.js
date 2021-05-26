@@ -119,4 +119,17 @@ export class Validator {
         }
         return { result: true };
     }
+
+    static validateOptionalNumber (num) {
+        if (!num) {
+            return { result: true };
+        }
+        if (isNaN(num)) {
+            return {
+                result: false,
+                text: 'Введите число'
+            };
+        }
+        return { result: true };
+    }
 }

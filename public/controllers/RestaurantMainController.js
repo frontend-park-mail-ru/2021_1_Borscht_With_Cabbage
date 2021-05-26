@@ -290,7 +290,8 @@ export class RestaurantMainController {
         const repeatPasswordError = Validator.validateChangePasswordRepeat(newPassword, repeatPassword);
         const deliveryCostError = Validator.validateRealNumber(deliveryCost);
         const radiusError = address.name ? Validator.validateNumber(address?.radius) : Validator.validateOptionalNumber(address?.radius);
-
+        address.latitude = parseFloat(address.latitude)
+        address.longitude = parseFloat(address.longitude)
         const sendAction = isCorrect => {
             if (isCorrect || !address?.name) {
                 const formData = new FormData();

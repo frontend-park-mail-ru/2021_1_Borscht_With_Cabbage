@@ -7,15 +7,24 @@
     z-index: 9999;
     border-radius: 8px;
     padding: 8px;
-    margin: 0 16px;
+    margin: 16px 0 0 240px;
     overflow: hidden;
-
+    position: fixed;
     opacity: 1;
 }
 
 .toast_red {
     background: var(--red_color);
     color: #FFFFFF;
+}
+
+.toast_green {
+    background: var(--main-green_color);
+    color: #FFFFFF;
+}
+
+.toast_yellow {
+    background: var(--yellow_color);
 }
 
 .toast.removing {

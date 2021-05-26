@@ -23,7 +23,7 @@ export class Navbar {
         eventBus.on(AuthEvents.userSignIn, this.renderUserAuth.bind(this));
         eventBus.on(AuthEvents.userLogout, this.renderNotAuth.bind(this));
         eventBus.on(AuthEvents.notAuth, this.renderNotAuth.bind(this));
-        eventBus.on(AuthEvents.changeActiveAddress, this.changeAddress.bind(this))
+        eventBus.on(AuthEvents.changeActiveAddress, this.changeAddress.bind(this));
     }
 
     onOffline () {

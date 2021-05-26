@@ -55,7 +55,8 @@ class StoreModel {
         if (!user.isAuth) {
             basket.addNew({
                 food,
-                restaurant
+                restaurant,
+                isPlus
             });
             return;
         }

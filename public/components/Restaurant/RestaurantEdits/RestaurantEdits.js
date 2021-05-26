@@ -1,15 +1,16 @@
-import { RestaurantMainController } from '../../../controllers/RestaurantMainController.js';
+import { RestaurantMainController } from 'Controllers/RestaurantMainController.js';
 import eventBus from '../../../modules/eventBus.js';
 import renderRestaurantEdits from './RestaurantEditsTmpl.hbs';
 import { Preview } from '../../Preview/Preview.js';
-import { renderInput } from '../../../modules/rendering.js';
-import { AuthEvents } from '../../../events/AuthEvents.js';
-import { Validator } from '../../../modules/validation.js';
-import { maskPhone } from '../../../modules/phoneMask.js';
-import { getError, noop } from '../../../modules/utils.js';
+import { renderInput } from 'Modules/rendering.js';
+import { AuthEvents } from 'Events/AuthEvents.js';
+import { Validator } from 'Modules/validation.js';
+import { maskPhone } from 'Modules/phoneMask.js';
+import { getError, noop } from 'Modules/utils.js';
 import user from '../../../modules/user.js';
-import { YandexMap } from '../../../modules/yandexMap.js';
-import { RestaurantEvents } from '../../../events/RestaurantEvents.js';
+import { YandexMap } from 'Modules/yandexMap.js';
+import { RestaurantEvents } from 'Events/RestaurantEvents.js';
+import { Categories } from './Categories/Categories.js';
 
 export class RestaurantEdits {
     constructor ({
@@ -41,10 +42,7 @@ export class RestaurantEdits {
 
     render () {
         this.root = document.getElementById('restaurant-left-block');
-        console.log(this.root)
-        this.root.innerHTML = renderRestaurantEdits({
-            user: user
-        });
+        this.root.innerHTML = renderRestaurantEdits({ user });
         this.avatarInput = this.root.querySelector('#input-avatar');
         this.avatarButton = this.root.querySelector('#input-avatar-button');
 
@@ -65,6 +63,9 @@ export class RestaurantEdits {
 
         this.addErrorListeners();
         this.addSubmitListener();
+
+        this.categories = new Categories();
+        this.categories.render(this.root.querySelector('#categoriesPlace'), user.filters);
     }
 
     addSubmitListener () {
@@ -76,6 +77,9 @@ export class RestaurantEdits {
     formSubmit (event) {
         event.preventDefault()
 
+        console.log(1)
+        console.log(1)
+        console.log('filters', this.categories.getCategories());
         this.controller.setRestaurantData({
             email: document.getElementById(this.emailID).value,
             title: document.getElementById(this.titleID).value,
@@ -90,7 +94,8 @@ export class RestaurantEdits {
                 latitude: String(this.latitude),
                 longitude: String(this.longitude),
                 radius: Math.round(Number(document.getElementById(this.radiusID).value))
-            }
+            },
+            filters: this.categories.getCategories()
         });
     }
 
@@ -111,7 +116,8 @@ export class RestaurantEdits {
             } else {
                 info.avatar = user.avatar;
             }
-            eventBus.emit(AuthEvents.userSignIn, info)
+            eventBus.emit(AuthEvents.userSignIn, info);
+            console.log('rest edit',info)
         }
     }
 

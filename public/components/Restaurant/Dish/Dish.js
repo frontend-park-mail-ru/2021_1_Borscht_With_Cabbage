@@ -20,30 +20,35 @@ export class DishComponent {
         root = document.body
     }) {
         this.root = root;
-        this.root.innerHTML += renderDish({ dish: this.dish });
+        this.root.innerHTML = renderDish({ dish: this.dish });
 
         this.addEditDishEventListener();
         this.addDeleteDishEventListener();
     }
 
     addEditDishEventListener () {
-        const editDish = this.root.querySelector('.icon-edit');
-        if (!editDish) {
+        this.editDish = this.root.querySelector('.icon-edit');
+        if (!this.editDish) {
             return;
         }
 
-        editDish.addEventListener('click', e => {
+        this.editDish.addEventListener('click', e => {
             this.controller.editDish(this.dish);
+        });
+        this.root.addEventListener('click', e => {
+            if (e.target != this.editDish && e.target != this.deleteDish) {
+                this.controller.editDish(this.dish);
+            }
         });
     }
 
     addDeleteDishEventListener () {
-        const deleteDish = this.root.querySelector('.icon-delete');
-        if (!deleteDish) {
+        this.deleteDish = this.root.querySelector('.icon-delete');
+        if (!this.deleteDish) {
             return;
         }
 
-        deleteDish.addEventListener('click', e => {
+        this.deleteDish.addEventListener('click', e => {
             this.controller.deleteDish({ dish: this.dish })
         });
     }

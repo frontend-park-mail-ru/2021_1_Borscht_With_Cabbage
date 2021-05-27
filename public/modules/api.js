@@ -428,8 +428,8 @@ export function getBaskets (params) {
 }
 
 export function deleteBasket (id) {
-    return Http.ajaxDelete({
-       url: `/user/basket/${id}`
+    return Http.ajaxPost({
+       url: `/user/basket/delete/${id}`
     });
 }
 

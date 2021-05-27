@@ -2,14 +2,30 @@
 
 .rest-edits__categories {
   &_container {
+    flex-direction: row;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    margin-bottom: -20px;
+    -webkit-overflow-scrolling: touch;
+
+    width: calc(100vw - 32px);
+
+      @media @mobile {
+        width: calc(84vw + 18px);
+      }
+      @media @desktop {
+        width: 100%;
+      }
   }
 
   padding: 8px 16px;
   margin: 8px 16px;
   box-shadow: @shadow-mobile;
   cursor: pointer;
+
+    // margin-right: 12px;
 }
 
 .selected {

@@ -27,10 +27,8 @@ export class Navbar {
     }
 
     onOffline () {
-        if (!this.toast) {
-            this.toast = new Toast({ root: this.root.querySelector('.navbar_title') });
-            eventBus.on(AuthEvents.offline, this.toast.render.bind(this.toast));
-        }
+        this.toast = new Toast({ root: this.root.querySelector('.navbar_title') });
+        eventBus.on(AuthEvents.offline, this.toast.render.bind(this.toast));
     }
 
     render () {

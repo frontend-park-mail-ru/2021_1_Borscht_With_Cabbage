@@ -18,20 +18,28 @@ export class StoreReviews {
     }
 
     renderReviews (reviews) {
+
+
         const i18n = new I18n()
         if (!this.root.querySelector('#store-reviews')) {
+
             this.root.insertAdjacentHTML('beforeend', RenderStoreReviewsContainer({}))
         }
         let reviewsContainer = this.root.querySelector('#reviews_container')
-        reviews.forEach((review) => {
-            reviewsContainer.insertAdjacentHTML('beforeend', RenderStoreReview({
-                    user: review.user,
-                    review: review.review,
-                    time: i18n.formatDateTime(review.deliveryTime),
-                    stars: review.stars
-                }),
-            )
-        })
+
+        if (reviews.length === 0) {
+            reviewsContainer.insertAdjacentHTML('beforeend', "Отзывов пока нет, но вы можете быть первым!")
+        } else {
+            reviews.forEach((review) => {
+                reviewsContainer.insertAdjacentHTML('beforeend', RenderStoreReview({
+                        user: review.user,
+                        review: review.review,
+                        time: i18n.formatDateTime(review.deliveryTime),
+                        stars: review.stars
+                    }),
+                )
+            })
+        }
 
         document.addEventListener('click', this.closeReviews.bind(this))
     }

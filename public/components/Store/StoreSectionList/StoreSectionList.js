@@ -1,7 +1,7 @@
 import renderSectionList from './StoreSectionListTmpl.hbs';
 import renderSection from './StoreSectionTmpl.hbs';
 import { StoreFoodList } from '../StoreFoodList/StoreFoodList.js';
-import { StoreController } from '../../../controllers/StoreController.js';
+import { StoreController } from 'Controllers/StoreController.js';
 
 export class StoreSectionList {
     constructor ({

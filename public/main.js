@@ -18,8 +18,8 @@ import { authGet } from 'Modules/api.js';
 import { InitViews } from 'Components/InitViews/InitViews.js';
 import { ChoseController } from 'Controllers/ChoseController.js';
 
-// import registerSW from './registerSW.js';
-//
+import registerSW from './registerSW.js';
+
 // registerSW();
 
 const application = document.querySelector('body');

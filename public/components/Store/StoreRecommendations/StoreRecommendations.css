@@ -1,0 +1,17 @@
+.store-recommendations {
+  background-color: var(--main-green_color_light_bg);
+  border-radius: 12px;
+  width: 98%;
+  padding: 8px 0 0 8px;
+  margin: 12px 0 16px 0;
+  border-top: 1px solid var(--main-green_color_darker);
+}
+
+.store-recommendations_restaurants {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.store-recommendations__title {
+  margin-left: 16px;
+}

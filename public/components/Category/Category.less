@@ -5,16 +5,16 @@
         overflow: hidden;
         margin: 0;
         background-color: var(--cuisines-panel__slide_color);
-        box-shadow: @shadow-mobile;
         text-align: center;
         margin-top: 8px;
         font-size: @font-size-mobile;
         cursor: pointer;
         flex: auto;
         padding: @padding-category-mobile;
+        transition: 0.3s;
 
         @media @tablet {
-            box-shadow: @shadow;
+            //box-shadow: @shadow;
             padding: 8px;
             font-size: 24px;
             min-width: 160px;
@@ -46,7 +46,11 @@
             display: none;
         }
     }
-    
+
+    &__slide:hover {
+        box-shadow: @shadow-mobile;
+    }
+
     &__slider {
         display: flex;
         flex-basis: 0;

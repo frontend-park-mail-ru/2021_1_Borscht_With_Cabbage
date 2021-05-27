@@ -66,6 +66,7 @@ export class SectionComponent {
 
         const dishItem = document.createElement('li');
         dishItem.classList.add('card');
+        dishItem.classList.add('card-click');
         // dishItem.dataset.dishId = dish.id;
         this.container.appendChild(dishItem);
         dish.render({ root: dishItem });

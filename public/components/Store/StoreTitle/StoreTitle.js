@@ -1,8 +1,8 @@
 import './StoreTitle.less';
 import renderStoreTitle from './StoreTitleTmpl.hbs';
-import { noop } from '../../../modules/utils.js';
+import { noop } from 'Modules/utils.js';
 import { StoreReviews } from "../StoreReviews/StoreReviews.js";
-import { I18n } from "../../../modules/intlApi.js";
+import { I18n } from "Modules/intlApi.js";
 
 export class StoreTitle {
     constructor ({
@@ -30,7 +30,7 @@ export class StoreTitle {
         this.addEventListeners();
 
         this.sectionsPanel = this.root.querySelector('.sections-hrefs');
-        this.startPosition = this.sectionsPanel.offsetTop;
+        this.startPosition = this.sectionsPanel.offsetTop + this.sectionsPanel.offsetHeight;
         const func = this.sticky.bind(this);
         window.onscroll = function () {
             func();
@@ -46,7 +46,7 @@ export class StoreTitle {
     }
 
     addEventListeners () {
-        const hrefs = Array.from(this.root.querySelector('.sections-hrefs').children);
+        const hrefs = Array.from(this.root.querySelector('.sections-hrefs__container').children);
         hrefs.forEach(value => {
             value.addEventListener('click', () => {
                 const href = value.href.substr(value.href.lastIndexOf('#') + 1);
@@ -70,8 +70,16 @@ export class StoreTitle {
     sticky () {
         if (window.pageYOffset >= this.startPosition) {
             this.sectionsPanel.classList.add('sticky');
+            let body = this.root.querySelector('.store-title__container');
+            if (body) {
+                body.classList.add('sticky-content')
+            }
         } else {
             this.sectionsPanel.classList.remove('sticky');
+            let body = this.root.querySelector('.store-title__container');
+            if (body) {
+                body.classList.remove('sticky-content')
+            }
         }
     }
 }

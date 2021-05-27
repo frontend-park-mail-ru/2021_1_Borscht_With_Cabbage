@@ -49,7 +49,7 @@ export class SignInController {
 
     loginSuccess () {
         const url = redirect.pop();
-        if (url) {
+        if (url && !/signin/.test(url) && !/login/.test(url)) {
             this.goTo(url);
             return;
         }

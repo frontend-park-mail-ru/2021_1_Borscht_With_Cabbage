@@ -388,6 +388,11 @@ export function getReviews (rid) {
     });
 }
 
+export function getRecommendations (id, latitude, longitude) {
+    return Http.ajaxGet({
+        url: '/restaurant/' + id + '/recommendations?latitude=' + latitude + '&longitude=' + longitude
+    });
+}
 
 export function postBasket (baskets) {
     return Http.ajaxPost({

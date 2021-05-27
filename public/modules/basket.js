@@ -64,8 +64,7 @@ class Basket {
 
     addNew ({
         food = {},
-        restaurant = {},
-        isPlus = true
+        restaurant = {}
     } = {}) {
         console.log('addNew 0 ', this.baskets, food, restaurant, isPlus)
         const curBasket = this.baskets.find(basket => basket.restaurantID === restaurant.id);

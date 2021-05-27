@@ -76,4 +76,8 @@ export class StoreController {
             this.goTo(nextURL);
         }
     }
+
+    getRecommendations(id) {
+        storeModel.getRecommendations(id)
+    }
 }

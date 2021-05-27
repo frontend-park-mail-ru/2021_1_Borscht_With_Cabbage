@@ -1,12 +1,33 @@
-.store-content__add-button_main {
-    background: url("../../../static/img/shopping_cart.svg");
+.store-content__add-button_main{
+    margin-right: 16px;
+    height: 37px;
+    text-decoration: none;
     position: absolute;
     top: 0;
-    right: 0;
-    margin-right: 16px;
-    width: 30px;
-    height: 37px;
-    border: 0;
+    right: 2%;
+    padding: 4px 12px;
+    color: #FFF;
+    background: var(--main-green_color_superactive);
+    border: 2px solid var(--main-green_color);
+    outline: var(--main-green_color_darker) solid 1px;
+    outline-offset: 0px;
+    text-shadow: none;
+    //visibility: hidden;
+    transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.store-content__add-button_main:hover,
+.store-content__add-button_main:active,
+.store-content__add-button_main:focus {
+    box-shadow: inset 0 0 20px var(--main-green_color);
+    outline-color: rgba(255, 255, 255, 0);
+    outline-offset: 15px;
+    color: #FFF;
+}
+
+.card-food:hover {
+    transform: scale(1);
+    box-shadow: inset 0 0 3px var(--main-green_color);
+    outline-color: var(--main-green_color_light);
 }
 
 .food-element__add-buttons {

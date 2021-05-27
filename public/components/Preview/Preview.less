@@ -7,10 +7,13 @@
 
     position: relative;
     width: 100%; /*it depends from width .preview img*/
-    max-width: 320px;
-    max-height: 200px;
+    max-width: 184px;
+    max-height: 184px;
     overflow: hidden;
     margin-top: 12px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
 
     &.removing {
         transform: scale(0);
@@ -21,8 +24,9 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        height: 164px;
-        width: 100%; /*it depends from width .preview*/
+        height: 184px;
+        width: 100%;
+        max-width: 184px;
     }
 
     &:hover &-remove {
@@ -35,18 +39,22 @@
 
     &-remove {
         opacity: 0;
-        width: 20px;
-        height: 20px;
+        width: 100%;
+        height: 100%;
         position: absolute;
         right: 0;
         top: 0;
+        left: 0;
+        bottom: 0;
+        margin: auto;
         font-weight: bold;
-        background: rgba(255, 255, 255, .5);
+        background: rgba(255, 255, 255, 0.5);
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        transition: opacity .22s;
+        transition: opacity 0.22s;
+        font-size: 32px;
     }
 
     &-info {

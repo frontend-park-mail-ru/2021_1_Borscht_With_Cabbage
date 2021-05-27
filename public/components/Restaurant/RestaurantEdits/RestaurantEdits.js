@@ -10,7 +10,7 @@ import { getError, noop } from 'Modules/utils.js';
 import user from '../../../modules/user.js';
 import { YandexMap } from 'Modules/yandexMap.js';
 import { RestaurantEvents } from 'Events/RestaurantEvents.js';
-import { Categories } from 'Components/Restaurant/RestaurantEdits/Categories/Categories.js';
+import { Categories } from './Categories/Categories.js';
 
 export class RestaurantEdits {
     constructor ({
@@ -65,7 +65,7 @@ export class RestaurantEdits {
         this.addSubmitListener();
 
         this.categories = new Categories();
-        this.categories.render(this.root.querySelector('#categoriesPlace'));
+        this.categories.render(this.root.querySelector('#categoriesPlace'), user.filters);
     }
 
     addSubmitListener () {
@@ -77,6 +77,7 @@ export class RestaurantEdits {
     formSubmit (event) {
         event.preventDefault()
 
+        console.log('filters', this.categories.getCategories());
         this.controller.setRestaurantData({
             email: document.getElementById(this.emailID).value,
             title: document.getElementById(this.titleID).value,
@@ -91,7 +92,8 @@ export class RestaurantEdits {
                 latitude: String(this.latitude),
                 longitude: String(this.longitude),
                 radius: Math.round(Number(document.getElementById(this.radiusID).value))
-            }
+            },
+            filters: this.categories.getCategories()
         });
     }
 
@@ -112,7 +114,8 @@ export class RestaurantEdits {
             } else {
                 info.avatar = user.avatar;
             }
-            eventBus.emit(AuthEvents.userSignIn, info)
+            eventBus.emit(AuthEvents.userSignIn, info);
+            console.log('rest edit',info)
         }
     }
 

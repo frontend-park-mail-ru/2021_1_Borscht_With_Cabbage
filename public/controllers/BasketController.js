@@ -59,8 +59,8 @@ export class BasketController {
 
     render (url) {
         if (!user.isAuth) {
-            this.goTo('login');
             redirect.push(url);
+            this.goTo('login');
             return;
         }
         this.idRestaurant = url.substr(url.lastIndexOf('/') + 1);

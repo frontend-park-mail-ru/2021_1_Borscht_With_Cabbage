@@ -33,9 +33,12 @@ export class StoreTitle {
         this.sectionsPanel = this.root.querySelector('.sections-hrefs');
         this.startPosition = this.sectionsPanel.offsetTop + this.sectionsPanel.offsetHeight;
         const func = this.sticky.bind(this);
-        window.onscroll = function () {
+        // window.onscroll = function () {
+        //     func();
+        // };
+        window.addEventListener('scroll', function() {
             func();
-        };
+        });
         this.storeReviews = new StoreReviews(
             this.root,
             this.store,
@@ -69,7 +72,7 @@ export class StoreTitle {
     }
 
     sticky () {
-        if (window.pageYOffset >= this.startPosition) {
+        if (window.pageYOffset >= this.startPosition + 8) {
             this.sectionsPanel.classList.add('sticky');
             let body = this.root.querySelector('.store-title__container');
             if (body) {

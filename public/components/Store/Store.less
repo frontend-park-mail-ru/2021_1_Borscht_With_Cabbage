@@ -7,45 +7,112 @@
     display: grid;
     grid-template-areas: "info"
                          "store"
-                         "recommendations"
-                         "basket";
+                         "basket"
+                         "recommendations";
 
     @media @tablet {
-        grid-template-columns: @grid-two-column-tablet;
-        grid-template-areas: "info basket"
-                             "store basket"
-                             "recommendations basket";
+        // grid-template-columns: @grid-two-column-tablet;
+        // grid-template-areas: "info basket"
+        //                      "store basket"
+        //                      "recommendations basket";
+
+        grid-template-areas: "info"
+                             "store"
+                             "recommendations";
     }
 
     @media @desktop {
-        grid-template-columns: @grid-two-column-desktop;
+        // grid-template-columns: @grid-two-column-desktop;
     }
 
     &-info__title {
         grid-area: info;
+
+        @media @tablet {
+            width: 55%;
+        }
+
+        @media @desktop {
+            width: 63%;
+        }
+
+        @media @desktop-big {
+            width: 68%;
+        }
     }
 
     &-info__food {
         grid-area: store;
+
+        @media @tablet {
+            width: 55%;
+        }
+
+        @media @desktop {
+            width: 63%;
+        }
+
+        @media @desktop-big {
+            width: 68%;
+        }
     }
 
     &-info__recommendations {
         grid-area: recommendations;
+
+        @media @tablet {
+            width: 55%;
+        }
+
+        @media @desktop {
+            width: 63%;
+        }
+
+        @media @desktop-big {
+            width: 68%;
+        }
     }
 
     &-info__basket {
         grid-area: basket;
-        margin-bottom: 24px;
+        max-width: 400px;
+        width: 100%;
+        right: 0;
+        height: 80vh;
 
         @media @tablet {
+            width: 35vw;
+            min-width: 240px;
             padding: 16px;
+
+            position: absolute;
+        }
+
+        @media @desktop {
+            width: 25vw;
+            min-width: 300px;
         }
     }
 }
 
 .sticky-basket {
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    right: 0;
+    right: 70px;
+
+    @media @tablet {
+        right: calc(8% - 9px);
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+    }
+
+    @media @desktop {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        right: 72px;
+    }
+
+    @media @desktop-big {
+        right: calc((100% - @desktop-big-area) / 2);
+    }
 }

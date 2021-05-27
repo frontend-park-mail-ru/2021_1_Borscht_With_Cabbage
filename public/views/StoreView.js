@@ -60,10 +60,16 @@ export class StoreView {
         this.storeBasket.render();
 
         // TODO: закрепление корзины
-        // this.basketPanel = document.getElementById('store-basket');
-        // this.startPosition = this.basketPanel.offsetTop;
-        // const func = this.stickyBasket.bind(this);
-        // window.onscroll = function() {func()};
+        this.basketPanel = document.getElementById('store-basket');
+        this.startPositionBasket = this.basketPanel.offsetTop;
+        const func = this.stickyBasket.bind(this);
+        window.addEventListener('scroll', function() {
+            func();
+        });
+        // window.onscroll = function() {
+        //     window.onscroll();
+        //     func()
+        // };
     }
 
     renderServerError (error) {
@@ -71,7 +77,7 @@ export class StoreView {
     }
 
     stickyBasket () {
-        if (window.pageYOffset >= this.startPosition) {
+        if (window.pageYOffset >= this.startPositionBasket + 96) {
             this.basketPanel.classList.add('sticky-basket');
         } else {
             this.basketPanel.classList.remove('sticky-basket');

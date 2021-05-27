@@ -14,9 +14,9 @@ import user from './user.js';
 export function auth (res) {
     if (res.status !== 200) {
         eventBus.emit(AuthEvents.notAuth, {});
+        return res;
     } else {
         eventBus.emit(AuthEvents.userSignIn, res.parsedJSON);
-        console.log('rest auth',res.parsedJSON)
     }
 
     setAddress(res.parsedJSON);
@@ -26,7 +26,6 @@ export function auth (res) {
             return setBasket(res);
         })
         .catch(_ => setBasket(res));
-
 }
 
 function setAddress (user) {

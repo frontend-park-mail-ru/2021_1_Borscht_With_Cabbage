@@ -45,7 +45,8 @@ export class ConfirmationAddress {
 
     addCloseConfirmationEventListeners (confirmationItem, redirect) {
         const close = this.root.querySelector('.confirmation-address');
-        if (!close) {
+        const iconeClose = this.root.querySelector('.icone-close');
+        if (!close || !iconeClose) {
             return;
         }
 
@@ -72,9 +73,15 @@ export class ConfirmationAddress {
             });
 
         close.addEventListener('click', e => {
-            if (e.target === close) {
+            if (e.target === close || e.target === iconeClose) {
                 confirmationItem.remove();
             }
         });
+
+        // addEventListener("keyup", function(event) {
+        //     console.log(event)
+        //     if (event.keyCode == 27)
+        //         confirmationItem.remove();
+        // });
     }
 }

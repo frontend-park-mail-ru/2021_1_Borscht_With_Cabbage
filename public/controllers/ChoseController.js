@@ -1,4 +1,4 @@
-import { noop } from 'Modules/utils.js';
+import { noop } from '../modules/utils.js';
 import { ChoseView } from 'Views/ChoseView.js';
 import user from 'Modules/user.js';
 import redirect from 'Modules/redirect.js';
@@ -20,13 +20,13 @@ export class ChoseController {
     }
 
     render (url) {
-        if (user.isAuth) {
-            if (user.role === 'admin') {
-                redirect.push(url); // TODO overthink and check
-                this.goTo('login');
-            }
-        } else {
-            // TODO брать данные из basket и/или localStorage
+        if (user.role === 'admin') {
+            this.goTo('restaurantMain');
+            return;
+        } else if (!user.isAuth) {
+            redirect.push(url);
+            this.goTo('login');
+            return;
         }
 
         if (/comparison/.test(url)) {

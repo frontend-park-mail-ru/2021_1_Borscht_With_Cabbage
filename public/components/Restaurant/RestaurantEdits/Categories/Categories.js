@@ -43,7 +43,6 @@ export class Categories {
         const categories = categoryDefault;
         Object.entries(categoryDefault).forEach(category => category.isSelect = false);
         for (const val of filters) {
-            console.log(val)
             categories[val].isSelect = true;
         }
         return categories;

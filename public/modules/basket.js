@@ -23,7 +23,6 @@ class Basket {
         deliveryPrice = 0,
         totalPrice = 0
     } = {}) {
-        console.log('makeNew', this.baskets)
         if (!id) {
             return;
         }
@@ -64,11 +63,10 @@ class Basket {
 
     addNew ({
         food = {},
-        restaurant = {}
+        restaurant = {},
+        isPlus
     } = {}) {
-        console.log('addNew 0 ', this.baskets, food, restaurant, isPlus)
         const curBasket = this.baskets.find(basket => basket.restaurantID === restaurant.id);
-        console.log('addNew 1', curBasket, this.baskets)
         const _food = {
             id: food.id,
             num: 1,
@@ -76,7 +74,6 @@ class Basket {
             name: food.name,
             price: food.price
         };
-        console.log('before before before', this.baskets)
         if (curBasket) {
             const thatFood = curBasket.foods.find(value => value.id === food.id);
             if (thatFood) {
@@ -100,9 +97,7 @@ class Basket {
                 curBasket.foods.push(_food);
             }
         } else {
-            console.log('before before', this.baskets)
             const countID = this.baskets.length ? this.baskets[this.baskets.length - 1].id + 1 : 1;
-            console.log('before', this.baskets)
             this.makeNew({
                 id: countID,
                 restaurantName: restaurant.title,
@@ -111,15 +106,10 @@ class Basket {
                 deliveryPrice: restaurant.deliveryCost,
                 totalPrice: _food.price
             });
-            console.log('after', this.baskets)
         }
-
-
-        console.log('addNew end', this.baskets, curBasket)
     }
 
     renewBaskets (baskets) {
-        console.log('renewBaskets')
         this.baskets = [];
         baskets.forEach(basket => {
             this.baskets.push(basket)

@@ -54,7 +54,7 @@ export class RestaurantMainController {
         if (user.role === 'user') {
             this.goTo('profile');
             return;
-        } else if (user.role !== 'admin') {
+        } else if (user.role !== 'admin' || !user.isAuth) {
             this.goTo('main');
             return;
         }
@@ -350,7 +350,6 @@ export class RestaurantMainController {
     }
 
     saveStatus (status, time, order) {
-        console.log(time)
         time = time + ':00'
         mainModel.updateStatus(status, time, order)
     }

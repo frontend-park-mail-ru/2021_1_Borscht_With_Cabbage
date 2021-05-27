@@ -59,8 +59,8 @@ export class BasketController {
 
     render () {
         if (!user.isAuth) {
-            this.goTo('login');
             redirect.push('basket');
+            this.goTo('login');
             return;
         }
 

@@ -1,6 +1,7 @@
 import eventBus from 'Modules/eventBus.js';
 import { StoreEvents } from 'Events/StoreEvents.js';
 import renderStoreRecommendationsList from './StoreRecommendations.hbs';
+import renderRecommendationsNotFound from './RecommendationsNotFound.hbs'
 import renderInfoRestaurant from 'Components/InfoRestaurant/InfoRestaurantTmpl.hbs';
 import { StoreController } from 'Controllers/StoreController';
 import { noop } from 'Modules/utils';
@@ -30,6 +31,11 @@ export class StoreRecommendations {
         this.root.innerHTML = renderStoreRecommendationsList({});
 
         const recommendationsList = document.getElementById('recommendations');
+        if (recommendations.length === 0) {
+            recommendationsList.innerHTML = renderRecommendationsNotFound({})
+            return
+        }
+
         if (recommendationsList) {
             for (const restaurant of recommendations) {
                 recommendationsList.innerHTML += renderInfoRestaurant({

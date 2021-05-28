@@ -4,6 +4,7 @@ import { ProfileEvents } from 'Events/ProfileEvents.js';
 import { ProfileController } from 'Controllers/ProfileController.js';
 import { OrderElement } from "./Order/Order.js";
 import renderOrderList from "./OrdersListTmpl.hbs";
+import renderOrdersEmpty from "./EmptyOrders.hbs"
 import { I18n } from 'Modules/intlApi.js';
 
 export class Orders {
@@ -23,6 +24,10 @@ export class Orders {
         document.getElementById('profile-left-block').innerHTML = renderOrderList({});
         const orderList = document.getElementById('orders-list');
 
+        if (orders.length === 0) {
+            orderList.innerHTML = renderOrdersEmpty({})
+            return
+        }
         if (orders && orderList) {
             for (const order of orders) {
                 console.log(order);

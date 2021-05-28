@@ -1,6 +1,8 @@
 import './ChatList.less';
 import { noop } from '../../modules/utils.js';
 import renderChatList from './ChatListTmpl.hbs';
+import renderChatsEmpty from './ChatListEmpty.hbs'
+import renderChatsEmptyRestaurant from './ChatListEmptyRestaurant.hbs'
 import renderNode from './ChatNodeTmpl.hbs';
 import user from '../../modules/user.js';
 
@@ -24,10 +26,20 @@ export class ChatList {
         if (user.role === 'user') {
             this.redir = '/profile';
             this.root = document.getElementById('profile-left-block');
+            if (info.length === 0) {
+                this.root.innerHTML = renderChatsEmpty({});
+                return
+            }
         } else {
             this.redir = '/restaurant';
             this.root = document.getElementById('restaurant-left-block');
+            if (info.length === 0) {
+                this.root.innerHTML = renderChatsEmptyRestaurant({});
+                return
+            }
         }
+
+
         this.root.innerHTML = renderChatList();
 
         info.forEach(value => {

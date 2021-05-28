@@ -68,7 +68,7 @@ export class Router {
             }
             if (page === url || page === constUrl || (regularUrl && regularUrl.test(page))) {
                 console.log(1, url, constUrl, regularUrl)
-                if (page === url) {
+                if (page === url && constUrl) {
                     page = constUrl
                 }
                 this.windowHistory(page, isBack)

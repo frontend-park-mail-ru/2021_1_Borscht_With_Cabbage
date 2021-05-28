@@ -30,7 +30,7 @@ export class Orders {
         }
         if (orders && orderList) {
             for (const order of orders) {
-                console.log(order);
+                // console.log(order);
                 const element = new OrderElement({
                     root: orderList,
                     order: order,

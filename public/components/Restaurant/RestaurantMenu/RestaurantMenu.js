@@ -27,7 +27,7 @@ export class RestaurantMenuComponent {
 
     render ({ root = document.body }) {
         this.root = root;
-        console.log('menu render -> ');
+        // console.log('menu render -> ');
         // this.root = document.getElementById('restaurant-left-block');
         this.root.innerHTML = renderRestaurantMenu({});
 
@@ -38,7 +38,7 @@ export class RestaurantMenuComponent {
         content.innerHTML = '';
 
         this.sections.forEach(section => {
-            console.log('menu render -> ', section);
+            // console.log('menu render -> ', section);
             section.render({ root: content });
         });
 
@@ -46,7 +46,7 @@ export class RestaurantMenuComponent {
     }
 
     appendSection({ section }) {
-        console.log('appendSection -> ', section);
+        // console.log('appendSection -> ', section);
         const sectionComponent = new SectionComponent({
             section: section,
             controller: this.controller
@@ -57,7 +57,7 @@ export class RestaurantMenuComponent {
     deleteSection({ id }) {
         this.sections.forEach((section, index) => {
             if (section.section.id === id) {
-                console.log('removeSection -> ', section, index);
+                // console.log('removeSection -> ', section, index);
                 this.sections.splice(index, 1);
             }
         });
@@ -78,7 +78,7 @@ export class RestaurantMenuComponent {
 
     appendDish({ dish }) {
         for (let i = 0; i < this.sections.length; i++) {
-            console.log(this.sections[i].section.id, dish.section);
+            // console.log(this.sections[i].section.id, dish.section);
             if (this.sections[i].section.id === dish.section) {
                 this.sections[i].appendDish({ dish });
             }

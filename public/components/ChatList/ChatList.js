@@ -20,7 +20,7 @@ export class ChatList {
     render (info) {
         info.forEach(value => {
             value.lastMessage = value['last message'];
-            console.log(value)
+            // console.log(value)
         });
 
         if (user.role === 'user') {

@@ -20,7 +20,7 @@ export class RestaurantOrdersComponent {
 
         if (orders && orderList) {
             for (const order of orders) {
-                console.log(order);
+                // console.log(order);
                 const element = new RestaurantOrderElement({
                     root: orderList,
                     order: order,

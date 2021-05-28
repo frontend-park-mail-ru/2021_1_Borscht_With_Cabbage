@@ -54,7 +54,7 @@ export class RestaurantMainController {
         if (user.role === 'user') {
             this.goTo('profile');
             return;
-        } else if (user.role !== 'admin') {
+        } else if (user.role !== 'admin' || !user.isAuth) {
             this.goTo('main');
             return;
         }
@@ -145,8 +145,8 @@ export class RestaurantMainController {
     }
 
     confirmationSuccess () {
-        console.log(this.removeSection);
-        console.log(this.removeDish);
+        // console.log(this.removeSection);
+        // console.log(this.removeDish);
         if (this.removeSection) {
             mainModel.deleteSection({ id: this.removeSection.id });
             this.removeSection = null;
@@ -321,7 +321,7 @@ export class RestaurantMainController {
             if (address?.name) {
                 YandexMap.isAddressCorrect(address?.name)
                     .then(isCorrect => {
-                        console.log(isCorrect);
+                        // console.log(isCorrect);
                         sendAction(isCorrect);
                     })
                     .catch(() => {
@@ -350,7 +350,6 @@ export class RestaurantMainController {
     }
 
     saveStatus (status, time, order) {
-        console.log(time)
         time = time + ':00'
         mainModel.updateStatus(status, time, order)
     }

@@ -21,9 +21,9 @@ export class MenuModel {
 
     deleteSection ({ id }) {
         this.sections.forEach((section, index) => {
-            console.log(section);
+            // console.log(section);
             if (section.id === id) {
-                console.log('deleteSection -> ', id);
+                // console.log('deleteSection -> ', id);
                 eventBus.emit(SectionEvents.deleteSection, { id });
 
                 this.sections.splice(index, 1);

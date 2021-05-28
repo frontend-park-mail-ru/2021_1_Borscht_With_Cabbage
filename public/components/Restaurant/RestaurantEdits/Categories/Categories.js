@@ -43,7 +43,6 @@ export class Categories {
         const categories = categoryDefault;
         Object.entries(categoryDefault).forEach(category => category.isSelect = false);
         for (const val of filters) {
-            console.log(val)
             categories[val].isSelect = true;
         }
         return categories;
@@ -58,6 +57,9 @@ export class Categories {
     }
 
     render (root, filters) {
+        if (!filters) {
+            filters = [];
+        }
         const categories = this.filtersToCategories(filters);
         this.setCategories(categories);
         root.innerHTML = renderCategories({ categories });

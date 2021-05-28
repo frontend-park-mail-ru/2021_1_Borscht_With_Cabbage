@@ -34,7 +34,6 @@ export class MainView {
         this.root = root;
         this.root.innerHTML = renderMainPage();
         this.container = this.root.querySelector('.main-page__container');
-        console.log('render MainView');
         this.headerDraw();
         const address_ = address.getAddress();
         if (address_.name === '') {

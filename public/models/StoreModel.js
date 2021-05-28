@@ -10,10 +10,8 @@ class StoreModel {
     getDishes (url) {
         const promises = [];
         promises.push(storeGet({ url }));
-        if (!user.isAuth) {
-
-        } else {
-            promises.push(getBasket());
+        if (user.isAuth) {
+            promises.push(getBasket(url.substr(1)));
         }
 
         Promise.all(promises)
@@ -34,7 +32,6 @@ class StoreModel {
                         data_.parsedJSON = Object.assign(res[0].parsedJSON, { basket: {} });
                     }
                 }
-                console.log(data_)
                 if (data_.status === 200) {
                     eventBus.emit(StoreEvents.storeGetDishesSuccess, data_.parsedJSON);
                 } else {

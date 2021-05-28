@@ -19,7 +19,6 @@ function getParams ({
     }
     if (method !== 'GET') {
         const csrf = document.cookie.match(/_csrf=([\w-]+)/);
-        console.log("SCRF: ", csrf);
         if (csrf) {
             headers['X-XSRF-Token'] = csrf[1];
         }

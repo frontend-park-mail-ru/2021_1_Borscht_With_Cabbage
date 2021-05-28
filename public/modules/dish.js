@@ -44,7 +44,7 @@ export class DishModel {
     }
 
     updateDish ({ dish }) {
-        console.log(dish)
+        // console.log(dish)
         const actonFunc = mainModel.updateDataDish;
         const result = this.correctAndSendDish(dish, actonFunc);
 

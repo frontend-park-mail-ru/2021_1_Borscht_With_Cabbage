@@ -45,7 +45,6 @@ export class PanelRestaurantsComponent {
             e.preventDefault();
             // проверяе что нажали именно на кнопку
             const idRestaurant = target.closest('.card').dataset.restaurant;
-            console.log('event', target);
             if (idRestaurant) {
                 // TODO меняем элемент визуально как нибудь
 

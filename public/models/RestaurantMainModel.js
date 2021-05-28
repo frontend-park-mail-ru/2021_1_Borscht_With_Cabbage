@@ -96,15 +96,15 @@ class RestaurantMainModel {
         restaurantDeleteDish({ id: id })
             .then(res => {
                 if (res.status === 200) {
-                    console.log('model success');
+                    // console.log('model success');
                     eventBus.emit(SectionEvents.deleteDishSuccess, res.parsedJSON);
                 } else {
-                    console.log('model failed');
+                    // console.log('model failed');
                     eventBus.emit(SectionEvents.deleteDishFailed, res.parsedJSON);
                 }
             })
             .catch(res => {
-                console.log('model failed');
+                // console.log('model failed');
                 // TODO: понять почему здесь вызывается когда проходит по then
             });
     }
@@ -141,7 +141,7 @@ class RestaurantMainModel {
         sectionAddPost({ name })
             .then(res => {
                 if (res.status === 200) {
-                    console.log('success');
+                    // console.log('success');
                     eventBus.emit(SectionEvents.addingSectionSuccess, res.parsedJSON);
                 } else {
                     eventBus.emit(SectionEvents.addingSectionFailed, res.parsedJSON);
@@ -169,14 +169,14 @@ class RestaurantMainModel {
         sectionDelete({ id })
             .then(res => {
                 if (res.status === 200) {
-                    console.log('model success');
+                    // console.log('model success');
                     eventBus.emit(SectionEvents.deleteSectionSuccess, res.parsedJSON);
                 } else {
                     eventBus.emit(SectionEvents.deleteSectionFailed, res.parsedJSON);
                 }
             })
             .catch(res => {
-                console.log('model failed');
+                // console.log('model failed');
                 // TODO: понять почему здесь вызывается когда проходит по then
             });
     }

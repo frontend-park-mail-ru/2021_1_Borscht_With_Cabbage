@@ -28,6 +28,12 @@
   disabled: true;
 }
 
+/* .add-review-text,
+.rating_block,
+.add-review-text-area {
+  margin-left: 32px;
+} */
+
 .add-review-text-area {
   padding: 8px;
   font-family: var(--main-font-family);

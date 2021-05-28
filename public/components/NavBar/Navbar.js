@@ -88,7 +88,7 @@ export class Navbar {
         const bascetLink = document.getElementById('js-go-basket')
         if (bascetLink) {
             bascetLink.addEventListener('click', () => {
-                this.goTo('/basket');
+                this.goTo('/chose/all');
             });
         }
 

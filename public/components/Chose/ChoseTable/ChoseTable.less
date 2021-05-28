@@ -1,0 +1,50 @@
+.chose-table {
+  &__col1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__img {
+    width: 48px;
+    height: 48px;
+    margin: 0 20px 0 0;
+  }
+
+  &__col {
+    text-align: center;
+  }
+
+  &__good {
+    color: #1eae98;
+  }
+
+  &__bad {
+    color: var(--red_color);
+    //color: var(--error_color);
+  }
+
+  &__button {
+    font-size: 12px;
+  }
+
+  &__container {
+    overflow-x: scroll;
+    width: 1000px;
+    margin-bottom: 30px;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+
+      &-thumb {
+        background-color: var(--main-green_color);
+        border-radius: 3px;
+        width: 48px;
+      }
+
+      &-button {
+        border-radius: 16px;
+      }
+    }
+  }
+}

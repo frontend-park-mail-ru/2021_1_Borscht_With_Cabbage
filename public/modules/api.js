@@ -364,21 +364,21 @@ export function restaurantAvatarPut ({ avatar = null }) {
  */
 export function orderPost (data = {}) {
     return Http.ajaxPost({
-        url: '/user/order',
+        url: `/user/order/${data.basketID}`,
         body: data
     });
 }
 
 export function addDishInBasket (data = {}) {
     return Http.ajaxPutJson({
-        url: '/user/basket',
+        url: `/user/basket/${data.restaurantID}`,
         body: data
     });
 }
 
-export function getBasket () {
+export function getBasket (idRestaurant) {
     return Http.ajaxGet({
-        url: '/user/basket'
+        url: `/user/basket/${idRestaurant}`
     });
 }
 
@@ -394,10 +394,10 @@ export function getRecommendations (id, latitude, longitude) {
     });
 }
 
-export function postBasket (basket) {
+export function postBasket (baskets) {
     return Http.ajaxPost({
         url: '/user/basket',
-        body: basket
+        body: baskets
     });
 }
 
@@ -433,8 +433,8 @@ export function getBaskets (params) {
 }
 
 export function deleteBasket (id) {
-    return Http.ajaxDelete({
-       url: `/user/basket/${id}`
+    return Http.ajaxPost({
+       url: `/user/basket/delete/${id}`
     });
 }
 

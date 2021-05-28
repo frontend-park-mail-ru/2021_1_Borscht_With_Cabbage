@@ -6,6 +6,7 @@ import { ChangeBasketEvents } from '../../../events/ChangeBasketEvents.js';
 import { noop } from '../../../modules/utils.js';
 import basket from '../../../modules/basket.js';
 import { StoreController } from '../../../controllers/StoreController.js';
+import user from '../../../modules/user.js';
 
 export class StoreBasket {
     constructor ({
@@ -16,10 +17,15 @@ export class StoreBasket {
     } = {}) {
         this.root = root;
         this.store = store;
-        this.basket = store.basket;
+        if (user.isAuth) {
+            this.basket = store.basket;
+        } else {
+            this.basket = basket.baskets.find(basket_ => basket_.restaurantID === store.id);
+        }
         this.elements = [];
         this.controller = controller;
         this.orderButtonSelector = '#store-basket__order';
+        this.choseButtonSelector = '#store-basket__chose';
         this.totalSumSelector = '#store-basket__sum';
         this.itemsSelector = '#store-basket__items';
         this.goTo = goTo;
@@ -28,13 +34,15 @@ export class StoreBasket {
 
     render () {
         this.root.insertAdjacentHTML('beforeend', renderStoreBasket({
-            deliveryCost: this.store.deliveryCost.toString()
+            deliveryCost: this.store.deliveryCost
         }));
         this.root.querySelector(this.orderButtonSelector)
-            .addEventListener('click', () => this.controller.order());
-        if (basket.restaurantID && basket.foods) {
-            if (this.store.id === basket.restaurantID) {
-                for (const food of basket.foods) {
+            .addEventListener('click', () => this.controller.order(this.store.id));
+        this.root.querySelector(this.choseButtonSelector)
+            .addEventListener('click', () => this.controller.chose());
+        if (this.basket.restaurantID && this.basket.foods) {
+            if (this.store.id === this.basket.restaurantID) {
+                for (const food of this.basket.foods) {
                     for (let i = 0; i < food.num; i++) {
                         eventBus.emit(ChangeBasketEvents.chooseFood, { food, isPlus: true });
                     }

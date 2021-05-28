@@ -3,18 +3,18 @@ import { getBasket, orderPost } from 'Modules/api.js';
 import { BasketEvents } from 'Events/BasketEvents.js';
 
 class BasketModel {
-    getBasket () {
-        getBasket()
+    getBasket (idRestaurant) {
+        getBasket(idRestaurant)
             .then(res => {
                 if (res.status === 200) {
                     eventBus.emit(BasketEvents.basketGetBasketSuccess, res.parsedJSON);
                 } else {
-                    console.log('basket get failed', res)
+                    // console.log('basket get failed', res)
                     eventBus.emit(BasketEvents.basketGetBasketFailed, res.parsedJSON);
                 }
             })
             .catch(res => {
-                console.log('basket get catch', res);
+                // console.log('basket get catch', res);
                 eventBus.emit(BasketEvents.basketGetBasketFailed, res.parsedJSON);
             });
     }
@@ -22,9 +22,10 @@ class BasketModel {
     order ({
         address,
         number,
-        comments
+        comments,
+        basketID
     } = {}) {
-        orderPost({ address, number, comments })
+        orderPost({ address, number, comments, basketID })
             .then(res => {
                 if (res.status === 200) {
                     eventBus.emit(BasketEvents.basketOrderSuccess, res.parsedJSON);

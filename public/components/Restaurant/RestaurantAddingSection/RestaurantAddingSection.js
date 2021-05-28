@@ -60,7 +60,7 @@ export class RestaurantAddingSection {
     }
 
     closeItem () {
-        console.log('close');
+        // console.log('close');
         this.controller.closeAddingSection();
     }
 
@@ -86,7 +86,7 @@ export class RestaurantAddingSection {
 
         let errors;
         if (this.section) {
-            console.log('update');
+            // console.log('update');
             errors = this.section.updateSection({ name });
         } else {
             errors = this.controller.addSection({ name });

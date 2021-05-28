@@ -55,7 +55,7 @@ export class RestaurantMainView {
             this.menu.render({ root: document.getElementById('restaurant-left-block') });
             return;
         } else {
-            console.log('strange', url);
+            // console.log('strange', url);
             this.activeComponent = this.edits;
         }
         this.activeComponent.render(data);

@@ -14,7 +14,7 @@ export class OrderReview {
     }
 
     render () {
-        console.log(this.order.review);
+        // console.log(this.order.review);
         if (this.order.review === '') {
             this.reviewEditDraw();
         } else {

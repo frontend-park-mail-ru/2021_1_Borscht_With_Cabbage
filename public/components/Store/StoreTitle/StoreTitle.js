@@ -18,12 +18,11 @@ export class StoreTitle {
     }
 
     render () {
-        console.log(this.store)
         this.root.innerHTML = renderStoreTitle({
             name: this.store.title,
-            rating: this.store.rating.toString(),
-            deliveryCost: this.store.deliveryCost.toString(),
-            deliveryTime: this.store.deliveryTime | 60, // TODO
+            rating: this.store.rating,
+            deliveryCost: this.store.deliveryCost,
+            deliveryTime: this.store.deliveryTime,
             image: this.store.avatar,
             id: this.store.id,
             sections: this.store.sections

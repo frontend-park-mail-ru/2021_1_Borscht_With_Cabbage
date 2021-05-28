@@ -118,7 +118,7 @@ export class RestaurantAddingDish {
 
         let errors;
         if (this.dish?.id) {
-            console.log('update', this.dish);
+            // console.log('update', this.dish);
             dish.id = this.dish.id;
             errors = this.dish.updateDish({ dish: dish });
         } else {

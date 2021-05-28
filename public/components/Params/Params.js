@@ -29,7 +29,7 @@ export class ParamsComponent {
 
     chooseElement (name) {
         // элемент в котором нужно поменять значение параметра
-        console.log(name);
+        // console.log(name);
         const nameCurrentParams = this.correctItem.dataset.params;
         this.correctItem.innerHTML = params[nameCurrentParams].val[name].name;
         this.item = null;

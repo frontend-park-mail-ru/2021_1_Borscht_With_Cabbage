@@ -24,8 +24,8 @@ const urls = {
         regularUrl: null
     },
     basket: {
-        constUrl: '/basket',
-        regularUrl: null
+        constUrl: null,
+        regularUrl: /\/basket\/./
     },
     profile: {
         constUrl: null,
@@ -38,6 +38,10 @@ const urls = {
     restaurantMain: {
         constUrl: null,
         regularUrl: /\/restaurant\/./
+    },
+    chose: {
+        constUrl: null,
+        regularUrl: /\/chose\/./
     }
 };
 
@@ -60,14 +64,14 @@ export class Router {
     }
 
     open (page, isBack = false) {
-        console.log('router open ->', page);
+        // console.log('router open ->', page);
         Object.entries(urls).forEach(([url, { constUrl, regularUrl }]) => {
             if (page === url && isBack && url === 'logout') {
                 this.open('main', isBack);
                 return
             }
             if (page === url || page === constUrl || (regularUrl && regularUrl.test(page))) {
-                console.log(1, url, constUrl, regularUrl)
+                // console.log(1, url, constUrl, regularUrl)
                 if (page === url && constUrl) {
                     page = constUrl
                 }

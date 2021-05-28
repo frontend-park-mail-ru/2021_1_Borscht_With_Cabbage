@@ -1,0 +1,105 @@
+<div class="chose-table__container">
+    <table cellspacing="8" cellpadding="8" align="center">
+        <tr class="chose-table__row">
+            <td class="chose-table__col">
+
+            </td>
+            {{#each baskets}}
+                <td data-deleteID="{{this.id}}">
+                    <div class="chose-table__col1">
+                        <img class="chose-table__img" src="{{this.restaurantImage}}">
+                        <div>{{this.restaurantName}}</div>
+                    </div>
+                    <hr>
+                </td>
+            {{/each}}
+        </tr>
+        <tr class="chose-table__row">
+            <td>
+                Количество блюд
+            </td>
+            {{#each baskets}}
+                <td class="chose-table__col" data-realtotalfoods="{{this.totalFoods}}" data-deleteID="{{this.id}}">
+                    {{this.totalFoods}}
+                </td>
+            {{/each}}
+        </tr>
+        <tr class="chose-table__row">
+            <td>
+                Суммарный вес
+            </td>
+            {{#each baskets}}
+                <td class="chose-table__col" data-realtotalweight="{{this.totalWeight}}" data-deleteID="{{this.id}}">
+                    {{this.totalWeight}} гр.
+                </td>
+            {{/each}}
+        </tr>
+        <tr class="chose-table__row">
+            <td>
+                Количество калорий
+            </td>
+            {{#each baskets}}
+                <td class="chose-table__col" data-realtotalcalo="{{this.totalCalo}}" data-deleteID="{{this.id}}">
+                    {{this.totalCalo}} ккал
+                </td>
+            {{/each}}
+        </tr>
+        <tr class="chose-table__row">
+            <td>
+                Стоимость доставки
+            </td>
+            {{#each baskets}}
+                <td class="chose-table__col" data-realdeliveryprice="{{this.deliveryPrice}}"
+                    data-deleteID="{{this.id}}">
+                    {{this.deliveryPrice}} руб.
+                </td>
+            {{/each}}
+        </tr>
+        <tr class="chose-table__row">
+            <td>
+                Время доставки
+            </td>
+            {{#each baskets}}
+                <td class="chose-table__col" data-realdeliverytime="{{this.deliveryTime}}" data-deleteID="{{this.id}}">
+                    {{this.deliveryTime}} минут
+                </td>
+            {{/each}}
+        </tr>
+        <tr class="chose-table__row">
+            <td>
+                Итоговая стоимость
+            </td>
+            {{#each baskets}}
+                <td class="chose-table__col" data-realtotalprice="{{this.totalPrice}}" data-deleteID="{{this.id}}">
+                    {{this.totalPrice}} руб.
+                </td>
+            {{/each}}
+        </tr>
+
+        <tr class="chose-table__row">
+            <td class="chose-table__col">
+            </td>
+            {{#each baskets}}
+                <td class="chose-table__col" data-deleteID="{{this.id}}">
+                    <div>
+                        <button class="button red_color chose-table__button" style="margin: -10px 0 0 0;" data-button="delete" data-id="{{this.id}}"
+                                id="deleteButton{{this.id}}">Удалить корзину
+                        </button>
+                    </div>
+                    <div>
+                        <button class="button store_color chose-table__button" style="margin: 10px 0 0 0;" data-button="store"
+                                data-id="{{this.restaurantID}}" id="goToStore{{this.id}}">
+                            Перейти в ресторан
+                        </button>
+                    </div>
+                    <div>
+                        <button class="button chose-table__button order_color" style="margin: 10px 0 0 0;" data-button="order" data-id="{{this.restaurantID}}"
+                                id="orderButton{{this.id}}">
+                            Заказать
+                        </button>
+                    </div>
+                </td>
+            {{/each}}
+        </tr>
+    </table>
+</div>

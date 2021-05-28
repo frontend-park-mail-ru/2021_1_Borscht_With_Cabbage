@@ -59,11 +59,21 @@ export class StoreController {
         this.storeView.renderServerError(error);
     }
 
-    order () {
+    order (id) {
+        const nextURL = `/basket/${id}`;
+        this.go(nextURL);
+    }
+
+    chose () {
+        const nextURL = `/chose/comparison`;
+        this.go(nextURL);
+    }
+
+    go (nextURL) {
         if (address.getAddress().name === '') {
-            new ConfirmationAddress({ goTo: this.goTo }).render('basket');
+            new ConfirmationAddress({ goTo: this.goTo }).render(nextURL);
         } else {
-            this.goTo('basket');
+            this.goTo(nextURL);
         }
     }
 

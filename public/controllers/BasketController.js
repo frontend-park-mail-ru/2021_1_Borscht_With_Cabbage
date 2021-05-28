@@ -25,7 +25,7 @@ export class BasketController {
     }
 
     getBasket () {
-        basketModel.getBasket();
+        basketModel.getBasket(this.idRestaurant);
     }
 
     order ({
@@ -40,7 +40,7 @@ export class BasketController {
                 .then(isCorrect => {
                     if (isCorrect) {
                         if (yaMap.checkUserInCircle()) {
-                            basketModel.order({ address, number, comments });
+                            basketModel.order({ address, number, comments, basketID: this.basketID });
                         } else {
                             this.basketView.renderServerError({ status: 420, parsedJSON: 'Вы должны находиться в зоне доставки ресторана' });
                         }
@@ -57,19 +57,21 @@ export class BasketController {
         }
     }
 
-    render () {
+    render (url) {
         if (!user.isAuth) {
-            redirect.push('basket');
+            redirect.push(url);
             this.goTo('login');
             return;
         }
+        this.idRestaurant = url.substr(url.lastIndexOf('/') + 1);
 
         this.getBasket();
     }
 
     basketPageDraw (info) {
+        this.basketID = info.id;
         if (address.getAddress().name === '') {
-            new ConfirmationAddress({ goTo: this.goTo }).render('basket');
+            new ConfirmationAddress({ goTo: this.goTo }).render(`/basket/${this.idRestaurant}`);
         } else {
             this.basketView.render(info);
         }

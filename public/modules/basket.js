@@ -56,7 +56,7 @@ class Basket {
     makeNew_ (store) {
         const basket = store.basket;
         if (basket.id) {
-            console.log('here not null mister', basket)
+            // console.log('here not null mister', basket)
             this.makeNew(basket);
         }
     }

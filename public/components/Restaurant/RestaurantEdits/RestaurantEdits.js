@@ -77,7 +77,7 @@ export class RestaurantEdits {
     formSubmit (event) {
         event.preventDefault()
 
-        console.log('filters', this.categories.getCategories());
+        // console.log('filters', this.categories.getCategories());
         this.controller.setRestaurantData({
             email: document.getElementById(this.emailID).value,
             title: document.getElementById(this.titleID).value,
@@ -115,7 +115,7 @@ export class RestaurantEdits {
                 info.avatar = user.avatar;
             }
             eventBus.emit(AuthEvents.userSignIn, info);
-            console.log('rest edit',info)
+            // console.log('rest edit',info)
         }
     }
 

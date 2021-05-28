@@ -35,7 +35,7 @@ export class Chat {
     }
 
     renderNewMessage (message, position = 'left', where = 'beforeend') {
-        console.log(message, position, where)
+        // console.log(message, position, where)
         this.root
             .querySelector('.message-container')
             .insertAdjacentHTML(where, renderMessage({

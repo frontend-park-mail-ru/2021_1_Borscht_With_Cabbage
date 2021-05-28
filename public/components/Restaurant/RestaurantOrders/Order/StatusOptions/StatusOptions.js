@@ -39,7 +39,7 @@ export class StatusesComponent {
 
     addSaveListener (id) {
         const save = document.getElementById('save_status-' + id);
-        console.log('save ' + save);
+        // console.log('save ' + save);
         save.disabled = true;
         save.onclick = () => {
             const status = document.getElementById('status-' + id);

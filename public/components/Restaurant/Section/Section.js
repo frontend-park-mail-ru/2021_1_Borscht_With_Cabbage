@@ -46,7 +46,7 @@ export class SectionComponent {
         this.container.innerHTML = '';
         this.addAddDishEventListeners();
         this.dishes.forEach(dish => {
-            console.log('render dish ->', dish);
+            // console.log('render dish ->', dish);
             this.renderDish(dish);
         });
         const dishAddingBtn = document.createElement('li');
@@ -94,7 +94,7 @@ export class SectionComponent {
         }
 
         deleteDish.addEventListener('click', () => {
-            console.log('delete');
+            // console.log('delete');
             this.controller.deleteSection({ section: this.section });
         });
     }
@@ -123,7 +123,7 @@ export class SectionComponent {
     deleteDish ({ id }) {
         for (let i = 0; i < this.dishes.length; i++) {
             if (this.dishes[i].dish.id === id) {
-                console.log('removeDish -> ', this.dishes[i], i);
+                // console.log('removeDish -> ', this.dishes[i], i);
                 this.dishes.splice(i, 1);
             }
         }

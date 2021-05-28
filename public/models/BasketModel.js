@@ -9,12 +9,12 @@ class BasketModel {
                 if (res.status === 200) {
                     eventBus.emit(BasketEvents.basketGetBasketSuccess, res.parsedJSON);
                 } else {
-                    console.log('basket get failed', res)
+                    // console.log('basket get failed', res)
                     eventBus.emit(BasketEvents.basketGetBasketFailed, res.parsedJSON);
                 }
             })
             .catch(res => {
-                console.log('basket get catch', res);
+                // console.log('basket get catch', res);
                 eventBus.emit(BasketEvents.basketGetBasketFailed, res.parsedJSON);
             });
     }

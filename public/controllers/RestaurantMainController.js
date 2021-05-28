@@ -145,8 +145,8 @@ export class RestaurantMainController {
     }
 
     confirmationSuccess () {
-        console.log(this.removeSection);
-        console.log(this.removeDish);
+        // console.log(this.removeSection);
+        // console.log(this.removeDish);
         if (this.removeSection) {
             mainModel.deleteSection({ id: this.removeSection.id });
             this.removeSection = null;
@@ -321,7 +321,7 @@ export class RestaurantMainController {
             if (address?.name) {
                 YandexMap.isAddressCorrect(address?.name)
                     .then(isCorrect => {
-                        console.log(isCorrect);
+                        // console.log(isCorrect);
                         sendAction(isCorrect);
                     })
                     .catch(() => {

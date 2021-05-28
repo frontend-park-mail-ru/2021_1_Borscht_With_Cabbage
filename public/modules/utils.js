@@ -20,7 +20,7 @@ function getError (data) {
             return notDefaultAnswer;
         }
     case 400:
-        console.log(400)
+        // console.log(400)
         if (data.parsedJSON === 'bad request') {
             return 'Наш сервер думает что вы что-то сделали неправильно...';
         } else {

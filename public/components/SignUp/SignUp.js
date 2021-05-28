@@ -79,7 +79,7 @@ export class SignUp {
         const loginID = 'js_toLogin';
         const login = document.getElementById(loginID);
         if (login) {
-            console.log('signup -> ', login)
+            // console.log('signup -> ', login)
             login.addEventListener('click', () => {
                 this.goTo('login');
             });

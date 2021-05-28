@@ -8,7 +8,7 @@ export class Toast {
     }
 
     render ({ message, color }) {
-        console.log(message, this.root);
+        // console.log(message, this.root);
         if (!this.root.querySelector('.toast')) {
             this.root.insertAdjacentHTML('beforeend', renderToastMessage({ message, color }));
         }

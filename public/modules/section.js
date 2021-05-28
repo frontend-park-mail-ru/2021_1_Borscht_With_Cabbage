@@ -25,7 +25,7 @@ export class SectionModel {
     addDish (dish) {
         const dishItem = new DishModel(dish);
         this.dishes.push(dishItem);
-        console.log('Adding dish', dishItem);
+        // console.log('Adding dish', dishItem);
         return dishItem;
     }
 
@@ -54,7 +54,7 @@ export class SectionModel {
     deleteDish ({ id }) {
         for(let i = 0; i < this.dishes.length; i++) {
             if (this.dishes[i].id === id) {
-                console.log('deleteSection -> ', id);
+                // console.log('deleteSection -> ', id);
                 eventBus.emit(SectionEvents.deleteDish, { id });
 
                 this.dishes.splice(i, 1);

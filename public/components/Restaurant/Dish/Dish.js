@@ -54,7 +54,7 @@ export class DishComponent {
     }
 
     update() {
-        console.log('update dish');
+        // console.log('update dish');
         const dishName = this.root.querySelector('.card__name');
         if (dishName) {
             dishName.textContent = this.dish.name;

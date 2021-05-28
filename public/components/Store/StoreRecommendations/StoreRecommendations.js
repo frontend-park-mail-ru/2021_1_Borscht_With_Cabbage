@@ -23,7 +23,7 @@ export class StoreRecommendations {
     }
 
     render () {
-        console.log('get recommendations start');
+        // console.log('get recommendations start');
         this.controller.getRecommendations(this.store.id);
     }
 
@@ -63,7 +63,7 @@ export class StoreRecommendations {
             e.preventDefault();
             // проверяе что нажали именно на кнопку
             const idRestaurant = target.closest('.card').dataset.restaurant;
-            console.log('event', target);
+            // console.log('event', target);
             if (idRestaurant) {
                 // TODO меняем элемент визуально как нибудь
                 this.goTo('/store/' + idRestaurant);

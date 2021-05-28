@@ -34,7 +34,7 @@ export class CategoryComponent {
     chooseElement (name) {
         const target = this.root.querySelector(`[data-category="${name}"`);
         this.correctStyle(target);
-        console.log(target);
+        // console.log(target);
         this.controller.clickCategory({ name: name });
     }
 

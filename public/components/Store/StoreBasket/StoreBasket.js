@@ -20,7 +20,6 @@ export class StoreBasket {
         if (user.isAuth) {
             this.basket = store.basket;
         } else {
-            console.log(basket.baskets)
             this.basket = basket.baskets.find(basket_ => basket_.restaurantID === store.id);
         }
         this.elements = [];
@@ -35,13 +34,12 @@ export class StoreBasket {
 
     render () {
         this.root.insertAdjacentHTML('beforeend', renderStoreBasket({
-            deliveryCost: this.store.deliveryCost.toString()
+            deliveryCost: this.store.deliveryCost
         }));
         this.root.querySelector(this.orderButtonSelector)
             .addEventListener('click', () => this.controller.order(this.store.id));
         this.root.querySelector(this.choseButtonSelector)
             .addEventListener('click', () => this.controller.chose());
-        console.log('Im here sir', this.basket)
         if (this.basket.restaurantID && this.basket.foods) {
             if (this.store.id === this.basket.restaurantID) {
                 for (const food of this.basket.foods) {

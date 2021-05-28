@@ -57,6 +57,9 @@ export class Categories {
     }
 
     render (root, filters) {
+        if (!filters) {
+            filters = [];
+        }
         const categories = this.filtersToCategories(filters);
         this.setCategories(categories);
         root.innerHTML = renderCategories({ categories });

@@ -16,7 +16,7 @@
   }
 
   &__good {
-    color: var(--main-green_color_superactive);
+    color: #1eae98;
   }
 
   &__bad {
@@ -26,5 +26,25 @@
 
   &__button {
     font-size: 12px;
+  }
+
+  &__container {
+    overflow-x: scroll;
+    width: 1000px;
+    margin-bottom: 30px;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+
+      &-thumb {
+        background-color: var(--main-green_color);
+        border-radius: 3px;
+        width: 48px;
+      }
+
+      &-button {
+        border-radius: 16px;
+      }
+    }
   }
 }

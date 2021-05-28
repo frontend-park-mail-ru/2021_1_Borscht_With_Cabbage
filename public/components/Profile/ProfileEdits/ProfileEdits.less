@@ -1,3 +1,5 @@
+// @import '../../static/css/variables.less';
+
 .profile-card {
     display: flex;
     flex: auto;
@@ -17,5 +19,25 @@
 }
 
 .button__add-avatar {
+    margin-top: 16px;
     width: 100%;
+
+    @media @tablet {
+        width: 200px;
+    }
+
+    // @media @desktop {
+    //     width: 200px;
+    // }
+}
+
+.profile-userdata__submit {
+    width: 100%;
+    margin-left: auto;
+    margin-right: 0;
+    min-width: 0;
+
+    @media @tablet {
+        width: 200px;
+    }
 }

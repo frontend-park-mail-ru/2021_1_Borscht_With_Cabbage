@@ -4,8 +4,8 @@ export const params = {
         data: 'time',
 
         default: {
-            name: 'Не важно',
-            data: 'not'
+            name: '< 90 мин',
+            data: 'max'
         },
 
         val: {
@@ -15,19 +15,19 @@ export const params = {
                 value: 0
             },
             min: {
-                name: '< 20 мин',
+                name: '< 40 мин',
                 data: 'min',
-                value: 20
+                value: 40
             },
             middle: {
-                name: '< 30 мин',
+                name: '< 60 мин',
                 data: 'middle',
-                value: 30
+                value: 60
             },
             max: {
-                name: '< 60 мин',
+                name: '< 90 мин',
                 data: 'max',
-                value: 60
+                value: 90
             }
         }
     },
@@ -36,8 +36,8 @@ export const params = {
         data: 'receipt',
 
         default: {
-            name: 'Не важно',
-            data: 'not'
+            name: '< 2000 ₽',
+            data: 'max'
         },
 
         val: {
@@ -68,7 +68,7 @@ export const params = {
         data: 'rating',
 
         default: {
-            name: 'Не важно',
+            name: '0★',
             data: 'not'
         },
 
@@ -79,17 +79,17 @@ export const params = {
                 value: 0
             },
             min: {
-                name: '>3★',
+                name: '3★',
                 data: 'min',
                 value: 3
             },
             middle: {
-                name: '>4★',
+                name: '4★',
                 data: 'middle',
                 value: 4
             },
             max: {
-                name: '>4.5★',
+                name: '4.5★',
                 data: 'max',
                 value: 4.5
             }

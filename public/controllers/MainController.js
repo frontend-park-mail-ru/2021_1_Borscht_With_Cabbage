@@ -27,8 +27,8 @@ export class MainController {
             limit: 20,
             category: [],
             params: {
-                time: 0,
-                receipt: 0,
+                time: 90,
+                receipt: 2000,
                 rating: 0
             }
         }

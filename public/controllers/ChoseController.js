@@ -52,7 +52,7 @@ export class ChoseController {
                 food.totalPrice = food.num * food.price;
             });
             basket.totalFoods = basket.foods.reduce((prev, cur) => prev + cur.num, 0);
-            basket.totalWeight = basket.foods.reduce((prev, cur) => prev + cur.weight, 0);
+            basket.totalWeight = basket.foods.reduce((prev, cur) => prev + cur.weight * cur.num, 0);
             basket.totalCalo = basket.totalWeight * 1.5;
         });
         this.view.render(info.baskets, this.activePage);

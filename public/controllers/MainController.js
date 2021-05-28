@@ -24,7 +24,7 @@ export class MainController {
         // структура будет помогать создавать запрос серверу
         this.request = {
             offset: 0,
-            limit: 5,
+            limit: 20,
             category: [],
             params: {
                 time: 0,

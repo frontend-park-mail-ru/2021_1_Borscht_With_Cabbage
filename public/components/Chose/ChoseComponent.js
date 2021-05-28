@@ -3,6 +3,7 @@ import './ChoseList/ChoseList.less';
 import './ChoseTable/ChoseTable.less';
 import renderChoseList from './ChoseList/ChoseListTmpl.hbs';
 import renderChoseTable from './ChoseTable/ChoseTableTmpl.hbs';
+import renderEmpty from './EmptyTmpl.hbs';
 import { noop } from 'Modules/utils';
 import { ChoseController } from 'Controllers/ChoseController';
 
@@ -113,6 +114,10 @@ export class ChoseComponent {
 
     render (root, baskets, isList) {
         this.root = root;
+        if (baskets?.length < 1) {
+            this.root.innerHTML = renderEmpty();
+            return;
+        }
         if (isList) {
             this.root.innerHTML = renderChoseList({ baskets });
         } else {

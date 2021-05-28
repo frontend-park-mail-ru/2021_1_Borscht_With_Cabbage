@@ -13,18 +13,14 @@
             <div class="chose-list__food-container">
                 {{#each this.foods}}
                     <div class="chose-list__food">
-                        <div>
-                            <img class="chose-list__basket-img" src="{{this.image}}">
-                        </div>
-                        <div class="chose-list__food-desc">
-                            <div class="chose-list__food-title">{{this.name}}</div>
+                        <img class="chose-list__basket-img" src="{{this.image}}">
+                        <div class="chose-list__food-title">{{this.name}}</div>
 
-                            <div class="chose-list__food-prices">
-                                <div>{{this.price}} руб.</div>
-                                <div>&times;{{this.num}} шт.</div>
-                                <div>={{this.totalPrice}} руб.</div>
-                            </div>
-                        </div>
+                        <div class="chose-list__food-price">{{this.price}} руб.</div>
+                        <div class="chose-list__food-mul">&times;</div>
+                        <div class="chose-list__food-num">{{this.num}} шт.</div>
+                        <div class="chose-list__food-equal">=</div>
+                        <div class="chose-list__food-total-price">{{this.totalPrice}} руб.</div>
                     </div>
                 {{/each}}
             </div>
@@ -36,13 +32,14 @@
                 <span class="chose-list__total"> Итого <span class="chose-list_right">{{this.totalPrice}}
                     руб.</span></span>
             </div>
-            <div class="buttons-container row">
-                <button class="button" data-button="delete" data-id="{{this.id}}" id="deleteButton{{this.id}}">Удалить
+            <div class="buttons-container row" style="margin-top: 15px;">
+                <button class="button red_color" style="margin-left: -2px;" data-button="delete" data-id="{{this.id}}"
+                        id="deleteButton{{this.id}}">Удалить
                     корзину
                 </button>
-                <button class="button" data-button="store" data-id="{{this.restaurantID}}" id="goToStore{{this.id}}">
-                    Перейти в
-                    магазин
+                <button class="button store_color" data-button="store" data-id="{{this.restaurantID}}"
+                        id="goToStore{{this.id}}">
+                    Перейти в ресторан
                 </button>
                 <button class="button" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">
                     Заказать

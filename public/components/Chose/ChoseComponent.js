@@ -15,15 +15,109 @@ export class ChoseComponent {
         this.controller = controller;
     }
 
+    getMax (baskets, option) {
+        let param = -1;
+        baskets.forEach(basket => {
+           if (param < basket[option]) {
+               param = basket[option];
+           }
+        });
+
+        return param;
+    }
+
+    getMin (baskets, option) {
+        let param = 999999;
+        baskets.forEach(basket => {
+            if (param > basket[option]) {
+                param = basket[option];
+            }
+        });
+
+        return param;
+    }
+
+    colorOption ({
+        baskets = [],
+        option = '',
+        dataOption = '',
+        maxGood = true
+    }) {
+        if (maxGood) {
+            let minTheme = 'bad';
+            let maxTheme = 'good';
+            const min = this.getMin(baskets, option);
+            const minBlocks = this.root.querySelectorAll(`[data-${dataOption}="${min}"]`);
+            minBlocks?.forEach(block => block.classList.add(`chose-table__${minTheme}`));
+            const max = this.getMax(baskets, option);
+            const maxBlocks = this.root.querySelectorAll(`[data-${dataOption}="${max}"]`);
+            maxBlocks?.forEach(block => {
+                block.classList.remove(`chose-table__${minTheme}`);
+                block.classList.add(`chose-table__${maxTheme}`);
+            });
+        }
+        if (!maxGood) {
+            let minTheme = 'good';
+            let maxTheme = 'bad';
+            const max = this.getMax(baskets, option);
+            const maxBlocks = this.root.querySelectorAll(`[data-${dataOption}="${max}"]`);
+            maxBlocks?.forEach(block => block.classList.add(`chose-table__${maxTheme}`));
+            const min = this.getMin(baskets, option);
+            const minBlocks = this.root.querySelectorAll(`[data-${dataOption}="${min}"]`);
+            minBlocks?.forEach(block => {
+                block.classList.remove(`chose-table__${maxTheme}`);
+                block.classList.add(`chose-table__${minTheme}`);
+            });
+        }
+
+    }
+
+    colorAllOptions (baskets) {
+        this.colorOption({
+            baskets,
+            option: 'totalFoods',
+            dataOption: 'realtotalfoods',
+            maxGood: true
+        });
+        this.colorOption({
+            baskets,
+            option: 'totalCalo',
+            dataOption: 'realtotalcalo',
+            maxGood: true
+        });
+        this.colorOption({
+            baskets,
+            option: 'totalPrice',
+            dataOption: 'realtotalprice',
+            maxGood: false
+        });
+        this.colorOption({
+            baskets,
+            option: 'totalWeight',
+            dataOption: 'realtotalweight',
+            maxGood: true
+        });
+        this.colorOption({
+            baskets,
+            option: 'deliveryPrice',
+            dataOption: 'realdeliveryprice',
+            maxGood: false
+        });
+        this.colorOption({
+            baskets,
+            option: 'deliveryTime',
+            dataOption: 'realdeliverytime',
+            maxGood: true
+        });
+    }
+
     render (root, baskets, isList) {
         this.root = root;
-        baskets.forEach(basket_ => {
-            console.log(basket_);
-        });
         if (isList) {
             this.root.innerHTML = renderChoseList({ baskets });
         } else {
             this.root.innerHTML = renderChoseTable({ baskets });
+            this.colorAllOptions(baskets);
         }
 
         const deleteButtons = this.root.querySelectorAll('[data-button="delete"]');

@@ -9,65 +9,66 @@
                     <img class="chose-table__img" src="{{this.restaurantImage}}">
                     <div>{{this.restaurantName}}</div>
                 </div>
+                <hr>
             </td>
         {{/each}}
     </tr>
     <tr class="chose-table__row">
-        <td class="chose-table__col">
+        <td>
             Количество блюд
         </td>
         {{#each baskets}}
-            <td class="chose-table__col" data-deleteID="{{this.id}}">
+            <td class="chose-table__col" data-realtotalfoods="{{this.totalFoods}}" data-deleteID="{{this.id}}">
                 {{this.totalFoods}}
             </td>
         {{/each}}
     </tr>
     <tr class="chose-table__row">
-        <td class="chose-table__col">
+        <td>
             Суммарный вес
         </td>
         {{#each baskets}}
-            <td class="chose-table__col" data-deleteID="{{this.id}}">
+            <td class="chose-table__col" data-realtotalweight="{{this.totalWeight}}" data-deleteID="{{this.id}}">
                 {{this.totalWeight}} гр.
             </td>
         {{/each}}
     </tr>
     <tr class="chose-table__row">
-        <td class="chose-table__col">
+        <td>
             Количество калорий
         </td>
         {{#each baskets}}
-            <td class="chose-table__col" data-deleteID="{{this.id}}">
+            <td class="chose-table__col" data-realtotalcalo="{{this.totalCalo}}" data-deleteID="{{this.id}}">
                 {{this.totalCalo}} ккал
             </td>
         {{/each}}
     </tr>
     <tr class="chose-table__row">
-        <td class="chose-table__col">
+        <td>
             Стоимость доставки
         </td>
         {{#each baskets}}
-            <td class="chose-table__col" data-deleteID="{{this.id}}">
+            <td class="chose-table__col" data-realdeliveryprice="{{this.deliveryPrice}}" data-deleteID="{{this.id}}">
                 {{this.deliveryPrice}} руб.
             </td>
         {{/each}}
     </tr>
     <tr class="chose-table__row">
-        <td class="chose-table__col">
+        <td>
             Время доставки
         </td>
         {{#each baskets}}
-            <td class="chose-table__col" data-deleteID="{{this.id}}">
+            <td class="chose-table__col" data-realdeliverytime="{{this.deliveryTime}}" data-deleteID="{{this.id}}">
                 {{this.deliveryTime}} минут
             </td>
         {{/each}}
     </tr>
     <tr class="chose-table__row">
-        <td class="chose-table__col">
+        <td>
             Итоговая стоимость
         </td>
         {{#each baskets}}
-            <td class="chose-table__col" data-deleteID="{{this.id}}">
+            <td class="chose-table__col" data-realtotalprice="{{this.totalPrice}}" data-deleteID="{{this.id}}">
                 {{this.totalPrice}} руб.
             </td>
         {{/each}}
@@ -77,14 +78,14 @@
         <td class="chose-table__col">
         </td>
         {{#each baskets}}
-            <td data-deleteID="{{this.id}}">
-                <div><button class="button" data-button="delete" data-id="{{this.id}}"
+            <td class="chose-table__col" data-deleteID="{{this.id}}">
+                <div><button class="button red_color chose-table__button" data-button="delete" data-id="{{this.id}}"
                         id="deleteButton{{this.id}}">Удалить корзину
                 </button></div>
-                <div><button class="button" data-button="store" data-id="{{this.restaurantID}}" id="goToStore{{this.id}}">
-                    Перейти в магазин
+                <div><button class="button store_color chose-table__button" data-button="store" data-id="{{this.restaurantID}}" id="goToStore{{this.id}}">
+                    Перейти в ресторан
                 </button></div>
-                <div><button class="button" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">
+                <div><button class="button chose-table__button" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">
                     Заказать
                 </button></div>
             </td>

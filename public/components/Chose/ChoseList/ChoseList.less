@@ -14,6 +14,8 @@
     &-img {
       height: 40px;
       width: 40px;
+      grid-area: image;
+      margin-right: 15px;
     }
 
     &-name {
@@ -31,7 +33,7 @@
     border-radius: 16px;
     border: 1px var(--profile-link-hover_color_darker) solid;
     padding: 20px 20px 0 20px;
-    margin: 25px 0 0 0;
+    margin: 10px 0;
     position: relative;
   }
 
@@ -61,18 +63,33 @@
       font: 20px bold;
       margin: 0 0 8px 0;
       align-items: baseline;
+      grid-area: title;
     }
 
-    &-prices {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+    &-price {
+      grid-area: price;
     }
 
-    display: flex;
-    flex-direction: row;
+    &-num {
+      grid-area: num;
+    }
+    &-equal {
+      grid-area: equal;
+    }
+    &-mul {
+      grid-area: mul;
+    }
+
+    &-total-price {
+      grid-area: total-price;
+    }
+
     margin: 10px 0;
     align-items: center;
+    display: grid;
+    grid-template-columns: min-content;
+    grid-template-areas: "image title title title title title"
+                            "image price mul num equal total-price";
   }
 
   &_right {
@@ -88,6 +105,6 @@
 
   &__total {
     font: 24px bold;
-    margin: 12px 0 0 0;
+    margin: 12px 0;
   }
 }

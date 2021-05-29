@@ -1,6 +1,7 @@
 import eventBus from 'Modules/eventBus.js';
 import { getBasket, orderPost } from 'Modules/api.js';
 import { BasketEvents } from 'Events/BasketEvents.js';
+import address from "Modules/address";
 
 class BasketModel {
     getBasket (idRestaurant) {
@@ -20,12 +21,15 @@ class BasketModel {
     }
 
     order ({
-        address,
+        deliveryAddress,
         number,
         comments,
         basketID
     } = {}) {
-        orderPost({ address, number, comments, basketID })
+        let address_ = address.getAddress()
+        address_.latitude = parseFloat(address_.latitude)
+        address_.longitude = parseFloat(address_.longitude)
+        orderPost({ deliveryAddress, number, comments, basketID, }, address_.latitude, address_.longitude )
             .then(res => {
                 if (res.status === 200) {
                     eventBus.emit(BasketEvents.basketOrderSuccess, res.parsedJSON);

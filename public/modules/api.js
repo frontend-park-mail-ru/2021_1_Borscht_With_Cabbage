@@ -362,9 +362,9 @@ export function restaurantAvatarPut ({ avatar = null }) {
  * @returns {Promise<{parsedJSON: any, status: number}>}
  * @param data
  */
-export function orderPost (data = {}) {
+export function orderPost (data = {}, latitude, longitude) {
     return Http.ajaxPost({
-        url: `/user/order/${data.basketID}`,
+        url: `/user/order/${data.basketID}?latitude=` + latitude + '&longitude=' + longitude,
         body: data
     });
 }

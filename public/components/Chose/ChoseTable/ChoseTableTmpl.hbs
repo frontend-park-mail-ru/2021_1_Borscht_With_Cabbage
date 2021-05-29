@@ -1,5 +1,5 @@
 <div class="chose-table__container">
-    <table cellspacing="8" cellpadding="8" align="center">
+    <table class="chose-table__table" cellspacing="8" cellpadding="8" align="center">
         <tr class="chose-table__row">
             <td class="chose-table__col">
 
@@ -7,15 +7,14 @@
             {{#each baskets}}
                 <td data-deleteID="{{this.id}}">
                     <div class="chose-table__col1">
-                        <img class="chose-table__img" src="{{this.restaurantImage}}">
-                        <div>{{this.restaurantName}}</div>
+                        <div class="chose-table__img" style="background-image: url({{this.restaurantImage}})"></div>
+                        <div class="chose-table__name-restaurant">{{this.restaurantName}}</div>
                     </div>
-                    <hr>
                 </td>
             {{/each}}
         </tr>
         <tr class="chose-table__row">
-            <td>
+            <td class="chose-table__col0">
                 Количество блюд
             </td>
             {{#each baskets}}
@@ -25,7 +24,7 @@
             {{/each}}
         </tr>
         <tr class="chose-table__row">
-            <td>
+            <td class="chose-table__col0">
                 Суммарный вес
             </td>
             {{#each baskets}}
@@ -35,7 +34,7 @@
             {{/each}}
         </tr>
         <tr class="chose-table__row">
-            <td>
+            <td class="chose-table__col0">
                 Количество калорий
             </td>
             {{#each baskets}}
@@ -45,7 +44,7 @@
             {{/each}}
         </tr>
         <tr class="chose-table__row">
-            <td>
+            <td class="chose-table__col0">
                 Стоимость доставки
             </td>
             {{#each baskets}}
@@ -56,7 +55,7 @@
             {{/each}}
         </tr>
         <tr class="chose-table__row">
-            <td>
+            <td class="chose-table__col0">
                 Время доставки
             </td>
             {{#each baskets}}
@@ -66,7 +65,7 @@
             {{/each}}
         </tr>
         <tr class="chose-table__row">
-            <td>
+            <td class="chose-table__col0">
                 Итоговая стоимость
             </td>
             {{#each baskets}}
@@ -82,7 +81,7 @@
             {{#each baskets}}
                 <td class="chose-table__col" data-deleteID="{{this.id}}">
                     <div>
-                        <button class="button red_color chose-table__button" style="margin: -10px 0 0 0;" data-button="delete" data-id="{{this.id}}"
+                        <button class="button red_color chose-table__button" style="margin: 20px 0 0 0;" data-button="delete" data-id="{{this.id}}"
                                 id="deleteButton{{this.id}}">Удалить корзину
                         </button>
                     </div>

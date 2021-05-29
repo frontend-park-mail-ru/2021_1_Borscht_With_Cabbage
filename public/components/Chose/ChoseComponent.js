@@ -108,7 +108,7 @@ export class ChoseComponent {
             baskets,
             option: 'deliveryTime',
             dataOption: 'realdeliverytime',
-            maxGood: true
+            maxGood: false
         });
     }
 

@@ -49,11 +49,15 @@ export class ChoseComponent {
             let maxTheme = 'good';
             const min = this.getMin(baskets, option);
             const minBlocks = this.root.querySelectorAll(`[data-${dataOption}="${min}"]`);
-            minBlocks?.forEach(block => block.classList.add(`chose-table__${minTheme}`));
+            minBlocks?.forEach(block => {
+                block.classList.add(`chose-table__${minTheme}`)
+                block.classList.remove(`chose-table__default`);
+            });
             const max = this.getMax(baskets, option);
             const maxBlocks = this.root.querySelectorAll(`[data-${dataOption}="${max}"]`);
             maxBlocks?.forEach(block => {
                 block.classList.remove(`chose-table__${minTheme}`);
+                block.classList.remove(`chose-table__default`);
                 block.classList.add(`chose-table__${maxTheme}`);
             });
         }
@@ -62,11 +66,15 @@ export class ChoseComponent {
             let maxTheme = 'bad';
             const max = this.getMax(baskets, option);
             const maxBlocks = this.root.querySelectorAll(`[data-${dataOption}="${max}"]`);
-            maxBlocks?.forEach(block => block.classList.add(`chose-table__${maxTheme}`));
+            maxBlocks?.forEach(block => {
+                block.classList.add(`chose-table__${maxTheme}`)
+                block.classList.remove(`chose-table__default`);
+            });
             const min = this.getMin(baskets, option);
             const minBlocks = this.root.querySelectorAll(`[data-${dataOption}="${min}"]`);
             minBlocks?.forEach(block => {
                 block.classList.remove(`chose-table__${maxTheme}`);
+                block.classList.remove(`chose-table__default`);
                 block.classList.add(`chose-table__${minTheme}`);
             });
         }

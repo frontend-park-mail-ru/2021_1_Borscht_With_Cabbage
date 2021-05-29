@@ -47,12 +47,18 @@
   // }
 
   &__good {
-    background-color: #1eae98;
+    border: 2px solid #1eae98;
+    color: #1eae98;
+    font-size: 20px;
+    // background-color: #1eae98;
     // color: #1eae98;
   }
 
   &__bad {
-    background-color: var(--red_color);
+    // background-color: var(--red_color);
+    border: 2px solid var(--red_color);
+    color: var(--red_color);
+    font-size: 20px;
     // color: var(--red_color);
     //color: var(--error_color);
   }
@@ -60,6 +66,9 @@
   &__button {
     // font-size: 12px;
     width: 60%;
+    // background-color: #fff;
+    // color: #000;
+    // border: 1px solid #666;
   }
 
   &__container {
@@ -96,5 +105,11 @@
     @media @tablet {
       display: block;
     }
+  }
+
+  &__default {
+    border: 2px solid #666;
+    color: #000;
+    font-size: 20px;
   }
 }

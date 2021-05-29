@@ -18,7 +18,7 @@
                 Количество блюд
             </td>
             {{#each baskets}}
-                <td class="chose-table__col" data-realtotalfoods="{{this.totalFoods}}" data-deleteID="{{this.id}}">
+                <td class="chose-table__col chose-table__default" data-realtotalfoods="{{this.totalFoods}}" data-deleteID="{{this.id}}">
                     {{this.totalFoods}}
                 </td>
             {{/each}}
@@ -28,7 +28,7 @@
                 Суммарный вес
             </td>
             {{#each baskets}}
-                <td class="chose-table__col" data-realtotalweight="{{this.totalWeight}}" data-deleteID="{{this.id}}">
+                <td class="chose-table__col chose-table__default" data-realtotalweight="{{this.totalWeight}}" data-deleteID="{{this.id}}">
                     {{this.totalWeight}} гр.
                 </td>
             {{/each}}
@@ -38,7 +38,7 @@
                 Количество калорий
             </td>
             {{#each baskets}}
-                <td class="chose-table__col" data-realtotalcalo="{{this.totalCalo}}" data-deleteID="{{this.id}}">
+                <td class="chose-table__col chose-table__default" data-realtotalcalo="{{this.totalCalo}}" data-deleteID="{{this.id}}">
                     {{this.totalCalo}} ккал
                 </td>
             {{/each}}
@@ -48,7 +48,7 @@
                 Стоимость доставки
             </td>
             {{#each baskets}}
-                <td class="chose-table__col" data-realdeliveryprice="{{this.deliveryPrice}}"
+                <td class="chose-table__col chose-table__default" data-realdeliveryprice="{{this.deliveryPrice}}"
                     data-deleteID="{{this.id}}">
                     {{this.deliveryPrice}} руб.
                 </td>
@@ -59,7 +59,7 @@
                 Время доставки
             </td>
             {{#each baskets}}
-                <td class="chose-table__col" data-realdeliverytime="{{this.deliveryTime}}" data-deleteID="{{this.id}}">
+                <td class="chose-table__col chose-table__default" data-realdeliverytime="{{this.deliveryTime}}" data-deleteID="{{this.id}}">
                     {{this.deliveryTime}} минут
                 </td>
             {{/each}}
@@ -69,7 +69,7 @@
                 Итоговая стоимость
             </td>
             {{#each baskets}}
-                <td class="chose-table__col" data-realtotalprice="{{this.totalPrice}}" data-deleteID="{{this.id}}">
+                <td class="chose-table__col chose-table__default" data-realtotalprice="{{this.totalPrice}}" data-deleteID="{{this.id}}">
                     {{this.totalPrice}} руб.
                 </td>
             {{/each}}

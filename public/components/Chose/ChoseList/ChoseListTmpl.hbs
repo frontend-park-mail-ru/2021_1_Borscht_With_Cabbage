@@ -2,9 +2,11 @@
     {{#each baskets}}
         <div class="chose-list__basket" id="chose-list__basket{{this.id}}" data-deleteID="{{this.id}}">
             <div class="chose-list__title">
-                <div class="chose-list__basket-img-cont"><img class="chose-list__basket-img"
-                                                              src="{{this.restaurantImage}}"></div>
-                <div class="chose-list__basket-name">{{this.restaurantName}}</div>
+                <div class="chose-list__title-image">
+                    <div class="chose-list__basket-img-cont"><img class="chose-list__basket-img"
+                                                                src="{{this.restaurantImage}}"></div>
+                    <div class="chose-list__basket-name">{{this.restaurantName}}</div>
+                </div>
                 <div class="chose-list__basket-time">
                     Время доставки {{this.deliveryTime}} минут
                 </div>
@@ -33,15 +35,15 @@
                     руб.</span></span>
             </div>
             <div class="buttons-container row" style="margin-top: 15px;">
-                <button class="button red_color" style="margin: 0 0 0 -2px;" data-button="delete" data-id="{{this.id}}"
+                <button class="button red_color" style="margin-bottom: 10px;" data-button="delete" data-id="{{this.id}}"
                         id="deleteButton{{this.id}}">Удалить
                     корзину
                 </button>
-                <button class="button store_color" data-button="store" data-id="{{this.restaurantID}}"
+                <button class="button store_color" style="margin-bottom: 10px;" data-button="store" data-id="{{this.restaurantID}}"
                         id="goToStore{{this.id}}">
                     Перейти в ресторан
                 </button>
-                <button class="button order_color" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">
+                <button class="button order_color" style="margin-bottom: 10px;" data-button="order" data-id="{{this.restaurantID}}" id="orderButton{{this.id}}">
                     Заказать
                 </button>
             </div>

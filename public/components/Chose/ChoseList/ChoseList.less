@@ -1,10 +1,17 @@
 .chose-list {
   &__container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    height: 65vh;
   }
 
   &__title {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  &__title-image {
     display: flex;
     flex-direction: row;
     position: relative;
@@ -26,15 +33,20 @@
 
     &-time {
       right: 0;
-      position: absolute;
+      // position: absolute;
       margin: 13px 0 0 0;
     }
 
     border-radius: 16px;
-    border: 1px var(--profile-link-hover_color_darker) solid;
+    background-color: var(--main-green_color_light_bg);
+    border: 1px solid var(--main-green_color_darker);
+    /* border: 1px var(--profile-link-hover_color_darker) solid; */
     padding: 20px 20px 0 20px;
     margin: 10px 0;
     position: relative;
+    height: 100%;
+    width: 400px;
+    margin-right: 28px;
   }
 
   &__food {
